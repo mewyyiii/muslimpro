@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quran Pro - Quran</title>
+    <title>Al-Huda - Pendamping Ibadah Anda</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -57,17 +57,19 @@
             background-color: var(--primary-accent-light); /* Dark teal for dark mode */
         }
     </style>
+    @stack('styles')
 </head>
 <body class="antialiased">
     <div class="min-h-screen">
         <header class="py-4 shadow-sm" style="background-color: var(--surface)">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                 <div class="flex items-center space-x-6">
-                    <a href="{{ url('/') }}" class="text-2xl font-bold" style="color: var(--text-primary)">
-                                        Al-Huda
-                                    </a>                    <nav class="hidden md:flex space-x-4">
-                        <a href="{{ url('/') }}" class="px-3 py-2 rounded-md text-sm font-medium transition-colors
-                           {{ request()->is('/') ? 'bg-gray-200 dark:bg-gray-700' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }}"
+                    <a href="{{ route('home') }}" class="text-2xl font-bold" style="color: var(--text-primary)">
+                        Al-Huda
+                    </a>
+                    <nav class="hidden md:flex space-x-4">
+                        <a href="{{ route('al-quran.index') }}" class="px-3 py-2 rounded-md text-sm font-medium transition-colors
+                           {{ request()->routeIs('al-quran.index') || request()->routeIs('surah.show') ? 'bg-gray-200 dark:bg-gray-700' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }}"
                            style="color: var(--text-primary);">
                             Al-Quran
                         </a>
