@@ -11,7 +11,7 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h1 class="text-3xl font-bold text-center mb-4" style="color: var(--text-primary);">Doa-Doa Pendek</h1>
+    <h1 class="text-3xl font-bold text-center mb-4" style="color: var(--text-primary);">Doa Doa Pendek</h1>
     
     <div class="w-full max-w-md mx-auto mb-8">
         <input type="text" id="doa-search-input" placeholder="Cari doa (e.g. Rabbana Atina)" class="w-full p-3 rounded-lg shadow-sm border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2" style="background-color: var(--surface); color: var(--text-primary); border-color: var(--primary-accent);">
