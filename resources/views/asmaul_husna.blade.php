@@ -19,19 +19,19 @@
 
     <div id="asmaul-husna-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach($asmaulHusna as $name)
-            <div class="asmaul-husna-card block p-5 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-xl" style="background-color: var(--surface);" data-search-terms="{{ strtolower($name['transliteration'] . ' ' . $name['meaning_id']) }}">
+            <div class="asmaul-husna-card block p-5 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-xl" style="background-color: var(--surface);" data-search-terms="{{ strtolower($name->transliteration . ' ' . $name->meaning_id) }}">
                 <div class="flex justify-between items-center mb-3">
                     <div class="flex items-center justify-center w-10 h-10 rounded-full" style="background-color: var(--primary-accent);">
-                        <span class="text-white font-bold text-sm">{{ $name['id'] }}</span>
+                        <span class="text-white font-bold text-sm">{{ $name->id }}</span>
                     </div>
                     <div class="text-right">
-                        <h3 class="text-2xl font-arabic font-bold" style="color: var(--text-primary);">{{ $name['arabic'] }}</h3>
+                        <h3 class="text-2xl font-arabic font-bold" style="color: var(--text-primary);">{{ $name->arabic }}</h3>
                     </div>
                 </div>
                 <div>
-                    <h2 class="text-lg font-bold" style="color: var(--text-primary);">{{ $name['transliteration'] }}</h2>
-                    <p class="text-sm" style="color: var(--text-primary-muted);">{{ $name['meaning_id'] }}</p>
-                    <p class="text-xs mt-2" style="color: var(--secondary-accent);">{{ $name['meaning_en'] }}</p>
+                    <h2 class="text-lg font-bold" style="color: var(--text-primary);">{{ $name->transliteration }}</h2>
+                    <p class="text-sm" style="color: var(--text-primary-muted);">{{ $name->meaning_id }}</p>
+                    <p class="text-xs mt-2" style="color: var(--secondary-accent);">{{ $name->meaning_en }}</p>
                 </div>
             </div>
         @endforeach

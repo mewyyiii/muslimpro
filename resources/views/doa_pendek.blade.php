@@ -19,23 +19,23 @@
 
     <div id="doa-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach($doapendek as $doa)
-            <div class="doa-card block p-5 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-xl cursor-pointer" style="background-color: var(--surface);" data-search-terms="{{ strtolower($doa['title']) }}">
+            <div class="doa-card block p-5 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-xl cursor-pointer" style="background-color: var(--surface);" data-search-terms="{{ strtolower($doa->title) }}">
                 <div class="flex justify-between items-center mb-3">
                     <div class="flex items-center gap-2">
                         <div class="flex items-center justify-center w-10 h-10 rounded-full" style="background-color: var(--primary-accent);">
-                            <span class="text-white font-bold text-sm">{{ $doa['id'] }}</span>
+                            <span class="text-white font-bold text-sm">{{ $doa->id }}</span>
                         </div>
-                        <h2 class="text-lg font-bold" style="color: var(--text-primary);">{{ $doa['title'] }}</h2>
+                        <h2 class="text-lg font-bold" style="color: var(--text-primary);">{{ $doa->title }}</h2>
                     </div>
                     <svg class="w-6 h-6 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 </div>
                 <div class="doa-content hidden">
                     <div class="text-right mb-3">
-                        <h3 class="text-2xl font-arabic font-bold" style="color: var(--text-primary);">{{ $doa['arabic'] }}</h3>
+                        <h3 class="text-2xl font-arabic font-bold" style="color: var(--text-primary);">{{ $doa->arabic }}</h3>
                     </div>
                     <div>
-                        <p class="text-sm" style="color: var(--text-primary-muted);">{{ $doa['transliteration'] }}</p>
-                        <p class="text-sm mt-2" style="color: var(--secondary-accent);">"{{ $doa['translation'] }}"</p>
+                        <p class="text-sm" style="color: var(--text-primary-muted);">{{ $doa->transliteration }}</p>
+                        <p class="text-sm mt-2" style="color: var(--secondary-accent);">"{{ $doa->translation }}"</p>
                     </div>
                 </div>
             </div>

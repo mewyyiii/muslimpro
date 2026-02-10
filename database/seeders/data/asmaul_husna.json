@@ -1,0 +1,695 @@
+[
+    {
+        "id": 1,
+        "arabic": "ٱلْرَّحْمَنُ",
+        "transliteration": "Ar-Rahman",
+        "meaning_id": "Yang Maha Pengasih",
+        "meaning_en": "The Most Merciful"
+    },
+    {
+        "id": 2,
+        "arabic": "ٱلْرَّحِيمُ",
+        "transliteration": "Ar-Rahim",
+        "meaning_id": "Yang Maha Penyayang",
+        "meaning_en": "The Entirely Merciful"
+    },
+    {
+        "id": 3,
+        "arabic": "ٱلْمَلِكُ",
+        "transliteration": "Al-Malik",
+        "meaning_id": "Yang Maha Merajai (Memerintah)",
+        "meaning_en": "The King, The Sovereign"
+    },
+    {
+        "id": 4,
+        "arabic": "ٱلْقُدُّوسُ",
+        "transliteration": "Al-Quddus",
+        "meaning_id": "Yang Maha Suci",
+        "meaning_en": "The Holy One, The Pure One"
+    },
+    {
+        "id": 5,
+        "arabic": "ٱلْسَّلَامُ",
+        "transliteration": "As-Salam",
+        "meaning_id": "Yang Maha Memberi Kesejahteraan",
+        "meaning_en": "The Source of Peace"
+    },
+    {
+        "id": 6,
+        "arabic": "ٱلْمُؤْمِنُ",
+        "transliteration": "Al-Mu'min",
+        "meaning_id": "Yang Maha Memberi Keamanan",
+        "meaning_en": "The Giver of Faith, The Trustworthy"
+    },
+    {
+        "id": 7,
+        "arabic": "ٱلْمُهَيْمِنُ",
+        "transliteration": "Al-Muhaymin",
+        "meaning_id": "Yang Maha Memelihara",
+        "meaning_en": "The Guardian, The Overseer"
+    },
+    {
+        "id": 8,
+        "arabic": "ٱلْعَزِيزُ",
+        "transliteration": "Al-Aziz",
+        "meaning_id": "Yang Maha Perkasa",
+        "meaning_en": "The All-Mighty, The Invincible"
+    },
+    {
+        "id": 9,
+        "arabic": "ٱلْجَبَّارُ",
+        "transliteration": "Al-Jabbar",
+        "meaning_id": "Yang Maha Kuasa",
+        "meaning_en": "The Irresistible, The Compeller"
+    },
+    {
+        "id": 10,
+        "arabic": "ٱلْمُتَكَبِّرُ",
+        "transliteration": "Al-Mutakabbir",
+        "meaning_id": "Yang Maha Megah",
+        "meaning_en": "The Supreme, The Majestic"
+    },
+    {
+        "id": 11,
+        "arabic": "ٱلْخَالِقُ",
+        "transliteration": "Al-Khaliq",
+        "meaning_id": "Yang Maha Pencipta",
+        "meaning_en": "The Creator"
+    },
+    {
+        "id": 12,
+        "arabic": "ٱلْبَارِئُ",
+        "transliteration": "Al-Bari'",
+        "meaning_id": "Yang Maha Melepaskan (Membuat, Membentuk)",
+        "meaning_en": "The Evolver, The Maker"
+    },
+    {
+        "id": 13,
+        "arabic": "ٱلْمُصَوِّرُ",
+        "transliteration": "Al-Musawwir",
+        "meaning_id": "Yang Maha Membentuk Rupa (Makhluknya)",
+        "meaning_en": "The Fashioner, The Shaper"
+    },
+    {
+        "id": 14,
+        "arabic": "ٱلْغَفَّارُ",
+        "transliteration": "Al-Ghaffar",
+        "meaning_id": "Yang Maha Pengampun",
+        "meaning_en": "The Forgiving, The Absolver"
+    },
+    {
+        "id": 15,
+        "arabic": "ٱلْقَهَّارُ",
+        "transliteration": "Al-Qahhar",
+        "meaning_id": "Yang Maha Memaksa",
+        "meaning_en": "The Subduer, The Dominant"
+    },
+    {
+        "id": 16,
+        "arabic": "ٱلْوَهَّابُ",
+        "transliteration": "Al-Wahhab",
+        "meaning_id": "Yang Maha Pemberi Karunia",
+        "meaning_en": "The Bestower"
+    },
+    {
+        "id": 17,
+        "arabic": "ٱلْرَّزَّاقُ",
+        "transliteration": "Ar-Razzaq",
+        "meaning_id": "Yang Maha Pemberi Rezeki",
+        "meaning_en": "The Provider, The Sustainer"
+    },
+    {
+        "id": 18,
+        "arabic": "ٱلْفَتَّاحُ",
+        "transliteration": "Al-Fattah",
+        "meaning_id": "Yang Maha Pembuka Rahmat",
+        "meaning_en": "The Opener, The Judge"
+    },
+    {
+        "id": 19,
+        "arabic": "ٱلْعَلِيمُ",
+        "transliteration": "Al-Alim",
+        "meaning_id": "Yang Maha Mengetahui (Memiliki Ilmu)",
+        "meaning_en": "The All-Knowing, The Omniscient"
+    },
+    {
+        "id": 20,
+        "arabic": "ٱلْقَابِضُ",
+        "transliteration": "Al-Qabid",
+        "meaning_id": "Yang Maha Menyempitkan (Makhluknya)",
+        "meaning_en": "The Withholder, The Restrainer"
+    },
+    {
+        "id": 21,
+        "arabic": "ٱلْبَاسِطُ",
+        "transliteration": "Al-Basit",
+        "meaning_id": "Yang Maha Melapangkan (Makhluknya)",
+        "meaning_en": "The Extender, The Enlarger"
+    },
+    {
+        "id": 22,
+        "arabic": "ٱلْخَافِضُ",
+        "transliteration": "Al-Khafid",
+        "meaning_id": "Yang Maha Merendahkan (Makhluknya)",
+        "meaning_en": "The Abaser, The Humbler"
+    },
+    {
+        "id": 23,
+        "arabic": "ٱلْرَّافِعُ",
+        "transliteration": "Ar-Rafi'",
+        "meaning_id": "Yang Maha Meninggikan (Makhluknya)",
+        "meaning_en": "The Exalter, The Elevator"
+    },
+    {
+        "id": 24,
+        "arabic": "ٱلْمُعِزُّ",
+        "transliteration": "Al-Mu'izz",
+        "meaning_id": "Yang Maha Memuliakan (Makhluknya)",
+        "meaning_en": "The Giver of Honour"
+    },
+    {
+        "id": 25,
+        "arabic": "ٱلْمُذِلِّلُ",
+        "transliteration": "Al-Muzill",
+        "meaning_id": "Yang Maha Menghinakan (Makhluknya)",
+        "meaning_en": "The Dishonourer, The Degrader"
+    },
+    {
+        "id": 26,
+        "arabic": "ٱلْسَّمِيعُ",
+        "transliteration": "As-Sami'",
+        "meaning_id": "Yang Maha Mendengar",
+        "meaning_en": "The All-Hearing"
+    },
+    {
+        "id": 27,
+        "arabic": "ٱلْبَصِيرُ",
+        "transliteration": "Al-Basir",
+        "meaning_id": "Yang Maha Melihat",
+        "meaning_en": "The All-Seeing"
+    },
+    {
+        "id": 28,
+        "arabic": "ٱلْحَكَمُ",
+        "transliteration": "Al-Hakam",
+        "meaning_id": "Yang Maha Menetapkan",
+        "meaning_en": "The Judge, The Arbitrator"
+    },
+    {
+        "id": 29,
+        "arabic": "ٱلْعَدْلُ",
+        "transliteration": "Al-Adl",
+        "meaning_id": "Yang Maha Adil",
+        "meaning_en": "The Just, The Equitable"
+    },
+    {
+        "id": 30,
+        "arabic": "ٱلْلَّطِيفُ",
+        "transliteration": "Al-Latif",
+        "meaning_id": "Yang Maha Lembut",
+        "meaning_en": "The Subtle One, The Gracious"
+    },
+    {
+        "id": 31,
+        "arabic": "ٱلْخَبِيرُ",
+        "transliteration": "Al-Khabir",
+        "meaning_id": "Yang Maha Mengenal",
+        "meaning_en": "The All-Aware, The Cognizant"
+    },
+    {
+        "id": 32,
+        "arabic": "ٱلْحَلِيمُ",
+        "transliteration": "Al-Halim",
+        "meaning_id": "Yang Maha Penyantun",
+        "meaning_en": "The Forbearing, The Indulgent"
+    },
+    {
+        "id": 33,
+        "arabic": "ٱلْعَظِيمُ",
+        "transliteration": "Al-Azim",
+        "meaning_id": "Yang Maha Agung",
+        "meaning_en": "The Magnificent, The Infinite"
+    },
+    {
+        "id": 34,
+        "arabic": "ٱلْغَفُورُ",
+        "transliteration": "Al-Ghafur",
+        "meaning_id": "Yang Maha Pengampun",
+        "meaning_en": "The All-Forgiving"
+    },
+    {
+        "id": 35,
+        "arabic": "ٱلْشَّكُورُ",
+        "transliteration": "Ash-Shakur",
+        "meaning_id": "Yang Maha Pembalas Budi (Menghargai)",
+        "meaning_en": "The Appreciative, The Rewarder"
+    },
+    {
+        "id": 36,
+        "arabic": "ٱلْعَلِيُّ",
+        "transliteration": "Al-Ali",
+        "meaning_id": "Yang Maha Tinggi",
+        "meaning_en": "The Most High, The Exalted"
+    },
+    {
+        "id": 37,
+        "arabic": "ٱلْكَبِيرُ",
+        "transliteration": "Al-Kabir",
+        "meaning_id": "Yang Maha Besar",
+        "meaning_en": "The Most Great, The Grand"
+    },
+    {
+        "id": 38,
+        "arabic": "ٱلْحَفِيظُ",
+        "transliteration": "Al-Hafiz",
+        "meaning_id": "Yang Maha Pemelihara",
+        "meaning_en": "The Preserver, The Protector"
+    },
+    {
+        "id": 39,
+        "arabic": "ٱلْمُقِيتُ",
+        "transliteration": "Al-Muqit",
+        "meaning_id": "Yang Maha Pemberi Kecukupan",
+        "meaning_en": "The Nourisher, The Sustainer"
+    },
+    {
+        "id": 40,
+        "arabic": "ٱلْحَسِيبُ",
+        "transliteration": "Al-Hasib",
+        "meaning_id": "Yang Maha Membuat Perhitungan",
+        "meaning_en": "The Accounter, The Reckoner"
+    },
+    {
+        "id": 41,
+        "arabic": "ٱلْجَلِيلُ",
+        "transliteration": "Al-Jalil",
+        "meaning_id": "Yang Maha Luhur",
+        "meaning_en": "The Majestic, The Sublime"
+    },
+    {
+        "id": 42,
+        "arabic": "ٱلْكَرِيمُ",
+        "transliteration": "Al-Karim",
+        "meaning_id": "Yang Maha Mulia",
+        "meaning_en": "The Most Generous, The Bountiful"
+    },
+    {
+        "id": 43,
+        "arabic": "ٱلْرَّقِيبُ",
+        "transliteration": "Ar-Raqib",
+        "meaning_id": "Yang Maha Mengawasi",
+        "meaning_en": "The Watchful, The Observer"
+    },
+    {
+        "id": 44,
+        "arabic": "ٱلْمُجِيبُ",
+        "transliteration": "Al-Mujib",
+        "meaning_id": "Yang Maha Mengabulkan",
+        "meaning_en": "The Responsive, The Answerer"
+    },
+    {
+        "id": 45,
+        "arabic": "ٱلْوَاسِعُ",
+        "transliteration": "Al-Wasi'",
+        "meaning_id": "Yang Maha Luas",
+        "meaning_en": "The All-Encompassing, The Vast"
+    },
+    {
+        "id": 46,
+        "arabic": "ٱلْحَكِيمُ",
+        "transliteration": "Al-Hakim",
+        "meaning_id": "Yang Maha Bijaksana",
+        "meaning_en": "The Wise One, The Judicious"
+    },
+    {
+        "id": 47,
+        "arabic": "ٱلْوَدُودُ",
+        "transliteration": "Al-Wadud",
+        "meaning_id": "Yang Maha Mengasihi",
+        "meaning_en": "The Loving One, The Beloved"
+    },
+    {
+        "id": 48,
+        "arabic": "ٱلْمَجِيدُ",
+        "transliteration": "Al-Majid",
+        "meaning_id": "Yang Maha Mulia",
+        "meaning_en": "The Glorious One, The Illustrious"
+    },
+    {
+        "id": 49,
+        "arabic": "ٱلْبَاعِثُ",
+        "transliteration": "Al-Ba'ith",
+        "meaning_id": "Yang Maha Membangkitkan",
+        "meaning_en": "The Resurrector, The Awakener"
+    },
+    {
+        "id": 50,
+        "arabic": "ٱلْشَّهِيدُ",
+        "transliteration": "Ash-Shahid",
+        "meaning_id": "Yang Maha Menyaksikan",
+        "meaning_en": "The Witness"
+    },
+    {
+        "id": 51,
+        "arabic": "ٱلْحَقُّ",
+        "transliteration": "Al-Haqq",
+        "meaning_id": "Yang Maha Benar",
+        "meaning_en": "The Absolute Truth, The Real"
+    },
+    {
+        "id": 52,
+        "arabic": "ٱلْوَكِيلُ",
+        "transliteration": "Al-Wakil",
+        "meaning_id": "Yang Maha Memelihara",
+        "meaning_en": "The Trustee, The Guardian"
+    },
+    {
+        "id": 53,
+        "arabic": "ٱلْقَوِيُّ",
+        "transliteration": "Al-Qawi",
+        "meaning_id": "Yang Maha Kuat",
+        "meaning_en": "The All-Strong, The Powerful"
+    },
+    {
+        "id": 54,
+        "arabic": "ٱلْمَتِينُ",
+        "transliteration": "Al-Matin",
+        "meaning_id": "Yang Maha Kokoh",
+        "meaning_en": "The Firm, The Steadfast"
+    },
+    {
+        "id": 55,
+        "arabic": "ٱلْوَلِيُّ",
+        "transliteration": "Al-Wali",
+        "meaning_id": "Yang Maha Melindungi",
+        "meaning_en": "The Protecting Friend, The Ally"
+    },
+    {
+        "id": 56,
+        "arabic": "ٱلْحَمِيدُ",
+        "transliteration": "Al-Hamid",
+        "meaning_id": "Yang Maha Terpuji",
+        "meaning_en": "The Praiseworthy, The Laudable"
+    },
+    {
+        "id": 57,
+        "arabic": "ٱلْمُحْصِي",
+        "transliteration": "Al-Muhsi",
+        "meaning_id": "Yang Maha Mengkalkulasi (Menghitung)",
+        "meaning_en": "The Reckoner, The Appraiser"
+    },
+    {
+        "id": 58,
+        "arabic": "ٱلْمُبْدِئُ",
+        "transliteration": "Al-Mubdi'",
+        "meaning_id": "Yang Maha Memulai",
+        "meaning_en": "The Originator, The Initiator"
+    },
+    {
+        "id": 59,
+        "arabic": "ٱلْمُعِيدُ",
+        "transliteration": "Al-Mu'id",
+        "meaning_id": "Yang Maha Mengembalikan Kehidupan",
+        "meaning_en": "The Restorer, The Reproducer"
+    },
+    {
+        "id": 60,
+        "arabic": "ٱلْمُحْيِى",
+        "transliteration": "Al-Muhyi",
+        "meaning_id": "Yang Maha Menghidupkan",
+        "meaning_en": "The Giver of Life"
+    },
+    {
+        "id": 61,
+        "arabic": "ٱلْمُمِيتُ",
+        "transliteration": "Al-Mumit",
+        "meaning_id": "Yang Maha Mematikan",
+        "meaning_en": "The Taker of Life, The Destroyer"
+    },
+    {
+        "id": 62,
+        "arabic": "ٱلْحَىُّ",
+        "transliteration": "Al-Hayy",
+        "meaning_id": "Yang Maha Hidup",
+        "meaning_en": "The Ever-Living"
+    },
+    {
+        "id": 63,
+        "arabic": "ٱلْقَيُّومُ",
+        "transliteration": "Al-Qayyum",
+        "meaning_id": "Yang Maha Mandiri",
+        "meaning_en": "The Sustainer of All, The Self-Existing"
+    },
+    {
+        "id": 64,
+        "arabic": "ٱلْوَاجِدُ",
+        "transliteration": "Al-Wajid",
+        "meaning_id": "Yang Maha Penemu",
+        "meaning_en": "The Finder, The Perceiver"
+    },
+    {
+        "id": 65,
+        "arabic": "ٱلْمَاجِدُ",
+        "transliteration": "Al-Majid",
+        "meaning_id": "Yang Maha Mulia",
+        "meaning_en": "The Illustrious, The Magnificent"
+    },
+    {
+        "id": 66,
+        "arabic": "ٱلْوَاحِدُ",
+        "transliteration": "Al-Wahid",
+        "meaning_id": "Yang Maha Tunggal",
+        "meaning_en": "The Unique One, The One"
+    },
+    {
+        "id": 67,
+        "arabic": "ٱلْأَحَدُ",
+        "transliteration": "Al-Ahad",
+        "meaning_id": "Yang Maha Esa",
+        "meaning_en": "The One, The Indivisible"
+    },
+    {
+        "id": 68,
+        "arabic": "ٱلْصَّمَدُ",
+        "transliteration": "As-Samad",
+        "meaning_id": "Yang Maha Dibutuhkan",
+        "meaning_en": "The Eternal, The Absolute"
+    },
+    {
+        "id": 69,
+        "arabic": "ٱلْقَادِرُ",
+        "transliteration": "Al-Qadir",
+        "meaning_id": "Yang Maha Menentukan",
+        "meaning_en": "The All-Powerful, The Omnipotent"
+    },
+    {
+        "id": 70,
+        "arabic": "ٱلْمُقْتَدِرُ",
+        "transliteration": "Al-Muqtadir",
+        "meaning_id": "Yang Maha Berkuasa",
+        "meaning_en": "The All-Determining, The Dominant"
+    },
+    {
+        "id": 71,
+        "arabic": "ٱلْمُقَدِّمُ",
+        "transliteration": "Al-Muqaddim",
+        "meaning_id": "Yang Maha Mendahulukan",
+        "meaning_en": "The Expediter, The Presenter"
+    },
+    {
+        "id": 72,
+        "arabic": "ٱلْمُؤَخِّرُ",
+        "transliteration": "Al-Mu'akhkhir",
+        "meaning_id": "Yang Maha Mengakhirkan",
+        "meaning_en": "The Delayer, The Retarder"
+    },
+    {
+        "id": 73,
+        "arabic": "ٱلْأَوَّلُ",
+        "transliteration": "Al-Awwal",
+        "meaning_id": "Yang Maha Awal",
+        "meaning_en": "The First"
+    },
+    {
+        "id": 74,
+        "arabic": "ٱلْآخِرُ",
+        "transliteration": "Al-Akhir",
+        "meaning_id": "Yang Maha Akhir",
+        "meaning_en": "The Last"
+    },
+    {
+        "id": 75,
+        "arabic": "ٱلْظَّاهِرُ",
+        "transliteration": "Az-Zahir",
+        "meaning_id": "Yang Maha Nyata",
+        "meaning_en": "The Manifest, The Evident"
+    },
+    {
+        "id": 76,
+        "arabic": "ٱلْبَاطِنُ",
+        "transliteration": "Al-Batin",
+        "meaning_id": "Yang Maha Gaib",
+        "meaning_en": "The Hidden One, The Unmanifest"
+    },
+    {
+        "id": 77,
+        "arabic": "ٱلْوَالِي",
+        "transliteration": "Al-Wali",
+        "meaning_id": "Yang Maha Memerintah",
+        "meaning_en": "The Governor, The Protector"
+    },
+    {
+        "id": 78,
+        "arabic": "ٱلْمُتَعَالِي",
+        "transliteration": "Al-Muta'ali",
+        "meaning_id": "Yang Maha Tinggi",
+        "meaning_en": "The Most Exalted, The Self-Exalted"
+    },
+    {
+        "id": 79,
+        "arabic": "ٱلْبَرُّ",
+        "transliteration": "Al-Barr",
+        "meaning_id": "Yang Maha Penderma",
+        "meaning_en": "The Source of All Goodness, The Benevolent"
+    },
+    {
+        "id": 80,
+        "arabic": "ٱلْتَّوَّابُ",
+        "transliteration": "At-Tawwab",
+        "meaning_id": "Yang Maha Penerima Tobat",
+        "meaning_en": "The Acceptor of Repentance, The Relenting"
+    },
+    {
+        "id": 81,
+        "arabic": "ٱلْمُنْتَقِمُ",
+        "transliteration": "Al-Muntaqim",
+        "meaning_id": "Yang Maha Penyiksa",
+        "meaning_en": "The Avenger"
+    },
+    {
+        "id": 82,
+        "arabic": "ٱلْعَفُوُّ",
+        "transliteration": "Al-Afu",
+        "meaning_id": "Yang Maha Pemaaf",
+        "meaning_en": "The Pardoner, The Effacer"
+    },
+    {
+        "id": 83,
+        "arabic": "ٱلْرَّؤُوفُ",
+        "transliteration": "Ar-Ra'uf",
+        "meaning_id": "Yang Maha Pengasih",
+        "meaning_en": "The Compassionate, The All-Pitying"
+    },
+    {
+        "id": 84,
+        "arabic": "مَالِكُ ٱلْمُلْكِ",
+        "transliteration": "Malik-ul-Mulk",
+        "meaning_id": "Yang Maha Penguasa Kerajaan (Semesta)",
+        "meaning_en": "The Owner of All Sovereignty"
+    },
+    {
+        "id": 85,
+        "arabic": "ذُو ٱلْجَلَالِ وَٱلْإِكْرَامِ",
+        "transliteration": "Dhul-Jalali wal-Ikram",
+        "meaning_id": "Yang Maha Pemilik Kebesaran dan Kemuliaan",
+        "meaning_en": "The Lord of Majesty and Honour"
+    },
+    {
+        "id": 86,
+        "arabic": "ٱلْمُقْسِطُ",
+        "transliteration": "Al-Muqsit",
+        "meaning_id": "Yang Maha Adil",
+        "meaning_en": "The Just One, The Equitable"
+    },
+    {
+        "id": 87,
+        "arabic": "ٱلْجَامِعُ",
+        "transliteration": "Al-Jami'",
+        "meaning_id": "Yang Maha Mengumpulkan",
+        "meaning_en": "The Gatherer, The Unifier"
+    },
+    {
+        "id": 88,
+        "arabic": "ٱلْغَنِيُّ",
+        "transliteration": "Al-Ghani",
+        "meaning_id": "Yang Maha Kaya",
+        "meaning_en": "The Self-Sufficient, The All-Rich"
+    },
+    {
+        "id": 89,
+        "arabic": "ٱلْمُغْنِي",
+        "transliteration": "Al-Mughni",
+        "meaning_id": "Yang Maha Pemberi Kekayaan",
+        "meaning_en": "The Enricher, The Sufficer"
+    },
+    {
+        "id": 90,
+        "arabic": "ٱلْمَانِعُ",
+        "transliteration": "Al-Mani'",
+        "meaning_id": "Yang Maha Mencegah",
+        "meaning_en": "The Withholder, The Preventer"
+    },
+    {
+        "id": 91,
+        "arabic": "ٱلْضَّارُ",
+        "transliteration": "Ad-Darr",
+        "meaning_id": "Yang Maha Pemberi Bahaya",
+        "meaning_en": "The Distressor, The Harmer"
+    },
+    {
+        "id": 92,
+        "arabic": "ٱلْنَّافِعُ",
+        "transliteration": "An-Nafi'",
+        "meaning_id": "Yang Maha Pemberi Manfaat",
+        "meaning_en": "The Benefactor, The Propitious"
+    },
+    {
+        "id": 93,
+        "arabic": "ٱلْنُّورُ",
+        "transliteration": "An-Nur",
+        "meaning_id": "Yang Maha Bercahaya (Menerangi)",
+        "meaning_en": "The Light, The Illuminator"
+    },
+    {
+        "id": 94,
+        "arabic": "ٱلْهَادِي",
+        "transliteration": "Al-Hadi",
+        "meaning_id": "Yang Maha Pemberi Petunjuk",
+        "meaning_en": "The Guide"
+    },
+    {
+        "id": 95,
+        "arabic": "ٱلْبَدِيعُ",
+        "transliteration": "Al-Badi'",
+        "meaning_id": "Yang Maha Pencipta Tiada Bandingan",
+        "meaning_en": "The Originator, The Incomparable"
+    },
+    {
+        "id": 96,
+        "arabic": "ٱلْبَاقِي",
+        "transliteration": "Al-Baqi",
+        "meaning_id": "Yang Maha Kekal",
+        "meaning_en": "The Enduring, The Everlasting"
+    },
+    {
+        "id": 97,
+        "arabic": "ٱلْوَارِثُ",
+        "transliteration": "Al-Warith",
+        "meaning_id": "Yang Maha Pewaris",
+        "meaning_en": "The Inheritor, The Heir"
+    },
+    {
+        "id": 98,
+        "arabic": "ٱلْرَّشِيدُ",
+        "transliteration": "Ar-Rashid",
+        "meaning_id": "Yang Maha Pandai",
+        "meaning_en": "The Guide, The Righteous Teacher"
+    },
+    {
+        "id": 99,
+        "arabic": "ٱلْصَّبُورُ",
+        "transliteration": "As-Sabur",
+        "meaning_id": "Yang Maha Sabar",
+        "meaning_en": "The Patient One, The Enduring"
+    }
+]

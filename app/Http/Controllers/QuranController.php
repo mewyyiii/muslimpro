@@ -2,34 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Surah; // Import the Surah model
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+// Removed: use Illuminate\Support\Facades\File;
 
 class QuranController extends Controller
 {
     public function index()
     {
-        $path = storage_path('app/quran.json');
-        $json = File::get($path);
-        $data = json_decode($json, true);
+        // Fetch all surahs from the database
+        $surahs = Surah::all();
 
-        return view('index', ['surahs' => $data['surahs']]);
+        return view('index', ['surahs' => $surahs]);
     }
 
     public function show($id)
     {
-        $path = storage_path('app/quran.json');
-        $json = File::get($path);
-        $data = json_decode($json, true);
-
-        $surah = collect($data['surahs'])->firstWhere('number', (int) $id);
+        // Fetch the specific surah with its verses from the database
+        $surah = Surah::with('verses')->where('number', $id)->first();
 
         if (!$surah) {
             abort(404);
         }
-
-        // For the audio feature later, we'll need to fetch audio URLs here.
-        // For now, let's just pass the text data.
 
         return view('surah', ['surah' => $surah]);
     }

@@ -1,38 +1,36 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\QuranController;
-use App\Http\Controllers\AsmaulHusnaController;
-use App\Http\Controllers\DoaPendekController;
+use App\Http\Controllers\AsmaulHusnaController; // Import AsmaulHusnaController
+use App\Http\Controllers\DoaPendekController;   // Import DoaPendekController
+use App\Http\Controllers\QuranController;      // Import QuranController
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
-// Route untuk halaman beranda (home)
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route untuk halaman Al-Quran (daftar surah)
-Route::get('/al-quran', [QuranController::class, 'index'])->name('al-quran.index');
+Route::middleware('auth')->group(function () {
+    Route::get('/home', function () { // New route for home.blade.php
+        return view('home');
+    })->name('home'); // Named 'home' for redirection
+    
+    // Al-Quran Routes
+    Route::get('/al-quran', [QuranController::class, 'index'])->name('quran.index');
 
-// Route untuk halaman detail surah
-Route::get('/surah/{nomor}', [QuranController::class, 'show'])->name('surah.show');
+    // Asmaul Husna Routes
+    Route::get('/asmaul-husna', [AsmaulHusnaController::class, 'index'])->name('asmaul-husna.index');
 
-// Route untuk halaman Asmaul Husna
-Route::get('/asmaul-husna', [AsmaulHusnaController::class, 'index'])->name('asmaul-husna.index');
+    // Doa Pendek Routes
+    Route::get('/doa-pendek', [DoaPendekController::class, 'index'])->name('doa-pendek.index');
 
-// Route untuk halaman Doa-doa Pendek
-Route::get('/doa-pendek', [DoaPendekController::class, 'index'])->name('doa-pendek.index');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// Routes untuk fitur yang akan datang (coming soon)
-// Route::get('/waktu-shalat', [WaktuShalatController::class, 'index'])->name('waktu-shalat.index');
-// Route::get('/arah-kiblat', [ArahKiblatController::class, 'index'])->name('arah-kiblat.index');
-// Route::get('/jadwal-puasa', [JadwalPuasaController::class, 'index'])->name('jadwal-puasa.index');
+require __DIR__.'/auth.php';

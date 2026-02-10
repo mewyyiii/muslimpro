@@ -28,9 +28,9 @@
 
     {{-- Surah Header --}}
     <div class="text-center mb-8">
-        <h2 class="text-5xl font-arabic" style="color: var(--text-primary);">{{ $surah['arabic_name'] }}</h2>
-        <p class="text-3xl font-bold text-gray-800 dark:text-gray-200 mt-2">{{ $surah['name'] }}</p>
-        <p class="text-lg text-gray-600 dark:text-gray-400 mt-1">"{{ $surah['translation'] }}" - {{ $surah['total_verses'] }} Ayat</p>
+        <h2 class="text-5xl font-arabic" style="color: var(--text-primary);">{{ $surah->arabic_name }}</h2>
+        <p class="text-3xl font-bold text-gray-800 dark:text-gray-200 mt-2">{{ $surah->name }}</p>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mt-1">"{{ $surah->translation }}" - {{ $surah->total_verses }} Ayat</p>
     </div>
 
     {{-- Main Audio Player --}}
@@ -46,22 +46,22 @@
 
     {{-- Verses List --}}
     <div class="space-y-4">
-        @foreach($surah['verses'] as $verse)
-            <div id="verse-{{ $verse['number'] }}" class="verse-item rounded-lg shadow-sm transition-all duration-300 border border-gray-200 dark:border-gray-700" style="background-color: var(--surface);" data-verse-number="{{ $verse['number'] }}">
+        @foreach($surah->verses as $verse)
+            <div id="verse-{{ $verse->number }}" class="verse-item rounded-lg shadow-sm transition-all duration-300 border border-gray-200 dark:border-gray-700" style="background-color: var(--surface);" data-verse-number="{{ $verse->number }}">
                 <div class="p-6">
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-4">
-                            <span class="font-bold text-gray-400 dark:text-gray-500">{{ $verse['number'] }}</span>
-                            <button class="play-verse-btn" data-verse-number="{{ $verse['number'] }}">
+                            <span class="font-bold text-gray-400 dark:text-gray-500">{{ $verse->number }}</span>
+                            <button class="play-verse-btn" data-verse-number="{{ $verse->number }}">
                                 <svg class="h-8 w-8 transition-colors" style="color: var(--primary-accent);"  viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                                 </svg>
                             </button>
                         </div>
-                        <p class="text-3xl font-arabic text-right leading-loose" style="color: var(--text-primary);">{{ $verse['arabic'] }}</p>
+                        <p class="text-3xl font-arabic text-right leading-loose" style="color: var(--text-primary);">{{ $verse->arabic }}</p>
                     </div>
-                    <p class="text-lg mt-4 text-left" style="color: var(--text-primary-muted); font-style: italic;">{{ $verse['transliteration'] }}</p>
-                    <p class="text-md italic text-left" style="color: var(--text-primary-muted);">"{{ $verse['translation'] }}"</p>
+                    <p class="text-lg mt-4 text-left" style="color: var(--text-primary-muted); font-style: italic;">{{ $verse->transliteration }}</p>
+                    <p class="text-md italic text-left" style="color: var(--text-primary-muted);">"{{ $verse->translation }}"</p>
                 </div>
             </div>
         @endforeach
@@ -75,31 +75,17 @@
         const mainPlayer = document.getElementById('main-player');
         const playerInfo = document.getElementById('player-verse-info');
         const playAllBtn = document.getElementById('play-all-btn');
-        const verses = @json($surah['verses']);
-        const surahNumber = {{ $surah['number'] }};
-        let currentVerseIndex = -1;
+        const surahAudioUrl = "{{ $surah->audio_url }}"; // Get the audio URL from the surah object
+        const surahName = "{{ $surah->name }}";
+        const surahNumber = {{ $surah->number }};
+        let currentPlayingVerseNumber = null; // Track which verse is visually highlighted
 
-        const audioSources = verses.map(verse => ({
-            number: verse.number,
-            src: `https://verses.quran.com/Alafasy/mp3/${String(surahNumber).padStart(3, '0')}${String(verse.number).padStart(3, '0')}.mp3`
-        }));
-
-        function playVerse(verseIndex) {
-            if (verseIndex < 0 || verseIndex >= audioSources.length) {
-                currentVerseIndex = -1;
-                playerInfo.textContent = "Selesai"; // Use translation key
-                removePlayingIndicator();
-                return;
-            }
-
-            currentVerseIndex = verseIndex;
-            const verse = audioSources[currentVerseIndex];
-            mainPlayer.src = verse.src;
+        function playFullSurahAudio(verseNumber = 1) { // Default to verse 1 if not specified
+            mainPlayer.src = surahAudioUrl;
             mainPlayer.play();
-
-            // Use translation key with parameters
-            playerInfo.textContent = `Memutar: Surah {{ $surah['name'] }}, Ayat ${verse.number}`;
-            updatePlayingIndicator(verse.number);
+            // Update info text to indicate which surah is playing
+            playerInfo.textContent = `Memutar: Surah ${surahName}`;
+            updatePlayingIndicator(verseNumber); // Highlight the verse, even if audio plays from start
         }
         
         function removePlayingIndicator() {
@@ -113,22 +99,25 @@
                 verseElement.classList.add('playing');
                 verseElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
+            currentPlayingVerseNumber = verseNumber;
         }
 
         document.querySelectorAll('.play-verse-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const verseNumber = parseInt(this.dataset.verseNumber, 10);
-                const verseIndex = audioSources.findIndex(v => v.number === verseNumber);
-                playVerse(verseIndex);
+                playFullSurahAudio(verseNumber); // Play full surah audio, highlight clicked verse
             });
         });
 
         playAllBtn.addEventListener('click', function() {
-            playVerse(0);
+            playFullSurahAudio(); // Play full surah audio from the beginning
         });
 
         mainPlayer.addEventListener('ended', function() {
-            playVerse(currentVerseIndex + 1);
+            // Audio ended, clear visual indicator and info
+            removePlayingIndicator();
+            playerInfo.textContent = "Pilih ayat untuk memulai";
+            currentPlayingVerseNumber = null;
         });
     });
 </script>
