@@ -13,24 +13,16 @@
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                     >
-                        <!-- string -->
                         <path d="M60 8 Q65 12 60 16" stroke="#48bb78" stroke-width="3" fill="none"/>
-
-                        <!-- beads -->
                         <circle cx="48" cy="22" r="6" fill="#48bb78"/>
                         <circle cx="60" cy="20" r="6" fill="#48bb78"/>
                         <circle cx="72" cy="22" r="6" fill="#48bb78"/>
-
                         <circle cx="44" cy="34" r="6" fill="#48bb78"/>
                         <circle cx="76" cy="34" r="6" fill="#48bb78"/>
-
                         <circle cx="46" cy="48" r="6" fill="#48bb78"/>
                         <circle cx="74" cy="48" r="6" fill="#48bb78"/>
-
                         <circle cx="52" cy="62" r="6" fill="#48bb78"/>
                         <circle cx="68" cy="62" r="6" fill="#48bb78"/>
-
-                        <!-- tassel -->
                         <path
                             d="M56 72 L54 84
                             M60 72 L60 88
@@ -143,6 +135,110 @@
             </div>
         </div>
 
+        {{-- ══════════════════════════════════════════════════════════════
+             WIDGET TRACKING SHALAT
+        ══════════════════════════════════════════════════════════════ --}}
+        <div class="mb-8 md:mb-12"
+             x-data="prayerWidget()"
+             x-init="load()">
+
+            <div class="bg-white rounded-2xl shadow-xl p-5 md:p-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-40 h-40 bg-teal-50 rounded-full -mr-20 -mt-20 pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-emerald-50 rounded-full -ml-12 -mb-12 pointer-events-none"></div>
+
+                <div class="relative z-10">
+                    {{-- Header widget --}}
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base md:text-lg font-bold text-gray-800 flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-teal-100 flex items-center justify-center text-sm">🕌</span>
+                            Shalat Hari Ini
+                        </h3>
+                        <a href="{{ route('prayer-tracking.index') }}"
+                           class="text-xs font-semibold text-teal-600 hover:text-teal-700 hover:underline transition-colors flex items-center gap-1">
+                            Lihat semua
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    {{-- Loading state --}}
+                    <template x-if="loading">
+                        <div class="flex items-center justify-center py-6">
+                            <div class="w-6 h-6 border-2 border-teal-400 border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    </template>
+
+                    {{-- Konten --}}
+                    <template x-if="!loading">
+                        <div>
+                            {{-- Progress bar --}}
+                            <div class="mb-4">
+                                <div class="flex items-end justify-between mb-1.5">
+                                    <span class="text-2xl font-bold text-teal-600"
+                                          x-text="data.performed + '/5'"></span>
+                                    <span class="text-sm text-gray-500">
+                                        <span class="font-semibold text-amber-500">🔥 <span x-text="data.streak"></span></span>
+                                        hari berturut
+                                    </span>
+                                </div>
+                                <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-teal-400 to-emerald-500 rounded-full transition-all duration-700 ease-out"
+                                         :style="'width: ' + data.percent + '%'"></div>
+                                </div>
+                                <div class="mt-1 text-xs text-gray-400 text-right"
+                                     x-text="data.percent + '% selesai'"></div>
+                            </div>
+
+                            {{-- Dots 5 waktu --}}
+                            <div class="grid grid-cols-5 gap-2">
+                                <template x-for="prayer in prayers" :key="prayer">
+                                    <div class="flex flex-col items-center gap-1">
+                                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg transition-all duration-300"
+                                             :class="getPrayerDotClass(prayer)">
+                                            <span x-text="prayerIcons[prayer]"></span>
+                                        </div>
+                                        <span class="text-xs font-medium text-center leading-tight"
+                                              :class="getPrayerTextClass(prayer)"
+                                              x-text="prayerNames[prayer]"></span>
+                                        <span class="text-xs px-1.5 py-0.5 rounded-full font-semibold"
+                                              :class="getStatusBadgeClass(prayer)"
+                                              x-text="getStatusLabel(prayer)">
+                                        </span>
+                                    </div>
+                                </template>
+                            </div>
+
+                            {{-- CTA belum mulai --}}
+                            <template x-if="data.performed === 0">
+                                <div class="mt-4 text-center">
+                                    <a href="{{ route('prayer-tracking.index') }}"
+                                       class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-400 to-emerald-500 text-white text-sm font-semibold rounded-xl shadow hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
+                                        Mulai catat shalat hari ini →
+                                    </a>
+                                </div>
+                            </template>
+
+                            {{-- Pesan motivasi sebagian --}}
+                            <template x-if="data.performed > 0 && data.performed < 5">
+                                <div class="mt-3 p-3 bg-amber-50 border border-amber-100 rounded-xl text-center">
+                                    <p class="text-xs text-amber-700 font-medium"
+                                       x-text="(5 - data.performed) + ' shalat lagi untuk hari yang sempurna! 💪'"></p>
+                                </div>
+                            </template>
+
+                            {{-- Pesan lengkap --}}
+                            <template x-if="data.performed === 5">
+                                <div class="mt-3 p-3 bg-teal-50 border border-teal-100 rounded-xl text-center">
+                                    <p class="text-xs text-teal-700 font-medium">✨ MasyaAllah! Shalat hari ini lengkap!</p>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
         <!-- Quote Section -->
         <div class="mt-8 md:mt-12 p-6 md:p-10 rounded-2xl text-center bg-white shadow-2xl">
             <p class="text-2xl md:text-3xl lg:text-4xl font-arabic font-bold mb-4 md:mb-6 text-teal-600">
@@ -159,19 +255,73 @@
 @push('styles')
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
-    
-    .font-arabic {
-        font-family: 'Amiri', serif;
-    }
-    
-    .feature-card {
-        cursor: pointer;
-    }
-    
+    .font-arabic { font-family: 'Amiri', serif; }
+    .feature-card { cursor: pointer; }
     @media (max-width: 640px) {
-        .feature-card:not(.opacity-75):active {
-            transform: translateY(-4px);
-        }
+        .feature-card:not(.opacity-75):active { transform: translateY(-4px); }
     }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+function prayerWidget() {
+    return {
+        loading: true,
+        data: { performed: 0, total: 5, percent: 0, streak: 0, today_data: {} },
+        prayers: ['fajr','dhuhr','asr','maghrib','isha'],
+        prayerNames: { fajr:'Subuh', dhuhr:'Dzuhur', asr:'Ashar', maghrib:'Maghrib', isha:'Isya' },
+        prayerIcons: { fajr:'🌅', dhuhr:'☀️', asr:'🌤️', maghrib:'🌇', isha:'🌙' },
+
+        async load() {
+            try {
+                const res = await fetch('{{ route("prayer-tracking.summary") }}', {
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                });
+                this.data = await res.json();
+            } catch (e) { console.error(e); }
+            this.loading = false;
+        },
+
+        getStatus(prayer) {
+            return this.data.today_data?.[prayer]?.status || null;
+        },
+
+        getPrayerDotClass(prayer) {
+            const s = this.getStatus(prayer);
+            if (s === 'performed') return 'bg-gradient-to-br from-teal-400 to-emerald-500 shadow-md';
+            if (s === 'qada')      return 'bg-amber-100';
+            if (s === 'missed')    return 'bg-red-100';
+            return 'bg-gray-100';
+        },
+
+        getPrayerTextClass(prayer) {
+            const s = this.getStatus(prayer);
+            if (s === 'performed') return 'text-teal-700';
+            if (s === 'qada')      return 'text-amber-600';
+            if (s === 'missed')    return 'text-red-400';
+            return 'text-gray-400';
+        },
+
+        getStatusBadgeClass(prayer) {
+            const s = this.getStatus(prayer);
+            if (s === 'performed') return 'bg-teal-100 text-teal-700';
+            if (s === 'qada')      return 'bg-amber-100 text-amber-600';
+            if (s === 'missed')    return 'bg-red-100 text-red-400';
+            return 'bg-gray-100 text-gray-300';
+        },
+
+        getStatusLabel(prayer) {
+            const s = this.getStatus(prayer);
+            if (s === 'performed') return '✓';
+            if (s === 'qada')      return 'Q';
+            if (s === 'missed')    return '✗';
+            return '–';
+        },
+    };
+}
+</script>
 @endpush

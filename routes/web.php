@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AsmaulHusnaController; // Import AsmaulHusnaController
-use App\Http\Controllers\DoaPendekController;   // Import DoaPendekController
-use App\Http\Controllers\QuranController;      // Import QuranController
+use App\Http\Controllers\AsmaulHusnaController;
+use App\Http\Controllers\DoaPendekController;
+use App\Http\Controllers\QuranController;
+use App\Http\Controllers\PrayerTrackingController; // ★ BARU
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -15,10 +16,19 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', function () { // New route for home.blade.php
+
+    Route::get('/home', function () {
         return view('home');
-    })->name('home'); // Named 'home' for redirection
-    
+    })->name('home');
+
+    // ★ Prayer Tracking Routes
+    Route::get('/prayer-tracking', [PrayerTrackingController::class, 'index'])
+        ->name('prayer-tracking.index');
+    Route::post('/prayer-tracking', [PrayerTrackingController::class, 'store'])
+        ->name('prayer-tracking.store');
+    Route::get('/prayer-tracking/summary', [PrayerTrackingController::class, 'summary'])
+        ->name('prayer-tracking.summary');
+
     // Al-Quran Routes
     Route::get('/al-quran', [QuranController::class, 'index'])->name('quran.index');
 
@@ -28,6 +38,7 @@ Route::middleware('auth')->group(function () {
     // Doa Pendek Routes
     Route::get('/doa-pendek', [DoaPendekController::class, 'index'])->name('doa-pendek.index');
 
+    // Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
