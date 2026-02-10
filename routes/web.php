@@ -22,12 +22,13 @@ Route::middleware('auth')->group(function () {
     })->name('home');
 
     // ★ Prayer Tracking Routes
-    Route::get('/prayer_tracking', [PrayerTrackingController::class, 'index'])
-        ->name('prayer_tracking.index');
-    Route::post('/prayer_tracking', [PrayerTrackingController::class, 'store'])
-        ->name('prayer_tracking.store');
-    Route::get('/prayer_tracking/summary', [PrayerTrackingController::class, 'summary'])
-        ->name('prayer_tracking.summary');
+    Route::get('/prayer-tracking', [PrayerTrackingController::class, 'index'])
+        ->name('prayer-tracking.index');
+    Route::post('/prayer-tracking', [PrayerTrackingController::class, 'store'])
+        ->name('prayer-tracking.store');
+    Route::get('/prayer-tracking/summary', [PrayerTrackingController::class, 'summary'])
+        ->name('prayer-tracking.summary');
+
     // Al-Quran Routes
     Route::get('/al-quran', [QuranController::class, 'index'])->name('quran.index');
 
