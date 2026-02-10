@@ -6,34 +6,7 @@
         <!-- Hero Section -->
         <div class="text-center mb-12 md:mb-16">
             <div class="inline-block mb-6">
-                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                    <svg
-                        viewBox="0 0 120 120"
-                        class="w-6 h-6"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path d="M60 8 Q65 12 60 16" stroke="#48bb78" stroke-width="3" fill="none"/>
-                        <circle cx="48" cy="22" r="6" fill="#48bb78"/>
-                        <circle cx="60" cy="20" r="6" fill="#48bb78"/>
-                        <circle cx="72" cy="22" r="6" fill="#48bb78"/>
-                        <circle cx="44" cy="34" r="6" fill="#48bb78"/>
-                        <circle cx="76" cy="34" r="6" fill="#48bb78"/>
-                        <circle cx="46" cy="48" r="6" fill="#48bb78"/>
-                        <circle cx="74" cy="48" r="6" fill="#48bb78"/>
-                        <circle cx="52" cy="62" r="6" fill="#48bb78"/>
-                        <circle cx="68" cy="62" r="6" fill="#48bb78"/>
-                        <path
-                            d="M56 72 L54 84
-                            M60 72 L60 88
-                            M64 72 L66 84"
-                            stroke="#48bb78"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                        />
-                    </svg>
-                </div>
-            </div>
+
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white drop-shadow-lg">
                 Assalamu'alaikum
             </h1>
