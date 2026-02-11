@@ -92,20 +92,20 @@
                 </div>
             </a>
 
-            <!-- Jadwal Puasa -->
-            <div class="group feature-card bg-white rounded-2xl p-6 md:p-8 shadow-xl relative overflow-hidden opacity-75 cursor-not-allowed">
-                <span class="absolute top-3 right-3 px-3 py-1 bg-gray-400 text-white rounded-full text-xs font-semibold shadow-md z-20">Segera</span>
-                <div class="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -mr-16 -mt-16"></div>
+            <!-- ★ BARU: Tasbih Digital -->
+            <a href="{{ route('tasbih.index') }}" 
+               class="group feature-card bg-white rounded-2xl p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
                 <div class="relative z-10">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center mb-4 md:mb-6 shadow-lg">
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform">
                         <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">Jadwal Puasa</h3>
-                    <p class="text-sm md:text-base text-gray-600">Waktu imsak, sahur, dan berbuka puasa</p>
+                    <h3 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">Tasbih Digital</h3>
+                    <p class="text-sm md:text-base text-gray-600">Hitung dzikir dengan mudah dan praktis</p>
                 </div>
-            </div>
+            </a>
         </div>
 
         {{-- ══════════════════════════════════════════════════════════════
@@ -127,47 +127,42 @@
                             Shalat Hari Ini
                         </h3>
                         <a href="{{ route('prayer-tracking.index') }}"
-                           class="text-xs font-semibold text-teal-600 hover:text-teal-700 hover:underline transition-colors flex items-center gap-1">
-                            Lihat semua
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
+                           class="text-xs md:text-sm text-teal-600 hover:text-teal-700 font-medium hover:underline">
+                            Lihat detail →
                         </a>
                     </div>
 
                     {{-- Loading state --}}
                     <template x-if="loading">
-                        <div class="flex items-center justify-center py-6">
-                            <div class="w-6 h-6 border-2 border-teal-400 border-t-transparent rounded-full animate-spin"></div>
+                        <div class="text-center py-8">
+                            <div class="inline-block w-8 h-8 border-4 border-teal-200 border-t-teal-500 rounded-full animate-spin"></div>
+                            <p class="text-sm text-gray-500 mt-2">Memuat data...</p>
                         </div>
                     </template>
 
-                    {{-- Konten --}}
+                    {{-- Loaded state --}}
                     <template x-if="!loading">
                         <div>
                             {{-- Progress bar --}}
                             <div class="mb-4">
-                                <div class="flex items-end justify-between mb-1.5">
-                                    <span class="text-2xl font-bold text-teal-600"
-                                          x-text="data.performed + '/5'"></span>
-                                    <span class="text-sm text-gray-500">
-                                        <span class="font-semibold text-amber-500">🔥 <span x-text="data.streak"></span></span>
-                                        hari berturut
+                                <div class="flex items-center justify-between text-xs md:text-sm mb-1.5">
+                                    <span class="font-medium text-gray-700">Progress Hari Ini</span>
+                                    <span class="font-bold text-teal-600">
+                                        <span x-text="data.performed"></span>/<span x-text="data.total"></span>
                                     </span>
                                 </div>
-                                <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-teal-400 to-emerald-500 rounded-full transition-all duration-700 ease-out"
-                                         :style="'width: ' + data.percent + '%'"></div>
+                                <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-teal-400 to-emerald-500 rounded-full transition-all duration-500 ease-out"
+                                         :style="`width: ${data.percent}%`"></div>
                                 </div>
-                                <div class="mt-1 text-xs text-gray-400 text-right"
-                                     x-text="data.percent + '% selesai'"></div>
                             </div>
 
-                            {{-- Dots 5 waktu --}}
-                            <div class="grid grid-cols-5 gap-2">
+                            {{-- 5 shalat grid --}}
+                            <div class="grid grid-cols-5 gap-2 md:gap-3 mb-4">
                                 <template x-for="prayer in prayers" :key="prayer">
-                                    <div class="flex flex-col items-center gap-1">
-                                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg transition-all duration-300"
+                                    <div class="flex flex-col items-center gap-1.5 p-2 md:p-2.5 rounded-xl smooth-transition"
+                                         :class="getStatus(prayer) === 'performed' ? 'bg-teal-50' : 'bg-gray-50'">
+                                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-base smooth-transition"
                                              :class="getPrayerDotClass(prayer)">
                                             <span x-text="prayerIcons[prayer]"></span>
                                         </div>

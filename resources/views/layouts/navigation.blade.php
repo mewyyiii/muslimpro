@@ -79,7 +79,16 @@
                     Doa-doa
                 </a>
 
-                {{-- ★ BARU: Tracking Shalat --}}
+                {{-- ★ BARU: Tasbih --}}
+                <a href="{{ route('tasbih.index') }}" 
+                   class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('tasbih.*') ? 'bg-white/30' : '' }}">
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                    </svg>
+                    Tasbih
+                </a>
+
+                {{-- ★ Tracking Shalat --}}
                 <a href="{{ route('prayer-tracking.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-white/30' : '' }}">
                     <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,7 +132,7 @@
                             </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-teal-50 transition-colors">
+                                <button type="submit" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-teal-50 transition-colors border-t border-gray-100">
                                     <svg class="w-5 h-5 inline-block mr-2 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                     </svg>
@@ -133,29 +142,37 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('login') }}" class="hidden md:block px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200">
-                        Login
-                    </a>
-                    <a href="{{ route('register') }}" class="hidden md:block px-4 py-2 rounded-lg bg-white text-teal-600 font-semibold hover:bg-white/90 transition-all duration-200 shadow-md">
-                        Register
-                    </a>
+                    <div class="hidden md:flex items-center space-x-2">
+                        <a href="{{ route('login') }}" class="px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200">
+                            Login
+                        </a>
+                        <a href="{{ route('register') }}" class="px-4 py-2 rounded-lg bg-white text-teal-600 font-semibold hover:bg-white/90 transition-all duration-200 shadow-md">
+                            Register
+                        </a>
+                    </div>
                 @endauth
 
-                <!-- Burger Menu Button -->
-                <button @click="open = !open" 
-                        class="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-white hover:bg-white/20 transition-all duration-200">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': !open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                <!-- Mobile Burger Menu -->
+                <button @click="open = !open" class="md:hidden p-2 rounded-lg text-white hover:bg-white/20 transition-all duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
         </div>
-    </div>
 
-    <!-- Mobile Menu -->
-    <div :class="{'block': open, 'hidden': !open}" class="md:hidden bg-teal-600">
-        <div class="px-2 pt-2 pb-3 space-y-1">
+        <!-- Mobile Navigation Menu -->
+        <div x-show="open" 
+             @click.away="open = false"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 transform -translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform -translate-y-2"
+             class="md:hidden py-3 space-y-1">
+            
             <a href="{{ route('home') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('home') ? 'bg-white/30' : '' }}">
                 <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -185,7 +202,16 @@
                 Doa-doa
             </a>
 
-            {{-- ★ BARU: Tracking Shalat (Mobile) --}}
+            {{-- ★ BARU: Tasbih (Mobile) --}}
+            <a href="{{ route('tasbih.index') }}" 
+               class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('tasbih.*') ? 'bg-white/30' : '' }}">
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                </svg>
+                Tasbih Digital
+            </a>
+
+            {{-- ★ Tracking Shalat (Mobile) --}}
             <a href="{{ route('prayer-tracking.index') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-white/30' : '' }}">
                 <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
