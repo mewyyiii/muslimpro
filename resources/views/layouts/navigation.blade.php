@@ -44,7 +44,7 @@
             </div>
 
             <!-- Title Al-Huda di tengah — MOBILE ONLY -->
-            <span class="md:hidden absolute left-1/2 -translate-x-1/2 text-xl font-bold text-white tracking-wide pointer-events-none">
+            <span class="md:hidden absolute left-1/2 -translate-x-1/2 pointer-events-none navbar-title-mobile">
                 Al-Huda
             </span>
 
@@ -229,3 +229,54 @@
         </div>
     </div>
 </nav>
+
+<style>
+@media (max-width: 767px) {
+    .navbar-title-mobile {
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+
+        /* Shimmer gradient text */
+        background: linear-gradient(
+            90deg,
+            rgba(255,255,255,0.6) 0%,
+            rgba(255,255,255,1)   30%,
+            rgba(255,255,255,0.6) 50%,
+            rgba(255,255,255,1)   70%,
+            rgba(255,255,255,0.6) 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+
+        /* Fade + slide up saat pertama load */
+        animation:
+            navTitleEntrance 0.6s cubic-bezier(0.22, 1, 0.36, 1) both,
+            navTitleShimmer  3s linear 0.6s infinite;
+
+        /* Glow effect */
+        filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
+        white-space: nowrap;
+    }
+
+    /* Animasi 1: Fade + slide up */
+    @keyframes navTitleEntrance {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    }
+
+    /* Animasi 2: Shimmer berkelanjutan */
+    @keyframes navTitleShimmer {
+        0%   { background-position: 200% center; }
+        100% { background-position: -200% center; }
+    }
+}
+</style>
