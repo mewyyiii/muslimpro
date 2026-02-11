@@ -37,7 +37,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                     </label>
-                    <input type="file" id="avatar-input" accept="image/*" class="hidden" @change="preview($event)">
+                   <input type="file" id="avatar-input" name="avatar" accept="image/*" class="hidden" @change="preview($event)">
                     <p x-show="changed" class="mt-3 text-xs text-teal-600 text-center font-medium">Simpan untuk update</p>
                 </div>
 
@@ -115,7 +115,7 @@
                 @method('patch')
 
                 {{-- Hidden avatar input (dari preview) --}}
-                <input type="file" name="avatar" id="avatar-form-input" class="hidden">
+                {{-- <input type="file" name="avatar" id="avatar-form-input" class="hidden"> --}}
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                     {{-- Nama --}}
@@ -394,10 +394,10 @@ document.getElementById('avatar-input').addEventListener('change', function(e) {
     reader.readAsDataURL(file);
 
     // Transfer file ke form input
-    const dt = new DataTransfer();
-    dt.items.add(file);
-    document.getElementById('avatar-form-input').files = dt.files;
-});
+//     const dt = new DataTransfer();
+//     dt.items.add(file);
+//     document.getElementById('avatar-form-input').files = dt.files;
+// });
 
 function avatarUploader() {
     return {
