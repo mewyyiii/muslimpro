@@ -67,6 +67,8 @@ class PrayerTrackingController extends Controller
         $todayPerformed = $todayPrayers->where('status', 'performed')->count();
         $todayPercent   = round(($todayPerformed / 5) * 100);
 
+        $currentServerTime = Carbon::now()->format('H:i'); // Get current time in HH:MM format
+
         return view('prayer_tracking', compact(
             'todayPrayers',
             'selectedDate',
@@ -76,9 +78,11 @@ class PrayerTrackingController extends Controller
             'monthlyStats',
             'monthTotal',
             'todayPerformed',
-            'todayPercent'
+            'todayPercent',
+            'currentServerTime'
         ))->with('prayers', $this->prayers)
-          ->with('prayerNames', $this->prayerNames);
+          ->with('prayerNames', $this->prayerNames)
+          ->with('prayerTimes', $this->prayerTimes);
     }
 
     /**
@@ -92,6 +96,36 @@ class PrayerTrackingController extends Controller
             'status'      => 'required|in:performed,missed,qada',
             'notes'       => 'nullable|string|max:255',
         ]);
+
+        $prayerName = $request->prayer_name;
+        $prayerDate = Carbon::parse($request->prayer_date);
+        $currentDateTime = Carbon::now();
+
+        // Backend validation for current day only
+        if ($prayerDate->isToday()) {
+            $prayerIndex = array_search($prayerName, $this->prayers);
+            if ($prayerIndex === false) {
+                // Should not happen due to 'in' validation rule, but as a safeguard
+                return response()->json(['success' => false, 'message' => 'Invalid prayer name.'], 400);
+            }
+
+            $prayerStartTime = Carbon::parse($this->prayerTimes[$prayerName]);
+
+            // Determine end time for the current prayer (start of next prayer, or end of day for Isha)
+            $nextPrayerStartTime = null;
+            if ($prayerIndex < count($this->prayers) - 1) {
+                $nextPrayerName = $this->prayers[$prayerIndex + 1];
+                $nextPrayerStartTime = Carbon::parse($this->prayerTimes[$nextPrayerName]);
+            } else {
+                // For Isha, the window ends at midnight
+                $nextPrayerStartTime = Carbon::parse('23:59');
+            }
+
+            // If the submission is outside the allowed time, reject it
+            if ($currentDateTime->lt($prayerStartTime) || $currentDateTime->gte($nextPrayerStartTime)) {
+                return response()->json(['success' => false, 'message' => 'Tidak bisa mencatat shalat di luar waktu yang ditentukan.'], 200);
+            }
+        }
 
         PrayerTracking::updateOrCreate(
             [

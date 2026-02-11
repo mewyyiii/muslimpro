@@ -57,7 +57,12 @@
              CHECKLIST SHALAT HARIAN
         ══════════════════════════════════════════════════════════════ --}}
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6"
-             x-data="prayerTracker()"
+             x-data="prayerTracker({
+                 prayerTimes: @json($prayerTimes),
+                 currentServerTime: '{{ $currentServerTime }}',
+                 allPrayers: @json($prayers),
+                 todayPrayers: @json($todayPrayers->map(fn($r) => ['status' => $r->status, 'notes' => $r->notes])->toArray()),
+             })"
              x-init="init()">
 
             {{-- Pilih Tanggal --}}
@@ -95,17 +100,13 @@
 
             {{-- Shalat Cards --}}
             <div class="space-y-3">
-                @foreach($prayers as $prayer)
+                @foreach($prayers as $prayerIndex => $prayer)
                 @php
                     $rec    = $todayPrayers->get($prayer);
                     $status = $rec ? $rec->status : null;
                     $notes  = $rec ? $rec->notes  : '';
                 @endphp
-                <div class="prayer-row border rounded-xl p-4 transition-all duration-300
-                            {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' :
-                               ($status === 'qada'     ? 'border-amber-200 bg-amber-50' :
-                               ($status === 'missed'   ? 'border-red-200 bg-red-50' :
-                                                         'border-gray-200 bg-gray-50')) }}"
+                <div class="prayer-row border rounded-xl p-4 transition-all duration-300"
                      x-bind:class="getPrayerClass('{{ $prayer }}')"
                      x-data="{ showNote: {{ $notes ? 'true' : 'false' }} }">
                     <div class="flex items-center gap-3">
@@ -134,21 +135,27 @@
                         {{-- Tombol Status --}}
                         <div class="flex items-center gap-1.5 flex-shrink-0">
                             <button @click="updatePrayer('{{ $prayer }}', 'performed', selectedDate)"
-                                    title="Terlaksana"
+                                    x-bind:title="getPrayerButtonTooltip('{{ $prayer }}', 'performed', {{ $prayerIndex }}, '{{ $status ?? '' }}')"
+                                    x-bind:disabled="!isToday() || !isPrayerCurrentlyAvailable('{{ $prayer }}', {{ $prayerIndex }}) || '{{ $status ?? '' }}' === 'performed'"
+                                    :class="{'opacity-50 cursor-not-allowed': (!isToday() || !isPrayerCurrentlyAvailable('{{ $prayer }}', {{ $prayerIndex }}) || '{{ $status ?? '' }}' === 'performed'), 'text-gray-400': (isToday() && !isPrayerCurrentlyAvailable('{{ $prayer }}', {{ $prayerIndex }}))}"
                                     class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
                                            hover:scale-110 active:scale-95
                                            {{ $status === 'performed' ? 'bg-teal-500 text-white shadow-md' : 'bg-gray-100 hover:bg-teal-100 text-gray-500' }}">
-                                ✓
+                                <span x-html="getPrayerButtonIcon('{{ $prayer }}', 'performed', {{ $prayerIndex }}, '{{ $status ?? '' }}')"></span>
                             </button>
                             <button @click="updatePrayer('{{ $prayer }}', 'qada', selectedDate)"
-                                    title="Qada"
+                                    x-bind:title="getPrayerButtonTooltip('{{ $prayer }}', 'qada', {{ $prayerIndex }}, '{{ $status ?? '' }}')"
+                                    x-bind:disabled="!isToday() || !isPrayerCurrentlyAvailable('{{ $prayer }}', {{ $prayerIndex }}) || '{{ $status ?? '' }}' === 'qada'"
+                                    :class="{'opacity-50 cursor-not-allowed': (!isToday() || !isPrayerCurrentlyAvailable('{{ $prayer }}', {{ $prayerIndex }}) || '{{ $status ?? '' }}' === 'qada'), 'text-gray-400': (isToday() && !isPrayerCurrentlyAvailable('{{ $prayer }}', {{ $prayerIndex }}))}"
                                     class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
                                            hover:scale-110 active:scale-95
                                            {{ $status === 'qada' ? 'bg-amber-400 text-white shadow-md' : 'bg-gray-100 hover:bg-amber-100 text-gray-500' }}">
                                 ↩
                             </button>
                             <button @click="updatePrayer('{{ $prayer }}', 'missed', selectedDate)"
-                                    title="Terlewat"
+                                    x-bind:title="getPrayerButtonTooltip('{{ $prayer }}', 'missed', {{ $prayerIndex }}, '{{ $status ?? '' }}')"
+                                    x-bind:disabled="!isToday() || !isPrayerCurrentlyAvailable('{{ $prayer }}', {{ $prayerIndex }}) || '{{ $status ?? '' }}' === 'missed'"
+                                    :class="{'opacity-50 cursor-not-allowed': (!isToday() || !isPrayerCurrentlyAvailable('{{ $prayer }}', {{ $prayerIndex }}) || '{{ $status ?? '' }}' === 'missed'), 'text-gray-400': (isToday() && !isPrayerCurrentlyAvailable('{{ $prayer }}', {{ $prayerIndex }}))}"
                                     class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
                                            hover:scale-110 active:scale-95
                                            {{ $status === 'missed' ? 'bg-red-400 text-white shadow-md' : 'bg-gray-100 hover:bg-red-100 text-gray-500' }}">
@@ -340,16 +347,20 @@
 
 @push('scripts')
 <script>
-function prayerTracker() {
+function prayerTracker(config) {
     return {
         selectedDate: '{{ $selectedDate }}',
         today: '{{ now()->toDateString() }}',
-        prayerStatus: @json($todayPrayers->map(fn($r) => ['status' => $r->status, 'notes' => $r->notes])->toArray()),
+        prayerStatus: config.todayPrayers,
         flashMsg: '',
         flashTimer: null,
+        prayerTimes: config.prayerTimes,
+        currentServerTime: config.currentServerTime,
+        allPrayers: config.allPrayers,
 
         init() {
-            // status sudah di-load dari blade
+            // Optional: you might want to refresh currentServerTime every second if real-time update is desired
+            // setInterval(() => { this.currentServerTime = new Date().toLocaleTimeString('en-GB', {hour: '2-digit', minute:'2-digit'}); }, 1000);
         },
 
         getPrayerClass(prayer) {
@@ -383,7 +394,75 @@ function prayerTracker() {
             window.location.href = '{{ route("prayer-tracking.index") }}?date=' + this.selectedDate;
         },
 
+        // New logic for prayer button availability
+        isPrayerCurrentlyAvailable(prayerName, prayerIndex) {
+            if (!this.isToday()) {
+                return true; // Always available for past days
+            }
+
+            const currentTime = new Date(`2000-01-01T${this.currentServerTime}:00`); // Use a dummy date for time comparison
+            const prayerStartTimeStr = this.prayerTimes[prayerName];
+            const prayerStartTime = new Date(`2000-01-01T${prayerStartTimeStr}:00`);
+
+            let nextPrayerStartTime = new Date('2000-01-01T23:59:59'); // Default to end of day for Isha
+            if (prayerIndex < this.allPrayers.length - 1) {
+                const nextPrayerName = this.allPrayers[prayerIndex + 1];
+                const nextPrayerStartTimeStr = this.prayerTimes[nextPrayerName];
+                nextPrayerStartTime = new Date(`2000-01-01T${nextPrayerStartTimeStr}:00`);
+            }
+
+            // Prayer is available if current time is >= its start time AND < next prayer's start time
+            return currentTime >= prayerStartTime && currentTime < nextPrayerStartTime;
+        },
+
+        // New function to get the appropriate icon
+        getPrayerButtonIcon(prayerName, statusType, prayerIndex, currentStatus) {
+            const normalizedCurrentStatus = currentStatus || ''; // Normalize to empty string if null/undefined
+
+            // If already tracked, show solid checkmark for performed, or original icon for qada/missed
+            if (statusType === 'performed' && normalizedCurrentStatus === 'performed') return '✓';
+            if (statusType === 'qada' && normalizedCurrentStatus === 'qada') return '↩';
+            if (statusType === 'missed' && normalizedCurrentStatus === 'missed') return '✗';
+
+            // If not currently available (for today's prayers)
+            if (this.isToday() && !this.isPrayerCurrentlyAvailable(prayerName, prayerIndex)) {
+                return '—'; // Use em dash for visually inactive/disabled
+            }
+
+            // If available and not yet tracked
+            if (statusType === 'performed') return '&#9675;'; // Empty circle for performed
+            if (statusType === 'qada') return '↩';
+            if (statusType === 'missed') return '✗';
+            
+            return ''; // Final fallback
+        },
+
+        // New function to get the appropriate tooltip
+        getPrayerButtonTooltip(prayerName, statusType, prayerIndex, currentStatus) {
+            if (this.isToday() && !this.isPrayerCurrentlyAvailable(prayerName, prayerIndex)) {
+                return 'Belum masuk waktu shalat';
+            }
+            if (currentStatus === statusType) {
+                if (statusType === 'performed') return 'Sudah tercatat: Terlaksana';
+                if (statusType === 'qada') return 'Sudah tercatat: Qada';
+                if (statusType === 'missed') return 'Sudah tercatat: Terlewat';
+            }
+            if (statusType === 'performed') return 'Tandai sebagai Terlaksana';
+            if (statusType === 'qada') return 'Tandai sebagai Qada';
+            if (statusType === 'missed') return 'Tandai sebagai Terlewat';
+
+            return ''; // Fallback to empty string
+        },
+
         async updatePrayer(prayerName, status, date) {
+            // Prevent submission if not today AND not available, or if already has this status
+            const isButtonDisabled = this.isToday() && (!this.isPrayerCurrentlyAvailable(prayerName, this.allPrayers.indexOf(prayerName)) || this.prayerStatus[prayerName]?.status === status);
+            
+            if (isButtonDisabled) {
+                this.showFlash('🚫 Aksi tidak diizinkan saat ini.');
+                return;
+            }
+
             const noteEl = document.getElementById('note-' + prayerName);
             const notes  = noteEl ? noteEl.value : '';
 
@@ -402,9 +481,8 @@ function prayerTracker() {
                     if (!this.prayerStatus[prayerName]) this.prayerStatus[prayerName] = {};
                     this.prayerStatus[prayerName].status = status;
                     this.showFlash('✅ ' + data.message);
-
-                    // Update warna row langsung
-                    const row = document.querySelector(`[data-prayer="${prayerName}"]`);
+                } else {
+                    this.showFlash('🚫 ' + data.message); // Display error message from backend
                 }
             } catch (e) {
                 this.showFlash('❌ Gagal menyimpan. Coba lagi.');
@@ -412,7 +490,12 @@ function prayerTracker() {
         },
 
         async saveNote(prayerName, notes) {
-            const currentStatus = this.prayerStatus[prayerName]?.status || 'performed';
+            // If it's today and not available, prevent saving note as well
+            if (this.isToday() && !this.isPrayerCurrentlyAvailable(prayerName, this.allPrayers.indexOf(prayerName))) {
+                this.showFlash('🚫 Tidak bisa menyimpan catatan di luar waktu shalat.');
+                return;
+            }
+            const currentStatus = this.prayerStatus[prayerName]?.status || null; // Changed 'performed' to null as default
             await this.updatePrayer(prayerName, currentStatus, this.selectedDate);
         },
 
@@ -424,6 +507,13 @@ function prayerTracker() {
     };
 }
 </script>
+@endpush
+
+@push('styles')
+<style>
+    .prayer-row { transition: all 0.2s ease; }
+    .prayer-row:hover { transform: translateX(2px); }
+</style>
 @endpush
 
 @push('styles')
