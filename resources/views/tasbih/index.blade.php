@@ -59,6 +59,76 @@
         </div>
 
         <div x-data="tasbihCounter()" x-init="init()">
+
+            {{-- ══════════════════════════════════════════
+                 MODAL KONFIRMASI RESET
+            ══════════════════════════════════════════ --}}
+            <div x-show="showResetModal"
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-end="opacity-0"
+                 class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+                 @click.self="showResetModal = false">
+                <div x-show="showResetModal"
+                     x-transition:enter="transition ease-out duration-200"
+                     x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                     x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-150"
+                     x-transition:leave-end="opacity-0 scale-95"
+                     class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm text-center">
+                    <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-800 mb-2">Reset Counter?</h4>
+                    <p class="text-sm text-gray-500 mb-6">Hitungan dzikir saat ini akan direset ke 0. Yakin ingin melanjutkan?</p>
+                    <div class="flex gap-3">
+                        <button @click="showResetModal = false"
+                                class="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-colors text-sm">
+                            Batal
+                        </button>
+                        <button @click="confirmReset()"
+                                class="flex-1 px-4 py-2.5 bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-semibold rounded-xl shadow hover:shadow-md transition-all text-sm">
+                            Ya, Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {{-- ══════════════════════════════════════════
+                 MODAL ERROR CUSTOM TARGET
+            ══════════════════════════════════════════ --}}
+            <div x-show="showCustomErrorModal"
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-end="opacity-0"
+                 class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+                 @click.self="showCustomErrorModal = false">
+                <div x-show="showCustomErrorModal"
+                     x-transition:enter="transition ease-out duration-200"
+                     x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                     x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-150"
+                     x-transition:leave-end="opacity-0 scale-95"
+                     class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm text-center">
+                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-800 mb-2">Target Tidak Valid</h4>
+                    <p class="text-sm text-gray-500 mb-6">Masukkan target antara <span class="font-semibold text-teal-600">1 hingga 9999</span>.</p>
+                    <button @click="showCustomErrorModal = false"
+                            class="w-full px-4 py-2.5 bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-semibold rounded-xl shadow hover:shadow-md transition-all text-sm">
+                        Mengerti
+                    </button>
+                </div>
+            </div>
             
             <!-- Main Counter Card -->
             <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-10 mb-6 relative overflow-hidden">
@@ -273,6 +343,8 @@ function tasbihCounter() {
         totalToday: 0,
         completedSessions: 0,
         circumference: 2 * Math.PI * 85,
+        showResetModal: false,
+        showCustomErrorModal: false,
         
         dzikirPresets: [
             {
@@ -361,9 +433,12 @@ function tasbihCounter() {
         },
 
         reset() {
-            if (confirm('Reset counter dzikir ini?')) {
-                this.count = 0;
-            }
+            this.showResetModal = true;
+        },
+
+        confirmReset() {
+            this.count = 0;
+            this.showResetModal = false;
         },
 
         selectDzikir(index) {
@@ -383,7 +458,7 @@ function tasbihCounter() {
                 this.count = 0;
                 this.customTarget = null;
             } else {
-                alert('Masukkan target antara 1-9999');
+                this.showCustomErrorModal = true;
             }
         },
 
