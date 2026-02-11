@@ -48,11 +48,11 @@
             </div>
 
             <!-- Arah Kiblat -->
-            <div class="group feature-card bg-white rounded-2xl p-6 md:p-8 shadow-xl relative overflow-hidden opacity-75 cursor-not-allowed">
-                <span class="absolute top-3 right-3 px-3 py-1 bg-gray-400 text-white rounded-full text-xs font-semibold shadow-md z-20">Segera</span>
-                <div class="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -mr-16 -mt-16"></div>
+            <a href="{{ route('qibla.index') }}" 
+               class="group feature-card bg-white rounded-2xl p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
                 <div class="relative z-10">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center mb-4 md:mb-6 shadow-lg">
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform">
                         <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
                         </svg>
@@ -60,7 +60,7 @@
                     <h3 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">Arah Kiblat</h3>
                     <p class="text-sm md:text-base text-gray-600">Temukan arah kiblat dengan kompas digital</p>
                 </div>
-            </div>
+            </a>
 
             <!-- Asmaul Husna -->
             <a href="{{ route('asmaul-husna.index') }}" 

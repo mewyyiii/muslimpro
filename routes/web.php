@@ -6,7 +6,8 @@ use App\Http\Controllers\AsmaulHusnaController;
 use App\Http\Controllers\DoaPendekController;
 use App\Http\Controllers\QuranController;
 use App\Http\Controllers\PrayerTrackingController;
-use App\Http\Controllers\TasbihController; // ★ BARU
+use App\Http\Controllers\TasbihController;
+use App\Http\Controllers\QiblaController; // ★ BARU
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -40,10 +41,13 @@ Route::middleware('auth')->group(function () {
     // Doa Pendek Routes
     Route::get('/doa-pendek', [DoaPendekController::class, 'index'])->name('doa-pendek.index');
 
-    // ★ BARU: Tasbih Routes
+    // ★ Tasbih Routes
     Route::get('/tasbih', [TasbihController::class, 'index'])->name('tasbih.index');
     Route::get('/tasbih/stats', [TasbihController::class, 'getStats'])->name('tasbih.stats');
     Route::post('/tasbih/save', [TasbihController::class, 'saveCount'])->name('tasbih.save');
+
+    // ★ BARU: Qibla Routes
+    Route::get('/qibla', [QiblaController::class, 'index'])->name('qibla.index');
 
     // Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
