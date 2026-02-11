@@ -24,9 +24,9 @@
                 <div class="relative flex-shrink-0" x-data="avatarUploader()">
                     <div class="w-24 h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden ring-4 ring-teal-100 shadow-lg">
                         <img id="avatar-preview"
-                             src="{{ $user->avatar_url }}"
-                             alt="{{ $user->name }}"
-                             class="w-full h-full object-cover">
+                                src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('images/default-avatar.png') }}"
+                                alt="{{ $user->name }}"
+                                class="w-full h-full object-cover">
                     </div>
                     {{-- Tombol upload --}}
                     <label for="avatar-input"
