@@ -30,40 +30,40 @@
 @section('content')
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
 
-    <!-- ===== HEADER (Responsive Back + Center Title) ===== -->
-<div class="relative flex items-center justify-between page-header">
+        <!-- ===== HEADER (Responsive Back + Center Title) ===== -->
+    <div class="relative flex items-center justify-between page-header">
 
-    <!-- Back Button -->
-    <a href="{{ route('quran.index') }}"
-       class="inline-flex items-center justify-center sm:justify-start px-3 py-2 rounded-lg transition hover:opacity-90"
-       style="color: var(--primary-accent); background-color: rgba(20, 184, 166, 0.08);">
+        <!-- Back Button -->
+        <a href="{{ route('quran.index') }}"
+        class="inline-flex items-center justify-center sm:justify-start px-3 py-2 rounded-lg transition hover:opacity-90"
+        style="color: var(--primary-accent); background-color: rgba(20, 184, 166, 0.08);">
 
-        <!-- Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="h-5 w-5"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke="currentColor"
-             stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
+            <!-- Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
 
-        <!-- Text (Desktop Only) -->
-        <span class="hidden sm:inline ml-2 text-sm font-semibold">
-            Kembali
-        </span>
-    </a>
+            <!-- Text (Desktop Only) -->
+            <span class="hidden sm:inline ml-2 text-sm font-semibold">
+                Kembali
+            </span>
+        </a>
 
-    <!-- Center Title -->
-    <h1 class="absolute left-1/2 transform -translate-x-1/2 text-2xl sm:text-3xl font-bold"
-        style="color: var(--text-primary);">
-        Al-Quran
-    </h1>
+        <!-- Center Title -->
+        <h1 class="absolute left-1/2 transform -translate-x-1/2 text-2xl sm:text-3xl font-bold"
+            style="color: var(--text-primary);">
+            Al-Quran
+        </h1>
 
-    <!-- Spacer -->
-    <div class="w-10 sm:w-20"></div>
+        <!-- Spacer -->
+        <div class="w-10 sm:w-20"></div>
 
-</div>
+    </div>
 
 
     {{-- Surah Header --}}

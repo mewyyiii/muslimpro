@@ -35,19 +35,43 @@
 @endpush
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
-    
-    <h1 class="text-3xl font-bold text-center mb-6 mt-4" style="color: var(--text-primary);">
-        Al-Quran
-    </h1>
 
-    <div class="w-full max-w-md mx-auto mb-8">
-        <input type="text" 
-            id="surah-search-input" 
-            placeholder="Cari surah (e.g. Al-Fatihah, Pembukaan)" 
-            class="w-full p-3 rounded-lg shadow-sm border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2" 
-            style="background-color: var(--surface); color: var(--text-primary); border-color: var(--primary-accent);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
+        
+        <h1 class="text-3xl font-bold text-center mb-6 mt-4" style="color: var(--text-primary);">
+            Al-Quran
+        </h1>
+
+        <div class="w-full max-w-md mx-auto mb-8">
+        <div class="relative">
+            <input type="text"
+                id="surah-search-input"
+                placeholder="Cari surah (e.g. Al-Fatihah, Pembukaan)"
+                class="w-full pl-10 pr-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all"
+                style="
+                    background-color: var(--surface);
+                    color: var(--text-primary);
+                    border-color: var(--primary-accent);
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+                ">
+
+            <!-- Icon Search -->
+            <div class="absolute left-3 top-1/2 transform -translate-y-1/2"
+                style="color: var(--primary-accent);">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+        </div>
     </div>
+
     
     <div id="surah-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach($surahs as $surah)
