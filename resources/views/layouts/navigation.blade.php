@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-gradient-to-r from-teal-500 to-emerald-500 shadow-lg sticky top-0 z-50">
+<nav x-data="{ open: false }" class="relative bg-gradient-to-r from-teal-500 to-emerald-500 shadow-lg sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between items-center h-16">
             <!-- Logo & Brand -->
             <div class="flex items-center">
                 <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
@@ -42,6 +42,11 @@
                     <span class="text-xl font-bold text-white hidden sm:block">Al-Huda</span>
                 </a>
             </div>
+
+            <!-- Title Al-Huda di tengah — MOBILE ONLY -->
+            <span class="md:hidden absolute left-1/2 -translate-x-1/2 text-xl font-bold text-white tracking-wide pointer-events-none">
+                Al-Huda
+            </span>
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center space-x-1">
