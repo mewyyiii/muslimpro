@@ -233,9 +233,9 @@
 <style>
 @media (max-width: 767px) {
     .navbar-title-mobile {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         font-weight: 700;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.06em;
 
         /* Shimmer gradient text */
         background: linear-gradient(
@@ -253,8 +253,8 @@
 
         /* Fade + slide up saat pertama load */
         animation:
-            navTitleEntrance 1s cubic-bezier(0.22, 1, 0.36, 1) both,
-            navTitleShimmer  3s linear 0.6s infinite;
+            navTitleEntrance 1.2s cubic-bezier(0.22, 1, 0.36, 1) both,
+            navTitleShimmer  3s linear 1.2s infinite;
 
         /* Glow effect */
         filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
