@@ -253,7 +253,7 @@
 
         /* Fade + slide up saat pertama load */
         animation:
-            navTitleEntrance 1.2s cubic-bezier(0.22, 1, 0.36, 1) both,
+            navTitleEntrance 5s cubic-bezier(0.22, 1, 0.36, 1) both,
             navTitleShimmer  3s linear 1.2s infinite;
 
         /* Glow effect */
