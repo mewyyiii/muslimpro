@@ -55,10 +55,10 @@
 @endpush
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
 
-    <h1 class="text-3xl font-bold text-center mb-4">
-        Asmaul & Husna
+    <h1 class="text-3xl font-bold text-center mb-6 mt-4">
+        Asmaul Husna
     </h1>
     
     <div class="w-full max-w-md mx-auto mb-8">
