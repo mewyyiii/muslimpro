@@ -20,6 +20,15 @@ class PrayerTrackingController extends Controller
         'isha'    => 'Isya',
     ];
 
+    // Waktu shalat statis (jam:menit)
+    private $prayerTimes = [
+        'fajr'    => '04:30',
+        'dhuhr'   => '12:00',
+        'asr'     => '15:00',
+        'maghrib' => '18:00',
+        'isha'    => '19:15',
+    ];
+
     /**
      * Halaman utama tracking shalat
      */

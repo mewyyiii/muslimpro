@@ -19,7 +19,7 @@
     
     <div id="surah-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach($surahs as $surah)
-            <a href="{{ url('/surah/' . $surah->number) }}" class="surah-card block p-5 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-xl" style="background-color: var(--surface);" data-name="{{ strtolower($surah->name . ' ' . $surah->translation) }}">
+            <a href="{{ route('quran.show', ['number' => $surah->number]) }}" class="surah-card block p-5 rounded-lg shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-xl" style="background-color: var(--surface);" data-name="{{ strtolower($surah->name . ' ' . $surah->translation) }}">
                 <div class="flex justify-between items-center mb-3">
                     <div class="flex items-center justify-center w-10 h-10 rounded-full" style="background-color: var(--primary-accent);">
                         <span class="text-white font-bold text-sm">{{ $surah->number }}</span>

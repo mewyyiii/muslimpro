@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     // Al-Quran Routes
     Route::get('/al-quran', [QuranController::class, 'index'])->name('quran.index');
+    Route::get('/surah/{number}', [QuranController::class, 'show'])->name('quran.show');
 
     // Asmaul Husna Routes
     Route::get('/asmaul-husna', [AsmaulHusnaController::class, 'index'])->name('asmaul-husna.index');
