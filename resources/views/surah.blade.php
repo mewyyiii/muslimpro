@@ -260,7 +260,7 @@
 <div class="page-container max-w-7xl mx-auto">
     <!-- Back Navigation - Simple di pojok kiri atas -->
     <div class="back-nav">
-        <a href="{{ route('al-quran.index') }}" class="back-button">
+        <a href="{{ route('quran.index') }}" class="back-button">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
             </svg>
