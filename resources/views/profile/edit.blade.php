@@ -37,7 +37,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                     </label>
-                   <input type="file" id="avatar-input" name="avatar" accept="image/*" class="hidden" @change="preview($event)">
+                  <input type="file"
+                    id="avatar-input"
+                    name="avatar"
+                    form="profile-form"
+                    accept="image/*"
+                    class="hidden"
+                    @change="preview($event)">
                     <p x-show="changed" class="mt-3 text-xs text-teal-600 text-center font-medium">Simpan untuk update</p>
                 </div>
 
