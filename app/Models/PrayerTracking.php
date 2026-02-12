@@ -14,7 +14,6 @@ class PrayerTracking extends Model
         'prayer_name',
         'prayer_date',
         'status',
-        'notes',
     ];
 
     protected $casts = [

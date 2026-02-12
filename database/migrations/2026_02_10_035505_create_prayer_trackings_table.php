@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('prayer_name'); // e.g., 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha'
             $table->date('prayer_date');
             $table->string('status'); // e.g., 'performed', 'missed', 'qada'
-            $table->text('notes')->nullable();
             $table->timestamps();
 
             $table->unique(['user_id', 'prayer_date', 'prayer_name']);

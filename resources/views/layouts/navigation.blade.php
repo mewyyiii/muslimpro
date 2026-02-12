@@ -50,6 +50,7 @@
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center space-x-1">
+                <!-- Beranda -->
                 <a href="{{ route('home') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('home') ? 'bg-white/30' : '' }}">
                     <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,6 +58,8 @@
                     </svg>
                     Beranda
                 </a>
+
+                <!-- Al-Quran -->
                 <a href="{{ route('quran.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('quran.*') ? 'bg-white/30' : '' }}">
                     <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,40 +67,74 @@
                     </svg>
                     Al-Quran
                 </a>
+
+                <!-- Asmaul Husna - Angka 99 -->
                 <a href="{{ route('asmaul-husna.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('asmaul-husna.*') ? 'bg-white/30' : '' }}">
                     <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        <text x="2" y="18" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor">99</text>
                     </svg>
                     Asmaul Husna
                 </a>
+                
+                <!-- Doa-doa - Icon Tangan Berdoa -->
                 <a href="{{ route('doa-pendek.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('doa-pendek.*') ? 'bg-white/30' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M8 11 L8 18 C8 19 9 20 10 20 L10 21" stroke-linecap="round"/>
+                        <path d="M8 14 L10 14" stroke-linecap="round"/>
+                        <path d="M16 11 L16 18 C16 19 15 20 14 20 L14 21" stroke-linecap="round"/>
+                        <path d="M16 14 L14 14" stroke-linecap="round"/>
+                        <path d="M8 11 L8 7" stroke-linecap="round"/>
+                        <path d="M16 11 L16 7" stroke-linecap="round"/>
+                        <circle cx="12" cy="5" r="2" fill="currentColor"/>
                     </svg>
                     Doa-doa
                 </a>
 
-                {{-- ★ Tasbih --}}
+                <!-- Tasbih - Icon Lingkaran Tasbih dengan Tassel (seperti gambar) -->
                 <a href="{{ route('tasbih.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('tasbih.*') ? 'bg-white/30' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                        <!-- Beads circle -->
+                        <circle cx="3" cy="12" r="2"/>
+                        <circle cx="5.5" cy="8" r="2"/>
+                        <circle cx="9" cy="5.5" r="2"/>
+                        <circle cx="12" cy="3" r="2"/>
+                        <circle cx="15" cy="5.5" r="2"/>
+                        <circle cx="18.5" cy="8" r="2"/>
+                        <circle cx="21" cy="12" r="2"/>
+                        <circle cx="18.5" cy="16" r="2"/>
+                        <circle cx="15" cy="18.5" r="2"/>
+                        <circle cx="12" cy="21" r="2"/>
+                        <circle cx="9" cy="18.5" r="2"/>
+                        <circle cx="5.5" cy="16" r="2"/>
+                        <!-- Tassel -->
+                        <rect x="11" y="21" width="2" height="3" rx="0.5"/>
+                        <circle cx="12" cy="24.5" r="1"/>
                     </svg>
                     Tasbih
                 </a>
 
-                {{-- ★ BARU: Arah Kiblat --}}
+                <!-- Kiblat - Icon Kompas dengan Ka'bah (seperti gambar 3) -->
                 <a href="{{ route('qibla.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('qibla.*') ? 'bg-white/30' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <!-- Kompas lingkaran -->
+                        <circle cx="12" cy="12" r="10"/>
+                        <!-- Jarum utara -->
+                        <path d="M12 4 L13 12 L12 11.5 Z" fill="currentColor"/>
+                        <!-- Ka'bah di tengah (kotak 3D sederhana) -->
+                        <rect x="9" y="10" width="6" height="5" stroke-width="1.5" fill="none"/>
+                        <path d="M9 10 L12 8 L15 10" stroke-width="1.5"/>
+                        <line x1="12" y1="8" x2="12" y2="10" stroke-width="1.5"/>
+                        <!-- Tanda arah N -->
+                        <text x="12" y="3.5" text-anchor="middle" font-size="2.5" fill="currentColor" font-weight="bold">N</text>
                     </svg>
                     Kiblat
                 </a>
 
-                {{-- ★ Tracking Shalat --}}
+                <!-- Tracking Shalat - Icon Kalender dengan Checklist (sederhana & masuk akal) -->
                 <a href="{{ route('prayer-tracking.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-white/30' : '' }}">
                     <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -199,37 +236,55 @@
             <a href="{{ route('asmaul-husna.index') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('asmaul-husna.*') ? 'bg-white/30' : '' }}">
                 <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                    <text x="2" y="18" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor">99</text>
                 </svg>
                 Asmaul Husna
             </a>
             <a href="{{ route('doa-pendek.index') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('doa-pendek.*') ? 'bg-white/30' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M8 11 L8 18 C8 19 9 20 10 20 L10 21" stroke-linecap="round"/>
+                    <path d="M8 14 L10 14" stroke-linecap="round"/>
+                    <path d="M16 11 L16 18 C16 19 15 20 14 20 L14 21" stroke-linecap="round"/>
+                    <path d="M16 14 L14 14" stroke-linecap="round"/>
+                    <path d="M8 11 L8 7" stroke-linecap="round"/>
+                    <path d="M16 11 L16 7" stroke-linecap="round"/>
+                    <circle cx="12" cy="5" r="2" fill="currentColor"/>
                 </svg>
                 Doa-doa
             </a>
-
-            {{-- ★ Tasbih (Mobile) --}}
             <a href="{{ route('tasbih.index') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('tasbih.*') ? 'bg-white/30' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="3" cy="12" r="2"/>
+                    <circle cx="5.5" cy="8" r="2"/>
+                    <circle cx="9" cy="5.5" r="2"/>
+                    <circle cx="12" cy="3" r="2"/>
+                    <circle cx="15" cy="5.5" r="2"/>
+                    <circle cx="18.5" cy="8" r="2"/>
+                    <circle cx="21" cy="12" r="2"/>
+                    <circle cx="18.5" cy="16" r="2"/>
+                    <circle cx="15" cy="18.5" r="2"/>
+                    <circle cx="12" cy="21" r="2"/>
+                    <circle cx="9" cy="18.5" r="2"/>
+                    <circle cx="5.5" cy="16" r="2"/>
+                    <rect x="11" y="21" width="2" height="3" rx="0.5"/>
+                    <circle cx="12" cy="24.5" r="1"/>
                 </svg>
                 Tasbih Digital
             </a>
-
-            {{-- ★ BARU: Arah Kiblat (Mobile) --}}
             <a href="{{ route('qibla.index') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('qibla.*') ? 'bg-white/30' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 4 L13 12 L12 11.5 Z" fill="currentColor"/>
+                    <rect x="9" y="10" width="6" height="5" stroke-width="1.5" fill="none"/>
+                    <path d="M9 10 L12 8 L15 10" stroke-width="1.5"/>
+                    <line x1="12" y1="8" x2="12" y2="10" stroke-width="1.5"/>
+                    <text x="12" y="3.5" text-anchor="middle" font-size="2.5" fill="currentColor" font-weight="bold">N</text>
                 </svg>
                 Arah Kiblat
             </a>
-
-            {{-- ★ Tracking Shalat (Mobile) --}}
             <a href="{{ route('prayer-tracking.index') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-white/30' : '' }}">
                 <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -239,7 +294,6 @@
             </a>
 
             @auth
-                <!-- Mobile User Menu -->
                 <div class="border-t border-white/20 pt-3 mt-3">
                     <div class="px-3 py-2 text-white/80 text-sm font-medium">
                         {{ auth()->user()->name }}

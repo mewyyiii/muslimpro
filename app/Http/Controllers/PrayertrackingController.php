@@ -90,52 +90,74 @@ class PrayerTrackingController extends Controller
      */
     public function store(Request $request)
     {
+        // Handle reset_all action first
+        if ($request->has('action') && $request->action === 'reset_all') {
+            $request->validate([
+                'prayer_date' => 'required|date',
+            ]);
+
+            PrayerTracking::where('user_id', Auth::id())
+                          ->where('prayer_date', $request->prayer_date)
+                          ->delete();
+
+            return response()->json(['success' => true, 'message' => 'Semua shalat hari ini berhasil dibatalkan!']);
+        }
+
+        // Validate individual prayer tracking request
+        // Only 'performed' status or null status expected from frontend
         $request->validate([
             'prayer_name' => 'required|in:fajr,dhuhr,asr,maghrib,isha',
             'prayer_date' => 'required|date',
-            'status'      => 'required|in:performed,missed,qada',
-            'notes'       => 'nullable|string|max:255',
+            'status'      => 'nullable|in:performed', // Only 'performed' or null is allowed
         ]);
 
         $prayerName = $request->prayer_name;
         $prayerDate = Carbon::parse($request->prayer_date);
         $currentDateTime = Carbon::now();
 
-        // Backend validation for current day only
+        // Backend time validation for current day only
         if ($prayerDate->isToday()) {
             $prayerIndex = array_search($prayerName, $this->prayers);
+            // This check should not be needed if 'in' validation handles it, but kept for robustness.
             if ($prayerIndex === false) {
-                // Should not happen due to 'in' validation rule, but as a safeguard
                 return response()->json(['success' => false, 'message' => 'Invalid prayer name.'], 400);
             }
 
             $prayerStartTime = Carbon::parse($this->prayerTimes[$prayerName]);
 
-            // Determine end time for the current prayer (start of next prayer, or end of day for Isha)
             $nextPrayerStartTime = null;
             if ($prayerIndex < count($this->prayers) - 1) {
                 $nextPrayerName = $this->prayers[$prayerIndex + 1];
                 $nextPrayerStartTime = Carbon::parse($this->prayerTimes[$nextPrayerName]);
             } else {
-                // For Isha, the window ends at midnight
-                $nextPrayerStartTime = Carbon::parse('23:59');
+                $nextPrayerStartTime = Carbon::parse('23:59'); // For Isha, window ends at midnight
             }
 
             // If the submission is outside the allowed time, reject it
-            if ($currentDateTime->lt($prayerStartTime) || $currentDateTime->gte($nextPrayerStartTime)) {
+            // Only apply this time check if status is 'performed'. If status is null (undo), allow it.
+            if ($request->status === 'performed' && ($currentDateTime->lt($prayerStartTime) || $currentDateTime->gte($nextPrayerStartTime))) {
                 return response()->json(['success' => false, 'message' => 'Tidak bisa mencatat shalat di luar waktu yang ditentukan.'], 200);
             }
         }
 
+        // If status is null, it means the user wants to "un-perform" the prayer, so delete it
+        if ($request->status === null) {
+            PrayerTracking::where('user_id', Auth::id())
+                          ->where('prayer_date', $request->prayer_date)
+                          ->where('prayer_name', $prayerName)
+                          ->delete();
+            return response()->json(['success' => true, 'message' => 'Shalat berhasil dibatalkan!']);
+        }
+
+        // Otherwise, update or create the 'performed' status
         PrayerTracking::updateOrCreate(
             [
                 'user_id'     => Auth::id(),
                 'prayer_date' => $request->prayer_date,
-                'prayer_name' => $request->prayer_name,
+                'prayer_name' => $prayerName,
             ],
             [
-                'status' => $request->status,
-                'notes'  => $request->notes,
+                'status' => 'performed', // Status is always 'performed' if not null
             ]
         );
 
