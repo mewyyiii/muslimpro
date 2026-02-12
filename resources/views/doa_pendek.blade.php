@@ -80,11 +80,32 @@
     </h1>
     
     <div class="w-full max-w-md mx-auto mb-8">
-        <input type="text" 
-            id="doa-search-input" 
-            placeholder="Cari doa (e.g. Rabbana Atina)" 
-            class="w-full p-3 rounded-lg shadow-sm border focus:outline-none focus:ring-2" 
-            style="border-color: #10B981;">
+        <div class="relative">
+            <input type="text"
+                id="doa-search-input"
+                placeholder="Cari doa..."
+                class="w-full pl-16 pr-4 py-3 rounded-xl border-2 focus:outline-none focus:ring-2 transition-all"
+                style="
+                    background-color: var(--surface);
+                    color: var(--text-primary);
+                    border-color: #10B981;
+                ">
+
+            <!-- Icon Search -->
+            <div class="absolute left-5 top-1/2 transform -translate-y-1/2"
+                style="color: #047857;">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+        </div>
     </div>
 
     <div id="doa-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
