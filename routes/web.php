@@ -8,7 +8,7 @@ use App\Http\Controllers\QuranController;
 use App\Http\Controllers\PrayerTrackingController;
 use App\Http\Controllers\TasbihController;
 use App\Http\Controllers\QiblaController; // ★ BARU
-// use App\Http\Controllers\QController; // ★ BARU
+use App\Http\Controllers\QController; // ★ BARU
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -57,14 +57,14 @@ Route::middleware('auth')->group(function () {
 });
 
 // Quran Tracking Routes
-    // Route::get('/quran-tracking', [QuranTrackingController::class, 'index'])
-    //     ->name('quran-tracking.index');
-    // Route::get('/quran-tracking/summary', [QuranTrackingController::class, 'summary'])
-    //     ->name('quran-tracking.summary');
-    // Route::post('/quran-tracking/update', [QuranTrackingController::class, 'updateProgress'])
-    //     ->name('quran-tracking.update');
-    // Route::post('/quran-tracking/reset', [QuranTrackingController::class, 'resetSurah'])
-    //     ->name('quran-tracking.reset');
+    Route::get('/quran-tracking', [QuranTrackingController::class, 'index'])
+        ->name('quran-tracking.index');
+    Route::get('/quran-tracking/summary', [QuranTrackingController::class, 'summary'])
+        ->name('quran-tracking.summary');
+    Route::post('/quran-tracking/update', [QuranTrackingController::class, 'updateProgress'])
+        ->name('quran-tracking.update');
+    Route::post('/quran-tracking/reset', [QuranTrackingController::class, 'resetSurah'])
+        ->name('quran-tracking.reset');
 
 
 require __DIR__.'/auth.php';
