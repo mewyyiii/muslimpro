@@ -387,41 +387,21 @@
 
 @push('scripts')
 <script>
-// Sync avatar input ke form utama
-document.getElementById('avatar-input').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    // Preview
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-        document.getElementById('avatar-preview').src = ev.target.result;
-    };
-    reader.readAsDataURL(file);
-
-    // Transfer file ke form input
-//     const dt = new DataTransfer();
-//     dt.items.add(file);
-//     document.getElementById('avatar-form-input').files = dt.files;
-// });
-
 function avatarUploader() {
     return {
         changed: false,
         preview(event) {
             const file = event.target.files[0];
-            if (!file) return;
+            if (!file) {
+                this.changed = false;
+                return;
+            }
             this.changed = true;
             const reader = new FileReader();
             reader.onload = (e) => {
                 document.getElementById('avatar-preview').src = e.target.result;
             };
             reader.readAsDataURL(file);
-
-            // Transfer ke form
-            const dt = new DataTransfer();
-            dt.items.add(file);
-            document.getElementById('avatar-form-input').files = dt.files;
         }
     };
 }
