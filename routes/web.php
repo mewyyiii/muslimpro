@@ -8,6 +8,7 @@ use App\Http\Controllers\QuranController;
 use App\Http\Controllers\PrayerTrackingController;
 use App\Http\Controllers\TasbihController;
 use App\Http\Controllers\QiblaController; // ★ BARU
+use App\Http\Controllers\QuranTrackingController; // ★ BARU
 
 Route::get('/', function () {
     return redirect()->route('login');
