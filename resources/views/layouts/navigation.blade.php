@@ -89,7 +89,7 @@
                         <path d="M16 11 L16 7" stroke-linecap="round"/>
                         <circle cx="12" cy="5" r="2" fill="currentColor"/>
                     </svg>
-                    Doa-doa
+                    Doa Pendek
                 </a>
 
                 <!-- Tasbih - Icon Lingkaran Tasbih dengan Tassel (seperti gambar) -->
