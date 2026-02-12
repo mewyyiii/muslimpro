@@ -13,7 +13,7 @@
         border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    /* Card Surah */
+    /* Card Surah (warna jangan dihilangkan -> tetap var(--surface)) */
     .surah-card {
         background-color: var(--surface);
         border-radius: 14px;
@@ -33,11 +33,13 @@
 @endpush
 
 @section('content')
+{{-- Jarak dari navbar dibuat nyaman seperti doa_pendek --}}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12">
 
     <!-- ===== HEADER ===== -->
     <div class="text-center page-header">
-        <h1 class="text-3xl font-bold" style="color: var(--text-primary);">
+        {{-- Tambahin margin-top supaya judul tidak terlalu dekat navbar --}}
+        <h1 class="text-3xl font-bold mt-4" style="color: var(--text-primary);">
             Al-Quran
         </h1>
     </div>
