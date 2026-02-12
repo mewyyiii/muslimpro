@@ -8,7 +8,7 @@
         font-family: 'Amiri', serif;
     }
 
-    /* ===== Card Emerald (seperti Asmaul Husna) ===== */
+    /* ===== Card Emerald ===== */
     .surah-card {
         background: linear-gradient(90deg, #1FAF90, #10B981);
         color: white;
@@ -35,41 +35,23 @@
 @endpush
 
 @section('content')
-{{-- Mengikuti konsep jarak seperti Asmaul Husna --}}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
 
     <h1 class="text-3xl font-bold text-center mb-6 mt-4">
         Al-Quran
     </h1>
 
-    {{-- SEARCH (mengikuti Asmaul Husna: ada icon + border-2 + rounded-xl) --}}
+    {{-- SEARCH TANPA ICON --}}
     <div class="w-full max-w-md mx-auto mb-8">
-        <div class="relative">
-            <input type="text"
-                id="surah-search-input"
-                placeholder="Cari surah (e.g. Al-Fatihah, Pembukaan)"
-                class="w-full pl-16 pr-4 py-3 rounded-xl border-2 focus:outline-none focus:ring-2 transition-all"
-                style="
-                    background-color: var(--surface);
-                    color: var(--text-primary);
-                    border-color: #10B981;
-                ">
-
-            <!-- Icon Search -->
-            <div class="absolute left-5 top-1/2 transform -translate-y-1/2"
-                 style="color: #047857;">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     class="w-5 h-5"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     stroke="currentColor"
-                     stroke-width="2">
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-            </div>
-        </div>
+        <input type="text"
+            id="surah-search-input"
+            placeholder="Cari surah (e.g. Al-Fatihah, Pembukaan)"
+            class="w-full px-4 py-3 rounded-xl border-2 focus:outline-none focus:ring-2 transition-all"
+            style="
+                background-color: var(--surface);
+                color: var(--text-primary);
+                border-color: #10B981;
+            ">
     </div>
 
     {{-- GRID SURAH --}}
