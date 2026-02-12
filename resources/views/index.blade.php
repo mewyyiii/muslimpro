@@ -2,89 +2,111 @@
 
 @push('styles')
 <style>
-    /* Divider header biar clean */
-    .page-header {
-        border-bottom: 1px solid rgba(0,0,0,0.06);
-        padding-bottom: 12px;
-        margin-bottom: 24px;
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&display=swap');
+
+    .font-arabic {
+        font-family: 'Amiri', serif;
     }
 
-    .dark .page-header {
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    /* Card Surah (warna jangan dihilangkan -> tetap var(--surface)) */
+    /* ===== Card Emerald (seperti Asmaul Husna) ===== */
     .surah-card {
-        background-color: var(--surface);
+        background: linear-gradient(90deg, #1FAF90, #10B981);
+        color: white;
         border-radius: 14px;
-        transition: all 0.25s ease;
-        border: 1px solid rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        cursor: pointer;
     }
 
     .surah-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 20px rgba(0,0,0,0.08);
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
     }
 
-    .dark .surah-card {
-        border: 1px solid rgba(255,255,255,0.08);
+    /* Lingkaran nomor */
+    .surah-number {
+        background-color: rgba(255,255,255,0.25);
+    }
+
+    /* teks putih soft */
+    .surah-muted {
+        color: rgba(255,255,255,0.85);
     }
 </style>
 @endpush
 
 @section('content')
-{{-- Jarak dari navbar dibuat nyaman seperti doa_pendek --}}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12">
+{{-- Mengikuti konsep jarak seperti Asmaul Husna --}}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
 
-    <!-- ===== HEADER ===== -->
-    <div class="text-center page-header">
-        {{-- Tambahin margin-top supaya judul tidak terlalu dekat navbar --}}
-        <h1 class="text-3xl font-bold mt-4" style="color: var(--text-primary);">
-            Al-Quran
-        </h1>
-    </div>
+    <h1 class="text-3xl font-bold text-center mb-6 mt-4">
+        Al-Quran
+    </h1>
 
-    <!-- ===== SEARCH (Disamakan dengan doa_pendek) ===== -->
+    {{-- SEARCH (mengikuti Asmaul Husna: ada icon + border-2 + rounded-xl) --}}
     <div class="w-full max-w-md mx-auto mb-8">
-        <input type="text"
-            id="surah-search-input"
-            placeholder="Cari surah (e.g. Al-Fatihah, Pembukaan)"
-            class="w-full p-3 rounded-lg shadow-sm border focus:outline-none focus:ring-2"
-            style="border-color: #10B981;">
+        <div class="relative">
+            <input type="text"
+                id="surah-search-input"
+                placeholder="Cari surah (e.g. Al-Fatihah, Pembukaan)"
+                class="w-full pl-16 pr-4 py-3 rounded-xl border-2 focus:outline-none focus:ring-2 transition-all"
+                style="
+                    background-color: var(--surface);
+                    color: var(--text-primary);
+                    border-color: #10B981;
+                ">
+
+            <!-- Icon Search -->
+            <div class="absolute left-5 top-1/2 transform -translate-y-1/2"
+                 style="color: #047857;">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-5 h-5"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor"
+                     stroke-width="2">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+        </div>
     </div>
 
-    <!-- ===== GRID SURAH ===== -->
+    {{-- GRID SURAH --}}
     <div id="surah-grid"
          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
         @foreach($surahs as $surah)
             <a href="{{ route('quran.show', $surah->number) }}"
-               class="surah-card block p-5 shadow-sm"
-               data-surah-name="{{ strtolower($surah->name . ' ' . $surah->translation) }}">
+               class="surah-card block p-5 shadow-md surah-card-item"
+               data-surah-terms="{{ strtolower($surah->name . ' ' . $surah->translation . ' ' . $surah->arabic_name) }}">
 
                 <div class="flex justify-between items-center mb-3">
-                    <span class="font-bold text-gray-400">
-                        {{ $surah->number }}
-                    </span>
 
-                    <h2 class="text-2xl font-arabic"
-                        style="color: var(--text-primary);">
-                        {{ $surah->arabic_name }}
-                    </h2>
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full surah-number">
+                        <span class="font-bold text-sm text-white">
+                            {{ $surah->number }}
+                        </span>
+                    </div>
+
+                    <div class="text-right">
+                        <h2 class="text-2xl font-arabic font-bold text-white">
+                            {{ $surah->arabic_name }}
+                        </h2>
+                    </div>
+
                 </div>
 
                 <div>
-                    <h3 class="text-lg font-bold"
-                        style="color: var(--text-primary);">
+                    <h3 class="text-lg font-bold text-white">
                         {{ $surah->name }}
                     </h3>
 
-                    <p class="text-sm"
-                       style="color: var(--text-primary-muted);">
+                    <p class="text-sm surah-muted">
                         "{{ $surah->translation }}"
                     </p>
 
-                    <p class="text-xs mt-2 text-gray-500">
+                    <p class="text-xs mt-2 surah-muted">
                         {{ $surah->total_verses }} Ayat
                     </p>
                 </div>
@@ -96,23 +118,22 @@
 </div>
 @endsection
 
-
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
     const searchInput = document.getElementById('surah-search-input');
     const surahGrid = document.getElementById('surah-grid');
-    const surahCards = surahGrid.getElementsByClassName('surah-card');
+    const surahCards = surahGrid.getElementsByClassName('surah-card-item');
 
     searchInput.addEventListener('keyup', function () {
         const searchTerm = searchInput.value.toLowerCase().trim();
 
         for (let i = 0; i < surahCards.length; i++) {
             const card = surahCards[i];
-            const surahName = card.getAttribute('data-surah-name');
+            const terms = card.getAttribute('data-surah-terms') || '';
 
-            if (surahName.includes(searchTerm)) {
+            if (terms.includes(searchTerm)) {
                 card.style.display = 'block';
             } else {
                 card.style.display = 'none';
