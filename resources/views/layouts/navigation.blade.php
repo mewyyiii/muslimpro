@@ -77,22 +77,19 @@
                     Asmaul Husna
                 </a>
                 
-                <!-- Doa-doa - Icon Tangan Berdoa -->
+                <!-- Doa Pendek - Icon Bulan & Bintang (Image 1) -->
                 <a href="{{ route('doa-pendek.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('doa-pendek.*') ? 'bg-white/30' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M8 11 L8 18 C8 19 9 20 10 20 L10 21" stroke-linecap="round"/>
-                        <path d="M8 14 L10 14" stroke-linecap="round"/>
-                        <path d="M16 11 L16 18 C16 19 15 20 14 20 L14 21" stroke-linecap="round"/>
-                        <path d="M16 14 L14 14" stroke-linecap="round"/>
-                        <path d="M8 11 L8 7" stroke-linecap="round"/>
-                        <path d="M16 11 L16 7" stroke-linecap="round"/>
-                        <circle cx="12" cy="5" r="2" fill="currentColor"/>
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                        <!-- Bulan Sabit Besar -->
+                        <path d="M9 2 C5 3, 2 7, 2 12 C2 17, 5 21, 9 22 C6 21, 4 17, 4 12 C4 7, 6 3, 9 2 Z"/>
+                        <!-- Bintang -->
+                        <path d="M16 6 L17 9 L20 10 L17 11 L16 14 L15 11 L12 10 L15 9 Z"/>
                     </svg>
                     Doa Pendek
                 </a>
 
-                <!-- Tasbih - Icon Lingkaran Tasbih dengan Tassel (seperti gambar) -->
+                <!-- Tasbih - Icon Lingkaran Tasbih dengan Tassel (TIDAK DIUBAH) -->
                 <a href="{{ route('tasbih.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('tasbih.*') ? 'bg-white/30' : '' }}">
                     <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
@@ -116,29 +113,43 @@
                     Tasbih
                 </a>
 
-                <!-- Kiblat - Icon Kompas dengan Ka'bah (seperti gambar 3) -->
+                <!-- Kiblat - Icon Masjid (Image 2 - Kiri) -->
                 <a href="{{ route('qibla.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('qibla.*') ? 'bg-white/30' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <!-- Kompas lingkaran -->
-                        <circle cx="12" cy="12" r="10"/>
-                        <!-- Jarum utara -->
-                        <path d="M12 4 L13 12 L12 11.5 Z" fill="currentColor"/>
-                        <!-- Ka'bah di tengah (kotak 3D sederhana) -->
-                        <rect x="9" y="10" width="6" height="5" stroke-width="1.5" fill="none"/>
-                        <path d="M9 10 L12 8 L15 10" stroke-width="1.5"/>
-                        <line x1="12" y1="8" x2="12" y2="10" stroke-width="1.5"/>
-                        <!-- Tanda arah N -->
-                        <text x="12" y="3.5" text-anchor="middle" font-size="2.5" fill="currentColor" font-weight="bold">N</text>
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                        <!-- Kubah Masjid -->
+                        <path d="M8 11 C8 11, 10 8, 12 8 C14 8, 16 11, 16 11 L16 18 L8 18 Z"/>
+                        <!-- Bulan di atas kubah -->
+                        <path d="M12 5 C11.2 5, 10.5 5.7, 10.5 6.5 C10.5 7.3, 11.2 8, 12 8 C11.6 8, 11.3 7.5, 11.3 7 C11.3 6.5, 11.6 6.2, 12 6.2 Z"/>
+                        <!-- Menara Kiri -->
+                        <rect x="6" y="10" width="2" height="8"/>
+                        <circle cx="7" cy="9" r="1"/>
+                        <!-- Menara Kanan -->
+                        <rect x="16" y="10" width="2" height="8"/>
+                        <circle cx="17" cy="9" r="1"/>
+                        <!-- Base -->
+                        <rect x="6" y="18" width="12" height="1"/>
                     </svg>
                     Kiblat
                 </a>
 
-                <!-- Tracking Shalat - Icon Kalender dengan Checklist (sederhana & masuk akal) -->
+                <!-- Tracking Shalat - Icon Orang Shalat/Sujud (Image 2 - Kanan) -->
                 <a href="{{ route('prayer-tracking.index') }}" 
                    class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-white/30' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                        <!-- Kepala -->
+                        <circle cx="12" cy="5" r="2.5"/>
+                        <!-- Badan sujud -->
+                        <path d="M12 7.5 C12 7.5, 11 10, 10 11 L8 12"/>
+                        <path d="M12 7.5 C12 7.5, 13 10, 14 11 L16 12"/>
+                        <!-- Kaki -->
+                        <path d="M10 11 L9 15"/>
+                        <path d="M14 11 L15 15"/>
+                        <!-- Tangan ke lantai -->
+                        <ellipse cx="8" cy="13" rx="1.5" ry="1"/>
+                        <ellipse cx="16" cy="13" rx="1.5" ry="1"/>
+                        <!-- Base/Sajadah -->
+                        <rect x="6" y="16" width="12" height="1" rx="0.5" opacity="0.4"/>
                     </svg>
                     Shalat
                 </a>
@@ -300,19 +311,18 @@
                 </svg>
                 Asmaul Husna
             </a>
+            
+            <!-- DOA PENDEK Mobile - Bulan & Bintang -->
             <a href="{{ route('doa-pendek.index') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('doa-pendek.*') ? 'bg-white/30' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M8 11 L8 18 C8 19 9 20 10 20 L10 21" stroke-linecap="round"/>
-                    <path d="M8 14 L10 14" stroke-linecap="round"/>
-                    <path d="M16 11 L16 18 C16 19 15 20 14 20 L14 21" stroke-linecap="round"/>
-                    <path d="M16 14 L14 14" stroke-linecap="round"/>
-                    <path d="M8 11 L8 7" stroke-linecap="round"/>
-                    <path d="M16 11 L16 7" stroke-linecap="round"/>
-                    <circle cx="12" cy="5" r="2" fill="currentColor"/>
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M9 2 C5 3, 2 7, 2 12 C2 17, 5 21, 9 22 C6 21, 4 17, 4 12 C4 7, 6 3, 9 2 Z"/>
+                    <path d="M16 6 L17 9 L20 10 L17 11 L16 14 L15 11 L12 10 L15 9 Z"/>
                 </svg>
                 Doa-doa
             </a>
+            
+            <!-- TASBIH Mobile (TIDAK DIUBAH) -->
             <a href="{{ route('tasbih.index') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('tasbih.*') ? 'bg-white/30' : '' }}">
                 <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24">
@@ -333,22 +343,34 @@
                 </svg>
                 Tasbih Digital
             </a>
+            
+            <!-- KIBLAT Mobile - Masjid -->
             <a href="{{ route('qibla.index') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('qibla.*') ? 'bg-white/30' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 4 L13 12 L12 11.5 Z" fill="currentColor"/>
-                    <rect x="9" y="10" width="6" height="5" stroke-width="1.5" fill="none"/>
-                    <path d="M9 10 L12 8 L15 10" stroke-width="1.5"/>
-                    <line x1="12" y1="8" x2="12" y2="10" stroke-width="1.5"/>
-                    <text x="12" y="3.5" text-anchor="middle" font-size="2.5" fill="currentColor" font-weight="bold">N</text>
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 11 C8 11, 10 8, 12 8 C14 8, 16 11, 16 11 L16 18 L8 18 Z"/>
+                    <path d="M12 5 C11.2 5, 10.5 5.7, 10.5 6.5 C10.5 7.3, 11.2 8, 12 8 C11.6 8, 11.3 7.5, 11.3 7 C11.3 6.5, 11.6 6.2, 12 6.2 Z"/>
+                    <rect x="6" y="10" width="2" height="8"/>
+                    <circle cx="7" cy="9" r="1"/>
+                    <rect x="16" y="10" width="2" height="8"/>
+                    <circle cx="17" cy="9" r="1"/>
+                    <rect x="6" y="18" width="12" height="1"/>
                 </svg>
                 Arah Kiblat
             </a>
+            
+            <!-- SHALAT Mobile - Orang Sujud -->
             <a href="{{ route('prayer-tracking.index') }}" 
                class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-white/30' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="5" r="2.5"/>
+                    <path d="M12 7.5 C12 7.5, 11 10, 10 11 L8 12"/>
+                    <path d="M12 7.5 C12 7.5, 13 10, 14 11 L16 12"/>
+                    <path d="M10 11 L9 15"/>
+                    <path d="M14 11 L15 15"/>
+                    <ellipse cx="8" cy="13" rx="1.5" ry="1"/>
+                    <ellipse cx="16" cy="13" rx="1.5" ry="1"/>
+                    <rect x="6" y="16" width="12" height="1" rx="0.5" opacity="0.4"/>
                 </svg>
                 Tracking Shalat
             </a>
