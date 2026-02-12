@@ -293,3 +293,123 @@ function prayerWidget() {
 }
 </script>
 @endpush
+
+{{-- ══════════════════════════════════════════════════════════════════════════
+     WIDGET TRACKING MENGAJI — Tempel di home.blade.php setelah widget shalat
+══════════════════════════════════════════════════════════════════════════ --}}
+
+<div class="mb-8 md:mb-12"
+     x-data="quranWidget()"
+     x-init="load()">
+
+    <div class="bg-white rounded-2xl shadow-xl p-5 md:p-6 relative overflow-hidden">
+
+        {{-- Dekorasi background --}}
+        <div class="absolute top-0 right-0 w-40 h-40 bg-emerald-50 rounded-full -mr-20 -mt-20 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-24 h-24 bg-teal-50 rounded-full -ml-12 -mb-12 pointer-events-none"></div>
+
+        <div class="relative z-10">
+            {{-- Header widget --}}
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-base md:text-lg font-bold text-gray-800 flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center text-sm">📖</span>
+                    Membaca Al-Quran
+                </h3>
+                <a href="{{ route('quran-tracking.index') }}"
+                   class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 hover:underline transition-colors flex items-center gap-1">
+                    Lihat detail
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+
+            {{-- Loading state --}}
+            <template x-if="loading">
+                <div class="flex items-center justify-center py-6">
+                    <div class="w-6 h-6 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin"></div>
+                </div>
+            </template>
+
+            {{-- Konten --}}
+            <template x-if="!loading">
+                <div>
+                    {{-- Progress bar --}}
+                    <div class="mb-4">
+                        <div class="flex items-end justify-between mb-1.5">
+                            <span class="text-2xl font-bold text-emerald-600"
+                                  x-text="data.total_completed + '/114'"></span>
+                            <span class="text-sm text-gray-500">
+                                <span class="font-semibold text-amber-500">🔥 <span x-text="data.streak"></span></span>
+                                hari berturut
+                            </span>
+                        </div>
+                        <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-700 ease-out"
+                                 :style="'width: ' + data.percent + '%'"></div>
+                        </div>
+                        <div class="mt-1 text-xs text-gray-400 text-right"
+                             x-text="data.percent + '% surah selesai'"></div>
+                    </div>
+
+                    {{-- Last read info --}}
+                    <template x-if="data.last_read">
+                        <div class="p-3 bg-emerald-50 border border-emerald-100 rounded-xl">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <p class="text-xs text-emerald-600 font-semibold mb-0.5">Terakhir dibaca:</p>
+                                    <p class="text-sm font-bold text-emerald-800"
+                                       x-text="data.last_read.surah_number + '. ' + data.last_read.surah_name"></p>
+                                    <p class="text-xs text-emerald-600 mt-0.5">
+                                        Sampai ayat <span x-text="data.last_read.last_verse"></span>
+                                        (<span x-text="data.last_read.progress"></span>%)
+                                    </p>
+                                </div>
+                                <a :href="'/surah/' + data.last_read.surah_number"
+                                   class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold rounded-lg transition-colors">
+                                    Lanjut
+                                </a>
+                            </div>
+                        </div>
+                    </template>
+
+                    {{-- Belum mulai --}}
+                    <template x-if="!data.last_read">
+                        <div class="text-center">
+                            <a href="{{ route('quran.index') }}"
+                               class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-400 to-teal-500 text-white text-sm font-semibold rounded-xl shadow hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
+                                Mulai membaca Al-Quran →
+                            </a>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+function quranWidget() {
+    return {
+        loading: true,
+        data: { total_completed: 0, total_surah: 114, percent: 0, streak: 0, last_read: null },
+
+        async load() {
+            try {
+                const res = await fetch('{{ route("quran-tracking.summary") }}', {
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                });
+                this.data = await res.json();
+            } catch (e) {
+                console.error(e);
+            }
+            this.loading = false;
+        }
+    };
+}
+</script>
+@endpush

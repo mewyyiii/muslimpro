@@ -177,12 +177,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const playAllBtn = document.getElementById('play-all-btn');
     const surahAudioUrl = "{{ $surah->audio_url }}";
     const surahName = "{{ $surah->name }}";
+    const surahNumber = {{ $surah->number }};
+
+    // ★ TRACKING VARIABLES
+    let readingStartTime = Date.now();
+    let currentVerse = 1;
+    let totalDuration = 0;
+    let trackingInterval = null;
+
+    // ★ Start tracking saat halaman dibuka
+    startTracking();
 
     function playFullSurahAudio(verseNumber = 1) {
         mainPlayer.src = surahAudioUrl;
         mainPlayer.play();
         playerInfo.textContent = `Memutar: Surah ${surahName}`;
         updatePlayingIndicator(verseNumber);
+        currentVerse = verseNumber;
     }
 
     function removePlayingIndicator() {
@@ -196,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
             verseElement.classList.add('playing');
             verseElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
+        currentVerse = verseNumber;
     }
 
     document.querySelectorAll('.play-verse-btn').forEach(button => {
@@ -206,6 +218,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // ★ Track scroll position untuk update progress
+    const verseItems = document.querySelectorAll('.verse-item');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const verseNum = parseInt(entry.target.dataset.verseNumber);
+                if (verseNum > currentVerse) {
+                    currentVerse = verseNum;
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    verseItems.forEach(item => observer.observe(item));
+
     playAllBtn.addEventListener('click', function() {
         playFullSurahAudio();
     });
@@ -213,6 +240,68 @@ document.addEventListener('DOMContentLoaded', function() {
     mainPlayer.addEventListener('ended', function() {
         removePlayingIndicator();
         playerInfo.textContent = "Pilih ayat untuk memulai";
+    });
+
+    // ★ TRACKING FUNCTIONS
+    function startTracking() {
+        // Auto-save setiap 30 detik
+        trackingInterval = setInterval(() => {
+            saveProgress();
+        }, 30000);
+    }
+
+    function saveProgress() {
+        const duration = Math.floor((Date.now() - readingStartTime) / 1000);
+        totalDuration += duration;
+        readingStartTime = Date.now();
+
+        fetch('{{ route("quran-tracking.update") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                surah_number: surahNumber,
+                last_verse: currentVerse,
+                duration_seconds: duration,
+            }),
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.is_completed) {
+                showCompletionNotification();
+            }
+        })
+        .catch(err => console.error('Tracking error:', err));
+    }
+
+    function showCompletionNotification() {
+        // Simple notification saat surah selesai
+        const notification = document.createElement('div');
+        notification.className = 'fixed bottom-4 right-4 bg-emerald-500 text-white px-6 py-4 rounded-xl shadow-2xl z-50 animate-bounce';
+        notification.innerHTML = `
+            <p class="font-bold">✨ MasyaAllah!</p>
+            <p class="text-sm">Surah ${surahName} selesai!</p>
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 5000);
+    }
+
+    // ★ Save saat user meninggalkan halaman
+    window.addEventListener('beforeunload', () => {
+        saveProgress();
+        clearInterval(trackingInterval);
+    });
+
+    // ★ Save saat halaman disembunyikan (mobile)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            saveProgress();
+        } else {
+            readingStartTime = Date.now();
+        }
     });
 
 });

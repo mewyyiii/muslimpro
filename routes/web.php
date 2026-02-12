@@ -55,4 +55,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Quran Tracking Routes
+    Route::get('/quran-tracking', [QuranTrackingController::class, 'index'])
+        ->name('quran-tracking.index');
+    Route::get('/quran-tracking/summary', [QuranTrackingController::class, 'summary'])
+        ->name('quran-tracking.summary');
+    Route::post('/quran-tracking/update', [QuranTrackingController::class, 'updateProgress'])
+        ->name('quran-tracking.update');
+    Route::post('/quran-tracking/reset', [QuranTrackingController::class, 'resetSurah'])
+        ->name('quran-tracking.reset');
+
+
 require __DIR__.'/auth.php';
