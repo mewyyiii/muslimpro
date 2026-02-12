@@ -84,6 +84,22 @@ class ProfileController extends Controller
     }
 
     /**
+     * Hapus avatar saja (method baru)
+     */
+    public function deleteAvatar(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        if ($user->avatar) {
+            Storage::disk('public')->delete($user->avatar);
+            $user->avatar = null;
+            $user->save();
+        }
+
+        return Redirect::route('profile.edit')->with('status', 'avatar-deleted');
+    }
+
+    /**
      * Hapus akun
      */
     public function destroy(Request $request): RedirectResponse

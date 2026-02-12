@@ -148,11 +148,20 @@
             <div class="flex items-center space-x-2">
                 @auth
                     <!-- Desktop User Dropdown -->
-                    <div class="relative hidden md:block" x-data="{ userOpen: false }">
+                    <div class="relative hidden md:block" x-data="{ userOpen: false, showLogoutModal: false }">
                         <button @click="userOpen = !userOpen" 
                                 class="flex items-center space-x-2 px-3 py-2 rounded-lg text-white hover:bg-white/20 transition-all duration-200">
-                            <div class="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center">
-                                <span class="text-sm font-semibold">{{ substr(auth()->user()->name, 0, 1) }}</span>
+                            {{-- Avatar Image atau Initial --}}
+                            <div class="w-8 h-8 rounded-full overflow-hidden ring-2 ring-white/30 flex-shrink-0">
+                                @if(auth()->user()->avatar)
+                                    <img src="{{ asset('storage/'.auth()->user()->avatar) }}" 
+                                         alt="{{ auth()->user()->name }}"
+                                         class="w-full h-full object-cover">
+                                @else
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=14b8a6&color=fff&size=128" 
+                                         alt="{{ auth()->user()->name }}"
+                                         class="w-full h-full object-cover">
+                                @endif
                             </div>
                             <span class="hidden lg:block font-medium">{{ auth()->user()->name }}</span>
                             <svg class="w-4 h-4 transition-transform" :class="{'rotate-180': userOpen}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -169,22 +178,73 @@
                              x-transition:leave="transition ease-in duration-75"
                              x-transition:leave-start="transform opacity-100 scale-100"
                              x-transition:leave-end="transform opacity-0 scale-95"
-                             class="absolute right-0 mt-2 w-48 rounded-lg shadow-xl bg-white overflow-hidden z-50">
+                             class="absolute right-0 mt-2 w-48 rounded-lg shadow-xl bg-white overflow-hidden z-50"
+                             style="display: none;">
                             <a href="{{ route('profile.edit') }}" class="block px-4 py-3 text-gray-700 hover:bg-teal-50 transition-colors">
                                 <svg class="w-5 h-5 inline-block mr-2 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
                                 Profile
                             </a>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-teal-50 transition-colors border-t border-gray-100">
-                                    <svg class="w-5 h-5 inline-block mr-2 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button @click="userOpen = false; showLogoutModal = true" 
+                                    class="w-full text-left px-4 py-3 text-gray-700 hover:bg-teal-50 transition-colors border-t border-gray-100">
+                                <svg class="w-5 h-5 inline-block mr-2 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                </svg>
+                                Logout
+                            </button>
+                        </div>
+
+                        {{-- Modal Konfirmasi Logout --}}
+                        <div x-show="showLogoutModal"
+                             x-transition:enter="transition ease-out duration-500"
+                             x-transition:enter-start="opacity-0"
+                             x-transition:enter-end="opacity-100"
+                             x-transition:leave="transition ease-in duration-300"
+                             x-transition:leave-start="opacity-100"
+                             x-transition:leave-end="opacity-0"
+                             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+                             @click.self="showLogoutModal = false"
+                             style="display: none;">
+
+                            <div x-show="showLogoutModal"
+                                 x-transition:enter="transition ease-out duration-500"
+                                 x-transition:enter-start="opacity-0 scale-75 translate-y-8"
+                                 x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                                 x-transition:leave="transition ease-in duration-300"
+                                 x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                                 x-transition:leave-end="opacity-0 scale-90 translate-y-4"
+                                 class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-sm text-center">
+
+                                {{-- Icon Logout --}}
+                                <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                     </svg>
-                                    Logout
-                                </button>
-                            </form>
+                                </div>
+
+                                {{-- Title & Description --}}
+                                <h4 class="text-xl font-bold text-gray-800 mb-2">Keluar dari Akun?</h4>
+                                <p class="text-sm text-gray-500 mb-8">
+                                    Kamu akan keluar dari sesi ini. Yakin ingin melanjutkan?
+                                </p>
+
+                                {{-- Buttons --}}
+                                <div class="flex flex-col gap-3">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit"
+                                                class="w-full px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-xl transition-colors shadow-md">
+                                            Ya, Keluar
+                                        </button>
+                                    </form>
+                                    <button type="button"
+                                            @click="showLogoutModal = false"
+                                            class="w-full px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-colors">
+                                        Batal
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @else
@@ -294,25 +354,90 @@
             </a>
 
             @auth
-                <div class="border-t border-white/20 pt-3 mt-3">
-                    <div class="px-3 py-2 text-white/80 text-sm font-medium">
-                        {{ auth()->user()->name }}
+                <div class="border-t border-white/20 pt-3 mt-3" x-data="{ showLogoutModalMobile: false }">
+                    {{-- Avatar + Name di Mobile --}}
+                    <div class="flex items-center gap-3 px-3 py-2 mb-2">
+                        <div class="w-10 h-10 rounded-full overflow-hidden ring-2 ring-white/30 flex-shrink-0">
+                            @if(auth()->user()->avatar)
+                                <img src="{{ asset('storage/'.auth()->user()->avatar) }}" 
+                                     alt="{{ auth()->user()->name }}"
+                                     class="w-full h-full object-cover">
+                            @else
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=14b8a6&color=fff&size=128" 
+                                     alt="{{ auth()->user()->name }}"
+                                     class="w-full h-full object-cover">
+                            @endif
+                        </div>
+                        <div class="text-white/90 text-sm font-medium">
+                            {{ auth()->user()->name }}
+                        </div>
                     </div>
+                    
                     <a href="{{ route('profile.edit') }}" class="block px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200">
                         <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
                         Profile
                     </a>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="w-full text-left px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200">
-                            <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                            </svg>
-                            Logout
-                        </button>
-                    </form>
+                    <button @click="showLogoutModalMobile = true" 
+                            class="w-full text-left px-3 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200">
+                        <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                        Logout
+                    </button>
+
+                    {{-- Modal Konfirmasi Logout Mobile --}}
+                    <div x-show="showLogoutModalMobile"
+                         x-transition:enter="transition ease-out duration-500"
+                         x-transition:enter-start="opacity-0"
+                         x-transition:enter-end="opacity-100"
+                         x-transition:leave="transition ease-in duration-300"
+                         x-transition:leave-start="opacity-100"
+                         x-transition:leave-end="opacity-0"
+                         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+                         @click.self="showLogoutModalMobile = false"
+                         style="display: none;">
+
+                        <div x-show="showLogoutModalMobile"
+                             x-transition:enter="transition ease-out duration-500"
+                             x-transition:enter-start="opacity-0 scale-75 translate-y-8"
+                             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-300"
+                             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 scale-90 translate-y-4"
+                             class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-sm text-center">
+
+                            {{-- Icon Logout --}}
+                            <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                </svg>
+                            </div>
+
+                            {{-- Title & Description --}}
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Keluar dari Akun?</h4>
+                            <p class="text-sm text-gray-500 mb-8">
+                                Kamu akan keluar dari sesi ini. Yakin ingin melanjutkan?
+                            </p>
+
+                            {{-- Buttons --}}
+                            <div class="flex flex-col gap-3">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit"
+                                            class="w-full px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-xl transition-colors shadow-md">
+                                        Ya, Keluar
+                                    </button>
+                                </form>
+                                <button type="button"
+                                        @click="showLogoutModalMobile = false"
+                                        class="w-full px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-colors">
+                                    Batal
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             @else
                 <div class="border-t border-white/20 pt-3 mt-3 space-y-1">

@@ -24,10 +24,11 @@
                 <div class="relative flex-shrink-0" x-data="avatarUploader()">
                     <div class="w-24 h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden ring-4 ring-teal-100 shadow-lg">
                         <img id="avatar-preview"
-                                src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('images/default-avatar.png') }}"
+                                src="{{ $user->avatar ? asset('storage/'.$user->avatar) : 'https://ui-avatars.com/api/?name='.urlencode($user->name).'&background=14b8a6&color=fff&size=256' }}"
                                 alt="{{ $user->name }}"
                                 class="w-full h-full object-cover">
                     </div>
+                    
                     {{-- Tombol upload --}}
                     <label for="avatar-input"
                            class="absolute -bottom-2 -right-2 w-8 h-8 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center cursor-pointer shadow-md transition-colors"
@@ -37,14 +38,80 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                     </label>
-                  <input type="file"
-                    id="avatar-input"
-                    name="avatar"
-                    form="profile-form"
-                    accept="image/*"
-                    class="hidden"
-                    @change="preview($event)">
+                    
+                    {{-- Tombol hapus avatar (hanya muncul jika ada avatar custom) --}}
+                    @if($user->avatar)
+                    <button type="button"
+                            @click="showDeleteAvatarModal = true"
+                            class="absolute -top-2 -right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow-md transition-colors"
+                            title="Hapus foto">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    @endif
+
+                    <input type="file"
+                           id="avatar-input"
+                           name="avatar"
+                           form="profile-form"
+                           accept="image/*"
+                           class="hidden"
+                           @change="preview($event)">
                     <p x-show="changed" class="mt-3 text-xs text-teal-600 text-center font-medium">Simpan untuk update</p>
+
+                    {{-- Modal Konfirmasi Hapus Avatar --}}
+                    <div x-show="showDeleteAvatarModal"
+                         x-transition:enter="transition ease-out duration-500"
+                         x-transition:enter-start="opacity-0"
+                         x-transition:enter-end="opacity-100"
+                         x-transition:leave="transition ease-in duration-300"
+                         x-transition:leave-start="opacity-100"
+                         x-transition:leave-end="opacity-0"
+                         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+                         @click.self="showDeleteAvatarModal = false"
+                         style="display: none;">
+
+                        <div x-show="showDeleteAvatarModal"
+                             x-transition:enter="transition ease-out duration-500"
+                             x-transition:enter-start="opacity-0 scale-75 translate-y-8"
+                             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-300"
+                             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 scale-90 translate-y-4"
+                             class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-sm text-center">
+
+                            {{-- Icon --}}
+                            <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg class="w-10 h-10 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                            </div>
+
+                            {{-- Title & Description --}}
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Hapus Foto Profil?</h4>
+                            <p class="text-sm text-gray-500 mb-8">
+                                Foto profil akan kembali ke default. Yakin ingin melanjutkan?
+                            </p>
+
+                            {{-- Buttons --}}
+                            <div class="flex flex-col gap-3">
+                                <form method="POST" action="{{ route('profile.avatar.delete') }}">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit"
+                                            class="w-full px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-xl transition-colors shadow-md">
+                                        Ya, Hapus
+                                    </button>
+                                </form>
+                                <button type="button"
+                                        @click="showDeleteAvatarModal = false"
+                                        class="w-full px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-colors">
+                                    Batal
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- Info user --}}
@@ -65,6 +132,20 @@
                 </div>
             </div>
         </div>
+
+        {{-- Flash message untuk avatar deleted --}}
+        @if (session('status') === 'avatar-deleted')
+            <div x-data="{ show: true }"
+                 x-show="show"
+                 x-transition
+                 x-init="setTimeout(() => show = false, 3000)"
+                 class="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm font-medium flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Foto profil berhasil dihapus!
+            </div>
+        @endif
 
         {{-- ══════════════════════════════════════════════
              STATISTIK IBADAH
@@ -119,9 +200,6 @@
                   id="profile-form">
                 @csrf
                 @method('patch')
-
-                {{-- Hidden avatar input (dari preview) --}}
-                {{-- <input type="file" name="avatar" id="avatar-form-input" class="hidden"> --}}
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
                     {{-- Nama --}}
@@ -304,64 +382,72 @@
                 Hapus Akun Saya
             </button>
 
-            {{-- Modal konfirmasi hapus --}}
+            {{-- Modal konfirmasi hapus akun (style baru) --}}
             <div x-show="showDeleteModal"
-                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter="transition ease-out duration-500"
                  x-transition:enter-start="opacity-0"
                  x-transition:enter-end="opacity-100"
-                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave="transition ease-in duration-300"
+                 x-transition:leave-start="opacity-100"
                  x-transition:leave-end="opacity-0"
-                 class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
-                 @click.self="showDeleteModal = false">
+                 class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+                 @click.self="showDeleteModal = false"
+                 style="display: none;">
 
                 <div x-show="showDeleteModal"
-                     x-transition:enter="transition ease-out duration-200"
-                     x-transition:enter-start="opacity-0 scale-95"
-                     x-transition:enter-end="opacity-100 scale-100"
-                     class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-md">
+                     x-transition:enter="transition ease-out duration-500"
+                     x-transition:enter-start="opacity-0 scale-75 translate-y-8"
+                     x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-300"
+                     x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave-end="opacity-0 scale-90 translate-y-4"
+                     class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-sm text-center">
 
-                    <div class="text-center mb-6">
-                        <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                            </svg>
-                        </div>
-                        <h4 class="text-lg font-bold text-gray-800 mb-1">Hapus Akun?</h4>
-                        <p class="text-sm text-gray-500">
-                            Semua data termasuk riwayat shalat akan terhapus permanen dan tidak bisa dikembalikan.
-                        </p>
+                    {{-- Icon Warning --}}
+                    <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
                     </div>
+
+                    {{-- Title & Description --}}
+                    <h4 class="text-xl font-bold text-gray-800 mb-2">Hapus Akun?</h4>
+                    <p class="text-sm text-gray-500 mb-6">
+                        Semua data termasuk riwayat shalat akan terhapus permanen dan tidak bisa dikembalikan.
+                    </p>
 
                     <form method="POST" action="{{ route('profile.destroy') }}">
                         @csrf
                         @method('delete')
 
-                        <div class="mb-4">
-                            <label for="delete-password" class="block text-sm font-semibold text-gray-700 mb-1.5">
+                        {{-- Input Password --}}
+                        <div class="mb-6 text-left">
+                            <label for="delete-password" class="block text-sm font-semibold text-gray-700 mb-2">
                                 Masukkan password untuk konfirmasi
                             </label>
                             <input type="password"
                                    id="delete-password"
                                    name="password"
                                    placeholder="Password kamu"
-                                   class="w-full px-4 py-2.5 rounded-xl border border-gray-200
+                                   class="w-full px-4 py-3 rounded-xl border border-gray-200
                                           focus:outline-none focus:ring-2 focus:ring-red-400
                                           bg-gray-50 focus:bg-white transition-all duration-200
                                           @error('password', 'userDeletion') border-red-400 @enderror">
                             @error('password', 'userDeletion')
-                                <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
+                                <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="flex gap-3">
+                        {{-- Buttons --}}
+                        <div class="flex flex-col gap-3">
+                            <button type="submit"
+                                    class="w-full px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-xl transition-colors shadow-md">
+                                Ya, Hapus Akun
+                            </button>
                             <button type="button"
                                     @click="showDeleteModal = false"
-                                    class="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-colors text-sm">
+                                    class="w-full px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-colors">
                                 Batal
-                            </button>
-                            <button type="submit"
-                                    class="flex-1 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-xl transition-colors text-sm shadow">
-                                Ya, Hapus Akun
                             </button>
                         </div>
                     </form>
@@ -390,6 +476,7 @@
 function avatarUploader() {
     return {
         changed: false,
+        showDeleteAvatarModal: false,
         preview(event) {
             const file = event.target.files[0];
             if (!file) {

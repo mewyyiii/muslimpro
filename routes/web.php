@@ -50,10 +50,14 @@ Route::middleware('auth')->group(function () {
     // ★ BARU: Qibla Routes
     Route::get('/qibla', [QiblaController::class, 'index'])->name('qibla.index');
 
-    // Profile Routes
+     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // ✨ TAMBAHKAN ROUTE INI (route baru untuk delete avatar)
+    Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
+    
 });
 
 // Quran Tracking Routes
