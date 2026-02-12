@@ -126,10 +126,6 @@
                             <div class="text-xs text-gray-500 capitalize">
                                 @if($status === 'performed')
                                     <span class="text-teal-600 font-medium">✓ Terlaksana</span>
-                                @elseif($status === 'qada')
-                                    <span class="text-amber-600 font-medium">↩ Qada</span>
-                                @elseif($status === 'missed')
-                                    <span class="text-red-500 font-medium">✗ Terlewat</span>
                                 @else
                                     <span class="text-gray-400">Belum dicatat</span>
                                 @endif
@@ -138,37 +134,18 @@
 
                         {{-- Tombol Status (All four buttons returned) --}}
                         <div class="flex items-center gap-1.5 flex-shrink-0">
-                            <button @click="updatePrayer('{{ $prayer }}', 'performed', selectedDate)"
-                                    x-bind:title="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }}) ? 'Belum masuk waktu shalat' : 'Terlaksana'"
-                                    x-bind:disabled="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }})"
-                                    :class="{'opacity-50 cursor-not-allowed': isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }})}"
-                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
-                                           hover:scale-110 active:scale-95
-                                           {{ $status === 'performed' ? 'bg-teal-500 text-white shadow-md' : 'bg-gray-100 hover:bg-teal-100 text-gray-500' }}">
+                            <button
+                                @click="updatePrayer('{{ $prayer }}', '{{ $status === 'performed' ? '' : 'performed' }}', selectedDate)"
+                                x-bind:title="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }}) ? 'Belum masuk waktu shalat' : '{{ $status === 'performed' ? 'Batalkan' : 'Terlaksana' }}'"
+                                x-bind:disabled="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }})"
+                                :class="{'opacity-50 cursor-not-allowed': isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }})}"
+                                class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
+                                    hover:scale-110 active:scale-95
+                                    {{ $status === 'performed' ? 'bg-teal-500 text-white shadow-md' : 'bg-gray-100 hover:bg-teal-100 text-gray-500' }}">
                                 ✓
-                            </button>
-                            <button @click="updatePrayer('{{ $prayer }}', 'qada', selectedDate)"
-                                    x-bind:title="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }}) ? 'Belum masuk waktu shalat' : 'Qada'"
-                                    x-bind:disabled="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }})"
-                                    :class="{'opacity-50 cursor-not-allowed': isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }})}"
-                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
-                                           hover:scale-110 active:scale-95
-                                           {{ $status === 'qada' ? 'bg-amber-400 text-white shadow-md' : 'bg-gray-100 hover:bg-amber-100 text-gray-500' }}">
-                                ↩
-                            </button>
-                            <button @click="updatePrayer('{{ $prayer }}', 'missed', selectedDate)"
-                                    x-bind:title="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }}) ? 'Belum masuk waktu shalat' : 'Terlewat'"
-                                    x-bind:disabled="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }})"
-                                    :class="{'opacity-50 cursor-not-allowed': isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }})}"
-                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
-                                           hover:scale-110 active:scale-95
-                                           {{ $status === 'missed' ? 'bg-red-400 text-white shadow-md' : 'bg-gray-100 hover:bg-red-100 text-gray-500' }}">
-                                ✗
                             </button>
                         </div>
                     </div>
-
-            
                 </div>
                 @endforeach
             </div>
@@ -352,8 +329,6 @@ function prayerTracker(config) {
         getPrayerClass(prayer) {
             const s = this.prayerStatus[prayer] ?? null;
             if (s === 'performed') return 'border-teal-200 bg-teal-50';
-            if (s === 'qada')      return 'border-amber-200 bg-amber-50';
-            if (s === 'missed')    return 'border-red-200 bg-red-50';
             return 'border-gray-200 bg-gray-50';
         },
 
