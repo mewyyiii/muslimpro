@@ -3,207 +3,202 @@
 namespace App\Http\Controllers;
 
 use App\Models\PrayerTracking;
-use App\Services\PrayerTimeService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PrayerTrackingController extends Controller
 {
+    // Urutan shalat 5 waktu
+    private $prayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+
+    private $prayerNames = [
+        'fajr'    => 'Subuh',
+        'dhuhr'   => 'Dzuhur',
+        'asr'     => 'Ashar',
+        'maghrib' => 'Maghrib',
+        'isha'    => 'Isya',
+    ];
+
+    // Waktu shalat statis (jam:menit)
+    private $prayerTimes = [
+        'fajr'    => '04:30',
+        'dhuhr'   => '12:00',
+        'asr'     => '15:00',
+        'maghrib' => '18:00',
+        'isha'    => '19:15',
+    ];
+
+    /**
+     * Halaman utama tracking shalat
+     */
     public function index(Request $request)
     {
-        $user = auth()->user();
-        $selectedDate = $request->get('date', now()->toDateString());
-        
-        // Get user location from session or default
-        $userCity = session('user_city', 'Jakarta');
-        $userLat = session('user_lat');
-        $userLng = session('user_lng');
-        
-        // Get prayer times based on location
-        if ($userLat && $userLng) {
-            $prayerTimes = PrayerTimeService::getPrayerTimes(
-                $userLat, 
-                $userLng, 
-                Carbon::parse($selectedDate)->format('d-m-Y')
-            );
-        } else {
-            $prayerTimes = PrayerTimeService::getPrayerTimesByCity(
-                $userCity, 
-                'Indonesia', 
-                Carbon::parse($selectedDate)->format('d-m-Y')
-            );
-        }
-        
-        $currentServerTime = now()->format('H:i');
-        
-        $prayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
-        $prayerNames = [
-            'fajr' => 'Subuh',
-            'dhuhr' => 'Dzuhur',
-            'asr' => 'Ashar',
-            'maghrib' => 'Maghrib',
-            'isha' => 'Isya'
-        ];
+        $userId = Auth::id();
+        $today  = Carbon::today();
 
-        // Get today's prayers
-        $todayPrayers = PrayerTracking::where('user_id', $user->id)
+        // Ambil tanggal yang dipilih (default hari ini)
+        $selectedDate = $request->get('date', $today->toDateString());
+        $selectedCarbon = Carbon::parse($selectedDate);
+
+        // Data shalat hari ini / tanggal dipilih
+        $todayPrayers = PrayerTracking::where('user_id', $userId)
             ->where('prayer_date', $selectedDate)
             ->get()
             ->keyBy('prayer_name');
 
-        // Stats
-        $todayPerformed = $todayPrayers->where('status', 'performed')->count();
-        $todayPercent = ($todayPerformed / 5) * 100;
+        // Hitung streak (berturut-turut shalat lengkap 5 waktu)
+        $streak = $this->calculateStreak($userId);
 
-        // Streak calculation
-        $streak = $this->calculateStreak($user->id);
+        // Statistik 7 hari terakhir
+        $weeklyStats = $this->getWeeklyStats($userId);
 
-        // Monthly stats
-        $monthTotal = PrayerTracking::where('user_id', $user->id)
-            ->whereYear('prayer_date', now()->year)
-            ->whereMonth('prayer_date', now()->month)
+        // Statistik 30 hari terakhir
+        $monthlyStats = $this->getMonthlyStats($userId);
+
+        // Total shalat bulan ini
+        $monthTotal = PrayerTracking::where('user_id', $userId)
             ->where('status', 'performed')
+            ->whereYear('prayer_date', $today->year)
+            ->whereMonth('prayer_date', $today->month)
             ->count();
 
-        // Weekly stats
-        $weeklyStats = $this->getWeeklyStats($user->id);
+        // Persentase hari ini
+        $todayPerformed = $todayPrayers->where('status', 'performed')->count();
+        $todayPercent   = round(($todayPerformed / 5) * 100);
 
-        // Next prayer info
-        $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentServerTime);
-        
-        return view('prayer-tracking.index', compact(
-            'prayers',
-            'prayerNames',
+        $currentServerTime = Carbon::now()->format('H:i'); // Get current time in HH:MM format
+
+        return view('prayer_tracking', compact(
             'todayPrayers',
+            'selectedDate',
+            'selectedCarbon',
+            'streak',
+            'weeklyStats',
+            'monthlyStats',
+            'monthTotal',
             'todayPerformed',
             'todayPercent',
-            'streak',
-            'monthTotal',
-            'weeklyStats',
-            'selectedDate',
-            'prayerTimes',
-            'currentServerTime',
-            'userCity',
-            'nextPrayer'
-        ));
+            'currentServerTime'
+        ))->with('prayers', $this->prayers)
+          ->with('prayerNames', $this->prayerNames)
+          ->with('prayerTimes', $this->prayerTimes);
     }
 
+    /**
+     * Simpan / update status shalat
+     */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'prayer_name' => 'required|in:fajr,dhuhr,asr,maghrib,isha',
-            'status' => 'required|in:performed,qada,missed,',
-            'prayer_date' => 'required|date',
-        ]);
-
-        $user = auth()->user();
-
-        if (empty($validated['status'])) {
-            // Delete if status is empty
-            PrayerTracking::where('user_id', $user->id)
-                ->where('prayer_name', $validated['prayer_name'])
-                ->where('prayer_date', $validated['prayer_date'])
-                ->delete();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Status shalat dihapus'
+        // Handle reset_all action first
+        if ($request->has('action') && $request->action === 'reset_all') {
+            $request->validate([
+                'prayer_date' => 'required|date',
             ]);
+
+            PrayerTracking::where('user_id', Auth::id())
+                          ->where('prayer_date', $request->prayer_date)
+                          ->delete();
+
+            return response()->json(['success' => true, 'message' => 'Semua shalat hari ini berhasil dibatalkan!']);
         }
 
-        // Upsert
+        // Validate individual prayer tracking request
+        // Only 'performed' status or null status expected from frontend
+        $request->validate([
+            'prayer_name' => 'required|in:fajr,dhuhr,asr,maghrib,isha',
+            'prayer_date' => 'required|date',
+            'status'      => 'nullable|in:performed', // Only 'performed' or null is allowed
+        ]);
+
+        $prayerName = $request->prayer_name;
+        $prayerDate = Carbon::parse($request->prayer_date);
+        $currentDateTime = Carbon::now();
+
+        // Backend time validation for current day only
+        if ($prayerDate->isToday()) {
+            $prayerIndex = array_search($prayerName, $this->prayers);
+            // This check should not be needed if 'in' validation handles it, but kept for robustness.
+            if ($prayerIndex === false) {
+                return response()->json(['success' => false, 'message' => 'Invalid prayer name.'], 400);
+            }
+
+            $prayerStartTime = Carbon::parse($this->prayerTimes[$prayerName]);
+
+            $nextPrayerStartTime = null;
+            if ($prayerIndex < count($this->prayers) - 1) {
+                $nextPrayerName = $this->prayers[$prayerIndex + 1];
+                $nextPrayerStartTime = Carbon::parse($this->prayerTimes[$nextPrayerName]);
+            } else {
+                $nextPrayerStartTime = Carbon::parse('23:59'); // For Isha, window ends at midnight
+            }
+
+            // If the submission is outside the allowed time, reject it
+            // Only apply this time check if status is 'performed'. If status is null (undo), allow it.
+            if ($request->status === 'performed' && ($currentDateTime->lt($prayerStartTime) || $currentDateTime->gte($nextPrayerStartTime))) {
+                return response()->json(['success' => false, 'message' => 'Tidak bisa mencatat shalat di luar waktu yang ditentukan.'], 200);
+            }
+        }
+
+        // If status is null, it means the user wants to "un-perform" the prayer, so delete it
+        if ($request->status === null) {
+            PrayerTracking::where('user_id', Auth::id())
+                          ->where('prayer_date', $request->prayer_date)
+                          ->where('prayer_name', $prayerName)
+                          ->delete();
+            return response()->json(['success' => true, 'message' => 'Shalat berhasil dibatalkan!']);
+        }
+
+        // Otherwise, update or create the 'performed' status
         PrayerTracking::updateOrCreate(
             [
-                'user_id' => $user->id,
-                'prayer_name' => $validated['prayer_name'],
-                'prayer_date' => $validated['prayer_date'],
+                'user_id'     => Auth::id(),
+                'prayer_date' => $request->prayer_date,
+                'prayer_name' => $prayerName,
             ],
             [
-                'status' => $validated['status']
+                'status' => 'performed', // Status is always 'performed' if not null
             ]
         );
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Status shalat berhasil disimpan'
-        ]);
+        return response()->json(['success' => true, 'message' => 'Shalat berhasil dicatat!']);
     }
 
+    /**
+     * Ringkasan untuk widget di home (dipanggil via route terpisah)
+     */
     public function summary()
     {
-        $user = auth()->user();
-        $today = now()->toDateString();
+        $userId = Auth::id();
+        $today  = Carbon::today()->toDateString();
 
-        $todayPrayers = PrayerTracking::where('user_id', $user->id)
+        $todayPrayers = PrayerTracking::where('user_id', $userId)
             ->where('prayer_date', $today)
             ->get()
             ->keyBy('prayer_name');
 
         $performed = $todayPrayers->where('status', 'performed')->count();
-        $percent = ($performed / 5) * 100;
-        $streak = $this->calculateStreak($user->id);
-
-        $todayData = [];
-        foreach (['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'] as $prayer) {
-            $record = $todayPrayers->get($prayer);
-            $todayData[$prayer] = [
-                'status' => $record ? $record->status : null
-            ];
-        }
+        $streak    = $this->calculateStreak($userId);
 
         return response()->json([
-            'performed' => $performed,
-            'total' => 5,
-            'percent' => round($percent),
-            'streak' => $streak,
-            'today_data' => $todayData
+            'performed'    => $performed,
+            'total'        => 5,
+            'percent'      => round(($performed / 5) * 100),
+            'streak'       => $streak,
+            'prayers'      => $this->prayers,
+            'prayer_names' => $this->prayerNames,
+            'today_data'   => $todayPrayers->toArray(),
         ]);
     }
 
-    /**
-     * Set user location
-     */
-    public function setLocation(Request $request)
-    {
-        $validated = $request->validate([
-            'city' => 'nullable|string',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
-        ]);
+    // ─── Private helpers ────────────────────────────────────────────────────────
 
-        if ($validated['city']) {
-            session(['user_city' => $validated['city']]);
-        }
-
-        if ($validated['latitude'] && $validated['longitude']) {
-            session([
-                'user_lat' => $validated['latitude'],
-                'user_lng' => $validated['longitude'],
-            ]);
-        }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Lokasi berhasil disimpan'
-        ]);
-    }
-
-    /**
-     * Search cities (autocomplete)
-     */
-    public function searchCities(Request $request)
-    {
-        $query = $request->get('q', '');
-        $cities = PrayerTimeService::searchCities($query);
-
-        return response()->json($cities);
-    }
-
-    private function calculateStreak($userId)
+    private function calculateStreak(int $userId): int
     {
         $streak = 0;
-        $date = now();
+        $date   = Carbon::today();
 
+        // Cek mundur hari per hari
         while (true) {
             $count = PrayerTracking::where('user_id', $userId)
                 ->where('prayer_date', $date->toDateString())
@@ -214,36 +209,58 @@ class PrayerTrackingController extends Controller
                 $streak++;
                 $date->subDay();
             } else {
+                // Jika hari ini belum lengkap tapi belum selesai, tetap lanjut
+                if ($date->isToday() && $count > 0) {
+                    $date->subDay();
+                    continue;
+                }
                 break;
             }
-
-            if ($streak > 365) break; // Safety limit
         }
 
         return $streak;
     }
 
-    private function getWeeklyStats($userId)
+    private function getWeeklyStats(int $userId): array
     {
         $stats = [];
-        $dayNames = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
-
         for ($i = 6; $i >= 0; $i--) {
-            $date = now()->subDays($i);
+            $date = Carbon::today()->subDays($i);
             $performed = PrayerTracking::where('user_id', $userId)
                 ->where('prayer_date', $date->toDateString())
                 ->where('status', 'performed')
                 ->count();
 
             $stats[] = [
-                'date' => $date->toDateString(),
-                'day' => $dayNames[$date->dayOfWeek],
+                'date'      => $date->toDateString(),
+                'day'       => $date->locale('id')->isoFormat('ddd'),
                 'performed' => $performed,
-                'percent' => ($performed / 5) * 100,
-                'is_today' => $date->isToday()
+                'percent'   => round(($performed / 5) * 100),
+                'is_today'  => $date->isToday(),
             ];
         }
+        return $stats;
+    }
 
+    private function getMonthlyStats(int $userId): array
+    {
+        $today     = Carbon::today();
+        $startDate = $today->copy()->startOfMonth();
+        $stats     = [];
+
+        for ($date = $startDate->copy(); $date->lte($today); $date->addDay()) {
+            $performed = PrayerTracking::where('user_id', $userId)
+                ->where('prayer_date', $date->toDateString())
+                ->where('status', 'performed')
+                ->count();
+
+            $stats[] = [
+                'date'      => $date->toDateString(),
+                'day'       => $date->day,
+                'performed' => $performed,
+                'is_today'  => $date->isToday(),
+            ];
+        }
         return $stats;
     }
 }
