@@ -35,25 +35,32 @@ class PrayerTimeService
 
                 if ($response->successful()) {
                     $data = $response->json();
-                    $timings = $data['data']['timings'];
-                    $timezone = $data['data']['meta']['timezone'];
 
-                    return [
-                        'timings' => [
-                            'fajr' => substr($timings['Fajr'], 0, 5),      // Format HH:MM
-                            'dhuhr' => substr($timings['Dhuhr'], 0, 5),
-                            'asr' => substr($timings['Asr'], 0, 5),
-                            'maghrib' => substr($timings['Maghrib'], 0, 5),
-                            'isha' => substr($timings['Isha'], 0, 5),
-                        ],
-                        'timezone' => $timezone,
-                    ];
+                    if (isset($data['data']) && isset($data['data']['timings']) && isset($data['data']['meta']['timezone'])) {
+                        $timings = $data['data']['timings'];
+                        $timezone = $data['data']['meta']['timezone'];
+
+                        return [
+                            'timings' => [
+                                'fajr' => substr($timings['Fajr'], 0, 5),      // Format HH:MM
+                                'dhuhr' => substr($timings['Dhuhr'], 0, 5),
+                                'asr' => substr($timings['Asr'], 0, 5),
+                                'maghrib' => substr($timings['Maghrib'], 0, 5),
+                                'isha' => substr($timings['Isha'], 0, 5),
+                            ],
+                            'timezone' => $timezone,
+                        ];
+                    } else {
+                        \Log::error('Prayer Time API: Missing data in successful response for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date . '. Response: ' . json_encode($data));
+                    }
+                } else {
+                    \Log::error('Prayer Time API: Unsuccessful response for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date . '. Status: ' . $response->status() . '. Response: ' . $response->body());
                 }
             } catch (\Exception $e) {
-                \Log::error('Prayer Time API Error: ' . $e->getMessage());
+                \Log::error('Prayer Time API Error: ' . $e->getMessage() . ' for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date);
             }
 
-            // Fallback ke waktu default jika API gagal
+            // Fallback ke waktu default jika API gagal atau respons tidak valid
             return self::getDefaultTimes();
         });
     }
@@ -81,22 +88,29 @@ class PrayerTimeService
 
                 if ($response->successful()) {
                     $data = $response->json();
-                    $timings = $data['data']['timings'];
-                    $timezone = $data['data']['meta']['timezone'];
 
-                    return [
-                        'timings' => [
-                            'fajr' => substr($timings['Fajr'], 0, 5),
-                            'dhuhr' => substr($timings['Dhuhr'], 0, 5),
-                            'asr' => substr($timings['Asr'], 0, 5),
-                            'maghrib' => substr($timings['Maghrib'], 0, 5),
-                            'isha' => substr($timings['Isha'], 0, 5),
-                        ],
-                        'timezone' => $timezone,
-                    ];
+                    if (isset($data['data']) && isset($data['data']['timings']) && isset($data['data']['meta']['timezone'])) {
+                        $timings = $data['data']['timings'];
+                        $timezone = $data['data']['meta']['timezone'];
+
+                        return [
+                            'timings' => [
+                                'fajr' => substr($timings['Fajr'], 0, 5),
+                                'dhuhr' => substr($timings['Dhuhr'], 0, 5),
+                                'asr' => substr($timings['Asr'], 0, 5),
+                                'maghrib' => substr($timings['Maghrib'], 0, 5),
+                                'isha' => substr($timings['Isha'], 0, 5),
+                            ],
+                            'timezone' => $timezone,
+                        ];
+                    } else {
+                        \Log::error('Prayer Time City API: Missing data in successful response for city: ' . $city . ', country: ' . $country . ', date: ' . $date . '. Response: ' . json_encode($data));
+                    }
+                } else {
+                    \Log::error('Prayer Time City API: Unsuccessful response for city: ' . $city . ', country: ' . $country . ', date: ' . $date . '. Status: ' . $response->status() . '. Response: ' . $response->body());
                 }
             } catch (\Exception $e) {
-                \Log::error('Prayer Time City API Error: ' . $e->getMessage());
+                \Log::error('Prayer Time City API Error: ' . $e->getMessage() . ' for city: ' . $city . ', country: ' . $country . ', date: ' . $date);
             }
 
             return self::getDefaultTimes();
@@ -139,11 +153,14 @@ class PrayerTimeService
     {
         // Default waktu shalat (Jakarta/Indonesia Barat)
         return [
-            'fajr' => '04:30',
-            'dhuhr' => '12:00',
-            'asr' => '15:15',
-            'maghrib' => '18:00',
-            'isha' => '19:15',
+            'timings' => [
+                'fajr' => '04:30',
+                'dhuhr' => '12:00',
+                'asr' => '15:15',
+                'maghrib' => '18:00',
+                'isha' => '19:15',
+            ],
+            'timezone' => 'Asia/Jakarta', // Default timezone for fallback
         ];
     }
 
