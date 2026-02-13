@@ -12,6 +12,23 @@
             <p class="text-white/80 text-base md:text-lg">Catat & pantau ibadah shalat harianmu</p>
         </div>
 
+        {{-- WIDGET LOKASI --}}
+        <div class="bg-white/90 backdrop-blur rounded-2xl shadow-lg p-4 mb-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center text-teal-600">
+                        📍
+                    </div>
+                    <div>
+                        <div class="text-sm font-semibold text-gray-800">{{ $userCity }}</div>
+                        <div class="text-xs text-gray-500">
+                            Shalat berikutnya: <span class="font-semibold text-teal-600">{{ ucfirst($nextPrayer['name']) }} ({{ $nextPrayer['time'] }})</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- STATISTIK RINGKASAN --}}
         <div class="grid grid-cols-3 gap-3 md:gap-4 mb-6">
             {{-- Hari Ini --}}
@@ -51,20 +68,19 @@
 
         {{-- CHECKLIST SHALAT HARIAN --}}
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6"
-             x-data="prayerTracker()"
+             x-data="prayerTracker({
+                 prayerTimes: @json($prayerTimes),
+                 currentServerTime: '{{ $currentServerTime }}',
+                 allPrayers: @json($prayers),
+                 todayPrayers: @json($todayPrayers->mapWithKeys(fn($r) => [$r->prayer_name => ['status' => $r->status]])->toArray()),
+                 prayerNames: @json($prayerNames)
+             })"
              x-init="init()">
 
             <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
                 <span class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600 text-base">📋</span>
-                Catat Shalat - {{ $userCity }}
+                Catat Shalat
             </h2>
-
-            {{-- Debug Info --}}
-            <div class="mb-4 p-3 bg-gray-50 rounded-lg text-xs">
-                <strong>DEBUG:</strong> 
-                Waktu Sekarang: {{ $currentServerTime }} | 
-                Shalat Berikutnya: {{ ucfirst($nextPrayer['name']) }} ({{ $nextPrayer['time'] }})
-            </div>
 
             {{-- Shalat Cards --}}
             <div class="space-y-3">
@@ -73,13 +89,12 @@
                     $rec = $todayPrayers->get($prayer);
                     $status = $rec ? $rec->status : null;
                 @endphp
-                <div class="prayer-row border rounded-xl p-4 transition-all duration-300
-                    {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' : 'border-gray-200 bg-gray-50' }}">
+                <div class="prayer-row border rounded-xl p-4 transition-all duration-300"
+                     :class="getPrayerClass('{{ $prayer }}')">
 
                     <div class="flex items-center gap-3">
                         {{-- Icon & Nama --}}
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0
-                                    {{ $status === 'performed' ? 'bg-teal-100' : 'bg-gray-100' }}">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0 bg-gray-100">
                             {{ ['fajr'=>'🌅','dhuhr'=>'☀️','asr'=>'🌤️','maghrib'=>'🌇','isha'=>'🌙'][$prayer] }}
                         </div>
                         <div class="flex-1 min-w-0">
@@ -90,20 +105,18 @@
                                 </div>
                             </div>
                             <div class="text-xs text-gray-500">
-                                @if($status === 'performed')
-                                    <span class="text-teal-600 font-medium">✓ Terlaksana</span>
-                                @else
-                                    <span class="text-gray-400">Belum dicatat</span>
-                                @endif
+                                <span x-text="getPrayerTimeStatus('{{ $prayer }}', {{ $prayerIndex }})"></span>
                             </div>
                         </div>
 
-                        {{-- Tombol Status (TANPA DISABLE DULU) --}}
+                        {{-- Tombol Status --}}
                         <div class="flex items-center gap-1.5 flex-shrink-0">
                             <button
                                 @click="updatePrayer('{{ $prayer }}', '{{ $status === 'performed' ? '' : 'performed' }}')"
+                                x-bind:disabled="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }})"
+                                :class="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }}) ? 'opacity-40 cursor-not-allowed' : 'hover:scale-110 active:scale-95'"
+                                :title="isCurrentlyDisabled('{{ $prayer }}', {{ $prayerIndex }}) ? 'Belum masuk waktu shalat' : 'Klik untuk catat'"
                                 class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
-                                    hover:scale-110 active:scale-95
                                     {{ $status === 'performed' ? 'bg-teal-500 text-white shadow-md' : 'bg-gray-200 hover:bg-teal-100 text-gray-600' }}">
                                 ✓
                             </button>
@@ -152,22 +165,120 @@
 
 @push('scripts')
 <script>
-function prayerTracker() {
+function prayerTracker(config) {
     return {
         selectedDate: '{{ $selectedDate }}',
         today: '{{ now()->toDateString() }}',
+        prayerStatus: config.todayPrayers,
         flashMsg: '',
         flashTimer: null,
+        prayerTimes: config.prayerTimes,
+        currentServerTime: config.currentServerTime,
+        allPrayers: config.allPrayers,
+        currentTime: null,
 
         init() {
+            this.currentTime = this.currentServerTime;
             console.log('Prayer Tracker initialized');
-            console.log('Selected date:', this.selectedDate);
-            console.log('Today:', this.today);
+            console.log('Current time:', this.currentTime);
+            console.log('Prayer times:', this.prayerTimes);
+            
+            // Update time setiap menit
+            setInterval(() => {
+                this.updateCurrentTime();
+            }, 60000);
+        },
+
+        updateCurrentTime() {
+            const [h, m] = this.currentTime.split(':').map(Number);
+            let newM = m + 1;
+            let newH = h;
+            if (newM >= 60) {
+                newM = 0;
+                newH = (h + 1) % 24;
+            }
+            this.currentTime = `${String(newH).padStart(2, '0')}:${String(newM).padStart(2, '0')}`;
+        },
+
+        getPrayerClass(prayer) {
+            const s = this.prayerStatus[prayer]?.status ?? null;
+            if (s === 'performed') return 'border-teal-200 bg-teal-50';
+            return 'border-gray-200 bg-gray-50';
+        },
+
+        isToday() {
+            return this.selectedDate === this.today;
+        },
+
+        isPrayerCurrentlyAvailable(prayerName, prayerIndex) {
+            // Kalau bukan hari ini, semua button bisa diklik
+            if (!this.isToday()) return true;
+
+            const now = this.timeToMinutes(this.currentTime);
+            const start = this.timeToMinutes(this.prayerTimes[prayerName]);
+
+            let end = 24 * 60; // End of day
+            if (prayerIndex < this.allPrayers.length - 1) {
+                const next = this.allPrayers[prayerIndex + 1];
+                end = this.timeToMinutes(this.prayerTimes[next]);
+            }
+
+            return now >= start && now < end;
+        },
+
+        isCurrentlyDisabled(prayer, index) {
+            // Kalau sudah performed, tidak disable (biar bisa dibatalkan)
+            if (this.prayerStatus[prayer]?.status === 'performed') {
+                return false;
+            }
+            
+            // Kalau belum performed, cek waktu
+            return !this.isPrayerCurrentlyAvailable(prayer, index);
+        },
+
+        getPrayerTimeStatus(prayer, index) {
+            // Kalau sudah performed
+            if (this.prayerStatus[prayer]?.status === 'performed') {
+                return '✓ Terlaksana';
+            }
+            
+            if (!this.isToday()) return 'Belum dicatat';
+            
+            const now = this.timeToMinutes(this.currentTime);
+            const prayerTime = this.timeToMinutes(this.prayerTimes[prayer]);
+            
+            if (now < prayerTime) {
+                const diff = prayerTime - now;
+                const hours = Math.floor(diff / 60);
+                const mins = diff % 60;
+                if (hours > 0) {
+                    return `⏳ ${hours} jam ${mins} menit lagi`;
+                } else {
+                    return `⏳ ${mins} menit lagi`;
+                }
+            } else if (this.isPrayerCurrentlyAvailable(prayer, index)) {
+                return '🕐 Waktu berlangsung';
+            } else {
+                return '⏸️ Waktu terlewat';
+            }
+        },
+
+        timeToMinutes(time) {
+            const [h, m] = time.split(':').map(Number);
+            return h * 60 + m;
         },
 
         async updatePrayer(prayer, status) {
-            console.log('Button clicked!', prayer, status);
+            const index = this.allPrayers.indexOf(prayer);
             
+            // Cek disable hanya kalau belum performed
+            if (status === 'performed' && this.isCurrentlyDisabled(prayer, index)) {
+                this.showFlash('🚫 Belum masuk waktu shalat ' + prayer);
+                return;
+            }
+
+            console.log('Updating prayer:', prayer, 'status:', status);
+
             try {
                 const res = await fetch('{{ route("prayer-tracking.store") }}', {
                     method: 'POST',
@@ -183,11 +294,16 @@ function prayerTracker() {
                     })
                 });
 
-                console.log('Response status:', res.status);
                 const data = await res.json();
-                console.log('Response data:', data);
 
                 if (data.success) {
+                    // Update local state
+                    if (status) {
+                        this.prayerStatus[prayer] = { status: status };
+                    } else {
+                        delete this.prayerStatus[prayer];
+                    }
+                    
                     this.showFlash('✅ ' + data.message);
                     setTimeout(() => {
                         window.location.reload();
