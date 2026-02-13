@@ -167,7 +167,7 @@
                 </div>
             </div>
 
-            {{-- Quran Widget --}}
+            {{-- Quran Journey Widget --}}
             @include('profile.partials.quran-widget')
 
             {{-- Profile Information Form --}}
@@ -345,7 +345,7 @@
                 </div>
                 
                 <p class="text-gray-700 mb-6 leading-relaxed">
-                    Once your account is deleted, all of your data including prayer history will be permanently removed. This action cannot be undone. Make sure you have backed up any important information.
+                    Once your account is deleted, all of your data including prayer history will be permanently removed. This action cannot be undone.
                 </p>
                 
                 <button @click="showDeleteModal = true"

@@ -1,102 +1,125 @@
 {{-- 
-    WIDGET BACA AL-QURAN
+    ═══════════════════════════════════════════════════════════════════════
+    QURAN JOURNEY WIDGET
     File: resources/views/profile/partials/quran-widget.blade.php
+    Style: Matching dengan Prayer Journey Card
+    ═══════════════════════════════════════════════════════════════════════
 --}}
 
-<div class="bg-white rounded-2xl p-4 shadow-xl text-center relative overflow-hidden">
-    
-    @if($lastReadQuran)
-        {{-- ADA DATA TRACKING --}}
-        
-        {{-- Header --}}
-        <div class="flex items-center justify-between mb-3">
-            <span class="text-sm font-semibold text-gray-600 flex items-center gap-1.5">
-                📖 Baca Al-Quran
+<div class="bg-white rounded-3xl p-6 shadow-2xl">
+    {{-- Header --}}
+    <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center shadow-md">
+                <span class="text-2xl">📖</span>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-gray-800">Quran Journey</h3>
+                <p class="text-xs text-gray-500">Track your progress</p>
+            </div>
+        </div>
+        @if($lastReadQuran)
+            <a href="{{ route('quran-tracking.index') }}" 
+               class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl transition-all shadow-md">
+                Details →
+            </a>
+        @else
+            <span class="px-4 py-2 bg-gray-100 text-gray-400 text-sm font-semibold rounded-xl">
+                Coming Soon
             </span>
-            <a href="{{ route('quran-tracking.index') }}"
-               class="text-xs text-teal-600 hover:underline font-medium">Detail →</a>
-        </div>
+        @endif
+    </div>
 
-        {{-- Statistik Mini --}}
-        <div class="grid grid-cols-2 gap-2 mb-3">
-            {{-- Surah Selesai --}}
-            <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg p-2 border border-emerald-100">
-                <div class="text-lg font-bold text-emerald-600">
-                    {{ $totalSurahCompleted }}<span class="text-xs text-gray-400">/114</span>
-                </div>
-                <div class="text-xs text-gray-600">Surah selesai</div>
-            </div>
-
-            {{-- Streak --}}
-            <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg p-2 border border-amber-100">
-                <div class="text-lg font-bold text-amber-600">
-                    {{ $quranStreak }} 🔥
-                </div>
-                <div class="text-xs text-gray-600">Hari berturut</div>
-            </div>
-        </div>
-
-        {{-- Progress Terakhir --}}
-        <div class="bg-gray-50 rounded-lg p-2.5 border border-gray-200 text-left">
-            <div class="flex items-center justify-between gap-2">
-                <div class="flex-1 min-w-0">
-                    <div class="text-xs text-gray-500">Terakhir dibaca</div>
-                    <h4 class="font-bold text-gray-800 text-sm truncate">
-                        {{ $lastReadQuran->surah->number }}. {{ $lastReadQuran->surah->name }}
-                    </h4>
-                    <p class="text-xs text-gray-600">
-                        Ayat {{ $lastReadQuran->last_verse }}/{{ $lastReadQuran->surah->total_verses }}
-                        <span class="text-teal-600 font-semibold">• {{ $lastReadQuran->progress_percent }}%</span>
-                    </p>
-                </div>
-                
-                {{-- Progress Circle --}}
-                <div class="flex-shrink-0">
-                    <div class="relative w-10 h-10">
-                        <svg class="transform -rotate-90 w-10 h-10" viewBox="0 0 40 40">
-                            <circle cx="20" cy="20" r="16" stroke="#E5E7EB" stroke-width="3" fill="none"/>
-                            <circle cx="20" cy="20" r="16"
-                                    stroke="{{ $lastReadQuran->is_completed ? '#10B981' : '#14B8A6' }}"
-                                    stroke-width="3" fill="none" stroke-linecap="round"
-                                    stroke-dasharray="{{ 2 * pi() * 16 }}"
-                                    stroke-dashoffset="{{ 2 * pi() * 16 * (1 - $lastReadQuran->progress_percent / 100) }}"
-                                    class="transition-all duration-500"/>
-                        </svg>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-xs font-bold {{ $lastReadQuran->is_completed ? 'text-emerald-600' : 'text-teal-600' }}">
-                                {{ $lastReadQuran->progress_percent }}%
-                            </span>
+    @if($lastReadQuran)
+        {{-- Stats Display Box --}}
+        <div class="bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl p-6 text-white shadow-lg mb-4">
+            <div class="grid grid-cols-2 gap-4 mb-3">
+                {{-- Surah Completed --}}
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="text-2xl">✓</span>
+                        <div>
+                            <div class="text-sm opacity-90">Surah</div>
+                            <div class="text-3xl font-bold">{{ $totalSurahCompleted }}</div>
                         </div>
                     </div>
+                    <div class="text-xs opacity-90">Completed</div>
                 </div>
+
+                {{-- Streak --}}
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="text-2xl">🔥</span>
+                        <div>
+                            <div class="text-sm opacity-90">Streak</div>
+                            <div class="text-3xl font-bold">{{ $quranStreak }}</div>
+                        </div>
+                    </div>
+                    <div class="text-xs opacity-90">Days in a row</div>
+                </div>
+            </div>
+
+            {{-- Currently Reading Info --}}
+            <div class="mt-4 pt-4 border-t border-white/20">
+                <div class="text-xs opacity-90 mb-1">Currently Reading</div>
+                <div class="text-lg font-bold">{{ $lastReadQuran->surah->number }}. {{ $lastReadQuran->surah->name }}</div>
+                <div class="text-sm opacity-90">Ayat {{ $lastReadQuran->last_verse }}/{{ $lastReadQuran->surah->total_verses }}</div>
             </div>
         </div>
 
-        {{-- Status Baca Hari Ini --}}
-        <div class="mt-2 text-xs {{ $readQuranToday ? 'text-emerald-500' : 'text-gray-400' }} font-medium">
-            {{ $readQuranToday ? '✓ Sudah baca hari ini' : 'Belum baca hari ini' }}
+        {{-- Progress Bar --}}
+        <div>
+            <div class="flex items-center justify-between text-sm text-gray-700 mb-2">
+                <span class="font-semibold">Surah Progress</span>
+                <span class="text-lg font-bold text-emerald-600">{{ $lastReadQuran->progress_percent }}%</span>
+            </div>
+            <div class="h-3 bg-gray-100 rounded-full overflow-hidden shadow-inner">
+                <div class="h-full bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 rounded-full transition-all duration-1000"
+                     style="width: {{ $lastReadQuran->progress_percent }}%"></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-2 text-center">
+                {{ $lastReadQuran->last_verse }} / {{ $lastReadQuran->surah->total_verses }} ayat completed
+            </p>
+        </div>
+
+        {{-- Status Badge --}}
+        <div class="mt-4 text-center">
+            <span class="inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold
+                         {{ $readQuranToday ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500' }}">
+                @if($readQuranToday)
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Read today
+                @else
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Not yet today
+                @endif
+            </span>
         </div>
 
     @else
-        {{-- BELUM ADA DATA (COMING SOON) --}}
-        
-        <span class="absolute top-2 right-2 px-2 py-0.5 bg-gray-200 text-gray-500 rounded-full text-xs font-semibold">
-            Segera
-        </span>
-        
-        <div class="py-4">
-            <div class="text-3xl font-bold text-gray-300 mb-1">📖</div>
-            <div class="text-xs text-gray-400 font-medium">Baca Al-Quran</div>
-            <div class="text-xs text-gray-300 mt-1">Coming soon</div>
+        {{-- Empty State - Coming Soon --}}
+        <div class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-8 text-center">
+            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                <span class="text-4xl">📖</span>
+            </div>
+            <h4 class="text-lg font-bold text-gray-700 mb-2">Start Your Quran Journey</h4>
+            <p class="text-sm text-gray-500 mb-4">Begin tracking your reading progress</p>
+            <span class="inline-block px-4 py-2 bg-gray-300 text-gray-500 text-sm font-semibold rounded-xl">
+                Coming Soon
+            </span>
         </div>
-        
     @endif
 </div>
 
 @push('styles')
 <style>
-    circle {
-        transition: stroke-dashoffset 0.5s ease;
+    /* Smooth animations for Quran widget */
+    .transition-all {
+        transition: all 0.5s ease;
     }
 </style>
 @endpush

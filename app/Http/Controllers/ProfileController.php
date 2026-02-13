@@ -14,13 +14,15 @@ use Carbon\Carbon;
 class ProfileController extends Controller
 {
     /**
-     * Tampilkan halaman profile
+     * Display the user's profile form.
      */
     public function edit(Request $request): View
     {
         $user = $request->user();
 
-        // Statistik shalat bulan ini
+        // ═══════════════════════════════════════════════════════════
+        // PRAYER TRACKING STATS
+        // ═══════════════════════════════════════════════════════════
         $prayerStats = \App\Models\PrayerTracking::where('user_id', $user->id)
             ->whereMonth('prayer_date', now()->month)
             ->whereYear('prayer_date', now()->year)
@@ -32,7 +34,7 @@ class ProfileController extends Controller
         $prayerTotal     = now()->day * 5;
         $prayerPercent   = $prayerTotal > 0 ? round(($prayerPerformed / $prayerTotal) * 100) : 0;
 
-        // Streak shalat
+        // Prayer streak calculation
         $streak = 0;
         for ($i = 0; $i < 30; $i++) {
             $checkDate = now()->subDays($i)->toDateString();
@@ -48,12 +50,14 @@ class ProfileController extends Controller
         }
 
         // ═══════════════════════════════════════════════════════════
-        // TRACKING AL-QURAN (BARU)
+        // QURAN TRACKING STATS
         // ═══════════════════════════════════════════════════════════
         $quranTrackings = \App\Models\QuranTracking::where('user_id', $user->id)->get();
+        
         $totalSurahCompleted = $quranTrackings->where('is_completed', true)->count();
         $totalSurah = 114;
         $quranPercent = $totalSurah > 0 ? round(($totalSurahCompleted / $totalSurah) * 100) : 0;
+        
         $totalVersesRead = $quranTrackings->sum('last_verse');
         
         $lastReadQuran = \App\Models\QuranTracking::with('surah')
@@ -83,6 +87,9 @@ class ProfileController extends Controller
         ));
     }
 
+    /**
+     * Update the user's profile information.
+     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
@@ -92,6 +99,7 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        // Handle avatar upload
         if ($request->hasFile('avatar')) {
             if ($user->avatar) {
                 Storage::disk('public')->delete($user->avatar);
@@ -101,20 +109,29 @@ class ProfileController extends Controller
         }
 
         $user->save();
+
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
+    /**
+     * Delete the user's avatar.
+     */
     public function deleteAvatar(Request $request): RedirectResponse
     {
         $user = $request->user();
+
         if ($user->avatar) {
             Storage::disk('public')->delete($user->avatar);
             $user->avatar = null;
             $user->save();
         }
+
         return Redirect::route('profile.edit')->with('status', 'avatar-deleted');
     }
 
+    /**
+     * Delete the user's account.
+     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
@@ -122,6 +139,7 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
         Auth::logout();
 
         if ($user->avatar) {
@@ -129,13 +147,16 @@ class ProfileController extends Controller
         }
 
         $user->delete();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
     }
 
-    // Method untuk hitung streak Al-Quran
+    /**
+     * Calculate Quran reading streak.
+     */
     private function calculateQuranStreak(int $userId): int
     {
         $streak = 0;
