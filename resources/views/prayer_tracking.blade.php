@@ -139,7 +139,7 @@
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6"
              x-data="prayerTracker({
                  prayerTimes: @json($prayerTimes),
-                 currentServerTime: '{{ $currentServerTime }}',
+                 currentLocalTimeForPrayerLocation: '{{ $currentLocalTimeForPrayerLocation }}',
                  allPrayers: @json($prayers),
                  todayPrayers: @json($todayPrayers->mapWithKeys(fn($r) => [$r->prayer_name => ['status' => $r->status]])->toArray()),
                  prayerNames: @json($prayerNames)
@@ -465,12 +465,12 @@ function prayerTracker(config) {
         flashMsg: '',
         flashTimer: null,
         prayerTimes: config.prayerTimes,
-        currentServerTime: config.currentServerTime,
+
         allPrayers: config.allPrayers,
         currentTime: null,
 
         init() {
-            this.currentTime = this.currentServerTime;
+            this.currentTime = config.currentLocalTimeForPrayerLocation;
             // Update time setiap menit
             setInterval(() => {
                 this.updateCurrentTime();

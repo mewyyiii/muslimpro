@@ -36,13 +36,17 @@ class PrayerTimeService
                 if ($response->successful()) {
                     $data = $response->json();
                     $timings = $data['data']['timings'];
+                    $timezone = $data['data']['meta']['timezone'];
 
                     return [
-                        'fajr' => substr($timings['Fajr'], 0, 5),      // Format HH:MM
-                        'dhuhr' => substr($timings['Dhuhr'], 0, 5),
-                        'asr' => substr($timings['Asr'], 0, 5),
-                        'maghrib' => substr($timings['Maghrib'], 0, 5),
-                        'isha' => substr($timings['Isha'], 0, 5),
+                        'timings' => [
+                            'fajr' => substr($timings['Fajr'], 0, 5),      // Format HH:MM
+                            'dhuhr' => substr($timings['Dhuhr'], 0, 5),
+                            'asr' => substr($timings['Asr'], 0, 5),
+                            'maghrib' => substr($timings['Maghrib'], 0, 5),
+                            'isha' => substr($timings['Isha'], 0, 5),
+                        ],
+                        'timezone' => $timezone,
                     ];
                 }
             } catch (\Exception $e) {
@@ -78,13 +82,17 @@ class PrayerTimeService
                 if ($response->successful()) {
                     $data = $response->json();
                     $timings = $data['data']['timings'];
+                    $timezone = $data['data']['meta']['timezone'];
 
                     return [
-                        'fajr' => substr($timings['Fajr'], 0, 5),
-                        'dhuhr' => substr($timings['Dhuhr'], 0, 5),
-                        'asr' => substr($timings['Asr'], 0, 5),
-                        'maghrib' => substr($timings['Maghrib'], 0, 5),
-                        'isha' => substr($timings['Isha'], 0, 5),
+                        'timings' => [
+                            'fajr' => substr($timings['Fajr'], 0, 5),
+                            'dhuhr' => substr($timings['Dhuhr'], 0, 5),
+                            'asr' => substr($timings['Asr'], 0, 5),
+                            'maghrib' => substr($timings['Maghrib'], 0, 5),
+                            'isha' => substr($timings['Isha'], 0, 5),
+                        ],
+                        'timezone' => $timezone,
                     ];
                 }
             } catch (\Exception $e) {

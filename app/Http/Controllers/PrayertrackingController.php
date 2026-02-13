@@ -20,21 +20,27 @@ class PrayerTrackingController extends Controller
         $userLng = session('user_lng');
         
         // Get prayer times based on location
+        $prayerTimesData = [];
+        $locationTimezone = config('app.timezone'); // Default to app timezone
+
         if ($userLat && $userLng) {
-            $prayerTimes = PrayerTimeService::getPrayerTimes(
+            $prayerTimesData = PrayerTimeService::getPrayerTimes(
                 $userLat, 
                 $userLng, 
                 Carbon::parse($selectedDate)->format('d-m-Y')
             );
         } else {
-            $prayerTimes = PrayerTimeService::getPrayerTimesByCity(
+            $prayerTimesData = PrayerTimeService::getPrayerTimesByCity(
                 $userCity, 
                 'Indonesia', 
                 Carbon::parse($selectedDate)->format('d-m-Y')
             );
         }
         
-        $currentServerTime = now()->format('H:i');
+        $prayerTimes = $prayerTimesData['timings'];
+        $locationTimezone = $prayerTimesData['timezone'] ?? $locationTimezone;
+
+        $currentLocalTimeForPrayerLocation = Carbon::now($locationTimezone)->format('H:i');
         
         $prayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
         $prayerNames = [
@@ -83,7 +89,7 @@ class PrayerTrackingController extends Controller
             'weeklyStats',
             'selectedDate',
             'prayerTimes',
-            'currentServerTime',
+            'currentLocalTimeForPrayerLocation',
             'userCity',
             'nextPrayer'
         ));
