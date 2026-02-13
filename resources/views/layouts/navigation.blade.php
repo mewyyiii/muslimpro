@@ -77,14 +77,41 @@
                     Asmaul Husna
                 </a>
                 
-                <!-- Doa Pendek - Icon Bulan & Bintang (Image 1) -->
+                <!-- Doa Pendek - Icon Bulan & Bintang -->
                 <a href="{{ route('doa-pendek.index') }}" 
-                   class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('doa-pendek.*') ? 'bg-white/30' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
-                        <!-- Bulan Sabit Besar -->
-                        <path d="M9 2 C5 3, 2 7, 2 12 C2 17, 5 21, 9 22 C6 21, 4 17, 4 12 C4 7, 6 3, 9 2 Z"/>
-                        <!-- Bintang -->
-                        <path d="M16 6 L17 9 L20 10 L17 11 L16 14 L15 11 L12 10 L15 9 Z"/>
+                class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('doa-pendek.*') ? 'bg-white/30' : '' }}">
+                    
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" 
+                        fill="currentColor" 
+                        viewBox="0 0 24 24" 
+                        xmlns="http://www.w3.org/2000/svg">
+
+                        <defs>
+                            <!-- Mask untuk membuat bentuk bulan sabit tebal -->
+                            <mask id="crescent-mask">
+                                <rect width="24" height="24" fill="white"/>
+                                <!-- Lingkaran putih yang "memotong" bagian kanan bulan -->
+                                <circle cx="14.5" cy="9.5" r="6.8" fill="black"/>
+                            </mask>
+                        </defs>
+
+                        <!-- Bulan sabit: lingkaran besar dipotong mask → hasilnya tebal & membulat -->
+                        <circle cx="10" cy="13.5" r="7.5" mask="url(#crescent-mask)"/>
+
+                        <!-- Bintang 5 sudut solid & gemuk (di pojok kanan atas) -->
+                        <polygon points="
+                            19,1.5
+                            20.4,5.7
+                            24.8,5.7
+                            21.3,8.3
+                            22.7,12.5
+                            19,9.8
+                            15.3,12.5
+                            16.7,8.3
+                            13.2,5.7
+                            17.6,5.7
+                        "/>
+
                     </svg>
                     Doa Pendek
                 </a>
