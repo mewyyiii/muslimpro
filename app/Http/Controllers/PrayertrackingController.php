@@ -75,7 +75,7 @@ class PrayerTrackingController extends Controller
         $weeklyStats = $this->getWeeklyStats($user->id);
 
         // Next prayer info
-        $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentServerTime);
+        $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentLocalTimeForPrayerLocation);
         
         // ★ PAKAI NAMA VIEW SESUAI FILE KAMU
         return view('prayer_tracking', compact(
