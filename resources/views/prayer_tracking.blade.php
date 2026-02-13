@@ -510,7 +510,11 @@ function prayerTracker(config) {
                 end = this.timeToMinutes(this.prayerTimes[next]);
             }
 
-            return now >= start && now < end;
+            const isAvailable = now >= start && now < end;
+
+            console.log(`Prayer: ${prayerName}, CurrentTime: ${this.currentTime} (mins: ${now}), Start: ${this.prayerTimes[prayerName]} (mins: ${start}), End: ${this.prayerTimes[this.allPrayers[prayerIndex + 1]] || '24:00'} (mins: ${end}), IsAvailable: ${isAvailable}`);
+
+            return isAvailable;
         },
 
         isCurrentlyDisabled(prayer, index) {
