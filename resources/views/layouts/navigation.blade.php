@@ -152,35 +152,62 @@
                 <a href="{{ route('qibla.index') }}" 
                 class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('qibla.*') ? 'bg-white/30' : '' }}">
                     
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-                        <!-- Body Ka'bah -->
-                        <path d="M14 22 L32 14 L50 22 V50 L32 58 L14 50 Z" fill="currentColor" opacity="0.95"/>
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1"
+                        viewBox="0 0 64 64"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                    <!-- Ka'bah solid dengan potongan (negative space) -->
+                    <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="
+                        /* OUTER SHAPE */
+                        M32 6
+                        L60 18
+                        V46
+                        L32 58
+                        L4 46
+                        V18
+                        Z
 
-                        <!-- Edge shading (biar ada depth) -->
-                        <path d="M32 14 L50 22 V50 L32 58 Z" fill="currentColor" opacity="0.85"/>
-                        <path d="M14 22 L32 14 V58 L14 50 Z" fill="currentColor" opacity="0.75"/>
+                        /* CENTER VERTICAL LINE (CUT OUT) */
+                        M31.2 7.2
+                        H32.8
+                        V56.8
+                        H31.2
+                        Z
 
-                        <!-- Kiswah band (pita atas) -->
-                        <path d="M14 22 L32 14 L50 22 V28 L32 36 L14 28 Z" fill="currentColor" opacity="0.55"/>
+                        /* TOP STRIPE 1 (CUT OUT) */
+                        M10 18.6
+                        L32 9.8
+                        L54 18.6
+                        V21.2
+                        L32 30.0
+                        L10 21.2
+                        Z
 
-                        <!-- Pattern kecil di kiswah band -->
-                        <path d="M18 26 L20 24 L22 26 L20 28 Z" fill="white" opacity="0.18"/>
-                        <path d="M30 26 L32 24 L34 26 L32 28 Z" fill="white" opacity="0.18"/>
-                        <path d="M42 26 L44 24 L46 26 L44 28 Z" fill="white" opacity="0.18"/>
+                        /* TOP STRIPE 2 (CUT OUT) */
+                        M10 23.4
+                        L32 14.6
+                        L54 23.4
+                        V26.0
+                        L32 34.8
+                        L10 26.0
+                        Z
 
-                        <!-- Door (pintu) -->
-                        <path d="M27 34 L32 31 L37 34 V46 L32 49 L27 46 Z" fill="white" opacity="0.22"/>
-                        <path d="M29 36 L32 34 L35 36 V45 L32 47 L29 45 Z" fill="white" opacity="0.14"/>
+                        /* LEFT DOOR (CUT OUT) */
+                        M8.6 22.8
+                        L12.2 24.2
+                        V45.6
+                        L8.6 44.2
+                        Z
 
-                        <!-- Hajar Aswad (pojok kanan bawah) -->
-                        <path d="M47.5 43.5 C49.2 42.8 50.5 44.0 50.5 45.6 C50.5 47.0 49.2 48.2 47.7 48.0
-                                C46.2 47.8 45.4 46.4 45.7 45.1 C45.9 44.4 46.6 43.8 47.5 43.5 Z"
-                                fill="white" opacity="0.18"/>
-
-                        <!-- Outline tipis biar makin jelas -->
-                        <path d="M14 22 L32 14 L50 22 V50 L32 58 L14 50 Z" stroke="currentColor" stroke-width="1.2" opacity="0.25"/>
+                        /* SMALL SQUARE ORNAMENTS ON STRIPE 2 (CUT OUT) */
+                        M20.8 24.6 L22.8 25.4 L22.8 27.0 L20.8 26.2 Z
+                        M27.4 22.0 L29.4 22.8 L29.4 24.4 L27.4 23.6 Z
+                        M34.0 19.6 L36.0 20.4 L36.0 22.0 L34.0 21.2 Z
+                        M40.6 22.0 L42.6 22.8 L42.6 24.4 L40.6 23.6 Z
+                        M47.2 24.6 L49.2 25.4 L49.2 27.0 L47.2 26.2 Z
+                    "/>
                     </svg>
-                        Kiblat
+                    Kiblat
                 </a>
 
 
