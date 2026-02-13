@@ -367,10 +367,3 @@ function prayerTracker(config) {
 </style>
 @endpush
 
-@push('styles')
-<style>
-    .prayer-row { 
-        transition: all 0.2s ease; 
-    }
-</style>
-@endpush
