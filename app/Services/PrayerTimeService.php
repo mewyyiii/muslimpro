@@ -24,46 +24,54 @@ class PrayerTimeService
         // Cache key berdasarkan lokasi dan tanggal
         $cacheKey = "prayer_times_{$latitude}_{$longitude}_{$date}";
         
-        return Cache::remember($cacheKey, now()->addHours(6), function () use ($latitude, $longitude, $date) {
-            try {
-                // Aladhan API - Free dan reliable
-                $response = Http::timeout(10)->get('http://api.aladhan.com/v1/timings/' . $date, [
-                    'latitude' => $latitude,
-                    'longitude' => $longitude,
-                    'method' => 20, // Method 20 = Indonesia (Kemenag)
-                ]);
-
-                if ($response->successful()) {
-                    $data = $response->json();
-
-                    if (isset($data['data']) && isset($data['data']['timings']) && isset($data['data']['meta']['timezone'])) {
-                        $timings = $data['data']['timings'];
-                        $timezone = $data['data']['meta']['timezone'];
-
-                        return [
-                            'timings' => [
-                                'fajr' => substr($timings['Fajr'], 0, 5),      // Format HH:MM
-                                'dhuhr' => substr($timings['Dhuhr'], 0, 5),
-                                'asr' => substr($timings['Asr'], 0, 5),
-                                'maghrib' => substr($timings['Maghrib'], 0, 5),
-                                'isha' => substr($timings['Isha'], 0, 5),
-                            ],
-                            'timezone' => $timezone,
-                        ];
-                    } else {
-                        \Log::error('Prayer Time API: Missing data in successful response for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date . '. Response: ' . json_encode($data));
-                    }
-                } else {
-                    \Log::error('Prayer Time API: Unsuccessful response for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date . '. Status: ' . $response->status() . '. Response: ' . $response->body());
+                $cacheKey = "prayer_times_{$latitude}_{$longitude}_{$date}";
+                $cachedData = Cache::get($cacheKey);
+        
+                // Validate cached data structure
+                if ($cachedData && isset($cachedData['timings']) && isset($cachedData['timezone'])) {
+                    return $cachedData;
                 }
-            } catch (\Exception $e) {
-                \Log::error('Prayer Time API Error: ' . $e->getMessage() . ' for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date);
-            }
-
-            // Fallback ke waktu default jika API gagal atau respons tidak valid
-            return self::getDefaultTimes();
-        });
-    }
+        
+                // If cache is invalid or not found, fetch fresh data
+                try {
+                    // Aladhan API - Free dan reliable
+                    $response = Http::timeout(10)->get('http://api.aladhan.com/v1/timings/' . $date, [
+                        'latitude' => $latitude,
+                        'longitude' => $longitude,
+                        'method' => 20, // Method 20 = Indonesia (Kemenag)
+                    ]);
+        
+                    if ($response->successful()) {
+                        $data = $response->json();
+        
+                        if (isset($data['data']) && isset($data['data']['timings']) && isset($data['data']['meta']['timezone'])) {
+                            $timings = $data['data']['timings'];
+                            $timezone = $data['data']['meta']['timezone'];
+        
+                            $result = [
+                                'timings' => [
+                                    'fajr' => substr($timings['Fajr'], 0, 5),      // Format HH:MM
+                                    'dhuhr' => substr($timings['Dhuhr'], 0, 5),
+                                    'asr' => substr($timings['Asr'], 0, 5),
+                                    'maghrib' => substr($timings['Maghrib'], 0, 5),
+                                    'isha' => substr($timings['Isha'], 0, 5),
+                                ],
+                                'timezone' => $timezone,
+                            ];
+                            Cache::put($cacheKey, $result, now()->addHours(6));
+                            return $result;
+                        } else {
+                            \Log::error('Prayer Time API: Missing data in successful response for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date . '. Response: ' . json_encode($data));
+                        }
+                    } else {
+                        \Log::error('Prayer Time API: Unsuccessful response for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date . '. Status: ' . $response->status() . '. Response: ' . $response->body());
+                    }
+                } catch (\Exception $e) {
+                    \Log::error('Prayer Time API Error: ' . $e->getMessage() . ' for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date);
+                }
+        
+                // Fallback to default times if API fails or response is invalid
+                return self::getDefaultTimes();    }
 
     /**
      * Get prayer times by city name
@@ -78,43 +86,52 @@ class PrayerTimeService
         $date = $date ?? Carbon::now()->format('d-m-Y');
         $cacheKey = "prayer_times_city_{$city}_{$country}_{$date}";
         
-        return Cache::remember($cacheKey, now()->addHours(6), function () use ($city, $country, $date) {
-            try {
-                $response = Http::timeout(10)->get('http://api.aladhan.com/v1/timingsByCity/' . $date, [
-                    'city' => $city,
-                    'country' => $country,
-                    'method' => 20,
-                ]);
+        $cacheKey = "prayer_times_city_{$city}_{$country}_{$date}";
+        $cachedData = Cache::get($cacheKey);
 
-                if ($response->successful()) {
-                    $data = $response->json();
+        // Validate cached data structure
+        if ($cachedData && isset($cachedData['timings']) && isset($cachedData['timezone'])) {
+            return $cachedData;
+        }
+        
+        // If cache is invalid or not found, fetch fresh data
+        try {
+            $response = Http::timeout(10)->get('http://api.aladhan.com/v1/timingsByCity/' . $date, [
+                'city' => $city,
+                'country' => $country,
+                'method' => 20,
+            ]);
 
-                    if (isset($data['data']) && isset($data['data']['timings']) && isset($data['data']['meta']['timezone'])) {
-                        $timings = $data['data']['timings'];
-                        $timezone = $data['data']['meta']['timezone'];
+            if ($response->successful()) {
+                $data = $response->json();
 
-                        return [
-                            'timings' => [
-                                'fajr' => substr($timings['Fajr'], 0, 5),
-                                'dhuhr' => substr($timings['Dhuhr'], 0, 5),
-                                'asr' => substr($timings['Asr'], 0, 5),
-                                'maghrib' => substr($timings['Maghrib'], 0, 5),
-                                'isha' => substr($timings['Isha'], 0, 5),
-                            ],
-                            'timezone' => $timezone,
-                        ];
-                    } else {
-                        \Log::error('Prayer Time City API: Missing data in successful response for city: ' . $city . ', country: ' . $country . ', date: ' . $date . '. Response: ' . json_encode($data));
-                    }
+                if (isset($data['data']) && isset($data['data']['timings']) && isset($data['data']['meta']['timezone'])) {
+                    $timings = $data['data']['timings'];
+                    $timezone = $data['data']['meta']['timezone'];
+
+                    $result = [
+                        'timings' => [
+                            'fajr' => substr($timings['Fajr'], 0, 5),
+                            'dhuhr' => substr($timings['Dhuhr'], 0, 5),
+                            'asr' => substr($timings['Asr'], 0, 5),
+                            'maghrib' => substr($timings['Maghrib'], 0, 5),
+                            'isha' => substr($timings['Isha'], 0, 5),
+                        ],
+                        'timezone' => $timezone,
+                    ];
+                    Cache::put($cacheKey, $result, now()->addHours(6));
+                    return $result;
                 } else {
-                    \Log::error('Prayer Time City API: Unsuccessful response for city: ' . $city . ', country: ' . $country . ', date: ' . $date . '. Status: ' . $response->status() . '. Response: ' . $response->body());
+                    \Log::error('Prayer Time City API: Missing data in successful response for city: ' . $city . ', country: ' . $country . ', date: ' . $date . '. Response: ' . json_encode($data));
                 }
-            } catch (\Exception $e) {
-                \Log::error('Prayer Time City API Error: ' . $e->getMessage() . ' for city: ' . $city . ', country: ' . $country . ', date: ' . $date);
+            } else {
+                \Log::error('Prayer Time City API: Unsuccessful response for city: ' . $city . ', country: ' . $country . ', date: ' . $date . '. Status: ' . $response->status() . '. Response: ' . $response->body());
             }
+        } catch (\Exception $e) {
+            \Log::error('Prayer Time City API Error: ' . $e->getMessage() . ' for city: ' . $city . ', country: ' . $country . ', date: ' . $date);
+        }
 
-            return self::getDefaultTimes();
-        });
+        return self::getDefaultTimes();
     }
 
     /**
