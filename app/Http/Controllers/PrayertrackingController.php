@@ -40,7 +40,7 @@ class PrayerTrackingController extends Controller
         $prayerTimes = $prayerTimesData['timings'];
         $locationTimezone = $prayerTimesData['timezone'] ?? $locationTimezone;
 
-        $currentLocalTimeForPrayerLocation = Carbon::now($locationTimezone)->format('H:i');
+        $currentServerTime = Carbon::now($locationTimezone)->format('H:i');
         
         $prayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
         $prayerNames = [
@@ -75,7 +75,7 @@ class PrayerTrackingController extends Controller
         $weeklyStats = $this->getWeeklyStats($user->id);
 
         // Next prayer info
-        $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentLocalTimeForPrayerLocation);
+        $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentServerTime);
         
         // ★ PAKAI NAMA VIEW SESUAI FILE KAMU
         return view('prayer_tracking', compact(
@@ -89,7 +89,7 @@ class PrayerTrackingController extends Controller
             'weeklyStats',
             'selectedDate',
             'prayerTimes',
-            'currentLocalTimeForPrayerLocation',
+            'currentServerTime',
             'userCity',
             'nextPrayer'
         ));
