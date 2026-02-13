@@ -71,7 +71,8 @@ class PrayerTrackingController extends Controller
         // Next prayer info
         $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentServerTime);
         
-        return view('prayer-tracking.index', compact(
+        // ★ PAKAI NAMA VIEW SESUAI FILE KAMU
+        return view('prayer_tracking', compact(
             'prayers',
             'prayerNames',
             'todayPrayers',
@@ -171,11 +172,11 @@ class PrayerTrackingController extends Controller
             'longitude' => 'nullable|numeric',
         ]);
 
-        if ($validated['city']) {
+        if (isset($validated['city'])) {
             session(['user_city' => $validated['city']]);
         }
 
-        if ($validated['latitude'] && $validated['longitude']) {
+        if (isset($validated['latitude']) && isset($validated['longitude'])) {
             session([
                 'user_lat' => $validated['latitude'],
                 'user_lng' => $validated['longitude'],
