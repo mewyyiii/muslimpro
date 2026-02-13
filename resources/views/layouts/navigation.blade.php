@@ -153,47 +153,59 @@
                 class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('qibla.*') ? 'bg-white/30' : '' }}">
                     
                     <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 100 100">
-                        <!-- Top section (Atap) -->
-                        <polygon points="50,5 95,25 95,30 5,30 5,25"/>
+                        <!-- Top section (Atap berbentuk segitiga/piramida) -->
+                        <polygon points="50,8 90,28 10,28" opacity="0.95"/>
                         
-                        <!-- Layer 1 - dengan ornamen diamond -->
-                        <rect x="10" y="30" width="80" height="8"/>
+                        <!-- Garis tepi atap -->
+                        <rect x="10" y="28" width="80" height="3" opacity="0.85"/>
                         
-                        <!-- Diamond ornaments layer 1 -->
-                        <rect x="18" y="32" width="4" height="4" transform="rotate(45 20 34)"/>
-                        <rect x="38" y="32" width="4" height="4" transform="rotate(45 40 34)"/>
-                        <rect x="58" y="32" width="4" height="4" transform="rotate(45 60 34)"/>
-                        <rect x="78" y="32" width="4" height="4" transform="rotate(45 80 34)"/>
+                        <!-- Layer 1 - Band atas dengan ornamen -->
+                        <rect x="12" y="31" width="76" height="10"/>
                         
-                        <!-- Layer 2 - Main body dengan door -->
-                        <rect x="15" y="38" width="70" height="20"/>
+                        <!-- Diamond ornaments layer 1 (horizontal tengah) -->
+                        <rect x="20" y="34" width="3" height="3" transform="rotate(45 21.5 35.5)" opacity="0.4"/>
+                        <rect x="36" y="34" width="3" height="3" transform="rotate(45 37.5 35.5)" opacity="0.4"/>
+                        <rect x="48.5" y="34" width="3" height="3" transform="rotate(45 50 35.5)" opacity="0.4"/>
+                        <rect x="61" y="34" width="3" height="3" transform="rotate(45 62.5 35.5)" opacity="0.4"/>
+                        <rect x="77" y="34" width="3" height="3" transform="rotate(45 78.5 35.5)" opacity="0.4"/>
                         
-                        <!-- Door (Pintu Ka'bah) -->
-                        <rect x="42" y="42" width="16" height="12" fill="white" opacity="0.15"/>
+                        <!-- Layer 2 - Main body (Body utama Ka'bah) -->
+                        <rect x="15" y="41" width="70" height="28"/>
                         
-                        <!-- Diamond ornaments layer 2 (kiri dan kanan door) -->
-                        <rect x="22" y="46" width="4" height="4" transform="rotate(45 24 48)"/>
-                        <rect x="74" y="46" width="4" height="4" transform="rotate(45 76 48)"/>
+                        <!-- Hajar Aswad (sudut kanan bawah) - bulatan kecil gelap -->
+                        <circle cx="82" cy="64" r="2.5" fill="white" opacity="0.25"/>
                         
-                        <!-- Layer 3 - dengan ornamen diamond -->
-                        <rect x="10" y="58" width="80" height="8"/>
+                        <!-- Door (Pintu Ka'bah - lebih tinggi dan proporsional) -->
+                        <rect x="40" y="46" width="20" height="18" fill="white" opacity="0.2" rx="1"/>
+                        
+                        <!-- Detail pintu - panel -->
+                        <rect x="42" y="48" width="7" height="14" fill="white" opacity="0.1"/>
+                        <rect x="51" y="48" width="7" height="14" fill="white" opacity="0.1"/>
+                        
+                        <!-- Kiswah pattern - ornamen samping kiri -->
+                        <rect x="20" y="48" width="3" height="3" transform="rotate(45 21.5 49.5)" opacity="0.3"/>
+                        <rect x="20" y="56" width="3" height="3" transform="rotate(45 21.5 57.5)" opacity="0.3"/>
+                        
+                        <!-- Kiswah pattern - ornamen samping kanan -->
+                        <rect x="77" y="48" width="3" height="3" transform="rotate(45 78.5 49.5)" opacity="0.3"/>
+                        <rect x="77" y="56" width="3" height="3" transform="rotate(45 78.5 57.5)" opacity="0.3"/>
+                        
+                        <!-- Layer 3 - Band bawah dengan ornamen -->
+                        <rect x="12" y="69" width="76" height="10"/>
                         
                         <!-- Diamond ornaments layer 3 -->
-                        <rect x="18" y="60" width="4" height="4" transform="rotate(45 20 62)"/>
-                        <rect x="38" y="60" width="4" height="4" transform="rotate(45 40 62)"/>
-                        <rect x="58" y="60" width="4" height="4" transform="rotate(45 60 62)"/>
-                        <rect x="78" y="60" width="4" height="4" transform="rotate(45 80 62)"/>
+                        <rect x="20" y="72" width="3" height="3" transform="rotate(45 21.5 73.5)" opacity="0.4"/>
+                        <rect x="36" y="72" width="3" height="3" transform="rotate(45 37.5 73.5)" opacity="0.4"/>
+                        <rect x="48.5" y="72" width="3" height="3" transform="rotate(45 50 73.5)" opacity="0.4"/>
+                        <rect x="61" y="72" width="3" height="3" transform="rotate(45 62.5 73.5)" opacity="0.4"/>
+                        <rect x="77" y="72" width="3" height="3" transform="rotate(45 78.5 73.5)" opacity="0.4"/>
                         
-                        <!-- Bottom layer 1 -->
-                        <rect x="8" y="66" width="84" height="6"/>
+                        <!-- Base 1 (Foundation) -->
+                        <rect x="8" y="79" width="84" height="6" opacity="0.9"/>
                         
-                        <!-- Bottom layer 2 (Base/Foundation) -->
-                        <rect x="5" y="72" width="90" height="8"/>
-                        
-                        <!-- Bottom layer 3 (Paling bawah) -->
-                        <rect x="2" y="80" width="96" height="6"/>
+                        <!-- Base 2 (Platform bawah) -->
+                        <rect x="5" y="85" width="90" height="8" opacity="0.8"/>
                     </svg>
-                    
                     Kiblat
                 </a>
 
