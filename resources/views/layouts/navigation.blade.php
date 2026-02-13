@@ -152,61 +152,35 @@
                 <a href="{{ route('qibla.index') }}" 
                 class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('qibla.*') ? 'bg-white/30' : '' }}">
                     
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 100 100">
-                        <!-- Top section (Atap berbentuk segitiga/piramida) -->
-                        <polygon points="50,8 90,28 10,28" opacity="0.95"/>
-                        
-                        <!-- Garis tepi atap -->
-                        <rect x="10" y="28" width="80" height="3" opacity="0.85"/>
-                        
-                        <!-- Layer 1 - Band atas dengan ornamen -->
-                        <rect x="12" y="31" width="76" height="10"/>
-                        
-                        <!-- Diamond ornaments layer 1 (horizontal tengah) -->
-                        <rect x="20" y="34" width="3" height="3" transform="rotate(45 21.5 35.5)" opacity="0.4"/>
-                        <rect x="36" y="34" width="3" height="3" transform="rotate(45 37.5 35.5)" opacity="0.4"/>
-                        <rect x="48.5" y="34" width="3" height="3" transform="rotate(45 50 35.5)" opacity="0.4"/>
-                        <rect x="61" y="34" width="3" height="3" transform="rotate(45 62.5 35.5)" opacity="0.4"/>
-                        <rect x="77" y="34" width="3" height="3" transform="rotate(45 78.5 35.5)" opacity="0.4"/>
-                        
-                        <!-- Layer 2 - Main body (Body utama Ka'bah) -->
-                        <rect x="15" y="41" width="70" height="28"/>
-                        
-                        <!-- Hajar Aswad (sudut kanan bawah) - bulatan kecil gelap -->
-                        <circle cx="82" cy="64" r="2.5" fill="white" opacity="0.25"/>
-                        
-                        <!-- Door (Pintu Ka'bah - lebih tinggi dan proporsional) -->
-                        <rect x="40" y="46" width="20" height="18" fill="white" opacity="0.2" rx="1"/>
-                        
-                        <!-- Detail pintu - panel -->
-                        <rect x="42" y="48" width="7" height="14" fill="white" opacity="0.1"/>
-                        <rect x="51" y="48" width="7" height="14" fill="white" opacity="0.1"/>
-                        
-                        <!-- Kiswah pattern - ornamen samping kiri -->
-                        <rect x="20" y="48" width="3" height="3" transform="rotate(45 21.5 49.5)" opacity="0.3"/>
-                        <rect x="20" y="56" width="3" height="3" transform="rotate(45 21.5 57.5)" opacity="0.3"/>
-                        
-                        <!-- Kiswah pattern - ornamen samping kanan -->
-                        <rect x="77" y="48" width="3" height="3" transform="rotate(45 78.5 49.5)" opacity="0.3"/>
-                        <rect x="77" y="56" width="3" height="3" transform="rotate(45 78.5 57.5)" opacity="0.3"/>
-                        
-                        <!-- Layer 3 - Band bawah dengan ornamen -->
-                        <rect x="12" y="69" width="76" height="10"/>
-                        
-                        <!-- Diamond ornaments layer 3 -->
-                        <rect x="20" y="72" width="3" height="3" transform="rotate(45 21.5 73.5)" opacity="0.4"/>
-                        <rect x="36" y="72" width="3" height="3" transform="rotate(45 37.5 73.5)" opacity="0.4"/>
-                        <rect x="48.5" y="72" width="3" height="3" transform="rotate(45 50 73.5)" opacity="0.4"/>
-                        <rect x="61" y="72" width="3" height="3" transform="rotate(45 62.5 73.5)" opacity="0.4"/>
-                        <rect x="77" y="72" width="3" height="3" transform="rotate(45 78.5 73.5)" opacity="0.4"/>
-                        
-                        <!-- Base 1 (Foundation) -->
-                        <rect x="8" y="79" width="84" height="6" opacity="0.9"/>
-                        
-                        <!-- Base 2 (Platform bawah) -->
-                        <rect x="5" y="85" width="90" height="8" opacity="0.8"/>
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                        <!-- Body Ka'bah -->
+                        <path d="M14 22 L32 14 L50 22 V50 L32 58 L14 50 Z" fill="currentColor" opacity="0.95"/>
+
+                        <!-- Edge shading (biar ada depth) -->
+                        <path d="M32 14 L50 22 V50 L32 58 Z" fill="currentColor" opacity="0.85"/>
+                        <path d="M14 22 L32 14 V58 L14 50 Z" fill="currentColor" opacity="0.75"/>
+
+                        <!-- Kiswah band (pita atas) -->
+                        <path d="M14 22 L32 14 L50 22 V28 L32 36 L14 28 Z" fill="currentColor" opacity="0.55"/>
+
+                        <!-- Pattern kecil di kiswah band -->
+                        <path d="M18 26 L20 24 L22 26 L20 28 Z" fill="white" opacity="0.18"/>
+                        <path d="M30 26 L32 24 L34 26 L32 28 Z" fill="white" opacity="0.18"/>
+                        <path d="M42 26 L44 24 L46 26 L44 28 Z" fill="white" opacity="0.18"/>
+
+                        <!-- Door (pintu) -->
+                        <path d="M27 34 L32 31 L37 34 V46 L32 49 L27 46 Z" fill="white" opacity="0.22"/>
+                        <path d="M29 36 L32 34 L35 36 V45 L32 47 L29 45 Z" fill="white" opacity="0.14"/>
+
+                        <!-- Hajar Aswad (pojok kanan bawah) -->
+                        <path d="M47.5 43.5 C49.2 42.8 50.5 44.0 50.5 45.6 C50.5 47.0 49.2 48.2 47.7 48.0
+                                C46.2 47.8 45.4 46.4 45.7 45.1 C45.9 44.4 46.6 43.8 47.5 43.5 Z"
+                                fill="white" opacity="0.18"/>
+
+                        <!-- Outline tipis biar makin jelas -->
+                        <path d="M14 22 L32 14 L50 22 V50 L32 58 L14 50 Z" stroke="currentColor" stroke-width="1.2" opacity="0.25"/>
                     </svg>
-                    Kiblat
+                        Kiblat
                 </a>
 
 
