@@ -71,7 +71,7 @@ class PrayerTrackingController extends Controller
         // Next prayer info
         $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentServerTime);
         
-        return view('prayer-tracking.index', compact(
+        return view('prayer_tracking.index', compact(
             'prayers',
             'prayerNames',
             'todayPrayers',
