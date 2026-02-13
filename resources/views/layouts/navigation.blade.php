@@ -140,25 +140,55 @@
                     Tasbih
                 </a>
 
-                <!-- Kiblat - Icon Masjid (Image 2 - Kiri) -->
+                <!-- Kiblat - Icon Ka'bah (Seperti gambar yang diupload) -->
                 <a href="{{ route('qibla.index') }}" 
-                   class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('qibla.*') ? 'bg-white/30' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
-                        <!-- Kubah Masjid -->
-                        <path d="M8 11 C8 11, 10 8, 12 8 C14 8, 16 11, 16 11 L16 18 L8 18 Z"/>
-                        <!-- Bulan di atas kubah -->
-                        <path d="M12 5 C11.2 5, 10.5 5.7, 10.5 6.5 C10.5 7.3, 11.2 8, 12 8 C11.6 8, 11.3 7.5, 11.3 7 C11.3 6.5, 11.6 6.2, 12 6.2 Z"/>
-                        <!-- Menara Kiri -->
-                        <rect x="6" y="10" width="2" height="8"/>
-                        <circle cx="7" cy="9" r="1"/>
-                        <!-- Menara Kanan -->
-                        <rect x="16" y="10" width="2" height="8"/>
-                        <circle cx="17" cy="9" r="1"/>
-                        <!-- Base -->
-                        <rect x="6" y="18" width="12" height="1"/>
+                class="nav-link px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 transition-all duration-200 {{ request()->routeIs('qibla.*') ? 'bg-white/30' : '' }}">
+                    
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 100 100">
+                        <!-- Top section (Atap) -->
+                        <polygon points="50,5 95,25 95,30 5,30 5,25"/>
+                        
+                        <!-- Layer 1 - dengan ornamen diamond -->
+                        <rect x="10" y="30" width="80" height="8"/>
+                        
+                        <!-- Diamond ornaments layer 1 -->
+                        <rect x="18" y="32" width="4" height="4" transform="rotate(45 20 34)"/>
+                        <rect x="38" y="32" width="4" height="4" transform="rotate(45 40 34)"/>
+                        <rect x="58" y="32" width="4" height="4" transform="rotate(45 60 34)"/>
+                        <rect x="78" y="32" width="4" height="4" transform="rotate(45 80 34)"/>
+                        
+                        <!-- Layer 2 - Main body dengan door -->
+                        <rect x="15" y="38" width="70" height="20"/>
+                        
+                        <!-- Door (Pintu Ka'bah) -->
+                        <rect x="42" y="42" width="16" height="12" fill="white" opacity="0.15"/>
+                        
+                        <!-- Diamond ornaments layer 2 (kiri dan kanan door) -->
+                        <rect x="22" y="46" width="4" height="4" transform="rotate(45 24 48)"/>
+                        <rect x="74" y="46" width="4" height="4" transform="rotate(45 76 48)"/>
+                        
+                        <!-- Layer 3 - dengan ornamen diamond -->
+                        <rect x="10" y="58" width="80" height="8"/>
+                        
+                        <!-- Diamond ornaments layer 3 -->
+                        <rect x="18" y="60" width="4" height="4" transform="rotate(45 20 62)"/>
+                        <rect x="38" y="60" width="4" height="4" transform="rotate(45 40 62)"/>
+                        <rect x="58" y="60" width="4" height="4" transform="rotate(45 60 62)"/>
+                        <rect x="78" y="60" width="4" height="4" transform="rotate(45 80 62)"/>
+                        
+                        <!-- Bottom layer 1 -->
+                        <rect x="8" y="66" width="84" height="6"/>
+                        
+                        <!-- Bottom layer 2 (Base/Foundation) -->
+                        <rect x="5" y="72" width="90" height="8"/>
+                        
+                        <!-- Bottom layer 3 (Paling bawah) -->
+                        <rect x="2" y="80" width="96" height="6"/>
                     </svg>
+                    
                     Kiblat
                 </a>
+
 
                 <!-- Tracking Shalat - Icon Orang Shalat/Sujud (Image 2 - Kanan) -->
                 <a href="{{ route('prayer-tracking.index') }}" 
