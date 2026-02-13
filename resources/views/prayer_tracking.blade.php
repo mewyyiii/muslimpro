@@ -183,6 +183,11 @@
 </div>
 @endsection
 
+{{-- ═══════════════════════════════════════════════════════════════
+     COPY PASTE BAGIAN INI KE BAWAH FILE prayer_tracking.blade.php
+     (setelah @endsection, REPLACE seluruh @push('scripts') yang lama)
+═══════════════════════════════════════════════════════════════ --}}
+
 @push('scripts')
 <script>
 function prayerTracker(config) {
@@ -203,7 +208,6 @@ function prayerTracker(config) {
             console.log('Current time:', this.currentTime);
             console.log('Prayer times:', this.prayerTimes);
             
-            // Update time setiap menit
             setInterval(() => {
                 this.updateCurrentTime();
             }, 60000);
@@ -231,13 +235,12 @@ function prayerTracker(config) {
         },
 
         isPrayerCurrentlyAvailable(prayerName, prayerIndex) {
-            // Kalau bukan hari ini, semua button bisa diklik
             if (!this.isToday()) return true;
 
             const now = this.timeToMinutes(this.currentTime);
             const start = this.timeToMinutes(this.prayerTimes[prayerName]);
 
-            let end = 24 * 60; // End of day
+            let end = 24 * 60;
             if (prayerIndex < this.allPrayers.length - 1) {
                 const next = this.allPrayers[prayerIndex + 1];
                 end = this.timeToMinutes(this.prayerTimes[next]);
@@ -247,17 +250,13 @@ function prayerTracker(config) {
         },
 
         isCurrentlyDisabled(prayer, index) {
-            // Kalau sudah performed, tidak disable (biar bisa dibatalkan)
             if (this.prayerStatus[prayer]?.status === 'performed') {
                 return false;
             }
-            
-            // Kalau belum performed, cek waktu
             return !this.isPrayerCurrentlyAvailable(prayer, index);
         },
 
         getPrayerTimeStatus(prayer, index) {
-            // Kalau sudah performed
             if (this.prayerStatus[prayer]?.status === 'performed') {
                 return '✓ Terlaksana';
             }
@@ -305,7 +304,6 @@ function prayerTracker(config) {
         async updatePrayer(prayer, status) {
             const index = this.allPrayers.indexOf(prayer);
             
-            // Cek disable hanya kalau belum performed
             if (status === 'performed' && this.isCurrentlyDisabled(prayer, index)) {
                 this.showFlash('🚫 Belum masuk waktu shalat ' + prayer);
                 return;
@@ -331,7 +329,6 @@ function prayerTracker(config) {
                 const data = await res.json();
 
                 if (data.success) {
-                    // Update local state
                     if (status) {
                         this.prayerStatus[prayer] = { status: status };
                         this.showFlash('✅ Shalat ' + config.prayerNames[prayer] + ' tercatat');
@@ -360,6 +357,14 @@ function prayerTracker(config) {
     }
 }
 </script>
+@endpush
+
+@push('styles')
+<style>
+    .prayer-row { 
+        transition: all 0.2s ease; 
+    }
+</style>
 @endpush
 
 @push('styles')
