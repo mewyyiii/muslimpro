@@ -52,15 +52,12 @@
 
         .feature-card {
             transition: transform .32s cubic-bezier(.34,1.56,.64,1), box-shadow .32s ease;
+            transform: scale(1);
         }
         .feature-card:hover {
-            transform: translateY(-10px) scale(1.035);
+            transform: scale(1.05) !important;
             box-shadow: 0 28px 50px rgba(20,184,166,.16), 0 8px 20px rgba(0,0,0,.07);
         }
-        .feature-card:hover .feature-icon {
-            transform: rotate(-8deg) scale(1.12);
-        }
-        .feature-icon { transition: transform .32s cubic-bezier(.34,1.56,.64,1); }
 
         .reveal {
             opacity:0; transform:translateY(32px);
@@ -144,7 +141,7 @@
                 <div class="fade-in">
                     <span class="badge-pill">
                         <span class="badge-dot"></span>
-                        ✦ Pendamping Ibadah Digital Terpercaya
+                            Pendamping Ibadah Digital Terpercaya
                     </span>
                 </div>
                 <h1 class="fade-in-d1 text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
@@ -159,7 +156,7 @@
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                         Mulai Sekarang
                     </a>
-                    <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-white text-teal-700 font-semibold rounded-xl border-2 border-teal-200 hover:border-teal-400 hover:bg-teal-50 transition-all duration-200">
+                    <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-white text-teal-700 font-semibold rounded-xl border-2 border-teal-400 hover:border-teal-600 hover:bg-teal-50 transition-all duration-200">
                         Sudah Punya Akun?
                     </a>
                 </div>
@@ -167,33 +164,6 @@
                     <div class="stat-item"><div class="text-3xl font-bold text-teal-600">114</div><div class="text-sm text-gray-500 mt-1">Surah Al-Quran</div></div>
                     <div class="stat-item"><div class="text-3xl font-bold text-teal-600">99</div><div class="text-sm text-gray-500 mt-1">Asmaul Husna</div></div>
                     <div class="stat-item"><div class="text-3xl font-bold text-teal-600">50+</div><div class="text-sm text-gray-500 mt-1">Doa Harian</div></div>
-                </div>
-            </div>
-
-            <!-- Right Illustration -->
-            <div class="relative hidden lg:block float-animation">
-                <div class="relative w-full h-[500px]">
-                    <div class="absolute inset-0 bg-gradient-to-br from-teal-100 to-emerald-100 rounded-3xl opacity-50"></div>
-                    <div class="absolute inset-6 bg-white rounded-2xl shadow-2xl p-8 overflow-hidden">
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-lg"></div>
-                                <div class="text-lg font-bold text-gray-800">Al-Huda</div>
-                            </div>
-                            <div class="w-8 h-8 bg-teal-100 rounded-full"></div>
-                        </div>
-                        <div class="bg-gradient-to-br from-teal-500 to-emerald-500 rounded-xl p-6 text-white mb-4">
-                            <div class="text-sm opacity-90 mb-2">Waktu Shalat Berikutnya</div>
-                            <div class="text-3xl font-bold mb-1">Dzuhur</div>
-                            <div class="text-xl">12:15 WIB</div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-teal-50 rounded-lg p-4"><div class="w-10 h-10 bg-teal-100 rounded-lg mb-2"></div><div class="text-sm font-semibold text-gray-800">Al-Quran</div></div>
-                            <div class="bg-emerald-50 rounded-lg p-4"><div class="w-10 h-10 bg-emerald-100 rounded-lg mb-2"></div><div class="text-sm font-semibold text-gray-800">Tasbih</div></div>
-                            <div class="bg-teal-50 rounded-lg p-4"><div class="w-10 h-10 bg-teal-100 rounded-lg mb-2"></div><div class="text-sm font-semibold text-gray-800">Kiblat</div></div>
-                            <div class="bg-emerald-50 rounded-lg p-4"><div class="w-10 h-10 bg-emerald-100 rounded-lg mb-2"></div><div class="text-sm font-semibold text-gray-800">Doa</div></div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
