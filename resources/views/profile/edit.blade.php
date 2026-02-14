@@ -350,7 +350,7 @@
                 
                 <button @click="showDeleteModal = true"
                         class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
-                    Delete My Account
+                    Hapus AKun
                 </button>
 
                 {{-- Modal Delete Account --}}

@@ -91,7 +91,8 @@ class PrayerTrackingController extends Controller
             'prayerTimes',
             'currentServerTime',
             'userCity',
-            'nextPrayer'
+            'nextPrayer',
+            'locationTimezone'  // ← Tambahkan ini
         ));
     }
 
@@ -99,14 +100,14 @@ class PrayerTrackingController extends Controller
     {
         $validated = $request->validate([
             'prayer_name' => 'required|in:fajr,dhuhr,asr,maghrib,isha',
-            'status' => 'required|in:performed,qada,missed,',
+            'status' => 'required|in:performed,qada,missed,remove',
             'prayer_date' => 'required|date',
         ]);
 
         $user = auth()->user();
 
-        if (empty($validated['status'])) {
-            // Delete if status is empty
+        // Jika status 'remove', hapus record (uncheck)
+        if ($validated['status'] === 'remove') {
             PrayerTracking::where('user_id', $user->id)
                 ->where('prayer_name', $validated['prayer_name'])
                 ->where('prayer_date', $validated['prayer_date'])
@@ -114,11 +115,11 @@ class PrayerTrackingController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Status shalat dihapus'
+                'message' => 'Catatan shalat berhasil dihapus'
             ]);
         }
 
-        // Upsert
+        // Upsert untuk status performed, qada, atau missed
         PrayerTracking::updateOrCreate(
             [
                 'user_id' => $user->id,

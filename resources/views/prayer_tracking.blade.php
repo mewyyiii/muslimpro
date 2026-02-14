@@ -60,10 +60,11 @@
             </h2>
 
             {{-- Debug Info --}}
-            <div class="mb-4 p-3 bg-gray-50 rounded-lg text-xs">
-                <strong>DEBUG:</strong> 
-                Waktu Sekarang: {{ $currentServerTime }} | 
-                Shalat Berikutnya: {{ ucfirst($nextPrayer['name']) }} ({{ $nextPrayer['time'] }})
+            <div class="mb-4 p-3 bg-gray-50 rounded-lg text-xs space-y-1">
+                <div><strong>DEBUG:</strong></div>
+                <div>Waktu Sekarang: {{ $currentServerTime }}</div>
+                <div>Shalat Berikutnya: {{ ucfirst($nextPrayer['name']) }} ({{ $nextPrayer['time'] }})</div>
+                <div>Tanggal Dipilih: {{ $selectedDate }} | Hari Ini: {{ now()->toDateString() }}</div>
             </div>
 
             {{-- Shalat Cards --}}
@@ -72,9 +73,28 @@
                 @php
                     $rec = $todayPrayers->get($prayer);
                     $status = $rec ? $rec->status : null;
+                    
+                    // PERBAIKAN: Gunakan timezone yang sama dengan controller
+                    $currentTime = \Carbon\Carbon::now($locationTimezone ?? config('app.timezone'))->format('H:i');
+                    $prayerTime = $prayerTimes[$prayer]; // Sudah dalam format H:i
+                    
+                    // Parse kedua waktu untuk perbandingan yang akurat
+                    $currentTimeObj = \Carbon\Carbon::createFromFormat('H:i', $currentTime);
+                    $prayerTimeObj = \Carbon\Carbon::createFromFormat('H:i', $prayerTime);
+                    
+                    $isTimeReached = $currentTimeObj->greaterThanOrEqualTo($prayerTimeObj);
+                    
+                    // Jika bukan hari ini, semua shalat bisa dicatat
+                    $isToday = $selectedDate === now()->toDateString();
+                    
+                    // Logika: bisa check jika:
+                    // 1. Bukan hari ini (hari lalu bisa dicatat semua)
+                    // 2. Atau waktu shalat sudah tiba
+                    $canCheck = !$isToday || $isTimeReached;
                 @endphp
                 <div class="prayer-row border rounded-xl p-4 transition-all duration-300
-                    {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' : 'border-gray-200 bg-gray-50' }}">
+                    {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' : 'border-gray-200 bg-gray-50' }}
+                    {{ !$canCheck && $status !== 'performed' ? 'opacity-60' : '' }}">
 
                     <div class="flex items-center gap-3">
                         {{-- Icon & Nama --}}
@@ -92,21 +112,45 @@
                             <div class="text-xs text-gray-500">
                                 @if($status === 'performed')
                                     <span class="text-teal-600 font-medium">✓ Terlaksana</span>
+                                @elseif(!$canCheck)
+                                    <span class="text-amber-500 font-medium">⏰ Belum waktunya</span>
                                 @else
                                     <span class="text-gray-400">Belum dicatat</span>
                                 @endif
+                                {{-- Debug per shalat --}}
+                                <span class="ml-2 text-gray-400">
+                                    (Waktu: {{ $currentTime }} | Shalat: {{ $prayerTime }} | canCheck: {{ $canCheck ? 'YES' : 'NO' }} | reached: {{ $isTimeReached ? 'YES' : 'NO' }})
+                                </span>
                             </div>
                         </div>
 
-                        {{-- Tombol Status (TANPA DISABLE DULU) --}}
+                        {{-- Tombol Status --}}
                         <div class="flex items-center gap-1.5 flex-shrink-0">
-                            <button
-                                @click="updatePrayer('{{ $prayer }}', '{{ $status === 'performed' ? '' : 'performed' }}')"
-                                class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
-                                    hover:scale-110 active:scale-95
-                                    {{ $status === 'performed' ? 'bg-teal-500 text-white shadow-md' : 'bg-gray-200 hover:bg-teal-100 text-gray-600' }}">
-                                ✓
-                            </button>
+                            @if($status === 'performed')
+                                {{-- Jika sudah di-check, selalu bisa uncheck --}}
+                                <button
+                                    @click="updatePrayer('{{ $prayer }}', 'remove')"
+                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
+                                        bg-teal-500 text-white shadow-md hover:bg-teal-600 hover:scale-110 active:scale-95">
+                                    ✓
+                                </button>
+                            @elseif($canCheck)
+                                {{-- Jika belum di-check dan sudah waktunya --}}
+                                <button
+                                    @click="updatePrayer('{{ $prayer }}', 'performed')"
+                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
+                                        bg-gray-200 hover:bg-teal-100 text-gray-600 hover:scale-110 active:scale-95">
+                                    ✓
+                                </button>
+                            @else
+                                {{-- Jika belum waktunya --}}
+                                <button
+                                    disabled
+                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm
+                                        bg-gray-300 text-gray-500 cursor-not-allowed opacity-60">
+                                    🔒
+                                </button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -168,6 +212,10 @@ function prayerTracker() {
         async updatePrayer(prayer, status) {
             console.log('Button clicked!', prayer, status);
             
+            // Jika status 'remove', artinya uncheck (menghapus catatan)
+            const action = status === 'remove' ? 'uncheck' : 'check';
+            console.log('Action:', action);
+            
             try {
                 const res = await fetch('{{ route("prayer-tracking.store") }}', {
                     method: 'POST',
@@ -215,6 +263,15 @@ function prayerTracker() {
 <style>
     .prayer-row { 
         transition: all 0.2s ease; 
+    }
+    
+    button:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+    
+    button:disabled:hover {
+        transform: none !important;
     }
 </style>
 @endpush

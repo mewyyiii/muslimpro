@@ -10,9 +10,10 @@ use App\Http\Controllers\TasbihController;
 use App\Http\Controllers\QiblaController; // ★ BARU
 use App\Http\Controllers\QuranTrackingController; // ★ BARU
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// });
+    Route::view('/', 'welcome')->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
