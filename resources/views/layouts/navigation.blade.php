@@ -221,8 +221,8 @@
                                         <li>
                                             <a href="{{ route('prayer-tracking.index') }}" class="block px-2 py-1.5 rounded-lg hover:bg-teal-50 transition-colors group">
                                                 <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-teal-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                                    <svg class="w-4 h-4 text-teal-600 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M12 2C10.9 2 10 2.9 10 4s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 18h-5v-5.5c0-.3-.2-.5-.5-.5s-.5.2-.5.5V20H7c-.6 0-1 .4-1 1s.4 1 1 1h11c.6 0 1-.4 1-1s-.4-1-1-1zm-4-7c0-.6-.4-1-1-1h-2c-.6 0-1 .4-1 1v3h4v-3zm1-2.5c0-.3-.2-.5-.5-.5h-5c-.3 0-.5.2-.5.5V12h6v-1.5z"/>
                                                     </svg>
                                                     <div class="flex-1 min-w-0">
                                                         <div class="text-xs font-medium text-gray-700 group-hover:text-teal-700 truncate">Jadwal Shalat</div>
