@@ -40,6 +40,20 @@ class PrayerTrackingController extends Controller
         $prayerTimes = $prayerTimesData['timings'];
         $locationTimezone = $prayerTimesData['timezone'] ?? $locationTimezone;
 
+        // ========================================
+        // 🌙 FITUR BARU: IMSAK & BUKA PUASA
+        // ========================================
+        
+        // Hitung Imsak (Subuh - 10 menit)
+        $imsakTime = Carbon::createFromFormat('H:i', $prayerTimes['fajr'])
+            ->subMinutes(10)
+            ->format('H:i');
+
+        // Waktu Buka Puasa = Maghrib
+        $bukaTime = $prayerTimes['maghrib'];
+
+        // ========================================
+
         $currentServerTime = Carbon::now($locationTimezone)->format('H:i');
         
         $prayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
@@ -77,7 +91,6 @@ class PrayerTrackingController extends Controller
         // Next prayer info
         $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentServerTime);
         
-        // ★ PAKAI NAMA VIEW SESUAI FILE KAMU
         return view('prayer_tracking', compact(
             'prayers',
             'prayerNames',
@@ -92,7 +105,9 @@ class PrayerTrackingController extends Controller
             'currentServerTime',
             'userCity',
             'nextPrayer',
-            'locationTimezone'  // ← Tambahkan ini
+            'locationTimezone',
+            'imsakTime',        // ← Variabel baru
+            'bukaTime'          // ← Variabel baru
         ));
     }
 

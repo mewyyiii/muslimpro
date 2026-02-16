@@ -49,6 +49,47 @@
             </div>
         </div>
 
+        {{-- ========================================
+            🌙 FITUR BARU: WAKTU IMSAK & BUKA PUASA
+        ========================================= --}}
+        <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6">
+            <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-5 flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">🌙</span>
+                Waktu Puasa
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {{-- Card Imsak/Sahur --}}
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-5 border-2 border-purple-200">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-3xl">🌄</span>
+                        <div>
+                            <div class="text-sm text-purple-600 font-semibold">Imsak / Akhir Sahur</div>
+                            <div class="text-2xl font-bold text-purple-800">{{ $imsakTime }}</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-purple-600 mt-2">
+                        ⏰ 10 menit sebelum Subuh ({{ $prayerTimes['fajr'] }})
+                    </div>
+                </div>
+
+                {{-- Card Buka Puasa --}}
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-5 border-2 border-orange-200">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-3xl">🌆</span>
+                        <div>
+                            <div class="text-sm text-orange-600 font-semibold">Waktu Buka Puasa</div>
+                            <div class="text-2xl font-bold text-orange-800">{{ $bukaTime }}</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-orange-600 mt-2">
+                        🕌 Bersamaan dengan waktu Maghrib
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- ======================================== --}}
+
         {{-- CHECKLIST SHALAT HARIAN --}}
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6"
              x-data="prayerTracker()"
