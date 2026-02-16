@@ -47,9 +47,19 @@
 
                 <!-- Al-Quran -->
                 <a href="{{ route('quran.index') }}" 
-                   class="nav-link px-4 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 hover:text-teal-700 transition-all duration-200 {{ request()->routeIs('quran.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                class="nav-link px-4 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 hover:text-teal-700 transition-all duration-200 {{ request()->routeIs('quran.*') ? 'bg-teal-50 text-teal-700' : '' }}">
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                        <!-- Rehal (Stand bawah) -->
+                        <path d="M3 20 L7 16 L12 18 L17 16 L21 20 L12 22 Z" opacity="0.9"/>
+                        
+                        <!-- Buku Al-Quran Kiri -->
+                        <path d="M4 6 C4 6 6 4 8 4 C10 4 11 5 12 6 L12 16 C11 15 10 14 8 14 C6 14 4 16 4 16 Z"/>
+                        
+                        <!-- Buku Al-Quran Kanan -->
+                        <path d="M20 6 C20 6 18 4 16 4 C14 4 13 5 12 6 L12 16 C13 15 14 14 16 14 C18 14 20 16 20 16 Z"/>
+                        
+                        <!-- Garis tengah buku -->
+                        <path d="M12 6 L12 16" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
                     </svg>
                     Al-Quran
                 </a>
@@ -183,11 +193,21 @@
                                         <li>
                                             <div class="block px-2 py-1.5 rounded-lg opacity-50 cursor-not-allowed">
                                                 <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                                    <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                                        <!-- Rehal (Stand bawah) -->
+                                                        <path d="M3 20 L7 16 L12 18 L17 16 L21 20 L12 22 Z" opacity="0.7"/>
+                                                        
+                                                        <!-- Buku Al-Quran Kiri -->
+                                                        <path d="M4 6 C4 6 6 4 8 4 C10 4 11 5 12 6 L12 16 C11 15 10 14 8 14 C6 14 4 16 4 16 Z"/>
+                                                        
+                                                        <!-- Buku Al-Quran Kanan -->
+                                                        <path d="M20 6 C20 6 18 4 16 4 C14 4 13 5 12 6 L12 16 C13 15 14 14 16 14 C18 14 20 16 20 16 Z"/>
+                                                        
+                                                        <!-- Garis tengah buku -->
+                                                        <path d="M12 6 L12 16" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.4"/>
                                                     </svg>
                                                     <div class="flex-1 min-w-0">
-                                                        <div class="text-xs font-medium text-gray-400 truncate">Tafsir</div>
+                                                        <div class="text-xs font-medium text-gray-400 truncate">Al-Quran</div>
                                                         <div class="text-[10px] text-gray-400 truncate">Segera Hadir</div>
                                                     </div>
                                                 </div>
@@ -266,9 +286,22 @@
 
                 <!-- Tracking Shalat -->
                 <a href="{{ route('prayer-tracking.index') }}" 
-                   class="nav-link px-4 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 hover:text-teal-700 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 700 382">
-                        <polygon points="284,0 286,0 288,0 290,0 292,0 294,0 296,0 298,0 300,0 302,0 304,0 306,0 308,2 310,2 312,2 314,2 316,2 318,2 320,2 322,2 324,2 326,2 328,2 330,2 332,2 334,2 336,2 338,2 340,2 342,2 344,4 346,4 348,4 350,4 352,4 354,4 356,4 358,6 360,6 362,6 364,6 366,6 368,8 370,8 372,8 374,8 376,8 378,10 380,10 382,10 384,12 386,12 388,12 390,14 392,14"/>
+                class="nav-link px-4 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 hover:text-teal-700 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                        <!-- Kepala -->
+                        <circle cx="12" cy="8" r="2.5"/>
+                        
+                        <!-- Badan -->
+                        <path d="M12 10.5 C12 10.5 10 12 9 14 C8.5 15 8 16.5 7 17.5 L5 17.5 L5 18 L7.5 18 C9 18 10 16.5 10.5 15.5 C11 14.5 12 12.5 12 11.5 Z"/>
+                        <path d="M12 10.5 C12 10.5 14 12 15 14 C15.5 15 16 16.5 17 17.5 L19 17.5 L19 18 L16.5 18 C15 18 14 16.5 13.5 15.5 C13 14.5 12 12.5 12 11.5 Z"/>
+                        
+                        <!-- Tangan kiri -->
+                        <circle cx="6" cy="18" r="1"/>
+                        <path d="M7 17.5 L6 18 L5 17.5"/>
+                        
+                        <!-- Tangan kanan -->
+                        <circle cx="18" cy="18" r="1"/>
+                        <path d="M17 17.5 L18 18 L19 17.5"/>
                     </svg>
                     Tracking Shalat
                 </a>
@@ -414,9 +447,19 @@
             </a>
 
             <a href="{{ route('quran.index') }}" 
-               class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('quran.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 600 390">
-                    <polygon points="58.7,0.0 58.7,3.1 55.4,6.1 55.4,9.2 52.2,12.3 52.2,15.4 48.9,18.4 48.9,21.5 45.7,24.6 45.7,27.6 45.7,30.7 42.4,33.8 42.4,36.9 39.1,39.9 39.1,43.0 35.9,46.1 35.9,49.1 32.6,52.2"/>
+            class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('quran.*') ? 'bg-teal-50 text-teal-700' : '' }}">
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                    <!-- Rehal (Stand bawah) -->
+                    <path d="M3 20 L7 16 L12 18 L17 16 L21 20 L12 22 Z" opacity="0.9"/>
+                    
+                    <!-- Buku Al-Quran Kiri -->
+                    <path d="M4 6 C4 6 6 4 8 4 C10 4 11 5 12 6 L12 16 C11 15 10 14 8 14 C6 14 4 16 4 16 Z"/>
+                    
+                    <!-- Buku Al-Quran Kanan -->
+                    <path d="M20 6 C20 6 18 4 16 4 C14 4 13 5 12 6 L12 16 C13 15 14 14 16 14 C18 14 20 16 20 16 Z"/>
+                    
+                    <!-- Garis tengah buku -->
+                    <path d="M12 6 L12 16" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
                 </svg>
                 Al-Quran
             </a>
@@ -463,12 +506,25 @@
             </a>
 
             <a href="{{ route('prayer-tracking.index') }}" 
-               class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 700 382">
-                    <polygon points="284,0 286,0 288,0 290,0 292,0"/>
-                </svg>
-                Tracking Shalat
-            </a>
+                class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
+                    <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                        <!-- Kepala -->
+                        <circle cx="12" cy="7" r="2.5"/>
+                        
+                        <!-- Punggung & Badan -->
+                        <path d="M12 9.5 C12 9.5 10.5 11 9.5 13 C9 14 8.5 15.5 7.5 16.5 L5.5 16.5 L5.5 17.5 L8 17.5 C9.5 17.5 10.5 16 11 15 C11.5 14 12 12 12 10.5 Z"/>
+                        <path d="M12 9.5 C12 9.5 13.5 11 14.5 13 C15 14 15.5 15.5 16.5 16.5 L18.5 16.5 L18.5 17.5 L16 17.5 C14.5 17.5 13.5 16 13 15 C12.5 14 12 12 12 10.5 Z"/>
+                        
+                        <!-- Tangan kiri menyentuh tanah -->
+                        <ellipse cx="6" cy="17.5" rx="1.2" ry="0.8"/>
+                        <path d="M7 16.5 L6 17.5 L5 16.8"/>
+                        
+                        <!-- Tangan kanan menyentuh tanah -->
+                        <ellipse cx="18" cy="17.5" rx="1.2" ry="0.8"/>
+                        <path d="M17 16.5 L18 17.5 L19 16.8"/>
+                    </svg>
+                    Tracking Shalat
+                </a>
 
             @auth
                 <div class="border-t border-gray-100 pt-3 mt-3" x-data="{ showLogoutModalMobile: false }">
