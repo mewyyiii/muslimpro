@@ -48,18 +48,30 @@
                 <!-- Al-Quran -->
                 <a href="{{ route('quran.index') }}" 
                 class="nav-link px-4 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 hover:text-teal-700 transition-all duration-200 {{ request()->routeIs('quran.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
-                        <!-- Rehal (Stand bawah) -->
-                        <path d="M3 20 L7 16 L12 18 L17 16 L21 20 L12 22 Z" opacity="0.9"/>
-                        
-                        <!-- Buku Al-Quran Kiri -->
-                        <path d="M4 6 C4 6 6 4 8 4 C10 4 11 5 12 6 L12 16 C11 15 10 14 8 14 C6 14 4 16 4 16 Z"/>
-                        
-                        <!-- Buku Al-Quran Kanan -->
-                        <path d="M20 6 C20 6 18 4 16 4 C14 4 13 5 12 6 L12 16 C13 15 14 14 16 14 C18 14 20 16 20 16 Z"/>
-                        
-                        <!-- Garis tengah buku -->
-                        <path d="M12 6 L12 16" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Rehal kaki kiri (menyilang ke kanan bawah) -->
+                        <path d="M30 210 L90 170 L110 185 L50 225 Z"/>
+
+                        <!-- Rehal kaki kanan (menyilang ke kiri bawah) -->
+                        <path d="M226 210 L166 170 L146 185 L206 225 Z"/>
+
+                        <!-- Buku halaman kiri (melengkung ke atas) -->
+                        <path d="M128 55 Q125 45 115 38 Q95 25 70 22 Q50 20 32 28 Q20 34 20 48 L20 168 Q20 175 30 172 Q55 163 80 163 Q105 163 122 175 Q125 178 128 175 Z"/>
+
+                        <!-- Highlight halaman kiri (garis putih tengah) -->
+                        <path d="M128 75 Q110 65 88 63 Q68 61 50 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+
+                        <!-- Buku halaman kanan (melengkung ke atas) -->
+                        <path d="M128 55 Q131 45 141 38 Q161 25 186 22 Q206 20 224 28 Q236 34 236 48 L236 168 Q236 175 226 172 Q201 163 176 163 Q151 163 134 175 Q131 178 128 175 Z"/>
+
+                        <!-- Highlight halaman kanan (garis putih tengah) -->
+                        <path d="M128 75 Q146 65 168 63 Q188 61 206 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+
+                        <!-- Lipatan tengah buku (spine) -->
+                        <path d="M122 55 Q128 48 134 55 L134 175 Q128 182 122 175 Z"/>
+
+                        <!-- Dudukan rehal tengah (penghubung kaki) -->
+                        <path d="M85 172 L128 185 L171 172 L165 160 L128 172 L91 160 Z"/>
                     </svg>
                     Al-Quran
                 </a>
@@ -191,27 +203,39 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <div class="block px-2 py-1.5 rounded-lg opacity-50 cursor-not-allowed">
-                                                <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                                                        <!-- Rehal (Stand bawah) -->
-                                                        <path d="M3 20 L7 16 L12 18 L17 16 L21 20 L12 22 Z" opacity="0.7"/>
-                                                        
-                                                        <!-- Buku Al-Quran Kiri -->
-                                                        <path d="M4 6 C4 6 6 4 8 4 C10 4 11 5 12 6 L12 16 C11 15 10 14 8 14 C6 14 4 16 4 16 Z"/>
-                                                        
-                                                        <!-- Buku Al-Quran Kanan -->
-                                                        <path d="M20 6 C20 6 18 4 16 4 C14 4 13 5 12 6 L12 16 C13 15 14 14 16 14 C18 14 20 16 20 16 Z"/>
-                                                        
-                                                        <!-- Garis tengah buku -->
-                                                        <path d="M12 6 L12 16" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.4"/>
-                                                    </svg>
-                                                    <div class="flex-1 min-w-0">
-                                                        <div class="text-xs font-medium text-gray-400 truncate">Al-Quran</div>
-                                                        <div class="text-[10px] text-gray-400 truncate">Segera Hadir</div>
-                                                    </div>
+                                        <div class="block px-2 py-1.5 rounded-lg opacity-50 cursor-not-allowed">
+                                            <div class="flex items-center gap-2">
+                                                <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                                                    <!-- Rehal kaki kiri -->
+                                                    <path d="M30 210 L90 170 L110 185 L50 225 Z"/>
+
+                                                    <!-- Rehal kaki kanan -->
+                                                    <path d="M226 210 L166 170 L146 185 L206 225 Z"/>
+
+                                                    <!-- Buku halaman kiri -->
+                                                    <path d="M128 55 Q125 45 115 38 Q95 25 70 22 Q50 20 32 28 Q20 34 20 48 L20 168 Q20 175 30 172 Q55 163 80 163 Q105 163 122 175 Q125 178 128 175 Z"/>
+
+                                                    <!-- Highlight halaman kiri -->
+                                                    <path d="M128 75 Q110 65 88 63 Q68 61 50 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+
+                                                    <!-- Buku halaman kanan -->
+                                                    <path d="M128 55 Q131 45 141 38 Q161 25 186 22 Q206 20 224 28 Q236 34 236 48 L236 168 Q236 175 226 172 Q201 163 176 163 Q151 163 134 175 Q131 178 128 175 Z"/>
+
+                                                    <!-- Highlight halaman kanan -->
+                                                    <path d="M128 75 Q146 65 168 63 Q188 61 206 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+
+                                                    <!-- Lipatan tengah buku -->
+                                                    <path d="M122 55 Q128 48 134 55 L134 175 Q128 182 122 175 Z"/>
+
+                                                    <!-- Dudukan rehal tengah -->
+                                                    <path d="M85 172 L128 185 L171 172 L165 160 L128 172 L91 160 Z"/>
+                                                </svg>
+                                                <div class="flex-1 min-w-0">
+                                                    <div class="text-xs font-medium text-gray-400 truncate">Al-Quran</div>
+                                                    <div class="text-[10px] text-gray-400 truncate">Segera Hadir</div>
                                                 </div>
                                             </div>
+                                        </div>
                                         </li>
                                         <li>
                                             <div class="block px-2 py-1.5 rounded-lg opacity-50 cursor-not-allowed">
@@ -287,21 +311,24 @@
                 <!-- Tracking Shalat -->
                 <a href="{{ route('prayer-tracking.index') }}" 
                 class="nav-link px-4 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 hover:text-teal-700 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg">
                         <!-- Kepala -->
-                        <circle cx="12" cy="8" r="2.5"/>
-                        
-                        <!-- Badan -->
-                        <path d="M12 10.5 C12 10.5 10 12 9 14 C8.5 15 8 16.5 7 17.5 L5 17.5 L5 18 L7.5 18 C9 18 10 16.5 10.5 15.5 C11 14.5 12 12.5 12 11.5 Z"/>
-                        <path d="M12 10.5 C12 10.5 14 12 15 14 C15.5 15 16 16.5 17 17.5 L19 17.5 L19 18 L16.5 18 C15 18 14 16.5 13.5 15.5 C13 14.5 12 12.5 12 11.5 Z"/>
-                        
-                        <!-- Tangan kiri -->
-                        <circle cx="6" cy="18" r="1"/>
-                        <path d="M7 17.5 L6 18 L5 17.5"/>
-                        
-                        <!-- Tangan kanan -->
-                        <circle cx="18" cy="18" r="1"/>
-                        <path d="M17 17.5 L18 18 L19 17.5"/>
+                        <ellipse cx="185" cy="60" rx="26" ry="28"/>
+
+                        <!-- Badan membungkuk -->
+                        <path d="M162 82 Q140 100 110 112 Q85 122 60 130 Q45 135 30 138 L28 158 Q50 154 75 146 Q108 134 138 120 Q162 108 175 92 Z"/>
+
+                        <!-- Lengan menjulur ke depan -->
+                        <path d="M60 130 Q40 136 20 140 L16 158 Q38 154 62 148 Z"/>
+
+                        <!-- Bokong & kaki belakang -->
+                        <path d="M162 82 Q175 90 192 100 L200 140 Q188 142 178 136 Q170 120 164 102 Z"/>
+
+                        <!-- Tumit kaki -->
+                        <path d="M192 100 Q212 106 228 112 L230 140 Q212 140 200 140 Z"/>
+
+                        <!-- Bayangan lantai -->
+                        <ellipse cx="125" cy="162" rx="105" ry="12" opacity="0.12"/>
                     </svg>
                     Tracking Shalat
                 </a>
@@ -446,20 +473,33 @@
                 Beranda
             </a>
 
+            <!-- Al-Quran Mobile -->
             <a href="{{ route('quran.index') }}" 
             class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('quran.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24">
-                    <!-- Rehal (Stand bawah) -->
-                    <path d="M3 20 L7 16 L12 18 L17 16 L21 20 L12 22 Z" opacity="0.9"/>
-                    
-                    <!-- Buku Al-Quran Kiri -->
-                    <path d="M4 6 C4 6 6 4 8 4 C10 4 11 5 12 6 L12 16 C11 15 10 14 8 14 C6 14 4 16 4 16 Z"/>
-                    
-                    <!-- Buku Al-Quran Kanan -->
-                    <path d="M20 6 C20 6 18 4 16 4 C14 4 13 5 12 6 L12 16 C13 15 14 14 16 14 C18 14 20 16 20 16 Z"/>
-                    
-                    <!-- Garis tengah buku -->
-                    <path d="M12 6 L12 16" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Rehal kaki kiri -->
+                    <path d="M30 210 L90 170 L110 185 L50 225 Z"/>
+
+                    <!-- Rehal kaki kanan -->
+                    <path d="M226 210 L166 170 L146 185 L206 225 Z"/>
+
+                    <!-- Buku halaman kiri -->
+                    <path d="M128 55 Q125 45 115 38 Q95 25 70 22 Q50 20 32 28 Q20 34 20 48 L20 168 Q20 175 30 172 Q55 163 80 163 Q105 163 122 175 Q125 178 128 175 Z"/>
+
+                    <!-- Highlight halaman kiri -->
+                    <path d="M128 75 Q110 65 88 63 Q68 61 50 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+
+                    <!-- Buku halaman kanan -->
+                    <path d="M128 55 Q131 45 141 38 Q161 25 186 22 Q206 20 224 28 Q236 34 236 48 L236 168 Q236 175 226 172 Q201 163 176 163 Q151 163 134 175 Q131 178 128 175 Z"/>
+
+                    <!-- Highlight halaman kanan -->
+                    <path d="M128 75 Q146 65 168 63 Q188 61 206 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+
+                    <!-- Lipatan tengah buku -->
+                    <path d="M122 55 Q128 48 134 55 L134 175 Q128 182 122 175 Z"/>
+
+                    <!-- Dudukan rehal tengah -->
+                    <path d="M85 172 L128 185 L171 172 L165 160 L128 172 L91 160 Z"/>
                 </svg>
                 Al-Quran
             </a>
@@ -505,26 +545,30 @@
                 Arah Kiblat
             </a>
 
+            <!-- Tracking Shalat Mobile -->
             <a href="{{ route('prayer-tracking.index') }}" 
-                class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24">
-                        <!-- Kepala -->
-                        <circle cx="12" cy="7" r="2.5"/>
-                        
-                        <!-- Punggung & Badan -->
-                        <path d="M12 9.5 C12 9.5 10.5 11 9.5 13 C9 14 8.5 15.5 7.5 16.5 L5.5 16.5 L5.5 17.5 L8 17.5 C9.5 17.5 10.5 16 11 15 C11.5 14 12 12 12 10.5 Z"/>
-                        <path d="M12 9.5 C12 9.5 13.5 11 14.5 13 C15 14 15.5 15.5 16.5 16.5 L18.5 16.5 L18.5 17.5 L16 17.5 C14.5 17.5 13.5 16 13 15 C12.5 14 12 12 12 10.5 Z"/>
-                        
-                        <!-- Tangan kiri menyentuh tanah -->
-                        <ellipse cx="6" cy="17.5" rx="1.2" ry="0.8"/>
-                        <path d="M7 16.5 L6 17.5 L5 16.8"/>
-                        
-                        <!-- Tangan kanan menyentuh tanah -->
-                        <ellipse cx="18" cy="17.5" rx="1.2" ry="0.8"/>
-                        <path d="M17 16.5 L18 17.5 L19 16.8"/>
-                    </svg>
-                    Tracking Shalat
-                </a>
+            class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Kepala -->
+                    <ellipse cx="185" cy="60" rx="26" ry="28"/>
+
+                    <!-- Badan membungkuk -->
+                    <path d="M162 82 Q140 100 110 112 Q85 122 60 130 Q45 135 30 138 L28 158 Q50 154 75 146 Q108 134 138 120 Q162 108 175 92 Z"/>
+
+                    <!-- Lengan menjulur ke depan -->
+                    <path d="M60 130 Q40 136 20 140 L16 158 Q38 154 62 148 Z"/>
+
+                    <!-- Bokong & kaki belakang -->
+                    <path d="M162 82 Q175 90 192 100 L200 140 Q188 142 178 136 Q170 120 164 102 Z"/>
+
+                    <!-- Tumit kaki -->
+                    <path d="M192 100 Q212 106 228 112 L230 140 Q212 140 200 140 Z"/>
+
+                    <!-- Bayangan lantai -->
+                    <ellipse cx="125" cy="162" rx="105" ry="12" opacity="0.12"/>
+                </svg>
+                Tracking Shalat
+            </a>
 
             @auth
                 <div class="border-t border-gray-100 pt-3 mt-3" x-data="{ showLogoutModalMobile: false }">
