@@ -48,30 +48,80 @@
                 <!-- Al-Quran -->
                 <a href="{{ route('quran.index') }}" 
                 class="nav-link px-4 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 hover:text-teal-700 transition-all duration-200 {{ request()->routeIs('quran.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Rehal kaki kiri (menyilang ke kanan bawah) -->
-                        <path d="M30 210 L90 170 L110 185 L50 225 Z"/>
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1"
+                        viewBox="0 0 256 256"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                    <path fill-rule="evenodd" d="
+                        /* =======================
+                        BUKU (SILUET)
+                        ======================= */
+                        M26 58
+                        C26 44 40 34 60 34
+                        C86 34 108 42 128 56
+                        C148 42 170 34 196 34
+                        C216 34 230 44 230 58
+                        L230 150
+                        C230 162 220 170 206 170
+                        C182 170 158 176 140 186
+                        C136 188 132 186 132 182
+                        L132 64
+                        C132 62 131 60 128 58
+                        C125 60 124 62 124 64
+                        L124 182
+                        C124 186 120 188 116 186
+                        C98 176 74 170 50 170
+                        C36 170 26 162 26 150
+                        Z
 
-                        <!-- Rehal kaki kanan (menyilang ke kiri bawah) -->
-                        <path d="M226 210 L166 170 L146 185 L206 225 Z"/>
+                        /* bibir bawah halaman kiri */
+                        M44 156
+                        C68 146 96 146 116 156
+                        C120 158 120 164 116 166
+                        C96 158 68 158 44 168
+                        C40 170 38 160 44 156
+                        Z
 
-                        <!-- Buku halaman kiri (melengkung ke atas) -->
-                        <path d="M128 55 Q125 45 115 38 Q95 25 70 22 Q50 20 32 28 Q20 34 20 48 L20 168 Q20 175 30 172 Q55 163 80 163 Q105 163 122 175 Q125 178 128 175 Z"/>
+                        /* bibir bawah halaman kanan */
+                        M212 156
+                        C188 146 160 146 140 156
+                        C136 158 136 164 140 166
+                        C160 158 188 158 212 168
+                        C216 170 218 160 212 156
+                        Z
 
-                        <!-- Highlight halaman kiri (garis putih tengah) -->
-                        <path d="M128 75 Q110 65 88 63 Q68 61 50 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                        /* =======================
+                        REHAL (SILUET)
+                        ======================= */
+                        /* papan miring kiri & kanan (silang) */
+                        M32 150 L124 196 L116 212 L24 166 Z
+                        M224 150 L132 196 L140 212 L232 166 Z
 
-                        <!-- Buku halaman kanan (melengkung ke atas) -->
-                        <path d="M128 55 Q131 45 141 38 Q161 25 186 22 Q206 20 224 28 Q236 34 236 48 L236 168 Q236 175 226 172 Q201 163 176 163 Q151 163 134 175 Q131 178 128 175 Z"/>
+                        /* kaki bawah kiri & kanan */
+                        M54 228 L122 186 L134 198 L82 244 L62 244 Z
+                        M202 228 L134 186 L122 198 L174 244 L194 244 Z
 
-                        <!-- Highlight halaman kanan (garis putih tengah) -->
-                        <path d="M128 75 Q146 65 168 63 Q188 61 206 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                        /* =======================
+                        CUT-OUT (GARIS/LIPATAN)
+                        ======================= */
+                        /* garis lipatan tengah */
+                        M127 60 L129 60 L129 186 L127 186 Z
 
-                        <!-- Lipatan tengah buku (spine) -->
-                        <path d="M122 55 Q128 48 134 55 L134 175 Q128 182 122 175 Z"/>
+                        /* garis lengkung dalam halaman kiri */
+                        M56 90
+                        C80 84 100 88 114 98
+                        L110 106
+                        C96 96 78 94 60 98
+                        Z
 
-                        <!-- Dudukan rehal tengah (penghubung kaki) -->
-                        <path d="M85 172 L128 185 L171 172 L165 160 L128 172 L91 160 Z"/>
+                        /* garis lengkung dalam halaman kanan */
+                        M200 90
+                        C176 84 156 88 142 98
+                        L146 106
+                        C160 96 178 94 196 98
+                        Z
+                    "/>
                     </svg>
                     Al-Quran
                 </a>
@@ -205,30 +255,80 @@
                                         <li>
                                         <div class="block px-2 py-1.5 rounded-lg opacity-50 cursor-not-allowed">
                                             <div class="flex items-center gap-2">
-                                                <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                                                    <!-- Rehal kaki kiri -->
-                                                    <path d="M30 210 L90 170 L110 185 L50 225 Z"/>
+                                                <svg class="w-4 h-4 text-gray-400 flex-shrink-0"
+                                                    viewBox="0 0 256 256"
+                                                    fill="currentColor"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    aria-hidden="true">
 
-                                                    <!-- Rehal kaki kanan -->
-                                                    <path d="M226 210 L166 170 L146 185 L206 225 Z"/>
+                                                <path fill-rule="evenodd" d="
+                                                    /* =======================
+                                                    BUKU (SILUET)
+                                                    ======================= */
+                                                    M26 58
+                                                    C26 44 40 34 60 34
+                                                    C86 34 108 42 128 56
+                                                    C148 42 170 34 196 34
+                                                    C216 34 230 44 230 58
+                                                    L230 150
+                                                    C230 162 220 170 206 170
+                                                    C182 170 158 176 140 186
+                                                    C136 188 132 186 132 182
+                                                    L132 64
+                                                    C132 62 131 60 128 58
+                                                    C125 60 124 62 124 64
+                                                    L124 182
+                                                    C124 186 120 188 116 186
+                                                    C98 176 74 170 50 170
+                                                    C36 170 26 162 26 150
+                                                    Z
 
-                                                    <!-- Buku halaman kiri -->
-                                                    <path d="M128 55 Q125 45 115 38 Q95 25 70 22 Q50 20 32 28 Q20 34 20 48 L20 168 Q20 175 30 172 Q55 163 80 163 Q105 163 122 175 Q125 178 128 175 Z"/>
+                                                    /* bibir bawah kiri */
+                                                    M44 156
+                                                    C68 146 96 146 116 156
+                                                    C120 158 120 164 116 166
+                                                    C96 158 68 158 44 168
+                                                    C40 170 38 160 44 156
+                                                    Z
 
-                                                    <!-- Highlight halaman kiri -->
-                                                    <path d="M128 75 Q110 65 88 63 Q68 61 50 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                                                    /* bibir bawah kanan */
+                                                    M212 156
+                                                    C188 146 160 146 140 156
+                                                    C136 158 136 164 140 166
+                                                    C160 158 188 158 212 168
+                                                    C216 170 218 160 212 156
+                                                    Z
 
-                                                    <!-- Buku halaman kanan -->
-                                                    <path d="M128 55 Q131 45 141 38 Q161 25 186 22 Q206 20 224 28 Q236 34 236 48 L236 168 Q236 175 226 172 Q201 163 176 163 Q151 163 134 175 Q131 178 128 175 Z"/>
+                                                    /* =======================
+                                                    REHAL
+                                                    ======================= */
+                                                    M32 150 L124 196 L116 212 L24 166 Z
+                                                    M224 150 L132 196 L140 212 L232 166 Z
 
-                                                    <!-- Highlight halaman kanan -->
-                                                    <path d="M128 75 Q146 65 168 63 Q188 61 206 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                                                    M54 228 L122 186 L134 198 L82 244 L62 244 Z
+                                                    M202 228 L134 186 L122 198 L174 244 L194 244 Z
 
-                                                    <!-- Lipatan tengah buku -->
-                                                    <path d="M122 55 Q128 48 134 55 L134 175 Q128 182 122 175 Z"/>
+                                                    /* =======================
+                                                    CUT-OUT (GARIS/LIPATAN)
+                                                    ======================= */
 
-                                                    <!-- Dudukan rehal tengah -->
-                                                    <path d="M85 172 L128 185 L171 172 L165 160 L128 172 L91 160 Z"/>
+                                                    /* lipatan tengah */
+                                                    M127 60 L129 60 L129 186 L127 186 Z
+
+                                                    /* lengkung kiri */
+                                                    M56 90
+                                                    C80 84 100 88 114 98
+                                                    L110 106
+                                                    C96 96 78 94 60 98
+                                                    Z
+
+                                                    /* lengkung kanan */
+                                                    M200 90
+                                                    C176 84 156 88 142 98
+                                                    L146 106
+                                                    C160 96 178 94 196 98
+                                                    Z
+                                                "/>
                                                 </svg>
                                                 <div class="flex-1 min-w-0">
                                                     <div class="text-xs font-medium text-gray-400 truncate">Al-Quran</div>
@@ -265,8 +365,22 @@
                                         <li>
                                             <a href="{{ route('prayer-tracking.index') }}" class="block px-2 py-1.5 rounded-lg hover:bg-teal-50 transition-colors group">
                                                 <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-teal-600 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                                                        <path d="M12 2C10.9 2 10 2.9 10 4s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 18h-5v-5.5c0-.3-.2-.5-.5-.5s-.5.2-.5.5V20H7c-.6 0-1 .4-1 1s.4 1 1 1h11c.6 0 1-.4 1-1s-.4-1-1-1zm-4-7c0-.6-.4-1-1-1h-2c-.6 0-1 .4-1 1v3h4v-3zm1-2.5c0-.3-.2-.5-.5-.5h-5c-.3 0-.5.2-.5.5V12h6v-1.5z"/>
+                                                    <svg class="w-4 h-4 text-teal-600 flex-shrink-0" 
+                                                        viewBox="0 0 256 256" 
+                                                        fill="currentColor" 
+                                                        aria-hidden="true">
+
+                                                        <!-- Badan + kaki -->
+                                                        <path d="M16 182c0-8 7-15 15-15h72c10 0 19-5 25-13l16-22c15-20 38-32 63-32h4c21 0 41 9 55 25l18 20c6 7 15 11 24 11h12c8 0 15 7 15 15s-7 15-15 15h-44c-13 0-26-6-34-17l-11-15c-7-10-19-16-31-16h-10c-11 0-22 5-29 13l-21 24c-8 9-20 14-32 14H31c-8 0-15-7-15-15z"/>
+
+                                                        <!-- Kepala -->
+                                                        <ellipse cx="206" cy="174" rx="30" ry="22"/>
+
+                                                        <!-- Tangan -->
+                                                        <path d="M36 172c9-10 22-14 38-11l26 6c7 2 12 8 12 15 0 9-8 16-17 15l-58-5c-8-1-14-7-14-15 0-2 1-4 1-5z"/>
+
+                                                        <!-- Detail leher -->
+                                                        <path d="M164 156c10 4 20 2 28-6 5-5 13-5 18 0s5 13 0 18c-15 16-36 20-56 12-7-3-10-11-7-17 3-7 11-10 17-7z"/>
                                                     </svg>
                                                     <div class="flex-1 min-w-0">
                                                         <div class="text-xs font-medium text-gray-700 group-hover:text-teal-700 truncate">Jadwal Shalat</div>
@@ -311,25 +425,19 @@
                 <!-- Tracking Shalat -->
                 <a href="{{ route('prayer-tracking.index') }}" 
                 class="nav-link px-4 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 hover:text-teal-700 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="currentColor" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-5 h-5 inline-block mr-1 -mt-1" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+                        <!-- Badan + kaki (siluet utama) -->
+                        <path d="M16 182c0-8 7-15 15-15h72c10 0 19-5 25-13l16-22c15-20 38-32 63-32h4c21 0 41 9 55 25l18 20c6 7 15 11 24 11h12c8 0 15 7 15 15s-7 15-15 15h-44c-13 0-26-6-34-17l-11-15c-7-10-19-16-31-16h-10c-11 0-22 5-29 13l-21 24c-8 9-20 14-32 14H31c-8 0-15-7-15-15z"/>
+
                         <!-- Kepala -->
-                        <ellipse cx="185" cy="60" rx="26" ry="28"/>
+                        <ellipse cx="206" cy="174" rx="30" ry="22"/>
 
-                        <!-- Badan membungkuk -->
-                        <path d="M162 82 Q140 100 110 112 Q85 122 60 130 Q45 135 30 138 L28 158 Q50 154 75 146 Q108 134 138 120 Q162 108 175 92 Z"/>
+                        <!-- Tangan / lengan depan -->
+                        <path d="M36 172c9-10 22-14 38-11l26 6c7 2 12 8 12 15 0 9-8 16-17 15l-58-5c-8-1-14-7-14-15 0-2 1-4 1-5z"/>
 
-                        <!-- Lengan menjulur ke depan -->
-                        <path d="M60 130 Q40 136 20 140 L16 158 Q38 154 62 148 Z"/>
-
-                        <!-- Bokong & kaki belakang -->
-                        <path d="M162 82 Q175 90 192 100 L200 140 Q188 142 178 136 Q170 120 164 102 Z"/>
-
-                        <!-- Tumit kaki -->
-                        <path d="M192 100 Q212 106 228 112 L230 140 Q212 140 200 140 Z"/>
-
-                        <!-- Bayangan lantai -->
-                        <ellipse cx="125" cy="162" rx="105" ry="12" opacity="0.12"/>
-                    </svg>
+                        <!-- Leher/ruang kosong kecil antara badan & kepala (biar lebih mirip siluet) -->
+                        <path d="M164 156c10 4 20 2 28-6 5-5 13-5 18 0s5 13 0 18c-15 16-36 20-56 12-7-3-10-11-7-17 3-7 11-10 17-7z"/>
+                        </svg>
                     Tracking Shalat
                 </a>
             </div>
@@ -476,31 +584,82 @@
             <!-- Al-Quran Mobile -->
             <a href="{{ route('quran.index') }}" 
             class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('quran.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Rehal kaki kiri -->
-                    <path d="M30 210 L90 170 L110 185 L50 225 Z"/>
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1"
+                    viewBox="0 0 256 256"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true">
 
-                    <!-- Rehal kaki kanan -->
-                    <path d="M226 210 L166 170 L146 185 L206 225 Z"/>
+                <path fill-rule="evenodd" d="
+                    /* =======================
+                    BUKU (SILUET)
+                    ======================= */
+                    M26 58
+                    C26 44 40 34 60 34
+                    C86 34 108 42 128 56
+                    C148 42 170 34 196 34
+                    C216 34 230 44 230 58
+                    L230 150
+                    C230 162 220 170 206 170
+                    C182 170 158 176 140 186
+                    C136 188 132 186 132 182
+                    L132 64
+                    C132 62 131 60 128 58
+                    C125 60 124 62 124 64
+                    L124 182
+                    C124 186 120 188 116 186
+                    C98 176 74 170 50 170
+                    C36 170 26 162 26 150
+                    Z
 
-                    <!-- Buku halaman kiri -->
-                    <path d="M128 55 Q125 45 115 38 Q95 25 70 22 Q50 20 32 28 Q20 34 20 48 L20 168 Q20 175 30 172 Q55 163 80 163 Q105 163 122 175 Q125 178 128 175 Z"/>
+                    /* bibir bawah kiri */
+                    M44 156
+                    C68 146 96 146 116 156
+                    C120 158 120 164 116 166
+                    C96 158 68 158 44 168
+                    C40 170 38 160 44 156
+                    Z
 
-                    <!-- Highlight halaman kiri -->
-                    <path d="M128 75 Q110 65 88 63 Q68 61 50 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                    /* bibir bawah kanan */
+                    M212 156
+                    C188 146 160 146 140 156
+                    C136 158 136 164 140 166
+                    C160 158 188 158 212 168
+                    C216 170 218 160 212 156
+                    Z
 
-                    <!-- Buku halaman kanan -->
-                    <path d="M128 55 Q131 45 141 38 Q161 25 186 22 Q206 20 224 28 Q236 34 236 48 L236 168 Q236 175 226 172 Q201 163 176 163 Q151 163 134 175 Q131 178 128 175 Z"/>
+                    /* =======================
+                    REHAL
+                    ======================= */
+                    M32 150 L124 196 L116 212 L24 166 Z
+                    M224 150 L132 196 L140 212 L232 166 Z
 
-                    <!-- Highlight halaman kanan -->
-                    <path d="M128 75 Q146 65 168 63 Q188 61 206 67" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                    M54 228 L122 186 L134 198 L82 244 L62 244 Z
+                    M202 228 L134 186 L122 198 L174 244 L194 244 Z
 
-                    <!-- Lipatan tengah buku -->
-                    <path d="M122 55 Q128 48 134 55 L134 175 Q128 182 122 175 Z"/>
+                    /* =======================
+                    CUT-OUT (GARIS/LIPATAN)
+                    ======================= */
 
-                    <!-- Dudukan rehal tengah -->
-                    <path d="M85 172 L128 185 L171 172 L165 160 L128 172 L91 160 Z"/>
+                    /* lipatan tengah */
+                    M127 60 L129 60 L129 186 L127 186 Z
+
+                    /* lengkung kiri */
+                    M56 90
+                    C80 84 100 88 114 98
+                    L110 106
+                    C96 96 78 94 60 98
+                    Z
+
+                    /* lengkung kanan */
+                    M200 90
+                    C176 84 156 88 142 98
+                    L146 106
+                    C160 96 178 94 196 98
+                    Z
+                "/>
                 </svg>
+
                 Al-Quran
             </a>
 
@@ -548,24 +707,21 @@
             <!-- Tracking Shalat Mobile -->
             <a href="{{ route('prayer-tracking.index') }}" 
             class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 256 200" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" 
+                    viewBox="0 0 256 256" 
+                    fill="currentColor" 
+                    aria-hidden="true">
+                    <!-- Badan + kaki (siluet utama) -->
+                    <path d="M16 182c0-8 7-15 15-15h72c10 0 19-5 25-13l16-22c15-20 38-32 63-32h4c21 0 41 9 55 25l18 20c6 7 15 11 24 11h12c8 0 15 7 15 15s-7 15-15 15h-44c-13 0-26-6-34-17l-11-15c-7-10-19-16-31-16h-10c-11 0-22 5-29 13l-21 24c-8 9-20 14-32 14H31c-8 0-15-7-15-15z"/>
+
                     <!-- Kepala -->
-                    <ellipse cx="185" cy="60" rx="26" ry="28"/>
+                    <ellipse cx="206" cy="174" rx="30" ry="22"/>
 
-                    <!-- Badan membungkuk -->
-                    <path d="M162 82 Q140 100 110 112 Q85 122 60 130 Q45 135 30 138 L28 158 Q50 154 75 146 Q108 134 138 120 Q162 108 175 92 Z"/>
+                    <!-- Tangan -->
+                    <path d="M36 172c9-10 22-14 38-11l26 6c7 2 12 8 12 15 0 9-8 16-17 15l-58-5c-8-1-14-7-14-15 0-2 1-4 1-5z"/>
 
-                    <!-- Lengan menjulur ke depan -->
-                    <path d="M60 130 Q40 136 20 140 L16 158 Q38 154 62 148 Z"/>
-
-                    <!-- Bokong & kaki belakang -->
-                    <path d="M162 82 Q175 90 192 100 L200 140 Q188 142 178 136 Q170 120 164 102 Z"/>
-
-                    <!-- Tumit kaki -->
-                    <path d="M192 100 Q212 106 228 112 L230 140 Q212 140 200 140 Z"/>
-
-                    <!-- Bayangan lantai -->
-                    <ellipse cx="125" cy="162" rx="105" ry="12" opacity="0.12"/>
+                    <!-- Detail leher -->
+                    <path d="M164 156c10 4 20 2 28-6 5-5 13-5 18 0s5 13 0 18c-15 16-36 20-56 12-7-3-10-11-7-17 3-7 11-10 17-7z"/>
                 </svg>
                 Tracking Shalat
             </a>
