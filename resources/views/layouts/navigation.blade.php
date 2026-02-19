@@ -705,25 +705,21 @@
             </a>
 
             <!-- Tracking Shalat Mobile -->
-            <a href="{{ route('prayer-tracking.index') }}" 
-            class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" 
-                    viewBox="0 0 64 64" 
-                    fill="currentColor" 
-                    aria-hidden="true">
-                    <!-- Kepala -->
-                    <circle cx="10" cy="22" r="7"/>
-                    <!-- Tubuh membungkuk / posisi sujud -->
-                    <path d="M16 26 C22 22 38 18 52 17 L54 24 C40 26 24 30 20 34 Z"/>
-                    <!-- Tangan menjulur ke depan -->
-                    <path d="M52 17 C57 16 62 17 63 21 L60 25 C58 22 54 22 51 24 Z"/>
-                    <!-- Pinggul dan kaki terlipat -->
-                    <path d="M20 34 C18 40 16 48 14 52 L6 50 C9 46 12 38 14 32 Z"/>
-                    <!-- Telapak kaki -->
-                    <path d="M14 52 C18 56 28 56 32 52 L30 46 C27 49 18 49 16 46 Z"/>
-                </svg>
-                Tracking Shalat
-            </a>
+                <a href="{{ route('prayer-tracking.index') }}" 
+                class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
+                    <svg class="w-5 h-5 inline-block mr-2 -mt-1" 
+                        viewBox="0 0 24 24" 
+                        fill="currentColor" 
+                        aria-hidden="true">
+                        <!-- Kepala -->
+                        <circle cx="19.5" cy="5.5" r="2.5"/>
+                        <!-- Tubuh membungkuk + tangan sujud -->
+                        <path d="M2 19h7l2-4 4-2 4-4-3-2-4 4-3 1-4 3z"/>
+                        <!-- Kaki terlipat -->
+                        <path d="M9 19l1-4-4 1z"/>
+                    </svg>
+                    Tracking Shalat
+                </a>
 
             @auth
                 <div class="border-t border-gray-100 pt-3 mt-3" x-data="{ showLogoutModalMobile: false }">
