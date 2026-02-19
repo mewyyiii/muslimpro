@@ -25,12 +25,12 @@
                             <path d="M56 72 L54 84 M60 72 L60 88 M64 72 L66 84" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <span class="text-xl font-bold text-teal-700 hidden sm:block">Al-Huda</span>
+                    <span class="text-xl font-bold hidden sm:block al-huda-glow">Al-Huda</span>
                 </a>
             </div>
 
             <!-- Title Al-Huda di tengah — MOBILE ONLY -->
-            <span class="md:hidden absolute left-1/2 -translate-x-1/2 pointer-events-none navbar-title-mobile text-teal-700">
+            <span class="md:hidden absolute left-1/2 -translate-x-1/2 pointer-events-none navbar-title-mobile al-huda-glow">
                 Al-Huda
             </span>
 
@@ -748,18 +748,38 @@
         font-size: 1.5rem;
         font-weight: 700;
         letter-spacing: 0.06em;
-        animation: fadeInDown 0.8s ease-out;
     }
+}
 
-    @keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateX(-50%) translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
+/* Al-Huda Glow Fade In — Desktop & Mobile */
+.al-huda-glow {
+    color: #0f766e;
+    animation: alhuda-fadein 1.2s ease-out forwards;
+}
+
+.al-huda-glow:hover {
+    text-shadow: 0 0 12px rgba(20, 184, 166, 0.7), 0 0 28px rgba(20, 184, 166, 0.35);
+    transition: text-shadow 0.3s ease;
+}
+
+@keyframes alhuda-fadein {
+    0% {
+        opacity: 0;
+        transform: translateY(-6px);
+        filter: blur(4px);
+        text-shadow: none;
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+        text-shadow: 0 0 20px rgba(20, 184, 166, 0.9), 0 0 40px rgba(20, 184, 166, 0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+        text-shadow: 0 0 6px rgba(20, 184, 166, 0.3);
     }
 }
 
