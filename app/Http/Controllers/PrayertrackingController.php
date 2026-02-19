@@ -9,107 +9,208 @@ use Illuminate\Http\Request;
 
 class PrayerTrackingController extends Controller
 {
+    // public function index(Request $request)
+    // {
+    //     $user = auth()->user();
+    //     $selectedDate = $request->get('date', now()->toDateString());
+        
+    //     // Get user location from session or default
+    //     $userCity = session('user_city', 'Jakarta');
+    //     $userLat = session('user_lat');
+    //     $userLng = session('user_lng');
+        
+    //     // Get prayer times based on location
+    //     $prayerTimesData = [];
+    //     $locationTimezone = config('app.timezone'); // Default to app timezone
+
+    //     if ($userLat && $userLng) {
+    //         $prayerTimesData = PrayerTimeService::getPrayerTimes(
+    //             $userLat, 
+    //             $userLng, 
+    //             Carbon::parse($selectedDate)->format('d-m-Y')
+    //         );
+    //     } else {
+    //         $prayerTimesData = PrayerTimeService::getPrayerTimesByCity(
+    //             $userCity, 
+    //             'Indonesia', 
+    //             Carbon::parse($selectedDate)->format('d-m-Y')
+    //         );
+    //     }
+        
+    //     $prayerTimes = $prayerTimesData['timings'];
+    //     $locationTimezone = $prayerTimesData['timezone'] ?? $locationTimezone;
+
+    //     // ========================================
+    //     // 🌙 FITUR BARU: IMSAK & BUKA PUASA
+    //     // ========================================
+        
+    //     // Hitung Imsak (Subuh - 10 menit)
+    //     $imsakTime = Carbon::createFromFormat('H:i', $prayerTimes['fajr'])
+    //         ->subMinutes(10)
+    //         ->format('H:i');
+
+    //     // Waktu Buka Puasa = Maghrib
+    //     $bukaTime = $prayerTimes['maghrib'];
+
+    //     // ========================================
+
+    //     $currentServerTime = Carbon::now($locationTimezone)->format('H:i');
+        
+    //     $prayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+    //     $prayerNames = [
+    //         'fajr' => 'Subuh',
+    //         'dhuhr' => 'Dzuhur',
+    //         'asr' => 'Ashar',
+    //         'maghrib' => 'Maghrib',
+    //         'isha' => 'Isya'
+    //     ];
+
+    //     // Get today's prayers
+    //     $todayPrayers = PrayerTracking::where('user_id', $user->id)
+    //         ->where('prayer_date', $selectedDate)
+    //         ->get()
+    //         ->keyBy('prayer_name');
+
+    //     // Stats
+    //     $todayPerformed = $todayPrayers->where('status', 'performed')->count();
+    //     $todayPercent = ($todayPerformed / 5) * 100;
+
+    //     // Streak calculation
+    //     $streak = $this->calculateStreak($user->id);
+
+    //     // Monthly stats
+    //     $monthTotal = PrayerTracking::where('user_id', $user->id)
+    //         ->whereYear('prayer_date', now()->year)
+    //         ->whereMonth('prayer_date', now()->month)
+    //         ->where('status', 'performed')
+    //         ->count();
+
+    //     // Weekly stats
+    //     $weeklyStats = $this->getWeeklyStats($user->id);
+
+    //     // Next prayer info
+    //     $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentServerTime);
+        
+    //     return view('prayer_tracking', compact(
+    //         'prayers',
+    //         'prayerNames',
+    //         'todayPrayers',
+    //         'todayPerformed',
+    //         'todayPercent',
+    //         'streak',
+    //         'monthTotal',
+    //         'weeklyStats',
+    //         'selectedDate',
+    //         'prayerTimes',
+    //         'currentServerTime',
+    //         'userCity',
+    //         'nextPrayer',
+    //         'locationTimezone',
+    //         'imsakTime',        // ← Variabel baru
+    //         'bukaTime'          // ← Variabel baru
+    //     ));
+    // }
+
     public function index(Request $request)
-    {
-        $user = auth()->user();
-        $selectedDate = $request->get('date', now()->toDateString());
-        
-        // Get user location from session or default
-        $userCity = session('user_city', 'Jakarta');
-        $userLat = session('user_lat');
-        $userLng = session('user_lng');
-        
-        // Get prayer times based on location
-        $prayerTimesData = [];
-        $locationTimezone = config('app.timezone'); // Default to app timezone
+{
+    $user = auth()->user();
+    $selectedDate = $request->get('date', now()->toDateString());
 
-        if ($userLat && $userLng) {
-            $prayerTimesData = PrayerTimeService::getPrayerTimes(
-                $userLat, 
-                $userLng, 
-                Carbon::parse($selectedDate)->format('d-m-Y')
-            );
-        } else {
-            $prayerTimesData = PrayerTimeService::getPrayerTimesByCity(
-                $userCity, 
-                'Indonesia', 
-                Carbon::parse($selectedDate)->format('d-m-Y')
-            );
-        }
-        
-        $prayerTimes = $prayerTimesData['timings'];
-        $locationTimezone = $prayerTimesData['timezone'] ?? $locationTimezone;
+    // ==============================
+    // 📍 GET USER LOCATION
+    // ==============================
+    $userCity = session('user_city', 'Jakarta');
+    $userLat = session('user_lat');
+    $userLng = session('user_lng');
 
-        // ========================================
-        // 🌙 FITUR BARU: IMSAK & BUKA PUASA
-        // ========================================
-        
-        // Hitung Imsak (Subuh - 10 menit)
-        $imsakTime = Carbon::createFromFormat('H:i', $prayerTimes['fajr'])
-            ->subMinutes(10)
-            ->format('H:i');
+    $formattedDate = Carbon::parse($selectedDate)->format('d-m-Y');
 
-        // Waktu Buka Puasa = Maghrib
-        $bukaTime = $prayerTimes['maghrib'];
-
-        // ========================================
-
-        $currentServerTime = Carbon::now($locationTimezone)->format('H:i');
-        
-        $prayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
-        $prayerNames = [
-            'fajr' => 'Subuh',
-            'dhuhr' => 'Dzuhur',
-            'asr' => 'Ashar',
-            'maghrib' => 'Maghrib',
-            'isha' => 'Isya'
-        ];
-
-        // Get today's prayers
-        $todayPrayers = PrayerTracking::where('user_id', $user->id)
-            ->where('prayer_date', $selectedDate)
-            ->get()
-            ->keyBy('prayer_name');
-
-        // Stats
-        $todayPerformed = $todayPrayers->where('status', 'performed')->count();
-        $todayPercent = ($todayPerformed / 5) * 100;
-
-        // Streak calculation
-        $streak = $this->calculateStreak($user->id);
-
-        // Monthly stats
-        $monthTotal = PrayerTracking::where('user_id', $user->id)
-            ->whereYear('prayer_date', now()->year)
-            ->whereMonth('prayer_date', now()->month)
-            ->where('status', 'performed')
-            ->count();
-
-        // Weekly stats
-        $weeklyStats = $this->getWeeklyStats($user->id);
-
-        // Next prayer info
-        $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentServerTime);
-        
-        return view('prayer_tracking', compact(
-            'prayers',
-            'prayerNames',
-            'todayPrayers',
-            'todayPerformed',
-            'todayPercent',
-            'streak',
-            'monthTotal',
-            'weeklyStats',
-            'selectedDate',
-            'prayerTimes',
-            'currentServerTime',
-            'userCity',
-            'nextPrayer',
-            'locationTimezone',
-            'imsakTime',        // ← Variabel baru
-            'bukaTime'          // ← Variabel baru
-        ));
+    // ==============================
+    // 🕌 GET PRAYER TIMES
+    // ==============================
+    if ($userLat && $userLng) {
+        $prayerTimesData = PrayerTimeService::getPrayerTimes(
+            $userLat,
+            $userLng,
+            $formattedDate
+        );
+    } else {
+        $prayerTimesData = PrayerTimeService::getPrayerTimesByCity(
+            $userCity,
+            'Indonesia',
+            $formattedDate
+        );
     }
+
+    $prayerTimes = $prayerTimesData['timings'] ?? [];
+    $locationTimezone = $prayerTimesData['timezone'] ?? config('app.timezone');
+
+    // ==============================
+    // 🌙 IMSAK & BUKA
+    // ==============================
+    $imsakTime = Carbon::createFromFormat('H:i', $prayerTimes['fajr'])
+        ->subMinutes(10)
+        ->format('H:i');
+
+    $bukaTime = $prayerTimes['maghrib'];
+
+    // ==============================
+    // ⏰ CURRENT TIME BASED ON LOCATION
+    // ==============================
+    $currentServerTime = Carbon::now($locationTimezone)->format('H:i');
+
+    $prayers = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+    $prayerNames = [
+        'fajr' => 'Subuh',
+        'dhuhr' => 'Dzuhur',
+        'asr' => 'Ashar',
+        'maghrib' => 'Maghrib',
+        'isha' => 'Isya'
+    ];
+
+    $todayPrayers = PrayerTracking::where('user_id', $user->id)
+        ->where('prayer_date', $selectedDate)
+        ->get()
+        ->keyBy('prayer_name');
+
+    $todayPerformed = $todayPrayers->where('status', 'performed')->count();
+    $todayPercent = ($todayPerformed / 5) * 100;
+
+    $streak = $this->calculateStreak($user->id);
+
+    $monthTotal = PrayerTracking::where('user_id', $user->id)
+        ->whereYear('prayer_date', now()->year)
+        ->whereMonth('prayer_date', now()->month)
+        ->where('status', 'performed')
+        ->count();
+
+    $weeklyStats = $this->getWeeklyStats($user->id);
+
+    $nextPrayer = PrayerTimeService::getNextPrayer($prayerTimes, $currentServerTime);
+
+    // 🔥 TAMBAHAN
+    $availableCities = PrayerTimeService::searchCities('');
+
+    return view('prayer_tracking', compact(
+        'prayers',
+        'prayerNames',
+        'todayPrayers',
+        'todayPerformed',
+        'todayPercent',
+        'streak',
+        'monthTotal',
+        'weeklyStats',
+        'selectedDate',
+        'prayerTimes',
+        'currentServerTime',
+        'userCity',
+        'nextPrayer',
+        'locationTimezone',
+        'imsakTime',
+        'bukaTime',
+        'availableCities' // ← penting untuk dropdown
+    ));
+}
 
     public function store(Request $request)
     {
@@ -186,30 +287,65 @@ class PrayerTrackingController extends Controller
     /**
      * Set user location
      */
+    // public function setLocation(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'city' => 'nullable|string',
+    //         'latitude' => 'nullable|numeric',
+    //         'longitude' => 'nullable|numeric',
+    //     ]);
+
+    //     if (isset($validated['city'])) {
+    //         session(['user_city' => $validated['city']]);
+    //     }
+
+    //     if (isset($validated['latitude']) && isset($validated['longitude'])) {
+    //         session([
+    //             'user_lat' => $validated['latitude'],
+    //             'user_lng' => $validated['longitude'],
+    //         ]);
+    //     }
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'message' => 'Lokasi berhasil disimpan'
+    //     ]);
+    // }
+
+
     public function setLocation(Request $request)
-    {
-        $validated = $request->validate([
-            'city' => 'nullable|string',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
+{
+    $validated = $request->validate([
+        'city' => 'nullable|string',
+        'latitude' => 'nullable|numeric',
+        'longitude' => 'nullable|numeric',
+    ]);
+
+    // Jika user kirim koordinat → prioritaskan koordinat
+    if (!empty($validated['latitude']) && !empty($validated['longitude'])) {
+
+        session([
+            'user_lat' => $validated['latitude'],
+            'user_lng' => $validated['longitude'],
         ]);
 
-        if (isset($validated['city'])) {
-            session(['user_city' => $validated['city']]);
-        }
+        session()->forget('user_city');
 
-        if (isset($validated['latitude']) && isset($validated['longitude'])) {
-            session([
-                'user_lat' => $validated['latitude'],
-                'user_lng' => $validated['longitude'],
-            ]);
-        }
+    } elseif (!empty($validated['city'])) {
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Lokasi berhasil disimpan'
+        session([
+            'user_city' => $validated['city'],
         ]);
+
+        session()->forget(['user_lat', 'user_lng']);
     }
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Lokasi berhasil disimpan'
+    ]);
+}
+
 
     /**
      * Search cities (autocomplete)

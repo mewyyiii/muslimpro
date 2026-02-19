@@ -33,19 +33,23 @@
             </a>
 
             <!-- Waktu Shalat -->
-            <div class="group feature-card bg-white rounded-2xl p-6 md:p-8 shadow-xl relative overflow-hidden opacity-75 cursor-not-allowed">
-                <span class="absolute top-3 right-3 px-3 py-1 bg-gray-400 text-white rounded-full text-xs font-semibold shadow-md z-20">Segera</span>
-                <div class="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -mr-16 -mt-16"></div>
+            <a href="{{ route('prayer-tracking.index') }}" 
+            class="group feature-card bg-white rounded-2xl p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
                 <div class="relative z-10">
-                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center mb-4 md:mb-6 shadow-lg">
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform">
                         <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">Waktu Shalat</h3>
-                    <p class="text-sm md:text-base text-gray-600">Jadwal shalat 5 waktu sesuai lokasi Anda</p>
+                    <p class="text-sm md:text-base text-gray-600">
+                        Jadwal shalat 5 waktu sesuai lokasi Anda
+                    </p>
                 </div>
-            </div>
+            </a>
 
             <!-- Arah Kiblat -->
             <a href="{{ route('qibla.index') }}" 

@@ -11,6 +11,35 @@
             </h1>
             <p class="text-white/80 text-base md:text-lg">Catat & pantau ibadah shalat harianmu</p>
         </div>
+        {{-- PILIH LOKASI --}}
+<div class="bg-white rounded-2xl shadow-xl p-5 md:p-6 mb-6">
+    <div class="flex flex-col md:flex-row gap-4 md:items-end">
+
+        <div class="flex-1">
+            <label class="text-sm font-semibold text-gray-600">
+                📍 Lokasi Waktu Shalat
+            </label>
+
+            <select id="citySelect"
+                class="w-full mt-2 border-gray-200 rounded-lg focus:ring-teal-500 focus:border-teal-500">
+                
+                @foreach($availableCities as $city)
+                    <option value="{{ $city }}"
+                        {{ $userCity === $city ? 'selected' : '' }}>
+                        {{ $city }}
+                    </option>
+                @endforeach
+
+            </select>
+        </div>
+
+        <button onclick="saveLocation()"
+            class="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition">
+            Simpan
+        </button>
+
+    </div>
+</div>
 
         {{-- STATISTIK RINGKASAN --}}
         <div class="grid grid-cols-3 gap-3 md:gap-4 mb-6">
@@ -297,6 +326,36 @@ function prayerTracker() {
         }
     }
 }
+async function saveLocation() {
+    const city = document.getElementById('citySelect').value;
+
+    try {
+        const res = await fetch('{{ route("prayer-tracking.set-location") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                city: city
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            window.location.reload();
+        } else {
+            alert('Gagal menyimpan lokasi');
+        }
+
+    } catch (err) {
+        console.error(err);
+        alert('Terjadi kesalahan');
+    }
+}
+
 </script>
 @endpush
 
