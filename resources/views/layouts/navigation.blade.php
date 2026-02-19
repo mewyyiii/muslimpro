@@ -744,15 +744,13 @@
 
 <style>
 /* Mobile title sizing */
-@media (max-width: 767px) {
-    .navbar-title-mobile {
-        font-size: 1.5rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-    }
+.navbar-title-mobile {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
 }
 
-/* ===== DESKTOP: fade in + shimmer ===== */
+/* ===== DESKTOP Al-Huda (md ke atas) ===== */
 .al-huda-glow {
     display: inline-block;
     background: linear-gradient(90deg, #0f766e 0%, #0f766e 35%, #5eead4 50%, #0f766e 65%, #0f766e 100%);
@@ -761,9 +759,8 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 0;
-    filter: blur(5px);
     animation: 
-        alhuda-fadein 2s ease-out 0s forwards,
+        alhuda-fadein 2s ease-out forwards,
         shimmer-sweep 2.5s linear 2s infinite;
 }
 
@@ -773,18 +770,18 @@
     100% { opacity: 1; filter: blur(0);   background-position: 0% center; }
 }
 
-/* ===== MOBILE: sama tapi TANPA transform, biar ga geser dari center ===== */
+/* ===== MOBILE Al-Huda (di tengah, tanpa transform tambahan) ===== */
 .al-huda-glow-mobile {
     display: inline-block;
+    white-space: nowrap;
     background: linear-gradient(90deg, #0f766e 0%, #0f766e 35%, #5eead4 50%, #0f766e 65%, #0f766e 100%);
     background-size: 300% auto;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 0;
-    filter: blur(5px);
     animation: 
-        alhuda-fadein-mobile 2s ease-out 0s forwards,
+        alhuda-fadein-mobile 2s ease-out forwards,
         shimmer-sweep 2.5s linear 2s infinite;
 }
 
@@ -794,7 +791,6 @@
     100% { opacity: 1; filter: blur(0);   background-position: 0% center; }
 }
 
-/* Shimmer sweep bersama */
 @keyframes shimmer-sweep {
     0%   { background-position: 150% center; }
     100% { background-position: -150% center; }
