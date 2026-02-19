@@ -25,12 +25,12 @@
                             <path d="M56 72 L54 84 M60 72 L60 88 M64 72 L66 84" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <span class="text-xl font-bold hidden md:block al-huda-glow">Al-Huda</span>
+                    <span class="text-xl font-bold text-teal-700 hidden sm:block">Al-Huda</span>
                 </a>
             </div>
 
             <!-- Title Al-Huda di tengah — MOBILE ONLY -->
-            <span class="md:hidden absolute left-1/2 -translate-x-1/2 pointer-events-none navbar-title-mobile al-huda-glow-mobile">
+            <span class="md:hidden absolute left-1/2 -translate-x-1/2 pointer-events-none navbar-title-mobile text-teal-700">
                 Al-Huda
             </span>
 
@@ -743,57 +743,24 @@
 </nav>
 
 <style>
-/* Mobile title sizing */
-.navbar-title-mobile {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-}
+@media (max-width: 767px) {
+    .navbar-title-mobile {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        animation: fadeInDown 0.8s ease-out;
+    }
 
-/* ===== DESKTOP Al-Huda (md ke atas) ===== */
-.al-huda-glow {
-    display: inline-block;
-    background: linear-gradient(90deg, #0f766e 0%, #0f766e 35%, #5eead4 50%, #0f766e 65%, #0f766e 100%);
-    background-size: 300% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    opacity: 0;
-    animation: 
-        alhuda-fadein 2s ease-out forwards,
-        shimmer-sweep 2.5s linear 2s infinite;
-}
-
-@keyframes alhuda-fadein {
-    0%   { opacity: 0; filter: blur(5px); background-position: 150% center; }
-    70%  { opacity: 1; filter: blur(0);   background-position: 50% center; }
-    100% { opacity: 1; filter: blur(0);   background-position: 0% center; }
-}
-
-/* ===== MOBILE Al-Huda (di tengah, tanpa transform tambahan) ===== */
-.al-huda-glow-mobile {
-    display: inline-block;
-    white-space: nowrap;
-    background: linear-gradient(90deg, #0f766e 0%, #0f766e 35%, #5eead4 50%, #0f766e 65%, #0f766e 100%);
-    background-size: 300% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    opacity: 0;
-    animation: 
-        alhuda-fadein-mobile 2s ease-out forwards,
-        shimmer-sweep 2.5s linear 2s infinite;
-}
-
-@keyframes alhuda-fadein-mobile {
-    0%   { opacity: 0; filter: blur(5px); background-position: 150% center; }
-    70%  { opacity: 1; filter: blur(0);   background-position: 50% center; }
-    100% { opacity: 1; filter: blur(0);   background-position: 0% center; }
-}
-
-@keyframes shimmer-sweep {
-    0%   { background-position: 150% center; }
-    100% { background-position: -150% center; }
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    }
 }
 
 /* Smooth hover effects */
