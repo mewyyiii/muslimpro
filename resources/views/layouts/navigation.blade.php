@@ -30,7 +30,7 @@
             </div>
 
             <!-- Title Al-Huda di tengah — MOBILE ONLY -->
-            <span class="md:hidden absolute left-1/2 -translate-x-1/2 pointer-events-none navbar-title-mobile al-huda-glow">
+            <span class="md:hidden absolute left-1/2 -translate-x-1/2 pointer-events-none navbar-title-mobile al-huda-glow-mobile">
                 Al-Huda
             </span>
 
@@ -751,35 +751,90 @@
     }
 }
 
-/* Al-Huda Glow Fade In — Desktop & Mobile */
+/* ===== DESKTOP: Al-Huda Glow + Shimmer ===== */
 .al-huda-glow {
+    position: relative;
+    display: inline-block;
     color: #0f766e;
-    animation: alhuda-fadein 1.2s ease-out forwards;
+    animation: alhuda-fadein 2s ease-out forwards;
+    background: linear-gradient(
+        90deg,
+        #0f766e 0%,
+        #0f766e 30%,
+        #5eead4 50%,
+        #0f766e 70%,
+        #0f766e 100%
+    );
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: alhuda-fadein 2s ease-out forwards, shimmer 3s linear 2s infinite;
 }
 
-.al-huda-glow:hover {
-    text-shadow: 0 0 12px rgba(20, 184, 166, 0.7), 0 0 28px rgba(20, 184, 166, 0.35);
-    transition: text-shadow 0.3s ease;
+/* ===== MOBILE: Al-Huda Glow + Shimmer (tanpa translateY biar ga geser) ===== */
+.al-huda-glow-mobile {
+    position: relative;
+    display: inline-block;
+    color: #0f766e;
+    background: linear-gradient(
+        90deg,
+        #0f766e 0%,
+        #0f766e 30%,
+        #5eead4 50%,
+        #0f766e 70%,
+        #0f766e 100%
+    );
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: alhuda-fadein-mobile 2s ease-out forwards, shimmer 3s linear 2s infinite;
 }
 
+/* Desktop fade in — boleh pakai translateY */
 @keyframes alhuda-fadein {
     0% {
         opacity: 0;
-        transform: translateY(-6px);
-        filter: blur(4px);
-        text-shadow: none;
+        filter: blur(6px);
+        background-position: 200% center;
     }
     60% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-        text-shadow: 0 0 20px rgba(20, 184, 166, 0.9), 0 0 40px rgba(20, 184, 166, 0.5);
+        opacity: 0.8;
+        filter: blur(1px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
         filter: blur(0);
-        text-shadow: 0 0 6px rgba(20, 184, 166, 0.3);
+        background-position: 0% center;
+    }
+}
+
+/* Mobile fade in — TANPA translateY, hanya opacity & blur */
+@keyframes alhuda-fadein-mobile {
+    0% {
+        opacity: 0;
+        filter: blur(6px);
+        background-position: 200% center;
+    }
+    60% {
+        opacity: 0.8;
+        filter: blur(1px);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        background-position: 0% center;
+    }
+}
+
+/* Shimmer sweep */
+@keyframes shimmer {
+    0% {
+        background-position: 200% center;
+    }
+    100% {
+        background-position: -200% center;
     }
 }
 
