@@ -25,7 +25,7 @@
                             <path d="M56 72 L54 84 M60 72 L60 88 M64 72 L66 84" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <span class="text-xl font-bold hidden sm:block al-huda-glow">Al-Huda</span>
+                    <span class="text-xl font-bold hidden md:block al-huda-glow">Al-Huda</span>
                 </a>
             </div>
 
@@ -743,6 +743,7 @@
 </nav>
 
 <style>
+/* Mobile title sizing */
 @media (max-width: 767px) {
     .navbar-title-mobile {
         font-size: 1.5rem;
@@ -751,91 +752,52 @@
     }
 }
 
-/* ===== DESKTOP: Al-Huda Glow + Shimmer ===== */
+/* ===== DESKTOP: fade in + shimmer ===== */
 .al-huda-glow {
-    position: relative;
     display: inline-block;
-    color: #0f766e;
-    animation: alhuda-fadein 2s ease-out forwards;
-    background: linear-gradient(
-        90deg,
-        #0f766e 0%,
-        #0f766e 30%,
-        #5eead4 50%,
-        #0f766e 70%,
-        #0f766e 100%
-    );
+    background: linear-gradient(90deg, #0f766e 0%, #0f766e 35%, #5eead4 50%, #0f766e 65%, #0f766e 100%);
     background-size: 300% auto;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: alhuda-fadein 2s ease-out forwards, shimmer 3s linear 2s infinite;
+    opacity: 0;
+    filter: blur(5px);
+    animation: 
+        alhuda-fadein 2s ease-out 0s forwards,
+        shimmer-sweep 2.5s linear 2s infinite;
 }
 
-/* ===== MOBILE: Al-Huda Glow + Shimmer (tanpa translateY biar ga geser) ===== */
-.al-huda-glow-mobile {
-    position: relative;
-    display: inline-block;
-    color: #0f766e;
-    background: linear-gradient(
-        90deg,
-        #0f766e 0%,
-        #0f766e 30%,
-        #5eead4 50%,
-        #0f766e 70%,
-        #0f766e 100%
-    );
-    background-size: 300% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: alhuda-fadein-mobile 2s ease-out forwards, shimmer 3s linear 2s infinite;
-}
-
-/* Desktop fade in — boleh pakai translateY */
 @keyframes alhuda-fadein {
-    0% {
-        opacity: 0;
-        filter: blur(6px);
-        background-position: 200% center;
-    }
-    60% {
-        opacity: 0.8;
-        filter: blur(1px);
-    }
-    100% {
-        opacity: 1;
-        filter: blur(0);
-        background-position: 0% center;
-    }
+    0%   { opacity: 0; filter: blur(5px); background-position: 150% center; }
+    70%  { opacity: 1; filter: blur(0);   background-position: 50% center; }
+    100% { opacity: 1; filter: blur(0);   background-position: 0% center; }
 }
 
-/* Mobile fade in — TANPA translateY, hanya opacity & blur */
+/* ===== MOBILE: sama tapi TANPA transform, biar ga geser dari center ===== */
+.al-huda-glow-mobile {
+    display: inline-block;
+    background: linear-gradient(90deg, #0f766e 0%, #0f766e 35%, #5eead4 50%, #0f766e 65%, #0f766e 100%);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    filter: blur(5px);
+    animation: 
+        alhuda-fadein-mobile 2s ease-out 0s forwards,
+        shimmer-sweep 2.5s linear 2s infinite;
+}
+
 @keyframes alhuda-fadein-mobile {
-    0% {
-        opacity: 0;
-        filter: blur(6px);
-        background-position: 200% center;
-    }
-    60% {
-        opacity: 0.8;
-        filter: blur(1px);
-    }
-    100% {
-        opacity: 1;
-        filter: blur(0);
-        background-position: 0% center;
-    }
+    0%   { opacity: 0; filter: blur(5px); background-position: 150% center; }
+    70%  { opacity: 1; filter: blur(0);   background-position: 50% center; }
+    100% { opacity: 1; filter: blur(0);   background-position: 0% center; }
 }
 
-/* Shimmer sweep */
-@keyframes shimmer {
-    0% {
-        background-position: 200% center;
-    }
-    100% {
-        background-position: -200% center;
-    }
+/* Shimmer sweep bersama */
+@keyframes shimmer-sweep {
+    0%   { background-position: 150% center; }
+    100% { background-position: -150% center; }
 }
 
 /* Smooth hover effects */
