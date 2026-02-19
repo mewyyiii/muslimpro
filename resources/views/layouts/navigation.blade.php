@@ -708,20 +708,19 @@
             <a href="{{ route('prayer-tracking.index') }}" 
             class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('prayer-tracking.*') ? 'bg-teal-50 text-teal-700' : '' }}">
                 <svg class="w-5 h-5 inline-block mr-2 -mt-1" 
-                    viewBox="0 0 256 256" 
+                    viewBox="0 0 64 64" 
                     fill="currentColor" 
                     aria-hidden="true">
-                    <!-- Badan + kaki (siluet utama) -->
-                    <path d="M16 182c0-8 7-15 15-15h72c10 0 19-5 25-13l16-22c15-20 38-32 63-32h4c21 0 41 9 55 25l18 20c6 7 15 11 24 11h12c8 0 15 7 15 15s-7 15-15 15h-44c-13 0-26-6-34-17l-11-15c-7-10-19-16-31-16h-10c-11 0-22 5-29 13l-21 24c-8 9-20 14-32 14H31c-8 0-15-7-15-15z"/>
-
                     <!-- Kepala -->
-                    <ellipse cx="206" cy="174" rx="30" ry="22"/>
-
-                    <!-- Tangan -->
-                    <path d="M36 172c9-10 22-14 38-11l26 6c7 2 12 8 12 15 0 9-8 16-17 15l-58-5c-8-1-14-7-14-15 0-2 1-4 1-5z"/>
-
-                    <!-- Detail leher -->
-                    <path d="M164 156c10 4 20 2 28-6 5-5 13-5 18 0s5 13 0 18c-15 16-36 20-56 12-7-3-10-11-7-17 3-7 11-10 17-7z"/>
+                    <circle cx="10" cy="22" r="7"/>
+                    <!-- Tubuh membungkuk / posisi sujud -->
+                    <path d="M16 26 C22 22 38 18 52 17 L54 24 C40 26 24 30 20 34 Z"/>
+                    <!-- Tangan menjulur ke depan -->
+                    <path d="M52 17 C57 16 62 17 63 21 L60 25 C58 22 54 22 51 24 Z"/>
+                    <!-- Pinggul dan kaki terlipat -->
+                    <path d="M20 34 C18 40 16 48 14 52 L6 50 C9 46 12 38 14 32 Z"/>
+                    <!-- Telapak kaki -->
+                    <path d="M14 52 C18 56 28 56 32 52 L30 46 C27 49 18 49 16 46 Z"/>
                 </svg>
                 Tracking Shalat
             </a>
