@@ -61,13 +61,13 @@ class PrayerTimeService
                             Cache::put($cacheKey, $result, now()->addHours(6));
                             return $result;
                         } else {
-                            \Log::error('Prayer Time API: Missing data in successful response for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date . '. Response: ' . json_encode($data));
+                            Log::error('Prayer Time API: Missing data in successful response for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date . '. Response: ' . json_encode($data));
                         }
                     } else {
-                        \Log::error('Prayer Time API: Unsuccessful response for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date . '. Status: ' . $response->status() . '. Response: ' . $response->body());
+                        Log::error('Prayer Time API: Unsuccessful response for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date . '. Status: ' . $response->status() . '. Response: ' . $response->body());
                     }
                 } catch (\Exception $e) {
-                    \Log::error('Prayer Time API Error: ' . $e->getMessage() . ' for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date);
+                    Log::error('Prayer Time API Error: ' . $e->getMessage() . ' for lat: ' . $latitude . ', lng: ' . $longitude . ', date: ' . $date);
                 }
         
                 // Fallback to default times if API fails or response is invalid
@@ -122,13 +122,13 @@ class PrayerTimeService
                     Cache::put($cacheKey, $result, now()->addHours(6));
                     return $result;
                 } else {
-                    \Log::error('Prayer Time City API: Missing data in successful response for city: ' . $city . ', country: ' . $country . ', date: ' . $date . '. Response: ' . json_encode($data));
+                    Log::error('Prayer Time City API: Missing data in successful response for city: ' . $city . ', country: ' . $country . ', date: ' . $date . '. Response: ' . json_encode($data));
                 }
             } else {
-                \Log::error('Prayer Time City API: Unsuccessful response for city: ' . $city . ', country: ' . $country . ', date: ' . $date . '. Status: ' . $response->status() . '. Response: ' . $response->body());
+                Log::error('Prayer Time City API: Unsuccessful response for city: ' . $city . ', country: ' . $country . ', date: ' . $date . '. Status: ' . $response->status() . '. Response: ' . $response->body());
             }
         } catch (\Exception $e) {
-            \Log::error('Prayer Time City API Error: ' . $e->getMessage() . ' for city: ' . $city . ', country: ' . $country . ', date: ' . $date);
+            Log::error('Prayer Time City API Error: ' . $e->getMessage() . ' for city: ' . $city . ', country: ' . $country . ', date: ' . $date);
         }
 
         return self::getDefaultTimes();

@@ -287,18 +287,24 @@
         <div class="flex justify-between items-center h-14 sm:h-16">
             <div class="flex items-center space-x-2 sm:space-x-3">
                 <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                    <svg viewBox="0 0 120 120" class="w-5 h-5 sm:w-6 sm:h-6" fill="none">
-                        <path d="M60 8 Q65 12 60 16" stroke="white" stroke-width="3" fill="none"/>
-                        <circle cx="48" cy="22" r="6" fill="white"/>
-                        <circle cx="60" cy="20" r="6" fill="white"/>
-                        <circle cx="72" cy="22" r="6" fill="white"/>
-                        <circle cx="44" cy="34" r="6" fill="white"/>
-                        <circle cx="76" cy="34" r="6" fill="white"/>
-                        <circle cx="46" cy="48" r="6" fill="white"/>
-                        <circle cx="74" cy="48" r="6" fill="white"/>
-                        <circle cx="52" cy="62" r="6" fill="white"/>
-                        <circle cx="68" cy="62" r="6" fill="white"/>
-                        <path d="M56 72 L54 84 M60 72 L60 88 M64 72 L66 84" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <!-- TASBIH ICON -->
+                    <svg viewBox="0 0 100 120" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="11" r="6" fill="white"/>
+                        <circle cx="68" cy="16" r="5.5" fill="white"/>
+                        <circle cx="80" cy="29" r="5.5" fill="white"/>
+                        <circle cx="84" cy="46" r="5.5" fill="white"/>
+                        <circle cx="78" cy="62" r="5.5" fill="white"/>
+                        <circle cx="64" cy="73" r="5.5" fill="white"/>
+                        <circle cx="50" cy="77" r="6" fill="white"/>
+                        <circle cx="36" cy="73" r="5.5" fill="white"/>
+                        <circle cx="22" cy="62" r="5.5" fill="white"/>
+                        <circle cx="16" cy="46" r="5.5" fill="white"/>
+                        <circle cx="20" cy="29" r="5.5" fill="white"/>
+                        <circle cx="32" cy="16" r="5.5" fill="white"/>
+                        <circle cx="50" cy="85" r="5" fill="white"/>
+                        <line x1="44" y1="90" x2="41" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="50" y1="90" x2="50" y2="110" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="56" y1="90" x2="59" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
                     </svg>
                 </div>
                 <span class="text-lg sm:text-xl font-bold text-cyan-700">Al-Huda</span>
@@ -598,13 +604,24 @@
             <div>
                 <div class="flex items-center space-x-3 mb-4 sm:mb-5">
                     <div class="w-10 h-10 sm:w-11 sm:h-11 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-xl flex items-center justify-center shadow-lg">
-                        <svg viewBox="0 0 120 120" class="w-6 h-6 sm:w-7 sm:h-7" fill="none">
-                            <circle cx="48" cy="22" r="6" fill="white"/>
-                            <circle cx="60" cy="20" r="6" fill="white"/>
-                            <circle cx="72" cy="22" r="6" fill="white"/>
-                            <circle cx="52" cy="62" r="6" fill="white"/>
-                            <circle cx="68" cy="62" r="6" fill="white"/>
-                            <path d="M56 72 L54 84 M60 72 L60 88 M64 72 L66 84" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <!-- TASBIH ICON FOOTER -->
+                        <svg viewBox="0 0 100 120" class="w-6 h-6 sm:w-7 sm:h-7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="11" r="6" fill="white"/>
+                            <circle cx="68" cy="16" r="5.5" fill="white"/>
+                            <circle cx="80" cy="29" r="5.5" fill="white"/>
+                            <circle cx="84" cy="46" r="5.5" fill="white"/>
+                            <circle cx="78" cy="62" r="5.5" fill="white"/>
+                            <circle cx="64" cy="73" r="5.5" fill="white"/>
+                            <circle cx="50" cy="77" r="6" fill="white"/>
+                            <circle cx="36" cy="73" r="5.5" fill="white"/>
+                            <circle cx="22" cy="62" r="5.5" fill="white"/>
+                            <circle cx="16" cy="46" r="5.5" fill="white"/>
+                            <circle cx="20" cy="29" r="5.5" fill="white"/>
+                            <circle cx="32" cy="16" r="5.5" fill="white"/>
+                            <circle cx="50" cy="85" r="5" fill="white"/>
+                            <line x1="44" y1="90" x2="41" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="50" y1="90" x2="50" y2="110" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="56" y1="90" x2="59" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <span class="text-xl sm:text-2xl font-bold">Al-Huda</span>
