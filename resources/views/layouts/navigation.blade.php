@@ -8,21 +8,24 @@
             <div class="flex items-center">
                 <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
                     <div class="w-10 h-10 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-lg flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                        <svg viewBox="0 0 120 120" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- string -->
-                            <path d="M60 8 Q65 12 60 16" stroke="white" stroke-width="3" fill="none"/>
-                            <!-- beads -->
-                            <circle cx="48" cy="22" r="6" fill="white"/>
-                            <circle cx="60" cy="20" r="6" fill="white"/>
-                            <circle cx="72" cy="22" r="6" fill="white"/>
-                            <circle cx="44" cy="34" r="6" fill="white"/>
-                            <circle cx="76" cy="34" r="6" fill="white"/>
-                            <circle cx="46" cy="48" r="6" fill="white"/>
-                            <circle cx="74" cy="48" r="6" fill="white"/>
-                            <circle cx="52" cy="62" r="6" fill="white"/>
-                            <circle cx="68" cy="62" r="6" fill="white"/>
-                            <!-- tassel -->
-                            <path d="M56 72 L54 84 M60 72 L60 88 M64 72 L66 84" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <!-- TASBIH ICON -->
+                        <svg viewBox="0 0 100 120" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="11" r="6" fill="white"/>
+                            <circle cx="68" cy="16" r="5.5" fill="white"/>
+                            <circle cx="80" cy="29" r="5.5" fill="white"/>
+                            <circle cx="84" cy="46" r="5.5" fill="white"/>
+                            <circle cx="78" cy="62" r="5.5" fill="white"/>
+                            <circle cx="64" cy="73" r="5.5" fill="white"/>
+                            <circle cx="50" cy="77" r="6" fill="white"/>
+                            <circle cx="36" cy="73" r="5.5" fill="white"/>
+                            <circle cx="22" cy="62" r="5.5" fill="white"/>
+                            <circle cx="16" cy="46" r="5.5" fill="white"/>
+                            <circle cx="20" cy="29" r="5.5" fill="white"/>
+                            <circle cx="32" cy="16" r="5.5" fill="white"/>
+                            <circle cx="50" cy="85" r="5" fill="white"/>
+                            <line x1="44" y1="90" x2="41" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="50" y1="90" x2="50" y2="110" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="56" y1="90" x2="59" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <span class="text-xl font-bold text-teal-700 hidden sm:block">Al-Huda</span>
@@ -185,34 +188,21 @@
                                             </a>
                                         </li>
                                         <li>
-                                        <div class="block px-2 py-1.5 rounded-lg opacity-50 cursor-not-allowed">
-                                            <div class="flex items-center gap-2">
-                                                <svg class="w-4 h-4 text-gray-400 flex-shrink-0"
-                                                    viewBox="0 0 256 256"
-                                                    fill="currentColor"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    aria-hidden="true">
-                                                    <path d="M26 58 C26 44 40 34 60 34 C86 34 108 42 128 56 C148 42 170 34 196 34 C216 34 230 44 230 58 L230 150 C230 162 220 170 206 170 C182 170 158 176 140 186 C136 188 132 186 132 182 L132 64 C132 62 131 60 128 58 C125 60 124 62 124 64 L124 182 C124 186 120 188 116 186 C98 176 74 170 50 170 C36 170 26 162 26 150 Z M44 156 C68 146 96 146 116 156 C120 158 120 164 116 166 C96 158 68 158 44 168 C40 170 38 160 44 156 Z M212 156 C188 146 160 146 140 156 C136 158 136 164 140 166 C160 158 188 158 212 168 C216 170 218 160 212 156 Z M32 150 L124 196 L116 212 L24 166 Z M224 150 L132 196 L140 212 L232 166 Z M54 228 L122 186 L134 198 L82 244 L62 244 Z M202 228 L134 186 L122 198 L174 244 L194 244 Z M127 60 L129 60 L129 186 L127 186 Z M56 90 C80 84 100 88 114 98 L110 106 C96 96 78 94 60 98 Z M200 90 C176 84 156 88 142 98 L146 106 C160 96 178 94 196 98 Z"/>
-                                                </svg>
-                                                <div class="flex-1 min-w-0">
-                                                    <div class="text-xs font-medium text-gray-400 truncate">Al-Quran</div>
-                                                    <div class="text-[10px] text-gray-400 truncate">Segera Hadir</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </li>
-                                        <li>
-                                            <div class="block px-2 py-1.5 rounded-lg opacity-50 cursor-not-allowed">
+                                            <a href="{{ route('quran.index') }}" class="block px-2 py-1.5 rounded-lg hover:bg-teal-50 transition-colors group">
                                                 <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                                                    <svg class="w-4 h-4 text-teal-600 flex-shrink-0"
+                                                        viewBox="0 0 256 256"
+                                                        fill="currentColor"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        aria-hidden="true">
+                                                        <path d="M26 58 C26 44 40 34 60 34 C86 34 108 42 128 56 C148 42 170 34 196 34 C216 34 230 44 230 58 L230 150 C230 162 220 170 206 170 C182 170 158 176 140 186 C136 188 132 186 132 182 L132 64 C132 62 131 60 128 58 C125 60 124 62 124 64 L124 182 C124 186 120 188 116 186 C98 176 74 170 50 170 C36 170 26 162 26 150 Z M44 156 C68 146 96 146 116 156 C120 158 120 164 116 166 C96 158 68 158 44 168 C40 170 38 160 44 156 Z M212 156 C188 146 160 146 140 156 C136 158 136 164 140 166 C160 158 188 158 212 168 C216 170 218 160 212 156 Z M32 150 L124 196 L116 212 L24 166 Z M224 150 L132 196 L140 212 L232 166 Z M54 228 L122 186 L134 198 L82 244 L62 244 Z M202 228 L134 186 L122 198 L174 244 L194 244 Z M127 60 L129 60 L129 186 L127 186 Z M56 90 C80 84 100 88 114 98 L110 106 C96 96 78 94 60 98 Z M200 90 C176 84 156 88 142 98 L146 106 C160 96 178 94 196 98 Z"/>
                                                     </svg>
                                                     <div class="flex-1 min-w-0">
-                                                        <div class="text-xs font-medium text-gray-400 truncate">Artikel Islami</div>
-                                                        <div class="text-[10px] text-gray-400 truncate">Segera Hadir</div>
+                                                        <div class="text-xs font-medium text-gray-700 group-hover:text-teal-700 truncate">Al-Quran</div>
+                                                        <div class="text-[10px] text-gray-500 truncate">Baca Al-Quran</div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -239,32 +229,6 @@
                                                     </div>
                                                 </div>
                                             </a>
-                                        </li>
-                                        <li>
-                                            <div class="block px-2 py-1.5 rounded-lg opacity-50 cursor-not-allowed">
-                                                <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-                                                    </svg>
-                                                    <div class="flex-1 min-w-0">
-                                                        <div class="text-xs font-medium text-gray-400 truncate">Pengingat Harian</div>
-                                                        <div class="text-[10px] text-gray-400 truncate">Segera Hadir</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="block px-2 py-1.5 rounded-lg opacity-50 cursor-not-allowed">
-                                                <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                                                    </svg>
-                                                    <div class="flex-1 min-w-0">
-                                                        <div class="text-xs font-medium text-gray-400 truncate">Penanda</div>
-                                                        <div class="text-[10px] text-gray-400 truncate">Segera Hadir</div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </li>
                                     </ul>
                                 </div>
