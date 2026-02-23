@@ -60,285 +60,285 @@
             "verses": [
                 {
                     "number": 1,
-                    "arabic": "الٓمٓ",
-                    "translation": "Alif Lām Mīm",
-                    "transliteration": "Aliflammim"
+                    "arabic": "الۤمّۤۚ",
+                    "translation": "alif lâm mîm",
+                    "transliteration": "Alif Lām Mīm"
                 },
                 {
                     "number": 2,
-                    "arabic": "ذَٰلِكَ ٱلۡكِتَٰبُ لَا رَيۡبَۛ فِيهِۛ هُدٗى لِّلۡمُتَّقِينَ",
-                    "translation": "Kitab (Alquran) ini tidak ada keraguan padanya; petunjuk bagi mereka yang bertakwa",
-                    "transliteration": "Thalika alkitabu la rayba fihi hudan lilmuttaqina"
+                    "arabic": "ذٰلِكَ الْكِتٰبُ لَا رَيْبَۛ فِيْهِۛ هُدًى لِّلْمُتَّقِيْنَۙ",
+                    "translation": "Kitab (Al-Qur’an) ini tidak ada keraguan di dalamnya; (ia merupakan) petunjuk bagi orang-orang yang bertakwa,",
+                    "transliteration": "dzâlikal-kitâbu lâ raiba fîh, hudal lil-muttaqîn"
                 },
                 {
                     "number": 3,
-                    "arabic": "ٱلَّذِينَ يُؤۡمِنُونَ بِٱلۡغَيۡبِ وَيُقِيمُونَ ٱلصَّلَوٰةَ وَمِمَّا رَزَقۡنَٰهُمۡ يُنفِقُونَ",
-                    "translation": "(Yaitu) mereka yang beriman kepada yang gaib, melaksanakan salat, dan menginfakkan6) sebagian rezeki yang Kami berikan kepada mereka",
-                    "transliteration": "Allathina yuminuna bialghaybi wayuqimuna alssalata wamimma razaqnahum yunfiquna"
+                    "arabic": "الَّذِيْنَ يُؤْمِنُوْنَ بِالْغَيْبِ وَيُقِيْمُوْنَ الصَّلٰوةَ وَمِمَّا رَزَقْنٰهُمْ يُنْفِقُوْنَۙ",
+                    "translation": "(yaitu) orang-orang yang beriman pada yang gaib, menegakkan salat, dan menginfakkan sebagian rezeki yang Kami anugerahkan kepada mereka,",
+                    "transliteration": "alladzîna yu'minûna bil-ghaibi wa yuqîmûnash-shalâta wa mimmâ razaqnâhum yunfiqûn"
                 },
                 {
                     "number": 4,
-                    "arabic": "وَٱلَّذِينَ يُؤۡمِنُونَ بِمَآ أُنزِلَ إِلَيۡكَ وَمَآ أُنزِلَ مِن قَبۡلِكَ وَبِٱلۡأٓخِرَةِ هُمۡ يُوقِنُونَ",
-                    "translation": "dan mereka beriman kepada (Alquran) yang diturunkan kepadamu (Muhammad) dan (kitab-kitab) yang telah diturunkan sebelum engkau,7) dan mereka yakin akan adanya akhirat",
-                    "transliteration": "Wallathina yuminuna bima onzila ilayka wama onzila min qablika wabialakhirati hum yuqinuna"
+                    "arabic": "وَالَّذِيْنَ يُؤْمِنُوْنَ بِمَآ اُنْزِلَ اِلَيْكَ وَمَآ اُنْزِلَ مِنْ قَبْلِكَۚ وَبِالْاٰخِرَةِ هُمْ يُوْقِنُوْنَۗ",
+                    "translation": "dan mereka yang beriman pada (Al-Qur’an) yang diturunkan kepadamu (Nabi Muhammad) dan (kitab-kitab suci) yang telah diturunkan sebelum engkau dan mereka yakin akan adanya akhirat.",
+                    "transliteration": "walladzîna yu'minûna bimâ unzila ilaika wa mâ unzila ming qablik, wa bil-âkhirati hum yûqinûn"
                 },
                 {
                     "number": 5,
-                    "arabic": "أُوْلَـٰٓئِكَ عَلَىٰ هُدٗى مِّن رَّبِّهِمۡۖ وَأُوْلَـٰٓئِكَ هُمُ ٱلۡمُفۡلِحُونَ",
-                    "translation": "Merekalah yang mendapat petunjuk dari Tuhannya, dan mereka itulah orang-orang yang beruntung",
-                    "transliteration": "Olaika ala hudan min rabbihim waolaika humu almuflihuna"
+                    "arabic": "اُولٰۤىِٕكَ عَلٰى هُدًى مِّنْ رَّبِّهِمْۙ وَاُولٰۤىِٕكَ هُمُ الْمُفْلِحُوْنَ",
+                    "translation": "Merekalah yang mendapat petunjuk dari Tuhannya dan mereka itulah orang-orang yang beruntung.",
+                    "transliteration": "ulâ'ika ‘alâ hudam mir rabbihim wa ulâ'ika humul-mufliḫûn"
                 },
                 {
                     "number": 6,
-                    "arabic": "إِنَّ ٱلَّذِينَ كَفَرُواْ سَوَآءٌ عَلَيۡهِمۡ ءَأَنذَرۡتَهُمۡ أَمۡ لَمۡ تُنذِرۡهُمۡ لَا يُؤۡمِنُونَ",
-                    "translation": "(Sesungguhnya orang-orang kafir,8) sama saja bagi mereka, engkau (Muhammad) beri peringatan atau tidak engkau beri peringatan, mereka tidak akan beriman",
-                    "transliteration": "Inna allathina kafaru sawaon alayhim anthartahum am lam tunthirhum la yuminuna"
+                    "arabic": "اِنَّ الَّذِيْنَ كَفَرُوْا سَوَاۤءٌ عَلَيْهِمْ ءَاَنْذَرْتَهُمْ اَمْ لَمْ تُنْذِرْهُمْ لَا يُؤْمِنُوْنَ",
+                    "translation": "Sesungguhnya orang-orang yang kufur itu sama saja bagi mereka, apakah engkau (Nabi Muhammad) beri peringatan atau tidak engkau beri peringatan, mereka tidak akan beriman.",
+                    "transliteration": "innalladzîna kafarû sawâ'un ‘alaihim a andzartahum am lam tundzir-hum lâ yu'minûn"
                 },
                 {
                     "number": 7,
-                    "arabic": "خَتَمَ ٱللَّهُ عَلَىٰ قُلُوبِهِمۡ وَعَلَىٰ سَمۡعِهِمۡۖ وَعَلَىٰٓ أَبۡصَٰرِهِمۡ غِشَٰوَةٞۖ وَلَهُمۡ عَذَابٌ عَظِيمٞ",
-                    "translation": "(Allah telah mengunci hati dan pendengaran mereka,9) penglihatan mereka telah tertutup, dan mereka akan mendapat azab yang berat",
-                    "transliteration": "Khatama Allahu ala qulubihim waala samaihim waala absarihim ghishawatun walahum athabun athimun"
+                    "arabic": "خَتَمَ اللّٰهُ عَلٰى قُلُوْبِهِمْ وَعَلٰى سَمْعِهِمْۗ وَعَلٰٓى اَبْصَارِهِمْ غِشَاوَةٌ وَّلَهُمْ عَذَابٌ عَظِيْمٌࣖ",
+                    "translation": "Allah telah mengunci hati dan pendengaran mereka. Pada penglihatan mereka ada penutup, dan bagi mereka azab yang sangat berat.",
+                    "transliteration": "khatamallâhu ‘alâ qulûbihim wa ‘alâ sam‘ihim, wa ‘alâ abshârihim ghisyâwatuw wa lahum ‘adzâbun ‘adhîm"
                 },
                 {
                     "number": 8,
-                    "arabic": "وَمِنَ ٱلنَّاسِ مَن يَقُولُ ءَامَنَّا بِٱللَّهِ وَبِٱلۡيَوۡمِ ٱلۡأٓخِرِ وَمَا هُم بِمُؤۡمِنِينَ",
-                    "translation": "Dan di antara manusia ada yang berkata, \"Kami beriman kepada Allah dan hari akhir,\" padahal sesungguhnya mereka itu bukanlah orang-orang yang beriman",
-                    "transliteration": "Wamina alnnasi man yaqulu amanna bi'llahi wabialyawmi alakhiri wama hum bimuminina"
+                    "arabic": "وَمِنَ النَّاسِ مَنْ يَّقُوْلُ اٰمَنَّا بِاللّٰهِ وَبِالْيَوْمِ الْاٰخِرِ وَمَا هُمْ بِمُؤْمِنِيْنَۘ",
+                    "translation": "Di antara manusia ada yang berkata, “Kami beriman kepada Allah dan hari Akhir,” padahal sesungguhnya mereka itu bukanlah orang-orang yang mukmin.",
+                    "transliteration": "wa minan-nâsi may yaqûlu âmannâ billâhi wa bil-yaumil-âkhiri wa mâ hum bimu'minîn"
                 },
                 {
                     "number": 9,
-                    "arabic": "يُخَٰدِعُونَ ٱللَّهَ وَٱلَّذِينَ ءَامَنُواْ وَمَا يَخۡدَعُونَ إِلَّآ أَنفُسَهُمۡ وَمَا يَشۡعُرُونَ",
-                    "translation": "Mereka menipu Allah dan orang-orang yang beriman, padahal mereka hanyalah menipu diri sendiri tanpa mereka sadari",
-                    "transliteration": "Yukhadiauna Allaha wallathina amanu wama yakhdauna illa anfusahum wama yashauruna"
+                    "arabic": "يُخٰدِعُوْنَ اللّٰهَ وَالَّذِيْنَ اٰمَنُوْاۚ وَمَا يَخْدَعُوْنَ اِلَّآ اَنْفُسَهُمْ وَمَا يَشْعُرُوْنَۗ",
+                    "translation": "Mereka menipu Allah dan orang-orang yang beriman, padahal mereka hanyalah menipu diri sendiri tanpa mereka sadari.",
+                    "transliteration": "yukhâdi‘ûnallâha walladzîna âmanû, wa mâ yakhda‘ûna illâ anfusahum wa mâ yasy‘urûn"
                 },
                 {
                     "number": 10,
-                    "arabic": "فِي قُلُوبِهِم مَّرَضٞ فَزَادَهُمُ ٱللَّهُ مَرَضٗاۖ وَلَهُمۡ عَذَابٌ أَلِيمُۢ بِمَا كَانُواْ يَكۡذِبُونَ",
-                    "translation": "(Dalam hati mereka terdapat penyakit,10) lalu Allah menambah penyakitnya itu; dan mereka mendapat azab yang pedih, karena mereka berdusta",
-                    "transliteration": "Fi qulubihim maradun fazadahumu Allahu maradan walahum athabun alimun bima kanu yakthibuna"
+                    "arabic": "فِيْ قُلُوْبِهِمْ مَّرَضٌۙ فَزَادَهُمُ اللّٰهُ مَرَضًاۚ وَلَهُمْ عَذَابٌ اَلِيْمٌۢ ەۙ بِمَا كَانُوْا يَكْذِبُوْنَ",
+                    "translation": "Dalam hati mereka ada penyakit, lalu Allah menambah penyakitnya dan mereka mendapat azab yang sangat pedih karena mereka selalu berdusta.",
+                    "transliteration": "fî qulûbihim maradlun fa zâdahumullâhu maradlâ, wa lahum ‘adzâbun alîmum bimâ kânû yakdzibûn"
                 },
                 {
                     "number": 11,
-                    "arabic": "وَإِذَا قِيلَ لَهُمۡ لَا تُفۡسِدُواْ فِي ٱلۡأَرۡضِ قَالُوٓاْ إِنَّمَا نَحۡنُ مُصۡلِحُونَ",
-                    "translation": "(Dan apabila dikatakan kepada mereka, \"Janganlah berbuat kerusakan di bumi!\"11) Mereka menjawab, \"Sesungguhnya kami justru orang-orang yang melakukan perbaikan",
-                    "transliteration": "Waitha qila lahum la tufsidu fi alardi qalu innama nahnu muslihuna"
+                    "arabic": "وَاِذَا قِيْلَ لَهُمْ لَا تُفْسِدُوْا فِى الْاَرْضِۙ قَالُوْٓا اِنَّمَا نَحْنُ مُصْلِحُوْنَ",
+                    "translation": "Apabila dikatakan kepada mereka, “Janganlah berbuat kerusakan di bumi,” mereka menjawab, “Sesungguhnya kami hanyalah orang-orang yang melakukan perbaikan.”",
+                    "transliteration": "wa idzâ qîla lahum lâ tufsidû fil ardli qâlû innamâ naḫnu mushliḫûn"
                 },
                 {
                     "number": 12,
-                    "arabic": "أَلَآ إِنَّهُمۡ هُمُ ٱلۡمُفۡسِدُونَ وَلَٰكِن لَّا يَشۡعُرُونَ",
-                    "translation": "Ingatlah, sesungguhnya merekalah yang berbuat kerusakan, tetapi mereka tidak menyadari",
-                    "transliteration": "Ala innahum humu almufsiduna walakin la yashauruna"
+                    "arabic": "اَلَآ اِنَّهُمْ هُمُ الْمُفْسِدُوْنَ وَلٰكِنْ لَّا يَشْعُرُوْنَ",
+                    "translation": "Ingatlah, sesungguhnya merekalah yang berbuat kerusakan, tetapi mereka tidak menyadari.",
+                    "transliteration": "alâ innahum humul-mufsidûna wa lâkil lâ yasy‘urûn"
                 },
                 {
                     "number": 13,
-                    "arabic": "وَإِذَا قِيلَ لَهُمۡ ءَامِنُواْ كَمَآ ءَامَنَ ٱلنَّاسُ قَالُوٓاْ أَنُؤۡمِنُ كَمَآ ءَامَنَ ٱلسُّفَهَآءُۗ أَلَآ إِنَّهُمۡ هُمُ ٱلسُّفَهَآءُ وَلَٰكِن لَّا يَعۡلَمُونَ",
-                    "translation": "Dan apabila dikatakan kepada mereka, \"Berimanlah kamu sebagaimana orang lain yang telah beriman!\" Mereka menjawab, \"Apakah kami akan beriman seperti orang-orang yang kurang akal itu beriman?\" Ingatlah, sesungguhnya mereka itulah orang-orang yang kurang akal, tetapi mereka tidak tahu",
-                    "transliteration": "Waitha qila lahum aminu kama amana alnnasu qalu anuminu kama amana alssufahao ala innahum humu alssufahao walakin la yalamuna"
+                    "arabic": "وَاِذَا قِيْلَ لَهُمْ اٰمِنُوْا كَمَآ اٰمَنَ النَّاسُ قَالُوْٓا اَنُؤْمِنُ كَمَآ اٰمَنَ السُّفَهَاۤءُۗ اَلَآ اِنَّهُمْ هُمُ السُّفَهَاۤءُ وَلٰكِنْ لَّا يَعْلَمُوْنَ",
+                    "translation": "Apabila dikatakan kepada mereka, “Berimanlah kamu sebagaimana orang lain telah beriman,” mereka menjawab, “Apakah kami akan beriman seperti orang-orang yang picik akalnya itu beriman?” Ingatlah, sesungguhnya mereka itulah orang-orang yang picik akalnya, tetapi mereka tidak tahu.",
+                    "transliteration": "wa idzâ qîla lahum âminû kamâ âmanan-nâsu qâlû a nu'minu kamâ âmanas-sufahâ', alâ innahum humus-sufahâ'u wa lâkil lâ ya‘lamûn"
                 },
                 {
                     "number": 14,
-                    "arabic": "وَإِذَا لَقُواْ ٱلَّذِينَ ءَامَنُواْ قَالُوٓاْ ءَامَنَّا وَإِذَا خَلَوۡاْ إِلَىٰ شَيَٰطِينِهِمۡ قَالُوٓاْ إِنَّا مَعَكُمۡ إِنَّمَا نَحۡنُ مُسۡتَهۡزِءُونَ",
-                    "translation": "Dan apabila mereka berjumpa dengan orang yang beriman, mereka berkata, \"Kami telah beriman.\" Tetapi apabila mereka kembali kepada setan-setan (para pemimpin) mereka, mereka berkata, \"Sesungguhnya kami bersama kamu, kami hanya berolok-olok",
-                    "transliteration": "Waitha laqu allathina amanu qalu amanna waitha khalaw ila shayatinihim qalu inna maakum innama nahnu mustahziuna"
+                    "arabic": "وَاِذَا لَقُوا الَّذِيْنَ اٰمَنُوْا قَالُوْٓا اٰمَنَّاۚ وَاِذَا خَلَوْا اِلٰى شَيٰطِيْنِهِمْۙ قَالُوْٓا اِنَّا مَعَكُمْۙ اِنَّمَا نَحْنُ مُسْتَهْزِءُوْنَ",
+                    "translation": "Apabila mereka berjumpa dengan orang yang beriman, mereka berkata, “Kami telah beriman.” Akan tetapi apabila mereka menyendiri dengan setan-setan (para pemimpin) mereka, mereka berkata, “Sesungguhnya kami bersama kamu, kami hanya pengolok-olok.”",
+                    "transliteration": "wa idzâ laqulladzîna âmanû qâlû âmannâ, wa idzâ khalau ilâ syayâthînihim qâlû innâ ma‘akum innamâ naḫnu mustahzi'ûn"
                 },
                 {
                     "number": 15,
-                    "arabic": "ٱللَّهُ يَسۡتَهۡزِئُ بِهِمۡ وَيَمُدُّهُمۡ فِي طُغۡيَٰنِهِمۡ يَعۡمَهُونَ",
-                    "translation": "Allah akan memperolok-olokkan mereka dan membiarkan mereka terombang-ambing dalam kesesatan",
-                    "transliteration": "Allahu yastahzio bihim wayamudduhum fi tughyanihim yamahuna"
+                    "arabic": "اَللّٰهُ يَسْتَهْزِئُ بِهِمْ وَيَمُدُّهُمْ فِيْ طُغْيَانِهِمْ يَعْمَهُوْنَ",
+                    "translation": "Allah akan memperolok-olokkan dan membiarkan mereka terombang-ambing dalam kesesatan.",
+                    "transliteration": "allâhu yastahzi'u bihim wa yamudduhum fî thughyânihim ya‘mahûn"
                 },
                 {
                     "number": 16,
-                    "arabic": "أُوْلَـٰٓئِكَ ٱلَّذِينَ ٱشۡتَرَوُاْ ٱلضَّلَٰلَةَ بِٱلۡهُدَىٰ فَمَا رَبِحَت تِّجَٰرَتُهُمۡ وَمَا كَانُواْ مُهۡتَدِينَ",
-                    "translation": "Mereka itulah yang membeli kesesatan dengan petunjuk. Maka perdagangan mereka itu tidak beruntung dan mereka tidak mendapat petunjuk",
-                    "transliteration": "Olaika allathina ishtarawu alddalalata bialhuda fama rabihat tijaratuhum wama kanu muhtadina"
+                    "arabic": "اُولٰۤىِٕكَ الَّذِيْنَ اشْتَرَوُا الضَّلٰلَةَ بِالْهُدٰىۖ فَمَا رَبِحَتْ تِّجَارَتُهُمْ وَمَا كَانُوْا مُهْتَدِيْنَ",
+                    "translation": "Mereka itulah orang-orang yang membeli kesesatan dengan petunjuk. Maka, tidaklah beruntung perniagaannya dan mereka bukanlah orang-orang yang mendapatkan petunjuk.",
+                    "transliteration": "ulâ'ikalladzînasytarawudl-dlalâlata bil-hudâ fa mâ rabiḫat tijâratuhum wa mâ kânû muhtadîn"
                 },
                 {
                     "number": 17,
-                    "arabic": "مَثَلُهُمۡ كَمَثَلِ ٱلَّذِي ٱسۡتَوۡقَدَ نَارٗا فَلَمَّآ أَضَآءَتۡ مَا حَوۡلَهُۥ ذَهَبَ ٱللَّهُ بِنُورِهِمۡ وَتَرَكَهُمۡ فِي ظُلُمَٰتٖ لَّا يُبۡصِرُونَ",
-                    "translation": "Perumpamaan mereka seperti orang-orang yang menyalakan api, setelah menerangi sekelilingnya, Allah melenyapkan cahaya (yang menyinari) mereka dan membiarkan mereka dalam kegelapan, tidak dapat melihat",
-                    "transliteration": "Mathaluhum kamathali allathi istawqada naran falamma adat ma hawlahu thahaba Allahu binurihim watarakahum fi thulumatin la yubsiruna"
+                    "arabic": "مَثَلُهُمْ كَمَثَلِ الَّذِى اسْتَوْقَدَ نَارًاۚ فَلَمَّآ اَضَاۤءَتْ مَا حَوْلَهٗ ذَهَبَ اللّٰهُ بِنُوْرِهِمْ وَتَرَكَهُمْ فِيْ ظُلُمٰتٍ لَّا يُبْصِرُوْنَ",
+                    "translation": "Perumpamaan mereka seperti orang yang menyalakan api. Setelah (api itu) menerangi sekelilingnya, Allah melenyapkan cahaya (yang menyinari) mereka dan membiarkan mereka dalam kegelapan, tidak dapat melihat.",
+                    "transliteration": "matsaluhum kamatsalilladzistauqada nârâ, fa lammâ adlâ'at mâ ḫaulahû dzahaballâhu binûrihim wa tarakahum fî dhulumâtil lâ yubshirûn"
                 },
                 {
                     "number": 18,
-                    "arabic": "صُمُّۢ بُكۡمٌ عُمۡيٞ فَهُمۡ لَا يَرۡجِعُونَ",
-                    "translation": "Mereka tuli, bisu dan buta, sehingga mereka tidak dapat kembali",
-                    "transliteration": "Summun bukmun aumyun fahum la yarjiauna"
+                    "arabic": "صُمٌّ ۢ بُكْمٌ عُمْيٌ فَهُمْ لَا يَرْجِعُوْنَۙ",
+                    "translation": "(Mereka) tuli, bisu, lagi buta, sehingga mereka tidak dapat kembali.",
+                    "transliteration": "shummum bukmun ‘umyun fa hum lâ yarji‘ûn"
                 },
                 {
                     "number": 19,
-                    "arabic": "أَوۡ كَصَيِّبٖ مِّنَ ٱلسَّمَآءِ فِيهِ ظُلُمَٰتٞ وَرَعۡدٞ وَبَرۡقٞ يَجۡعَلُونَ أَصَٰبِعَهُمۡ فِيٓ ءَاذَانِهِم مِّنَ ٱلصَّوَٰعِقِ حَذَرَ ٱلۡمَوۡتِۚ وَٱللَّهُ مُحِيطُۢ بِٱلۡكَٰفِرِينَ",
-                    "translation": "Atau seperti (orang yang ditimpa) hujan lebat dari langit, yang disertai kegelapan, petir dan kilat. Mereka menyumbat telinga dengan jari-jarinya, (menghindari) suara petir itu karena takut mati. Allah meliputi orang-orang yang kafir",
-                    "transliteration": "Aw kasayyibin mina alssamai fihi thulumatun waradun wabarqun yajaluna asabiahum fi athanihim mina alssawaiqi hathara almawti wa'llahu muhitun bialkafirina"
+                    "arabic": "اَوْ كَصَيِّبٍ مِّنَ السَّمَاۤءِ فِيْهِ ظُلُمٰتٌ وَّرَعْدٌ وَّبَرْقٌۚ يَجْعَلُوْنَ اَصَابِعَهُمْ فِيْٓ اٰذَانِهِمْ مِّنَ الصَّوَاعِقِ حَذَرَ الْمَوْتِۗ وَاللّٰهُ مُحِيْطٌۢ بِالْكٰفِرِيْنَ",
+                    "translation": "Atau, seperti (orang yang ditimpa) hujan lebat dari langit yang disertai berbagai kegelapan, petir, dan kilat. Mereka menyumbat telinga dengan jari-jarinya (untuk menghindari) suara petir itu karena takut mati. Allah meliputi orang-orang yang kafir.",
+                    "transliteration": "au kashayyibim minas-samâ'i fîhi dhulumâtuw wa ra‘duw wa barq, yaj‘alûna ashâbi‘ahum fî âdzânihim minash-shawâ‘iqi ḫadzaral-maût, wallâhu muḫîthum bil-kâfirîn"
                 },
                 {
                     "number": 20,
-                    "arabic": "يَكَادُ ٱلۡبَرۡقُ يَخۡطَفُ أَبۡصَٰرَهُمۡۖ كُلَّمَآ أَضَآءَ لَهُم مَّشَوۡاْ فِيهِ وَإِذَآ أَظۡلَمَ عَلَيۡهِمۡ قَامُواْۚ وَلَوۡ شَآءَ ٱللَّهُ لَذَهَبَ بِسَمۡعِهِمۡ وَأَبۡصَٰرِهِمۡۚ إِنَّ ٱللَّهَ عَلَىٰ كُلِّ شَيۡءٖ قَدِيرٞ",
-                    "translation": "Hampir saja kilat itu menyambar penglihatan mereka. Setiap kali (kilat itu) menyinari, mereka berjalan di bawah (sinar) itu, dan apabila gelap menerpa mereka, mereka berhenti. Sekiranya Allah menghendaki, niscaya Dia hilangkan pendengaran dan penglihatan mereka. Sungguh, Allah Mahakuasa atas segala sesuatu",
-                    "transliteration": "Yakadu albarqu yakhtafu absarahum kullama ada lahum mashaw fihi waitha athlama alayhim qamu walaw sha Allahu lathahaba bisamaihim wabsarihim inna Allaha ala kulli shayin qadirun"
+                    "arabic": "يَكَادُ الْبَرْقُ يَخْطَفُ اَبْصَارَهُمْۗ كُلَّمَآ اَضَاۤءَ لَهُمْ مَّشَوْا فِيْهِۙ وَاِذَآ اَظْلَمَ عَلَيْهِمْ قَامُوْاۗ وَلَوْ شَاۤءَ اللّٰهُ لَذَهَبَ بِسَمْعِهِمْ وَاَبْصَارِهِمْۗ اِنَّ اللّٰهَ عَلٰى كُلِّ شَيْءٍ قَدِيْرٌࣖ",
+                    "translation": "Hampir saja kilat itu menyambar penglihatan mereka. Setiap kali (kilat itu) menyinari, mereka berjalan di bawah (sinar) itu. Apabila gelap menerpa mereka, mereka berdiri (tidak bergerak). Sekiranya Allah menghendaki, niscaya Dia menghilangkan pendengaran dan penglihatan mereka. Sesungguhnya Allah Mahakuasa atas segala sesuatu.",
+                    "transliteration": "yakâdul-barqu yakhthafu abshârahum, kullamâ adlâ'a lahum masyau fîhi wa idzâ adhlama ‘alaihim qâmû, walau syâ'allâhu ladzahaba bisam‘ihim wa abshârihim, innallâha ‘alâ kulli syai'ing qadîr"
                 },
                 {
                     "number": 21,
-                    "arabic": "يَـٰٓأَيُّهَا ٱلنَّاسُ ٱعۡبُدُواْ رَبَّكُمُ ٱلَّذِي خَلَقَكُمۡ وَٱلَّذِينَ مِن قَبۡلِكُمۡ لَعَلَّكُمۡ تَتَّقُونَ",
-                    "translation": "Wahai manusia! Sembahlah Tuhanmu yang telah menciptakan kamu dan orang-orang yang sebelum kamu, agar kamu bertakwa",
-                    "transliteration": "Ya ayyuha alnnasu oabudu rabbakumu allathi khalaqakum wallathina min qablikum laallakum tattaquna"
+                    "arabic": "يٰٓاَيُّهَا النَّاسُ اعْبُدُوْا رَبَّكُمُ الَّذِيْ خَلَقَكُمْ وَالَّذِيْنَ مِنْ قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُوْنَۙ",
+                    "translation": "Wahai manusia, sembahlah Tuhanmu yang telah menciptakan kamu dan orang-orang yang sebelum kamu agar kamu bertakwa.",
+                    "transliteration": "yâ ayyuhan-nâsu‘budû rabbakumulladzî khalaqakum walladzîna ming qablikum la‘allakum tattaqûn"
                 },
                 {
                     "number": 22,
-                    "arabic": "ٱلَّذِي جَعَلَ لَكُمُ ٱلۡأَرۡضَ فِرَٰشٗا وَٱلسَّمَآءَ بِنَآءٗ وَأَنزَلَ مِنَ ٱلسَّمَآءِ مَآءٗ فَأَخۡرَجَ بِهِۦ مِنَ ٱلثَّمَرَٰتِ رِزۡقٗا لَّكُمۡۖ فَلَا تَجۡعَلُواْ لِلَّهِ أَندَادٗا وَأَنتُمۡ تَعۡلَمُونَ",
-                    "translation": "(Dialah) yang menjadikan bumi sebagai hamparan bagimu dan langit sebagai atap, dan Dialah yang menurunkan air (hujan) dari langit, lalu Dia hasilkan dengan (hujan) itu buah-buahan sebagai rezeki untukmu. Karena itu janganlah kamu mengadakan tandingan-tandingan bagi Allah, padahal kamu mengetahui",
-                    "transliteration": "Allathi jaala lakumu alarda firashan walssama binan wanzala mina alssamai man fakhraja bihi mina alththamarati rizqan lakum fala tajalu lillahi andadan wantum talamuna"
+                    "arabic": "الَّذِيْ جَعَلَ لَكُمُ الْاَرْضَ فِرَاشًا وَّالسَّمَاۤءَ بِنَاۤءًۖ وَّاَنْزَلَ مِنَ السَّمَاۤءِ مَاۤءً فَاَخْرَجَ بِهٖ مِنَ الثَّمَرٰتِ رِزْقًا لَّكُمْۚ فَلَا تَجْعَلُوْا لِلّٰهِ اَنْدَادًا وَّاَنْتُمْ تَعْلَمُوْنَ",
+                    "translation": "(Dialah) yang menjadikan bagimu bumi (sebagai) hamparan dan langit sebagai atap, dan Dialah yang menurunkan air (hujan) dari langit, lalu Dia menghasilkan dengan (hujan) itu buah-buahan sebagai rezeki untuk kamu. Oleh karena itu, janganlah kamu mengadakan tandingan-tandingan bagi Allah, padahal kamu mengetahui.",
+                    "transliteration": "alladzî ja‘ala lakumul-ardla firâsyaw was-samâ'a binâ'aw wa anzala minas-samâ'i mâ'an fa akhraja bihî minats-tsamarâti rizqal lakum, fa lâ taj‘alû lillâhi andâdaw wa antum ta‘lamûn"
                 },
                 {
                     "number": 23,
-                    "arabic": "وَإِن كُنتُمۡ فِي رَيۡبٖ مِّمَّا نَزَّلۡنَا عَلَىٰ عَبۡدِنَا فَأۡتُواْ بِسُورَةٖ مِّن مِّثۡلِهِۦ وَٱدۡعُواْ شُهَدَآءَكُم مِّن دُونِ ٱللَّهِ إِن كُنتُمۡ صَٰدِقِينَ",
-                    "translation": "Dan jika kamu meragukan (Alquran) yang kami turunkan kepada hamba Kami (Muhammad), maka buatlah satu surah semisal dengannya dan ajaklah penolong-penolongmu selain Allah, jika kamu orang-orang yang benar",
-                    "transliteration": "Wain kuntum fi raybin mimma nazzalna ala abdina fatu bisuratin min mithlihi waodau shuhadakum min duni Allahi in kuntum sadiqina"
+                    "arabic": "وَاِنْ كُنْتُمْ فِيْ رَيْبٍ مِّمَّا نَزَّلْنَا عَلٰى عَبْدِنَا فَأْتُوْا بِسُوْرَةٍ مِّنْ مِّثْلِهٖۖ وَادْعُوْا شُهَدَاۤءَكُمْ مِّنْ دُوْنِ اللّٰهِ اِنْ كُنْتُمْ صٰدِقِيْنَ",
+                    "translation": "Jika kamu (tetap) dalam keraguan tentang apa (Al-Qur’an) yang Kami turunkan kepada hamba Kami (Nabi Muhammad), buatlah satu surah yang semisal dengannya dan ajaklah penolong-penolongmu selain Allah, jika kamu orang-orang yang benar.",
+                    "transliteration": "wa ing kuntum fî raibim mimmâ nazzalnâ ‘alâ ‘abdinâ fa'tû bisûratim mim mitslihî wad‘û syuhadâ'akum min dûnillâhi ing kuntum shâdiqîn"
                 },
                 {
                     "number": 24,
-                    "arabic": "فَإِن لَّمۡ تَفۡعَلُواْ وَلَن تَفۡعَلُواْ فَٱتَّقُواْ ٱلنَّارَ ٱلَّتِي وَقُودُهَا ٱلنَّاسُ وَٱلۡحِجَارَةُۖ أُعِدَّتۡ لِلۡكَٰفِرِينَ",
-                    "translation": "Jika kamu tidak mampu membuatnya, dan (pasti) tidak akan mampu, maka takutlah kamu akan api neraka yang bahan bakarnya manusia dan batu yang disediakan bagi orang-orang kafir",
-                    "transliteration": "Fain lam tafalu walan tafalu faittaqu alnnara allati waquduha alnnasu walhijaratu oaiddat lilkafirina"
+                    "arabic": "فَاِنْ لَّمْ تَفْعَلُوْا وَلَنْ تَفْعَلُوْا فَاتَّقُوا النَّارَ الَّتِيْ وَقُوْدُهَا النَّاسُ وَالْحِجَارَةُۖ اُعِدَّتْ لِلْكٰفِرِيْنَ",
+                    "translation": "Jika kamu tidak (mampu) membuat(-nya) dan (pasti) kamu tidak akan (mampu) membuat(-nya), takutlah pada api neraka yang bahan bakarnya adalah manusia dan batu yang disediakan bagi orang-orang kafir.",
+                    "transliteration": "fa il lam taf‘alû wa lan taf‘alû fattaqun-nârallatî waqûduhan-nâsu wal-ḫijâratu u‘iddat lil-kâfirîn"
                 },
                 {
                     "number": 25,
-                    "arabic": "وَبَشِّرِ ٱلَّذِينَ ءَامَنُواْ وَعَمِلُواْ ٱلصَّـٰلِحَٰتِ أَنَّ لَهُمۡ جَنَّـٰتٖ تَجۡرِي مِن تَحۡتِهَا ٱلۡأَنۡهَٰرُۖ كُلَّمَا رُزِقُواْ مِنۡهَا مِن ثَمَرَةٖ رِّزۡقٗا قَالُواْ هَٰذَا ٱلَّذِي رُزِقۡنَا مِن قَبۡلُۖ وَأُتُواْ بِهِۦ مُتَشَٰبِهٗاۖ وَلَهُمۡ فِيهَآ أَزۡوَٰجٞ مُّطَهَّرَةٞۖ وَهُمۡ فِيهَا خَٰلِدُونَ",
-                    "translation": "Dan sampaikanlah kabar gembira kepada orang-orang yang beriman dan berbuat kebajikan, bahwa untuk mereka (disediakan) surga-surga yang mengalir di bawahnya sungai-sungai. Setiap kali mereka diberi rezeki buah-buahan dari surga, mereka berkata, \"Inilah rezeki yang diberikan kepada kami dahulu.\" Mereka telah diberi (buah-buahan) yang serupa. Dan di sana mereka (memperoleh) pasangan-pasangan yang suci. Mereka kekal di dalamnya",
-                    "transliteration": "Wabashshiri allathina amanu waamilu alssalihati anna lahum jannatin tajri min tahtiha alanharu kullama ruziqu minha min thamaratin rizqan qalu hatha allathi ruziqna min qablu waotu bihi mutashabihan walahum fiha azwajun mutahharatun wahum fiha khaliduna"
+                    "arabic": "وَبَشِّرِ الَّذِيْنَ اٰمَنُوْا وَعَمِلُوا الصّٰلِحٰتِ اَنَّ لَهُمْ جَنّٰتٍ تَجْرِيْ مِنْ تَحْتِهَا الْاَنْهٰرُۗ كُلَّمَا رُزِقُوْا مِنْهَا مِنْ ثَمَرَةٍ رِّزْقًاۙ قَالُوْا هٰذَا الَّذِيْ رُزِقْنَا مِنْ قَبْلُ وَاُتُوْا بِهٖ مُتَشَابِهًاۗ وَلَهُمْ فِيْهَآ اَزْوَاجٌ مُّطَهَّرَةٌ وَّهُمْ فِيْهَا خٰلِدُوْنَ",
+                    "translation": "Sampaikanlah kabar gembira kepada orang-orang yang beriman dan beramal saleh bahwa untuk mereka (disediakan) surga-surga yang di bawahnya mengalir sungai-sungai. Setiap kali diberi rezeki buah-buahan darinya, mereka berkata, “Inilah rezeki yang diberikan kepada kami sebelumnya.” Mereka telah diberi (buah-buahan) yang serupa dan di sana mereka (memperoleh) pasangan-pasangan yang disucikan. Mereka kekal di dalamnya.",
+                    "transliteration": "wa basysyirilladzîna âmanû wa ‘amilush-shâliḫâti anna lahum jannâtin tajrî min taḫtihal-an-hâr, kullamâ ruziqû min-hâ min tsamaratir rizqang qâlû hâdzalladzî ruziqnâ ming qablu wa utû bihî mutasyâbihâ, wa lahum fîhâ azwâjum muthahharatuw wa hum fîhâ khâlidûn"
                 },
                 {
                     "number": 26,
-                    "arabic": "۞إِنَّ ٱللَّهَ لَا يَسۡتَحۡيِۦٓ أَن يَضۡرِبَ مَثَلٗا مَّا بَعُوضَةٗ فَمَا فَوۡقَهَاۚ فَأَمَّا ٱلَّذِينَ ءَامَنُواْ فَيَعۡلَمُونَ أَنَّهُ ٱلۡحَقُّ مِن رَّبِّهِمۡۖ وَأَمَّا ٱلَّذِينَ كَفَرُواْ فَيَقُولُونَ مَاذَآ أَرَادَ ٱللَّهُ بِهَٰذَا مَثَلٗاۘ يُضِلُّ بِهِۦ كَثِيرٗا وَيَهۡدِي بِهِۦ كَثِيرٗاۚ وَمَا يُضِلُّ بِهِۦٓ إِلَّا ٱلۡفَٰسِقِينَ",
-                    "translation": "Sesungguhnya Allah tidak segan membuat perumpamaan seekor nyamuk atau yang lebih kecil dari itu. Adapun orang-orang yang beriman, mereka tahu bahwa itu kebenaran dari Tuhan. Tetapi mereka yang kafir berkata, \"Apa maksud Allah dengan perumpamaan ini?\" Dengan (perumpamaan) itu banyak orang yang dibiarkan-Nya sesat,13) dan dengan itu banyak (pula) orang yang diberi-Nya petunjuk. Tetapi tidak ada yang Dia sesatkan dengan (perumpamaan) itu selain orang-orang fasik",
-                    "transliteration": "Inna Allaha la yastahyi an yadriba mathalan ma baudatan fama fawqaha famma allathina amanu fayalamuna annahu alhaqqu min rabbihim wamma allathina kafaru fayaquluna matha arada Allahu bihatha mathalan yudillu bihi kathiran wayahdi bihi kathiran wama yudillu bihi illa alfasiqina"
+                    "arabic": "۞ اِنَّ اللّٰهَ لَا يَسْتَحْيٖٓ اَنْ يَّضْرِبَ مَثَلًا مَّا بَعُوْضَةً فَمَا فَوْقَهَاۗ فَاَمَّا الَّذِيْنَ اٰمَنُوْا فَيَعْلَمُوْنَ اَنَّهُ الْحَقُّ مِنْ رَّبِّهِمْۚ وَاَمَّا الَّذِيْنَ كَفَرُوْا فَيَقُوْلُوْنَ مَاذَآ اَرَادَ اللّٰهُ بِهٰذَا مَثَلًاۘ يُضِلُّ بِهٖ كَثِيْرًا وَّيَهْدِيْ بِهٖ كَثِيْرًاۗ وَمَا يُضِلُّ بِهٖٓ اِلَّا الْفٰسِقِيْنَۙ",
+                    "translation": "Sesungguhnya Allah tidak segan membuat perumpamaan seekor nyamuk atau yang lebih kecil daripada itu. Adapun orang-orang yang beriman mengetahui bahwa itu kebenaran dari Tuhannya. Akan tetapi, orang-orang kafir berkata, “Apa maksud Allah dengan perumpamaan ini?” Dengan (perumpamaan) itu banyak orang yang disesatkan-Nya. Dengan itu pula banyak orang yang diberi-Nya petunjuk. Namun, tidak ada yang Dia sesatkan dengan (perumpamaan) itu, selain orang-orang fasik,",
+                    "transliteration": "innallâha lâ yastaḫyî ay yadlriba matsalam mâ ba‘ûdlatan fa mâ fauqahâ, fa ammalladzîna âmanû fa ya‘lamûna annahul-ḫaqqu mir rabbihim, wa ammalladzîna kafarû fa yaqûlûna mâdzâ arâdallâhu bihâdzâ matsalâ, yudlillu bihî katsîraw wa yahdî bihî katsîrâ, wa mâ yudlillu bihî illal-fâsiqîn"
                 },
                 {
                     "number": 27,
-                    "arabic": "ٱلَّذِينَ يَنقُضُونَ عَهۡدَ ٱللَّهِ مِنۢ بَعۡدِ مِيثَٰقِهِۦ وَيَقۡطَعُونَ مَآ أَمَرَ ٱللَّهُ بِهِۦٓ أَن يُوصَلَ وَيُفۡسِدُونَ فِي ٱلۡأَرۡضِۚ أُوْلَـٰٓئِكَ هُمُ ٱلۡخَٰسِرُونَ",
-                    "translation": "(yaitu) orang–orang yang melanggar perjanjian Allah setelah (perjanjian) itu diteguhkan, dan memutuskan apa yang diperintahkan Allah untuk disambungkan dan berbuat kerusakan di bumi. Mereka itulah orang-orang yang rugi",
-                    "transliteration": "Allathina yanquduna ahda Allahi min badi mithaqihi wayaqtauna ma amara Allahu bihi an yusala wayufsiduna fi alardi olaika humu alkhasiruna"
+                    "arabic": "الَّذِيْنَ يَنْقُضُوْنَ عَهْدَ اللّٰهِ مِنْۢ بَعْدِ مِيْثَاقِهٖۖ وَيَقْطَعُوْنَ مَآ اَمَرَ اللّٰهُ بِهٖٓ اَنْ يُّوْصَلَ وَيُفْسِدُوْنَ فِى الْاَرْضِۗ اُولٰۤىِٕكَ هُمُ الْخٰسِرُوْنَ",
+                    "translation": "(yaitu) orang-orang yang melanggar perjanjian Allah setelah (perjanjian) itu diteguhkan, memutuskan apa yang diperintahkan Allah untuk disambungkan (silaturahmi), dan berbuat kerusakan di bumi. Mereka itulah orang-orang yang rugi.",
+                    "transliteration": "alladzîna yangqudlûna ‘ahdallâhi mim ba‘di mîtsâqihî wa yaqtha‘ûna mâ amarallâhu bihî ay yûshala wa yufsidûna fil-ardl, ulâ'ika humul-khâsirûn"
                 },
                 {
                     "number": 28,
-                    "arabic": "كَيۡفَ تَكۡفُرُونَ بِٱللَّهِ وَكُنتُمۡ أَمۡوَٰتٗا فَأَحۡيَٰكُمۡۖ ثُمَّ يُمِيتُكُمۡ ثُمَّ يُحۡيِيكُمۡ ثُمَّ إِلَيۡهِ تُرۡجَعُونَ",
-                    "translation": "Bagaimana kamu ingkar kepada Allah, padahal kamu (tadinya) mati, lalu dia menghidupkan kamu, kemudian Dia mematikan kamu lalu Dia menghidupkan kamu kembali. Kemudian kepada-Nyalah kamu dikembalikan",
-                    "transliteration": "Kayfa takfuruna bi'llahi wakuntum amwatan fahyakum thumma yumitukum thumma yuhyikum thumma ilayhi turjauna"
+                    "arabic": "كَيْفَ تَكْفُرُوْنَ بِاللّٰهِ وَكُنْتُمْ اَمْوَاتًا فَاَحْيَاكُمْۚ ثُمَّ يُمِيْتُكُمْ ثُمَّ يُحْيِيْكُمْ ثُمَّ اِلَيْهِ تُرْجَعُوْنَ",
+                    "translation": "Bagaimana kamu ingkar kepada Allah, padahal kamu (tadinya) mati, lalu Dia menghidupkan kamu, kemudian Dia akan mematikan kamu, Dia akan menghidupkan kamu kembali, dan kepada-Nyalah kamu dikembalikan?",
+                    "transliteration": "kaifa takfurûna billâhi wa kuntum amwâtan fa aḫyâkum, tsumma yumîtukum tsumma yuḫyîkum tsumma ilaihi turja‘ûn"
                 },
                 {
                     "number": 29,
-                    "arabic": "هُوَ ٱلَّذِي خَلَقَ لَكُم مَّا فِي ٱلۡأَرۡضِ جَمِيعٗا ثُمَّ ٱسۡتَوَىٰٓ إِلَى ٱلسَّمَآءِ فَسَوَّىٰهُنَّ سَبۡعَ سَمَٰوَٰتٖۚ وَهُوَ بِكُلِّ شَيۡءٍ عَلِيمٞ",
-                    "translation": "Dialah (Allah) yang menciptakan segala apa yang ada di bumi untuk kalian kemudian Dia menuju ke langit, lalu Dia menyempurnakannya menjadi tujuh langit. Dan Dia Maha Mengetahui segala sesuatu",
-                    "transliteration": "Huwa allathi khalaqa lakum ma fi alardi jamian thumma istawa ila alssamai fasawwahunna saba samawatin wahuwa bikulli shayin alimun"
+                    "arabic": "هُوَ الَّذِيْ خَلَقَ لَكُمْ مَّا فِى الْاَرْضِ جَمِيْعًا ثُمَّ اسْتَوٰٓى اِلَى السَّمَاۤءِ فَسَوّٰىهُنَّ سَبْعَ سَمٰوٰتٍۗ وَهُوَ بِكُلِّ شَيْءٍ عَلِيْمٌࣖ",
+                    "translation": "Dialah (Allah) yang menciptakan segala yang ada di bumi untukmu, kemudian Dia menuju ke (penciptaan) langit, lalu Dia menyempurnakannya menjadi tujuh langit. Dia Maha Mengetahui segala sesuatu.",
+                    "transliteration": "huwalladzî khalaqa lakum mâ fil-ardli jamî‘an tsummastawâ ilas-samâ'i fa sawwâhunna sab‘a samâwât, wa huwa bikulli syai'in ‘alîm"
                 },
                 {
                     "number": 30,
-                    "arabic": "وَإِذۡ قَالَ رَبُّكَ لِلۡمَلَـٰٓئِكَةِ إِنِّي جَاعِلٞ فِي ٱلۡأَرۡضِ خَلِيفَةٗۖ قَالُوٓاْ أَتَجۡعَلُ فِيهَا مَن يُفۡسِدُ فِيهَا وَيَسۡفِكُ ٱلدِّمَآءَ وَنَحۡنُ نُسَبِّحُ بِحَمۡدِكَ وَنُقَدِّسُ لَكَۖ قَالَ إِنِّيٓ أَعۡلَمُ مَا لَا تَعۡلَمُونَ",
-                    "translation": "Dan (ingatlah) ketika Tuhanmu berfirman kepada para Malaikat, \"Aku hendak menjadikan khalifah15) di bumi\". Mereka berkata, \"Apakah Engkau hendak menjadikan orang yang merusak dan menumpahkan darah di sana, sedangkan kami bertasbih memuji-Mu dan menyucikan nama-Mu?\" Dia berfirman, \"Sungguh, Aku mengetahui apa yang tidak kalian ketahui",
-                    "transliteration": "Waith qala rabbuka lilmalaikati inni jailun fi alardi khalifatan qalu atajalu fiha man yufsidu fiha wayasfiku alddima wanahnu nusabbihu bihamdika wanuqaddisu laka qala inni alamu ma la talamuna"
+                    "arabic": "وَاِذْ قَالَ رَبُّكَ لِلْمَلٰۤىِٕكَةِ ِانِّيْ جَاعِلٌ فِى الْاَرْضِ خَلِيْفَةًۗ قَالُوْٓا اَتَجْعَلُ فِيْهَا مَنْ يُّفْسِدُ فِيْهَا وَيَسْفِكُ الدِّمَاۤءَۚ وَنَحْنُ نُسَبِّحُ بِحَمْدِكَ وَنُقَدِّسُ لَكَۗ قَالَ اِنِّيْٓ اَعْلَمُ مَا لَا تَعْلَمُوْنَ",
+                    "translation": "(Ingatlah) ketika Tuhanmu berfirman kepada para malaikat, “Aku hendak menjadikan khalifah di bumi.” Mereka berkata, “Apakah Engkau hendak menjadikan orang yang merusak dan menumpahkan darah di sana, sedangkan kami bertasbih memuji-Mu dan menyucikan nama-Mu?” Dia berfirman, “Sesungguhnya Aku mengetahui apa yang tidak kamu ketahui.”",
+                    "transliteration": "wa idz qâla rabbuka lil-malâ'ikati innî jâ‘ilun fil-ardli khalîfah, qâlû a taj‘alu fîhâ may yufsidu fîhâ wa yasfikud-dimâ', wa naḫnu nusabbiḫu biḫamdika wa nuqaddisu lak, qâla innî a‘lamu mâ lâ ta‘lamûn"
                 },
                 {
                     "number": 31,
-                    "arabic": "وَعَلَّمَ ءَادَمَ ٱلۡأَسۡمَآءَ كُلَّهَا ثُمَّ عَرَضَهُمۡ عَلَى ٱلۡمَلَـٰٓئِكَةِ فَقَالَ أَنۢبِـُٔونِي بِأَسۡمَآءِ هَـٰٓؤُلَآءِ إِن كُنتُمۡ صَٰدِقِينَ",
-                    "translation": "Dan Dia ajarkan kepada Adam nama-nama (benda) semuanya, kemudian Dia perlihatkan kepada para malaikat, seraya berfirman, \"Sebutkan kepada-Ku nama semua benda ini, jika kalian yang benar",
-                    "transliteration": "Waallama adama alasma kullaha thumma aradahum ala almalaikati faqala anbiuni biasmai haolai in kuntum sadiqina"
+                    "arabic": "وَعَلَّمَ اٰدَمَ الْاَسْمَاۤءَ كُلَّهَا ثُمَّ عَرَضَهُمْ عَلَى الْمَلٰۤىِٕكَةِ فَقَالَ اَنْۢبِـُٔوْنِيْ بِاَسْمَاۤءِ هٰٓؤُلَاۤءِ اِنْ كُنْتُمْ صٰدِقِيْنَ",
+                    "translation": "Dia mengajarkan kepada Adam nama-nama (benda) seluruhnya, kemudian Dia memperlihatkannya kepada para malaikat, seraya berfirman, “Sebutkan kepada-Ku nama-nama (benda) ini jika kamu benar!”",
+                    "transliteration": "wa ‘allama âdamal-asmâ'a kullahâ tsumma ‘aradlahum ‘alal-malâ'ikati fa qâla ambi'ûnî bi'asmâ'i hâ'ulâ'i ing kuntum shâdiqîn"
                 },
                 {
                     "number": 32,
-                    "arabic": "قَالُواْ سُبۡحَٰنَكَ لَا عِلۡمَ لَنَآ إِلَّا مَا عَلَّمۡتَنَآۖ إِنَّكَ أَنتَ ٱلۡعَلِيمُ ٱلۡحَكِيمُ",
-                    "translation": "Mereka menjawab, \"Mahasuci Engkau, tidak ada yang kami ketahui selain apa yang telah Engkau ajarkan kepada kami. Sungguh, Engkaulah Yang Maha Mengetahui, Mahabijaksana",
-                    "transliteration": "Qalu subhanaka la ailma lana illa ma allamtana innaka anta alalimu alhakimu"
+                    "arabic": "قَالُوْا سُبْحٰنَكَ لَا عِلْمَ لَنَآ اِلَّا مَا عَلَّمْتَنَاۗ اِنَّكَ اَنْتَ الْعَلِيْمُ الْحَكِيْمُ",
+                    "translation": "Mereka menjawab, “Mahasuci Engkau. Tidak ada pengetahuan bagi kami, selain yang telah Engkau ajarkan kepada kami. Sesungguhnya Engkaulah Yang Maha Mengetahui lagi Mahabijaksana.”",
+                    "transliteration": "qâlû sub-ḫânaka lâ ‘ilma lanâ illâ mâ ‘allamtanâ, innaka antal-‘alîmul-ḫakîm"
                 },
                 {
                     "number": 33,
-                    "arabic": "قَالَ يَـٰٓـَٔادَمُ أَنۢبِئۡهُم بِأَسۡمَآئِهِمۡۖ فَلَمَّآ أَنۢبَأَهُم بِأَسۡمَآئِهِمۡ قَالَ أَلَمۡ أَقُل لَّكُمۡ إِنِّيٓ أَعۡلَمُ غَيۡبَ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِ وَأَعۡلَمُ مَا تُبۡدُونَ وَمَا كُنتُمۡ تَكۡتُمُونَ",
-                    "translation": "Dia (Allah) berfirman, \"Wahai Adam! Beritahukanlah kepada mereka nama-nama itu!\" Setelah dia (Adam) menyebutkan nama-namanya, Dia berfirman, \"Bukankah telah Aku katakan kepada kalian, bahwa Aku mengetahui rahasia langit dan bumi, dan Aku mengetahui apa yang kalian nyatakan dan apa yang kalian sembunyikan",
-                    "transliteration": "Qala ya adamu anbihum biasmaihim falamma anbahum biasmaihim qala alam aqul lakum inni alamu ghayba alssamawati walardi waalamu ma tubduna wama kuntum taktumuna"
+                    "arabic": "قَالَ يٰٓاٰدَمُ اَنْۢبِئْهُمْ بِاَسْمَاۤىِٕهِمْۚ فَلَمَّآ اَنْۢبَاَهُمْ بِاَسْمَاۤىِٕهِمْۙ قَالَ اَلَمْ اَقُلْ لَّكُمْ اِنِّيْٓ اَعْلَمُ غَيْبَ السَّمٰوٰتِ وَالْاَرْضِۙ وَاَعْلَمُ مَا تُبْدُوْنَ وَمَا كُنْتُمْ تَكْتُمُوْنَ",
+                    "translation": "Dia (Allah) berfirman, “Wahai Adam, beri tahukanlah kepada mereka nama-nama benda itu!” Setelah dia (Adam) menyebutkan nama-nama itu, Dia berfirman, “Bukankah telah Kukatakan kepadamu bahwa Aku mengetahui rahasia langit dan bumi, dan Aku mengetahui apa yang kamu nyatakan dan apa yang selalu kamu sembunyikan?”",
+                    "transliteration": "qâla yâ âdamu ambi'hum bi'asmâ'ihim, fa lammâ amba'ahum bi'asmâ'ihim qâla a lam aqul lakum innî a‘lamu ghaibas-samâwâti wal-ardli wa a‘lamu mâ tubdûna wa mâ kuntum taktumûn"
                 },
                 {
                     "number": 34,
                     "arabic": "وَإِذۡ قُلۡنَا لِلۡمَلَـٰٓئِكَةِ ٱسۡجُدُواْ لِأٓدَمَ فَسَجَدُوٓاْ إِلَّآ إِبۡلِيسَ أَبَىٰ وَٱسۡتَكۡبَرَ وَكَانَ مِنَ ٱلۡكَٰفِرِينَ",
-                    "translation": "Dan (ingatlah) ketika Kami berfirman kepada para malaikat, \"Sujudlah kalian kepada Adam!\" Maka mereka pun sujud kecuali Iblis.16) Ia menolak dan menyombongkan diri, dan ia termasuk golongan yang kafir",
-                    "transliteration": "Waith qulna lilmalaikati osjudu liadama fasajadu illa iblisa aba waistakbara wakana mina alkafirina"
+                    "translation": "(Ingatlah) ketika Kami berfirman kepada para malaikat, “Sujudlah kamu kepada Adam!” Maka, mereka pun sujud, kecuali Iblis. Ia menolaknya dan menyombongkan diri, dan ia termasuk golongan kafir.",
+                    "transliteration": "wa idz qulnâ lil-malâ'ikatisjudû li'âdama fa sajadû illâ iblîs, abâ wastakbara wa kâna minal-kâfirîn"
                 },
                 {
                     "number": 35,
                     "arabic": "وَقُلۡنَا يَـٰٓـَٔادَمُ ٱسۡكُنۡ أَنتَ وَزَوۡجُكَ ٱلۡجَنَّةَ وَكُلَا مِنۡهَا رَغَدًا حَيۡثُ شِئۡتُمَا وَلَا تَقۡرَبَا هَٰذِهِ ٱلشَّجَرَةَ فَتَكُونَا مِنَ ٱلظَّـٰلِمِينَ",
                     "translation": "Dan Kami berfirman: \"Wahai Adam! Tinggallah engkau dan istrimu di dalam surga, dan makanlah dengan nikmat (berbagai makanan) yang ada disana sesukamu. (Tetapi) janganlah kamu dekati pohon ini,17) nanti kamu termasuk orang-orang yang zalim",
-                    "transliteration": "Waqulna ya adamu oskun anta wazawjuka aljannata wakula minha raghadan haythu shituma wala taqraba hathihi alshshajarata fatakuna mina alththalimina"
+                    "transliteration": "wa qulnâ yâ âdamuskun anta wa zaujukal-jannata wa kulâ min-hâ raghadan ḫaitsu syi'tumâ wa lâ taqrabâ hâdzihisy-syajarata fa takûnâ minadh-dhâlimîn"
                 },
                 {
                     "number": 36,
                     "arabic": "فَأَزَلَّهُمَا ٱلشَّيۡطَٰنُ عَنۡهَا فَأَخۡرَجَهُمَا مِمَّا كَانَا فِيهِۖ وَقُلۡنَا ٱهۡبِطُواْ بَعۡضُكُمۡ لِبَعۡضٍ عَدُوّٞۖ وَلَكُمۡ فِي ٱلۡأَرۡضِ مُسۡتَقَرّٞ وَمَتَٰعٌ إِلَىٰ حِينٖ",
                     "translation": "(Lalu setan menggelincirkan keduanya dari surga19) sehingga keduanya dikeluarkan dari (segala kenikmatan) ketika keduanya di sana (surga). Dan Kami berfirman,\"Turunlah kalian! Sebagian kalian menjadi musuh bagi yang lain. Dan bagi kalian ada tempat tinggal dan kesenangan di bumi sampai waktu yang ditentukan",
-                    "transliteration": "Fazallahuma alshshaytanu anha fakhrajahuma mimma kana fihi waqulna ihbitu badukum libadin aduwwun walakum fi alardi mustaqarrun wamataun ila hinin"
+                    "transliteration": "fa azallahumasy-syaithânu ‘an-hâ fa akhrajahumâ mimmâ kânâ fîhi wa qulnahbithû ba‘dlukum liba‘dlin ‘aduww, wa lakum fil-ardli mustaqarruw wa matâ‘un ilâ ḫîn"
                 },
                 {
                     "number": 37,
                     "arabic": "فَتَلَقَّىٰٓ ءَادَمُ مِن رَّبِّهِۦ كَلِمَٰتٖ فَتَابَ عَلَيۡهِۚ إِنَّهُۥ هُوَ ٱلتَّوَّابُ ٱلرَّحِيمُ",
                     "translation": "(Kemudian Adam menerima beberapa kalimat20) dari Tuhannya, lalu Dia pun menerima tobatnya. Sungguh, Allah Maha Penerima tobat, Maha Penyayang",
-                    "transliteration": "Fatalaqqa adamu min rabbihi kalimatin fataba alayhi innahu huwa alttawwabu alrrahimu"
+                    "transliteration": "fa talaqqâ âdamu mir rabbihî kalimâtin fa tâba ‘alaîh, innahû huwat-tawwâbur-raḫîm"
                 },
                 {
                     "number": 38,
                     "arabic": "قُلۡنَا ٱهۡبِطُواْ مِنۡهَا جَمِيعٗاۖ فَإِمَّا يَأۡتِيَنَّكُم مِّنِّي هُدٗى فَمَن تَبِعَ هُدَايَ فَلَا خَوۡفٌ عَلَيۡهِمۡ وَلَا هُمۡ يَحۡزَنُونَ",
                     "translation": "Kami berfirman, \"Turunlah kalian semua dari surga! Kemudian jika benar-benar datang petunjuk-Ku kepada kalian, maka barang siapa mengikuti petunjuk-Ku, tidak ada rasa takut bagi mereka dan mereka tidak bersedih hati",
-                    "transliteration": "Qulna ihbitu minha jamian faimma yatiyannakum minni hudan faman tabia hudaya fala khawfun alayhim wala hum yahzanuna"
+                    "transliteration": "qulnahbithû min-hâ jamî‘â, fa immâ ya'tiyannakum minnî hudan fa man tabi‘a hudâya fa lâ khaufun ‘alaihim wa lâ hum yaḫzanûn"
                 },
                 {
                     "number": 39,
                     "arabic": "وَٱلَّذِينَ كَفَرُواْ وَكَذَّبُواْ بِـَٔايَٰتِنَآ أُوْلَـٰٓئِكَ أَصۡحَٰبُ ٱلنَّارِۖ هُمۡ فِيهَا خَٰلِدُونَ",
                     "translation": "Adapun orang-orang yang kafir dan mendustakan ayat-ayat Kami, mereka itu penghuni neraka. Mereka kekal di dalamnya",
-                    "transliteration": "Wallathina kafaru wakaththabu biayatina olaika ashabu alnnari hum fiha khaliduna"
+                    "transliteration": "walladzîna kafarû wa kadzdzabû bi'âyâtinâ ulâ'ika ash-ḫâbun-nâr, hum fîhâ khâlidûn"
                 },
                 {
                     "number": 40,
                     "arabic": "يَٰبَنِيٓ إِسۡرَـٰٓءِيلَ ٱذۡكُرُواْ نِعۡمَتِيَ ٱلَّتِيٓ أَنۡعَمۡتُ عَلَيۡكُمۡ وَأَوۡفُواْ بِعَهۡدِيٓ أُوفِ بِعَهۡدِكُمۡ وَإِيَّـٰيَ فَٱرۡهَبُونِ",
                     "translation": "(Wahai Bani Israil!21) Ingatlah nikmat-Ku yang telah Aku berikan kepadamu. Dan penuhilah janjimu kepada-Ku,22) niscaya Aku penuhi janji-Ku kepadamu, dan takutlah kepada-Ku saja",
-                    "transliteration": "Ya bani israila othkuru niamatiya allati anamtu alaykum wawfu biahdi ufi biahdikum waiyyaya fairhabuni"
+                    "transliteration": "yâ banî isrâ'îladzkurû ni‘matiyallatî an‘amtu ‘alaikum wa aufû bi‘ahdî ûfi bi‘ahdikum, wa iyyâya far-habûn"
                 },
                 {
                     "number": 41,
                     "arabic": "وَءَامِنُواْ بِمَآ أَنزَلۡتُ مُصَدِّقٗا لِّمَا مَعَكُمۡ وَلَا تَكُونُوٓاْ أَوَّلَ كَافِرِۭ بِهِۦۖ وَلَا تَشۡتَرُواْ بِـَٔايَٰتِي ثَمَنٗا قَلِيلٗا وَإِيَّـٰيَ فَٱتَّقُونِ",
                     "translation": "Dan berimanlah kalian kepada apa (Alquran) yang telah Aku turunkan yang membenarkan apa (Taurat) yang ada pada kalian, dan janganlah kalian menjadi orang yang pertama kafir kepadanya. Janganlah kalian jual ayat-ayat-Ku dengan harga yang murah, dan bertakwalah hanya kepada-Ku",
-                    "transliteration": "Waminu bima anzaltu musaddiqan lima maakum wala takunu awwala kafirin bihi wala tashtaru biayati thamanan qalilan waiyyaya faittaquni"
+                    "transliteration": "wa âminû bimâ anzaltu mushaddiqal limâ ma‘akum wa lâ takûnû awwala kâfirim bihî wa lâ tasytarû bi'âyâtî tsamanang qalîlaw wa iyyâya fattaqûn"
                 },
                 {
                     "number": 42,
                     "arabic": "وَلَا تَلۡبِسُواْ ٱلۡحَقَّ بِٱلۡبَٰطِلِ وَتَكۡتُمُواْ ٱلۡحَقَّ وَأَنتُمۡ تَعۡلَمُونَ",
                     "translation": "(Dan janganlah kalian campuradukkan kebenaran dengan kebatilan23) dan (janganlah) kalian sembunyikan kebenaran, sedangkan kalian mengetahuinya",
-                    "transliteration": "Wala talbisu alhaqqa bialbatili wataktumu alhaqqa wantum talamuna"
+                    "transliteration": "wa lâ talbisul-ḫaqqa bil-bâthili wa taktumul-ḫaqqa wa antum ta‘lamûn"
                 },
                 {
                     "number": 43,
                     "arabic": "وَأَقِيمُواْ ٱلصَّلَوٰةَ وَءَاتُواْ ٱلزَّكَوٰةَ وَٱرۡكَعُواْ مَعَ ٱلرَّـٰكِعِينَ",
                     "translation": "Dan laksanakanlah salat, tunaikanlah zakat dan rukuklah beserta orang yang rukuk",
-                    "transliteration": "Waqimu alssalata watu alzzakata wairkau maa alrrakiaina"
+                    "transliteration": "wa aqîmush-shalâta wa âtuz-zakâta warka‘û ma‘ar-râki‘în"
                 },
                 {
                     "number": 44,
                     "arabic": "۞أَتَأۡمُرُونَ ٱلنَّاسَ بِٱلۡبِرِّ وَتَنسَوۡنَ أَنفُسَكُمۡ وَأَنتُمۡ تَتۡلُونَ ٱلۡكِتَٰبَۚ أَفَلَا تَعۡقِلُونَ",
                     "translation": "Mengapa kalian menyuruh orang lain (mengerjakan) kebajikan, sedangkan kalian melupakan diri kalian sendiri, padahal kalian membaca Kitab (Taurat)? Tidakkah kalian mengerti",
-                    "transliteration": "Atamuruna alnnasa bialbirri watansawna anfusakum wantum tatluna alkitaba afala taqiluna"
+                    "transliteration": "a ta'murûnan-nâsa bil-birri wa tansauna anfusakum wa antum tatlûnal-kitâb, a fa lâ ta‘qilûn"
                 },
                 {
                     "number": 45,
                     "arabic": "وَٱسۡتَعِينُواْ بِٱلصَّبۡرِ وَٱلصَّلَوٰةِۚ وَإِنَّهَا لَكَبِيرَةٌ إِلَّا عَلَى ٱلۡخَٰشِعِينَ",
                     "translation": "Dan mohonlah pertolongan (kepada Allah) dengan sabar dan salat. Dan (salat) itu sungguh berat, kecuali bagi orang-orang yang khusyuk",
-                    "transliteration": "Waistainu bialssabri walssalati wainnaha lakabiratun illa ala alkhashiaina"
+                    "transliteration": "wasta‘înû bish-shabri wash-shalâh, wa innahâ lakabîratun illâ ‘alal-khâsyi‘în"
                 },
                 {
                     "number": 46,
-                    "arabic": "ٱلَّذِينَ يَظُنُّونَ أَنَّهُم مُّلَٰقُواْ رَبِّهِمۡ وَأَنَّهُمۡ إِلَيۡهِ رَٰجِعُونَ",
+                    "arabic": "الَّذِيْنَ يَظُنُّوْنَ اَنَّهُمْ مُّلٰقُوْا رَبِّهِمْ وَاَنَّهُمْ اِلَيْهِ رٰجِعُوْنَࣖ ",
                     "translation": "(yaitu) mereka yang yakin, bahwa mereka akan menemui Tuhannya, dan bahwa mereka akan kembali kepada-Nya",
-                    "transliteration": "Allathina yathunnuna annahum mulaqu rabbihim wannahum ilayhi rajiauna"
+                    "transliteration": "alladzîna yadhunnûna annahum mulâqû rabbihim wa annahum ilaihi râji‘ûn"
                 },
                 {
                     "number": 47,
                     "arabic": "يَٰبَنِيٓ إِسۡرَـٰٓءِيلَ ٱذۡكُرُواْ نِعۡمَتِيَ ٱلَّتِيٓ أَنۡعَمۡتُ عَلَيۡكُمۡ وَأَنِّي فَضَّلۡتُكُمۡ عَلَى ٱلۡعَٰلَمِينَ",
                     "translation": "Wahai Bani Israil! Ingatlah nikmat-Ku yang telah aku berikan kepadamu, dan Aku telah melebihkan kamu dari semua umat yang lain di alam ini (pada masa itu)",
-                    "transliteration": "Ya bani israila othkuru niamatiya allati anamtu alaykum wanni faddaltukum ala alalamina"
+                    "transliteration": "wattaqû yaumal lâ tajzî nafsun ‘an nafsin syai'aw wa lâ yuqbalu min-hâ syafâ‘atuw wa lâ yu'khadzu min-hâ ‘adluw wa lâ hum yunsharûn"
                 },
                 {
                     "number": 48,
