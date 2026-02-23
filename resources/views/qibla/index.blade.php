@@ -164,7 +164,7 @@
 
                                     <!-- Qibla Arrow (Green) -->
                                     <div class="absolute inset-0 flex items-center justify-center arrow-transition"
-                                         :style="`transform: rotate(${qiblaAngle}deg)`">
+                                         :style="`transform: rotate(${getNeedleAngle()}deg)`">
                                         <div class="relative">
                                             <!-- Arrow Body -->
                                             <div class="w-2 h-32 bg-gradient-to-t from-emerald-600 to-emerald-400 rounded-full shadow-lg glow-green"
@@ -218,6 +218,19 @@
                                     Putar device Anda, panah hijau akan selalu menunjuk ke Ka'bah.
                                 </div>
                             </div>
+                            <div x-show="needsCompassPermission" class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center mt-3">
+                                <div class="text-amber-700 text-sm mb-3">
+                                    <span class="font-semibold">🧭 Izin Kompas Dibutuhkan</span>
+                                    <div>Tekan tombol di bawah untuk mengaktifkan kompas.</div>
+                                </div>
+
+                                <button type="button"
+                                        @click="requestCompassPermission()"
+                                        class="px-4 py-2 rounded-xl bg-teal-600 text-white font-semibold shadow hover:bg-teal-700 transition">
+                                    Aktifkan Kompas
+                                </button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -341,6 +354,7 @@ function qiblaFinder() {
         distanceToKaaba: 0,
         heading: 0,
         compassAvailable: false,
+        needsCompassPermission: false,
         
         // Ka'bah coordinates
         kaabaLat: 21.4225,
@@ -444,29 +458,68 @@ function qiblaFinder() {
             this.distanceToKaaba = Math.round(distance).toLocaleString();
         },
 
+        
         setupCompass() {
-            // Request permission for iOS 13+
-            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                // iOS devices need explicit permission
+            // iOS 13+ butuh permission dari user gesture (klik tombol)
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                this.needsCompassPermission = true;
                 this.compassAvailable = false;
-            } else {
-                // Android and other devices
-                window.addEventListener('deviceorientation', (event) => {
-                    if (event.alpha !== null) {
-                        this.compassAvailable = true;
-                        // event.alpha is the compass heading (0-360)
-                        // We need to adjust it based on device orientation
-                        let alpha = event.alpha;
-                        
-                        // Adjust for screen orientation
-                        if (window.orientation !== undefined) {
-                            alpha = alpha - window.orientation;
-                        }
-                        
-                        this.heading = alpha || 0;
-                    }
-                });
+                return;
             }
+
+            // selain iOS: langsung mulai listener kompas
+            this.startCompassListener();
+        },
+
+        async requestCompassPermission() {
+            try {
+                const res = await DeviceOrientationEvent.requestPermission();
+                if (res === 'granted') {
+                    this.needsCompassPermission = false;
+                    this.startCompassListener();
+                } else {
+                    this.compassAvailable = false;
+                    this.errorMessage = 'Izin kompas ditolak.';
+                }
+            } catch (e) {
+                this.compassAvailable = false;
+                this.errorMessage = 'Gagal meminta izin kompas.';
+            }
+        },
+
+        startCompassListener() {
+            const handler = (event) => {
+                let heading = null;
+
+                // iOS Safari: heading sudah dalam derajat (0..360)
+                if (event.webkitCompassHeading != null) {
+                    heading = event.webkitCompassHeading;
+                } else if (event.alpha != null) {
+                    // Android/Chrome: alpha sering berlawanan arah jarum jam
+                    heading = 360 - event.alpha;
+                }
+
+                if (heading == null) return;
+
+                // koreksi orientasi layar
+                const screenAngle =
+                    (screen.orientation && typeof screen.orientation.angle === 'number')
+                        ? screen.orientation.angle
+                        : (typeof window.orientation === 'number' ? window.orientation : 0);
+
+                heading = (heading + screenAngle + 360) % 360;
+
+                this.heading = heading;
+                this.compassAvailable = true;
+            };
+
+            window.addEventListener('deviceorientationabsolute', handler, true);
+            window.addEventListener('deviceorientation', handler, true);
+        },
+
+        getNeedleAngle() {
+            // jarum Ka'bah = arah kiblat - arah HP (heading)
+            return (this.qiblaAngle - this.heading + 360) % 360;
         },
 
         getCardinalDirection(angle) {
