@@ -194,6 +194,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ★ Start tracking saat halaman dibuka
     startTracking();
+    // ← tambah ini
+    playFullSurahAudio();
 
     // ===== ICON HELPERS =====
 
