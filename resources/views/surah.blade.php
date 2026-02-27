@@ -137,14 +137,19 @@
                             {{ $verse->number }}
                         </span>
 
-                       <button class="play-verse-btn" 
-                        data-verse-number="{{ $verse->number }}"
-                        data-audio-url="https://everyayah.com/data/Alafasy_128kbps/{{ str_pad($surah->number, 3, '0', STR_PAD_LEFT) }}{{ str_pad($verse->number, 3, '0', STR_PAD_LEFT) }}.mp3">
-                            <svg class="h-8 w-8"
-                                 fill="currentColor"
-                                 viewBox="0 0 20 20">
+                        <button class="play-verse-btn"
+                            data-verse-number="{{ $verse->number }}"
+                            data-audio-url="https://everyayah.com/data/Alafasy_128kbps/{{ str_pad($surah->number, 3, '0', STR_PAD_LEFT) }}{{ str_pad($verse->number, 3, '0', STR_PAD_LEFT) }}.mp3">
+                            {{-- PLAY ICON (default) --}}
+                            <svg class="icon-play h-8 w-8" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
                                       d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                      clip-rule="evenodd" />
+                            </svg>
+                            {{-- PAUSE ICON (hidden by default) --}}
+                            <svg class="icon-pause h-8 w-8 hidden" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z"
                                       clip-rule="evenodd" />
                             </svg>
                         </button>
@@ -190,7 +195,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // ★ Start tracking saat halaman dibuka
     startTracking();
 
+    // ===== ICON HELPERS =====
+
+    // Reset semua button ke icon play
+    function resetAllButtons() {
+        document.querySelectorAll('.play-verse-btn').forEach(btn => {
+            btn.querySelector('.icon-play').classList.remove('hidden');
+            btn.querySelector('.icon-pause').classList.add('hidden');
+        });
+    }
+
+    // Set button tertentu ke icon pause
+    function setButtonPause(button) {
+        button.querySelector('.icon-play').classList.add('hidden');
+        button.querySelector('.icon-pause').classList.remove('hidden');
+    }
+
+    // ===== AUDIO FUNCTIONS =====
+
     function playFullSurahAudio(verseNumber = 1) {
+        resetAllButtons();
         mainPlayer.src = surahAudioUrl;
         mainPlayer.play();
         playerInfo.textContent = `Memutar: Surah ${surahName}`;
@@ -212,19 +236,34 @@ document.addEventListener('DOMContentLoaded', function() {
         currentVerse = verseNumber;
     }
 
-            document.querySelectorAll('.play-verse-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const verseNumber = parseInt(this.dataset.verseNumber, 10);
-                const verseAudioUrl = this.dataset.audioUrl; // ← ambil URL per ayat
+    // ===== PLAY VERSE BUTTON =====
 
-                mainPlayer.src = verseAudioUrl;
-                mainPlayer.play();
-                playerInfo.textContent = `Memutar: Ayat ${verseNumber} - ${surahName}`;
-                updatePlayingIndicator(verseNumber);
-                currentVerse = verseNumber;
-            });
+    document.querySelectorAll('.play-verse-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const verseNumber = parseInt(this.dataset.verseNumber, 10);
+            const verseAudioUrl = this.dataset.audioUrl;
+
+            // Kalau ayat yang sama diklik saat sedang play → pause
+            if (currentVerse === verseNumber && !mainPlayer.paused) {
+                mainPlayer.pause();
+                resetAllButtons();
+                removePlayingIndicator();
+                playerInfo.textContent = `Dijeda: Ayat ${verseNumber} - ${surahName}`;
+                return;
+            }
+
+            // Reset semua button dulu, lalu set yang diklik jadi pause
+            resetAllButtons();
+            setButtonPause(this);
+
+            mainPlayer.src = verseAudioUrl;
+            mainPlayer.play();
+            playerInfo.textContent = `Memutar: Ayat ${verseNumber} - ${surahName}`;
+            updatePlayingIndicator(verseNumber);
+            currentVerse = verseNumber;
         });
+    });
 
     // ★ Track scroll position untuk update progress
     const verseItems = document.querySelectorAll('.verse-item');
@@ -245,14 +284,15 @@ document.addEventListener('DOMContentLoaded', function() {
         playFullSurahAudio();
     });
 
+    // Reset icon saat audio selesai
     mainPlayer.addEventListener('ended', function() {
         removePlayingIndicator();
+        resetAllButtons();
         playerInfo.textContent = "Pilih ayat untuk memulai";
     });
 
     // ★ TRACKING FUNCTIONS
     function startTracking() {
-        // Auto-save setiap 30 detik
         trackingInterval = setInterval(() => {
             saveProgress();
         }, 30000);
@@ -286,7 +326,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showCompletionNotification() {
-        // Simple notification saat surah selesai
         const notification = document.createElement('div');
         notification.className = 'fixed bottom-4 right-4 bg-emerald-500 text-white px-6 py-4 rounded-xl shadow-2xl z-50 animate-bounce';
         notification.innerHTML = `
@@ -297,13 +336,11 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => notification.remove(), 5000);
     }
 
-    // ★ Save saat user meninggalkan halaman
     window.addEventListener('beforeunload', () => {
         saveProgress();
         clearInterval(trackingInterval);
     });
 
-    // ★ Save saat halaman disembunyikan (mobile)
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
             saveProgress();
