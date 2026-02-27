@@ -285,7 +285,7 @@
             white-space: nowrap;
             border-right: 2px solid #0891B2;
             width: 0;
-            animation: typing 6s ease-in-out infinite, blink 0.8s infinite;
+            animation: typing 7s ease-in-out infinite, blink 0.8s infinite;
         }
 
         @keyframes typing {
