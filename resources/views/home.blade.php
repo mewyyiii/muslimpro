@@ -57,8 +57,14 @@
                 <div class="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
                 <div class="relative z-10">
                     <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M12 4 L12.8 11.2 L12 12 L11.2 11.2 Z" fill="currentColor"/>
+                            <path d="M12 20 L11.2 12.8 L12 12 L12.8 12.8 Z" fill="currentColor" opacity="0.5"/>
+                            <path d="M20 12 L12.8 11.2 L12 12 L12.8 12.8 Z" fill="currentColor" opacity="0.4"/>
+                            <path d="M4 12 L11.2 12.8 L12 12 L11.2 11.2 Z" fill="currentColor" opacity="0.4"/>
+                            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                            <text x="12" y="3.5" text-anchor="middle" font-size="2.2" font-weight="bold" fill="currentColor">N</text>
                         </svg>
                     </div>
                     <h3 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">Arah Kiblat</h3>
@@ -72,8 +78,14 @@
                 <div class="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
                 <div class="relative z-10">
                     <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        <svg class="w-10 h-10 md:w-12 md:h-12 text-white" viewBox="0 0 24 24">
+                            <text x="3" y="17"
+                                font-family="Arial, sans-serif"
+                                font-size="14"
+                                font-weight="bold"
+                                fill="currentColor">
+                                99
+                            </text>
                         </svg>
                     </div>
                     <h3 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">Asmaul Husna</h3>
@@ -87,8 +99,19 @@
                 <div class="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
                 <div class="relative z-10">
                     <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <defs>
+                                <mask id="crescent-mask-card">
+                                    <rect width="24" height="24" fill="white"/>
+                                    <circle cx="14.5" cy="9.5" r="6.8" fill="black"/>
+                                </mask>
+                            </defs>
+
+                            <!-- Bulan -->
+                            <circle cx="10" cy="13.5" r="7.5" mask="url(#crescent-mask-card)"/>
+
+                            <!-- Bintang -->
+                            <polygon points="19,1.5 20.4,5.7 24.8,5.7 21.3,8.3 22.7,12.5 19,9.8 15.3,12.5 16.7,8.3 13.2,5.7 17.6,5.7"/>
                         </svg>
                     </div>
                     <h3 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">Doa-doa Pendek</h3>
@@ -102,8 +125,21 @@
                 <div class="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
                 <div class="relative z-10">
                     <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-4 md:mb-6 shadow-lg group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                        <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <circle cx="3" cy="12" r="2"/>
+                            <circle cx="5.5" cy="8" r="2"/>
+                            <circle cx="9" cy="5.5" r="2"/>
+                            <circle cx="12" cy="3" r="2"/>
+                            <circle cx="15" cy="5.5" r="2"/>
+                            <circle cx="18.5" cy="8" r="2"/>
+                            <circle cx="21" cy="12" r="2"/>
+                            <circle cx="18.5" cy="16" r="2"/>
+                            <circle cx="15" cy="18.5" r="2"/>
+                            <circle cx="12" cy="21" r="2"/>
+                            <circle cx="9" cy="18.5" r="2"/>
+                            <circle cx="5.5" cy="16" r="2"/>
+                            <rect x="11" y="21" width="2" height="3" rx="0.5"/>
+                            <circle cx="12" cy="24.5" r="1"/>
                         </svg>
                     </div>
                     <h3 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">Tasbih Digital</h3>
