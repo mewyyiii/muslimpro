@@ -169,7 +169,7 @@
                 <div class="relative z-10">
 
                     <!-- Indikator 3 Sesi -->
-                    <div class="flex items-center justify-center gap-6 mb-6">
+                    <div class="flex items-center justify-center gap-6 mb-3">
                         <template x-for="s in 3" :key="s">
                             <div class="flex flex-col items-center gap-1">
                                 <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm smooth-transition"
@@ -193,7 +193,7 @@
                     </div>
 
                     <!-- Info sesi aktif -->
-                    <div class="text-center mb-6">
+                    <div class="text-center mb-3">
                         <p class="text-sm text-teal-600 font-semibold">
                             Sesi <span x-text="currentSession"></span> dari 3 &mdash;
                             <span x-text="sessionCount"></span>/33
@@ -202,9 +202,9 @@
                     </div>
 
                     <!-- Counter Display -->
-                    <div class="text-center mb-8">
+                    <div class="text-center mb-4">
                         <div class="inline-block relative">
-                            <svg class="transform -rotate-90 w-48 h-48 md:w-64 md:h-64" viewBox="0 0 200 200">
+                            <svg class="transform -rotate-90 w-40 h-40 md:w-52 md:h-52" viewBox="0 0 200 200">
                                 <!-- Background circle -->
                                 <circle cx="100" cy="100" r="85" stroke="#E5E7EB" stroke-width="12" fill="none"/>
                                 <!-- Progress circle per sesi (33x) -->
@@ -241,10 +241,10 @@
                     </div>
 
                     <!-- Main Count Button -->
-                    <div class="flex justify-center mb-6">
+                    <div class="flex justify-center mb-4">
                         <button 
                             @click="increment()"
-                            class="ripple w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-2xl hover:shadow-3xl transform hover:scale-105 active:scale-95 smooth-transition focus:outline-none focus:ring-4 focus:ring-teal-300"
+                            class="ripple w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-2xl hover:shadow-3xl transform hover:scale-105 active:scale-95 smooth-transition focus:outline-none focus:ring-4 focus:ring-teal-300"
                             :disabled="count >= 99">
                             <div class="text-3xl md:text-4xl font-bold">+1</div>
                             <div class="text-xs md:text-sm mt-1">Tap / Space</div>
@@ -286,30 +286,22 @@
                         <p class="text-lg font-bold text-teal-700 mb-1">🎉 Alhamdulillah! 🎉</p>
                         <p class="text-sm text-teal-600">99 dzikir telah selesai! Semua 3 sesi tuntas.</p>
                     </div>
-                </div>
-            </div>
+                    <!-- Stats inline di dalam card utama -->
+                    <div class="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-gray-100">
+                        <div class="text-center">
+                            <div class="text-xl font-bold text-teal-600" x-text="totalToday"></div>
+                            <div class="text-xs text-gray-500 mt-0.5">Total Dzikir</div>
+                        </div>
+                        <div class="text-center border-x border-gray-100">
+                            <div class="text-xl font-bold text-emerald-600" x-text="(currentSession - 1) + (count >= 99 ? 1 : 0)"></div>
+                            <div class="text-xs text-gray-500 mt-0.5">Sesi Selesai</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-xl font-bold text-teal-600" x-text="count + '/99'"></div>
+                            <div class="text-xs text-gray-500 mt-0.5">Progress</div>
+                        </div>
+                    </div>
 
-            <!-- Quick Stats -->
-            <div class="bg-white/90 backdrop-blur rounded-2xl shadow-lg p-6">
-                <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <svg class="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                    </svg>
-                    Statistik Hari Ini
-                </h3>
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="text-center p-4 bg-gradient-to-br from-teal-50 to-emerald-50 rounded-xl">
-                        <div class="text-2xl font-bold text-teal-600" x-text="totalToday"></div>
-                        <div class="text-xs text-gray-600 mt-1">Total Dzikir</div>
-                    </div>
-                    <div class="text-center p-4 bg-gradient-to-br from-teal-50 to-emerald-50 rounded-xl">
-                        <div class="text-2xl font-bold text-emerald-600" x-text="(currentSession - 1) + (count >= 99 ? 1 : 0)"></div>
-                        <div class="text-xs text-gray-600 mt-1">Sesi Selesai</div>
-                    </div>
-                    <div class="text-center p-4 bg-gradient-to-br from-teal-50 to-emerald-50 rounded-xl">
-                        <div class="text-2xl font-bold text-teal-600" x-text="count + '/99'"></div>
-                        <div class="text-xs text-gray-600 mt-1">Progress</div>
-                    </div>
                 </div>
             </div>
 
