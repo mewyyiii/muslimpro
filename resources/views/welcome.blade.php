@@ -277,6 +277,24 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(180deg, #0891B2, #0D9488);
         }
+
+        /* TYPING TEXT */
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 2px solid #0891B2;
+            white-space: nowrap;
+            animation: typing 2s steps(7) forwards, blink 0.7s infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 7ch }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
     </style>
 </head>
 <body class="antialiased bg-gradient-to-br from-orange-50 via-amber-50 to-teal-50">
@@ -307,7 +325,9 @@
                         <line x1="56" y1="90" x2="59" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
                     </svg>
                 </div>
-                <span class="text-lg sm:text-xl font-bold text-cyan-700">Al-Huda</span>
+                <span class="typing-text text-lg sm:text-xl font-bold text-cyan-700">
+                    Al-Huda
+                </span>
             </div>
             <div class="flex items-center space-x-2 sm:space-x-3">
                 {{-- ✅ Langsung ke halaman login Breeze --}}
