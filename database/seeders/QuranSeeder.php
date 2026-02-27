@@ -7,6 +7,7 @@ use App\Models\Verse;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class QuranSeeder extends Seeder
 {
@@ -15,6 +16,11 @@ class QuranSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('verses')->truncate();
+        DB::table('surahs')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         $json = File::get(database_path('seeders/data/quran.json'));
         $data = json_decode($json);
 
