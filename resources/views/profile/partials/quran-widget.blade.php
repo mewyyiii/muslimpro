@@ -14,8 +14,8 @@
                 <span class="text-2xl">📖</span>
             </div>
             <div>
-                <h3 class="text-lg font-bold text-gray-800">Quran Journey</h3>
-                <p class="text-xs text-gray-500">Track your progress</p>
+                <h3 class="text-lg font-bold text-gray-800">Progres Al-Qur’an</h3>
+                <p class="text-xs text-gray-500">Pantau progres bacaanmu</p>
             </div>
         </div>
         @if($lastReadQuran)
@@ -25,7 +25,7 @@
             </a>
         @else
             <span class="px-4 py-2 bg-gray-100 text-gray-400 text-sm font-semibold rounded-xl">
-                Coming Soon
+                Segera
             </span>
         @endif
     </div>
@@ -51,7 +51,7 @@
                     <div class="flex items-center gap-2 mb-1">
                         <span class="text-2xl">🔥</span>
                         <div>
-                            <div class="text-sm opacity-90">Streak</div>
+                            <div class="text-sm opacity-90">Konsisten</div>
                             <div class="text-3xl font-bold">{{ $quranStreak }}</div>
                         </div>
                     </div>

@@ -127,13 +127,13 @@
                             <span class="text-2xl">🕌</span>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-gray-800">Prayer Journey</h3>
-                            <p class="text-xs text-gray-500">Track your progress</p>
+                            <h3 class="text-lg font-bold text-gray-800">Progres Shalat</h3>
+                            <p class="text-xs text-gray-500">Pantau progres ibadahmu</p>
                         </div>
                     </div>
                     <a href="{{ route('prayer-tracking.index') }}" 
                        class="px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold rounded-xl transition-all shadow-md">
-                        Lihat Details →
+                        Lihat Detail →
                     </a>
                 </div>
 
@@ -146,7 +146,6 @@
                             <div class="text-4xl font-bold">{{ $prayerPerformed }}</div>
                         </div>
                     </div>
-                    <div class="text-sm opacity-90">Hari Berdoa</div>
                 </div>
 
                 {{-- Progress Bar --}}
