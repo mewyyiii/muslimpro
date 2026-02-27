@@ -278,20 +278,25 @@
             background: linear-gradient(180deg, #0891B2, #0D9488);
         }
 
-        /* TYPING TEXT */
+        /* TYPING LOOP SMOOTH */
         .typing-text {
             display: inline-block;
             overflow: hidden;
-            border-right: 2px solid #0891B2;
             white-space: nowrap;
-            animation: typing 2s steps(7) forwards, blink 0.7s infinite;
+            border-right: 2px solid #0891B2;
+            animation: typing 2.5s steps(7) infinite alternate,
+                    blink 0.7s step-end infinite;
         }
 
+        /* ketik maju mundur */
         @keyframes typing {
-            from { width: 0 }
-            to { width: 7ch }
+            0% { width: 0 }
+            40% { width: 7ch }
+            60% { width: 7ch } /* tahan sebentar */
+            100% { width: 0 }
         }
 
+        /* cursor kedip */
         @keyframes blink {
             50% { border-color: transparent }
         }
