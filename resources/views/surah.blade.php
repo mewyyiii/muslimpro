@@ -103,22 +103,28 @@
         <p class="text-lg surah-dark-gray mt-1">
             "{{ $surah->translation }}" - {{ $surah->total_verses }} Ayat
         </p>
+
+        {{-- Tombol Putar Semua --}}
+        <button id="play-all-btn"
+                class="mt-4 inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-full shadow-md transition hover:opacity-90 hover:scale-105"
+                style="background: linear-gradient(90deg, #1FAF90, #10B981);">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                      clip-rule="evenodd" />
+            </svg>
+            Putar Semua Ayat
+        </button>
     </div>
 
     {{-- Main Audio Player --}}
     <div id="main-player-container"
          class="sticky top-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-4 rounded-xl shadow-lg mb-8 z-10 border border-gray-200 dark:border-gray-700">
 
-        <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center mb-2">
             <p id="player-verse-info" class="text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Pilih ayat untuk memulai
             </p>
-
-            <button id="play-all-btn"
-                    class="px-3 py-1 text-sm text-white rounded-full transition"
-                    style="background-color: var(--primary-accent);">
-                Putar Semua
-            </button>
         </div>
 
         <audio id="main-player" controls class="w-full"></audio>
@@ -194,8 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ★ Start tracking saat halaman dibuka
     startTracking();
-    // ← tambah ini
-    playFullSurahAudio();
 
     // ===== ICON HELPERS =====
 
