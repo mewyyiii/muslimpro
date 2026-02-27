@@ -253,31 +253,24 @@
         <div class="login-card">
             <!-- Tasbih Icon -->
             <div class="icon-container">
-                <svg class="tasbih-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Tasbih design -->
-                    <circle cx="32" cy="12" r="4" fill="#14b8a6"/>
-                    <circle cx="26" cy="18" r="3.5" fill="#14b8a6"/>
-                    <circle cx="38" cy="18" r="3.5" fill="#14b8a6"/>
-                    <circle cx="22" cy="24" r="3.5" fill="#14b8a6"/>
-                    <circle cx="42" cy="24" r="3.5" fill="#14b8a6"/>
-                    <circle cx="20" cy="30" r="3.5" fill="#14b8a6"/>
-                    <circle cx="44" cy="30" r="3.5" fill="#14b8a6"/>
-                    <circle cx="20" cy="36" r="3.5" fill="#14b8a6"/>
-                    <circle cx="44" cy="36" r="3.5" fill="#14b8a6"/>
-                    <circle cx="22" cy="42" r="3.5" fill="#14b8a6"/>
-                    <circle cx="42" cy="42" r="3.5" fill="#14b8a6"/>
-                    <circle cx="26" cy="48" r="3.5" fill="#14b8a6"/>
-                    <circle cx="38" cy="48" r="3.5" fill="#14b8a6"/>
-                    <circle cx="32" cy="54" r="4" fill="#14b8a6"/>
-                    <!-- String -->
-                    <path d="M32 8 Q28 10 26 18 Q24 22 22 24 Q20 26 20 30 L20 36 Q20 38 22 42 Q24 46 26 48 Q28 52 32 54" 
-                          stroke="#0d9488" stroke-width="2" fill="none"/>
-                    <path d="M32 8 Q36 10 38 18 Q40 22 42 24 Q44 26 44 30 L44 36 Q44 38 42 42 Q40 46 38 48 Q36 52 32 54" 
-                          stroke="#0d9488" stroke-width="2" fill="none"/>
-                    <!-- Tassel -->
-                    <line x1="28" y1="56" x2="26" y2="62" stroke="#14b8a6" stroke-width="1.5"/>
-                    <line x1="32" y1="58" x2="32" y2="64" stroke="#14b8a6" stroke-width="1.5"/>
-                    <line x1="36" y1="56" x2="38" y2="62" stroke="#14b8a6" stroke-width="1.5"/>
+                <svg viewBox="0 0 100 120" class="tasbih-icon" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="11" r="6" fill="#14b8a6"/>
+                    <circle cx="68" cy="16" r="5.5" fill="#14b8a6"/>
+                    <circle cx="80" cy="29" r="5.5" fill="#14b8a6"/>
+                    <circle cx="84" cy="46" r="5.5" fill="#14b8a6"/>
+                    <circle cx="78" cy="62" r="5.5" fill="#14b8a6"/>
+                    <circle cx="64" cy="73" r="5.5" fill="#14b8a6"/>
+                    <circle cx="50" cy="77" r="6" fill="#14b8a6"/>
+                    <circle cx="36" cy="73" r="5.5" fill="#14b8a6"/>
+                    <circle cx="22" cy="62" r="5.5" fill="#14b8a6"/>
+                    <circle cx="16" cy="46" r="5.5" fill="#14b8a6"/>
+                    <circle cx="20" cy="29" r="5.5" fill="#14b8a6"/>
+                    <circle cx="32" cy="16" r="5.5" fill="#14b8a6"/>
+                    <circle cx="50" cy="85" r="5" fill="#14b8a6"/>
+
+                    <line x1="44" y1="90" x2="41" y2="108" stroke="#14b8a6" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="50" y1="90" x2="50" y2="110" stroke="#14b8a6" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="56" y1="90" x2="59" y2="108" stroke="#14b8a6" stroke-width="3" stroke-linecap="round"/>
                 </svg>
             </div>
 
