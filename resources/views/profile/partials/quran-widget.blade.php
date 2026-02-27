@@ -21,7 +21,7 @@
         @if($lastReadQuran)
             <a href="{{ route('quran-tracking.index') }}" 
                class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl transition-all shadow-md">
-                Details →
+                Detail →
             </a>
         @else
             <span class="px-4 py-2 bg-gray-100 text-gray-400 text-sm font-semibold rounded-xl">
@@ -43,7 +43,7 @@
                             <div class="text-3xl font-bold">{{ $totalSurahCompleted }}</div>
                         </div>
                     </div>
-                    <div class="text-xs opacity-90">Completed</div>
+                    <div class="text-xs opacity-90">Selesai</div>
                 </div>
 
                 {{-- Streak --}}
@@ -55,13 +55,13 @@
                             <div class="text-3xl font-bold">{{ $quranStreak }}</div>
                         </div>
                     </div>
-                    <div class="text-xs opacity-90">Days in a row</div>
+                    <div class="text-xs opacity-90">Hari berturut-turut</div>
                 </div>
             </div>
 
             {{-- Currently Reading Info --}}
             <div class="mt-4 pt-4 border-t border-white/20">
-                <div class="text-xs opacity-90 mb-1">Currently Reading</div>
+                <div class="text-xs opacity-90 mb-1">Sedang Dibaca</div>
                 <div class="text-lg font-bold">{{ $lastReadQuran->surah->number }}. {{ $lastReadQuran->surah->name }}</div>
                 <div class="text-sm opacity-90">Ayat {{ $lastReadQuran->last_verse }}/{{ $lastReadQuran->surah->total_verses }}</div>
             </div>
@@ -70,7 +70,7 @@
         {{-- Progress Bar --}}
         <div>
             <div class="flex items-center justify-between text-sm text-gray-700 mb-2">
-                <span class="font-semibold">Surah Progress</span>
+                <span class="font-semibold">Progres Surah</span>
                 <span class="text-lg font-bold text-emerald-600">{{ $lastReadQuran->progress_percent }}%</span>
             </div>
             <div class="h-3 bg-gray-100 rounded-full overflow-hidden shadow-inner">
@@ -78,7 +78,7 @@
                      style="width: {{ $lastReadQuran->progress_percent }}%"></div>
             </div>
             <p class="text-xs text-gray-500 mt-2 text-center">
-                {{ $lastReadQuran->last_verse }} / {{ $lastReadQuran->surah->total_verses }} ayat completed
+                {{ $lastReadQuran->last_verse }} / {{ $lastReadQuran->surah->total_verses }} ayat selesai
             </p>
         </div>
 
@@ -90,7 +90,7 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    Read today
+                    Dibaca Hari Ini
                 @else
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>

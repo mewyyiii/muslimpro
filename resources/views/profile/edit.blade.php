@@ -62,10 +62,6 @@
                         Member Since: {{ $user->created_at->locale('id')->isoFormat('D MMMM YYYY') }}
                     </p>
 
-                    <p x-show="changed" x-transition class="mt-3 text-sm bg-teal-100 text-teal-700 px-4 py-2 rounded-full font-semibold">
-                        💾 Simpan untuk update
-                    </p>
-
                     @if (session('status') === 'avatar-deleted')
                         <div x-data="{ show: true }"
                              x-show="show"
@@ -146,7 +142,7 @@
                     <div class="flex items-center gap-3 mb-3">
                         <span class="text-4xl">🕌</span>
                         <div>
-                            <div class="text-sm opacity-90">This Month</div>
+                            <div class="text-sm opacity-90">Bulan ini</div>
                             <div class="text-4xl font-bold">{{ $prayerPerformed }}</div>
                         </div>
                     </div>
@@ -163,7 +159,7 @@
                         <div class="h-full bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-500 rounded-full transition-all duration-1000"
                              style="width: {{ $prayerPercent }}%"></div>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2 text-center">{{ $prayerPerformed }} / {{ $prayerTotal }} prayers completed</p>
+                    <p class="text-xs text-gray-500 mt-2 text-center">{{ $prayerPerformed }} / {{ $prayerTotal }} shalat selesai</p>
                 </div>
             </div>
 
@@ -301,7 +297,7 @@
 
                         <div>
                             <label for="password_confirmation" class="block text-sm font-bold text-gray-700 mb-2">
-                                Konfirmaasi Kata Sandi
+                                Konfirmasi Kata Sandi
                             </label>
                             <input type="password" id="password_confirmation" name="password_confirmation" autocomplete="new-password"
                                    class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
