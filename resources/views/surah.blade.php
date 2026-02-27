@@ -137,7 +137,9 @@
                             {{ $verse->number }}
                         </span>
 
-                        <button class="play-verse-btn" data-verse-number="{{ $verse->number }}">
+                       <button class="play-verse-btn" 
+                        data-verse-number="{{ $verse->number }}"
+                        data-audio-url="https://everyayah.com/data/Alafasy_128kbps/{{ str_pad($surah->number, 3, '0', STR_PAD_LEFT) }}{{ str_pad($verse->number, 3, '0', STR_PAD_LEFT) }}.mp3">
                             <svg class="h-8 w-8"
                                  fill="currentColor"
                                  viewBox="0 0 20 20">
@@ -210,13 +212,19 @@ document.addEventListener('DOMContentLoaded', function() {
         currentVerse = verseNumber;
     }
 
-    document.querySelectorAll('.play-verse-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const verseNumber = parseInt(this.dataset.verseNumber, 10);
-            playFullSurahAudio(verseNumber);
+            document.querySelectorAll('.play-verse-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const verseNumber = parseInt(this.dataset.verseNumber, 10);
+                const verseAudioUrl = this.dataset.audioUrl; // ← ambil URL per ayat
+
+                mainPlayer.src = verseAudioUrl;
+                mainPlayer.play();
+                playerInfo.textContent = `Memutar: Ayat ${verseNumber} - ${surahName}`;
+                updatePlayingIndicator(verseNumber);
+                currentVerse = verseNumber;
+            });
         });
-    });
 
     // ★ Track scroll position untuk update progress
     const verseItems = document.querySelectorAll('.verse-item');
