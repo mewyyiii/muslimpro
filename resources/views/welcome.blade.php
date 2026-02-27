@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Al-Huda - Pendamping Ibadah Digital</title>
+    <title>NurSteps - Pendamping Ibadah Digital</title>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -329,7 +329,7 @@
                     </svg>
                 </div>
                 <span class="typing-text text-lg sm:text-xl font-bold text-cyan-700">
-                    Al-Huda
+                    NurSteps
                 </span>
             </div>
             <div class="flex items-center space-x-2 sm:space-x-3">
@@ -366,7 +366,7 @@
                     <span class="gradient-text">Allah SWT</span>
                 </h1>
                 <p class="fade-in-d2 text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 lg:mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                    Al-Huda hadir sebagai pendamping ibadah harian Anda. Dari Al-Quran digital, jadwal shalat, hingga dzikir counter — semua dalam satu aplikasi.
+                    NurSteps hadir sebagai pendamping ibadah harian Anda. Dari Al-Quran digital, jadwal shalat, hingga dzikir counter — semua dalam satu aplikasi.
                 </p>
                 <div class="fade-in-d3 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
                     {{-- ✅ Langsung redirect ke register Breeze --}}
@@ -598,7 +598,7 @@
             Siap Memulai Perjalanan<br class="hidden sm:block">Spiritual Anda?
         </h2>
         <p class="text-base sm:text-lg lg:text-xl text-cyan-50 mb-8 sm:mb-10 lg:mb-12 max-w-2xl mx-auto leading-relaxed px-4">
-            Bergabunglah dengan ribuan Muslim yang sudah menjadikan Al-Huda sebagai pendamping ibadah harian mereka
+            Bergabunglah dengan ribuan Muslim yang sudah menjadikan NurSteps sebagai pendamping ibadah harian mereka
         </p>
         <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center px-4">
             {{-- ✅ Langsung ke register Breeze --}}
@@ -647,7 +647,7 @@
                             <line x1="56" y1="90" x2="59" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <span class="text-xl sm:text-2xl font-bold">Al-Huda</span>
+                    <span class="text-xl sm:text-2xl font-bold">NurSteps</span>
                 </div>
                 <p class="text-gray-400 text-sm leading-relaxed">
                     Pendamping ibadah digital untuk Muslim modern. Mendekatkan diri kepada Allah dengan teknologi.
@@ -673,7 +673,7 @@
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
-                        <span>info@al-huda.app</span>
+                        <span>info@nursteps.app</span>
                     </li>
                     <li class="flex items-center space-x-2 sm:space-x-3">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -688,7 +688,7 @@
 
         <!-- Bottom Bar -->
         <div class="border-t border-gray-800 pt-6 sm:pt-8 text-center text-xs sm:text-sm text-gray-500">
-            <p>&copy; {{ date('Y') }} Al-Huda. Semua hak dilindungi.</p>
+            <p>&copy; {{ date('Y') }} NurSteps. Semua hak dilindungi.</p>
         </div>
     </div>
 </footer>

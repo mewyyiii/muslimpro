@@ -28,13 +28,13 @@
                             <line x1="56" y1="90" x2="59" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <span class="text-xl font-bold text-teal-700 hidden sm:block">Al-Huda</span>
+                    <span class="text-xl font-bold text-teal-700 hidden sm:block">NurSteps</span>
                 </a>
             </div>
 
-            <!-- Title Al-Huda di tengah — MOBILE ONLY -->
+            <!-- Title NurSteps di tengah — MOBILE ONLY -->
             <span class="md:hidden absolute left-1/2 -translate-x-1/2 pointer-events-none navbar-title-mobile text-teal-700">
-                Al-Huda
+                NurSteps
             </span>
 
             <!-- Desktop Navigation -->
