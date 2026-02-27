@@ -2,305 +2,570 @@
 
 @push('styles')
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&display=swap');
-    .font-arabic {
-        font-family: 'Amiri', serif;
-    }
-    
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
+    /* ── Keyframes (logic tidak diubah) ── */
     @keyframes countPulse {
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.05); }
     }
-    
-    .count-pulse {
-        animation: countPulse 0.3s ease-in-out;
-    }
+    .count-pulse { animation: countPulse 0.3s ease-in-out; }
 
-    .ripple {
-        position: relative;
-        overflow: hidden;
-    }
-    
+    .smooth-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+    /* ── Ripple (logic tidak diubah) ── */
+    .ripple { position: relative; overflow: hidden; }
     .ripple::after {
         content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.5);
+        position: absolute; top: 50%; left: 50%;
+        width: 0; height: 0; border-radius: 50%;
+        background: rgba(255,255,255,0.45);
         transform: translate(-50%, -50%);
         transition: width 0.6s, height 0.6s;
     }
-    
-    .ripple:active::after {
-        width: 300px;
-        height: 300px;
+    .ripple:active::after { width: 300px; height: 300px; }
+
+    /* ── Layout utama ── */
+    body { font-family: 'DM Sans', sans-serif; }
+
+    .tasbih-page {
+        min-height: 100vh;
+        background: linear-gradient(160deg, #2dd4bf 0%, #14b8a6 40%, #0d9488 100%);
+        display: flex;
+        flex-direction: column;
     }
 
-    .smooth-transition {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* ── Top bar ── */
+    .top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .top-bar-title {
+        font-size: 17px;
+        font-weight: 600;
+        color: white;
+        letter-spacing: 0.02em;
+    }
+    .top-bar-sub {
+        font-size: 11px;
+        color: rgba(255,255,255,0.7);
+        text-align: center;
+    }
+    .icon-btn {
+        background: none;
+        border: none;
+        color: rgba(255,255,255,0.75);
+        cursor: pointer;
+        padding: 7px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        transition: color 0.2s, background 0.2s;
+    }
+    .icon-btn:hover { color: white; background: rgba(255,255,255,0.1); }
+    .icon-btn.sound-on { color: white; }
+
+    /* ── Session label ── */
+    .session-label {
+        text-align: center;
+        padding: 10px 20px 0;
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.8);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
     }
 
-    /* Session dots */
-    .session-dot {
-        width: 14px;
-        height: 14px;
+    /* ── Counter area ── */
+    .counter-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 20px 8px;
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        min-height: 180px;
+        gap: 4px;
+    }
+    .count-number {
+        font-size: 92px;
+        font-weight: 300;
+        color: white;
+        line-height: 1;
+        letter-spacing: -5px;
+        font-variant-numeric: tabular-nums;
+        text-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    }
+    .count-of {
+        font-size: 15px;
+        color: rgba(255,255,255,0.7);
+        font-weight: 400;
+    }
+
+    /* ── Bead track ── */
+    .bead-section {
+        padding: 8px 20px 12px;
+        position: relative;
+        height: 80px;
+        display: flex;
+        align-items: center;
+    }
+    .bead-line {
+        position: absolute;
+        left: 10px; right: 10px;
+        top: 50%; transform: translateY(-50%);
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35) 15%, rgba(255,255,255,0.35) 85%, transparent);
+    }
+    .bead-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+    }
+    .bead {
+        width: 32px; height: 32px;
         border-radius: 50%;
-        border: 2px solid white;
-        background: rgba(255,255,255,0.3);
-        transition: all 0.3s ease;
+        flex-shrink: 0;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .session-dot.done {
+    .bead.filled {
+        background: radial-gradient(circle at 35% 32%, #e8b84b, #c8962a 55%, #7a5a10);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.25);
+    }
+    .bead.empty {
+        background: radial-gradient(circle at 35% 32%, rgba(255,255,255,0.28), rgba(255,255,255,0.08));
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        opacity: 0.55;
+    }
+    @keyframes beadPop {
+        0%   { transform: scale(1); }
+        50%  { transform: scale(1.35); box-shadow: 0 0 18px rgba(232,184,75,0.7); }
+        100% { transform: scale(1); }
+    }
+    .bead-pop { animation: beadPop 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* ── Tap hint ── */
+    .tap-hint {
+        text-align: center;
+        color: rgba(255,255,255,0.7);
+        font-size: 12px;
+        padding: 0 20px 10px;
+        line-height: 1.5;
+    }
+
+    /* ── Session dots ── */
+    .session-dots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 4px 20px 14px;
+    }
+    .s-dot {
+        width: 30px; height: 30px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255,255,255,0.35);
+        background: rgba(255,255,255,0.12);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 11px; font-weight: 600;
+        color: rgba(255,255,255,0.7);
+        transition: all 0.3s;
+    }
+    .s-dot.done {
+        background: white; border-color: white; color: #0d9488;
+    }
+    .s-dot.current {
+        background: transparent; border-color: white; color: white;
+        box-shadow: 0 0 0 3px rgba(255,255,255,0.25);
+    }
+
+    /* ── Bottom sheet ── */
+    .bottom-sheet {
         background: white;
+        border-radius: 24px 24px 0 0;
+        padding: 12px 20px 28px;
+        box-shadow: 0 -8px 32px rgba(0,0,0,0.1);
     }
-    .session-dot.active {
-        background: rgba(255,255,255,0.7);
-        box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+    .sheet-handle {
+        width: 36px; height: 3px;
+        background: #e2e8f0; border-radius: 2px;
+        margin: 0 auto 18px;
+    }
+
+    /* ── Dzikir info ── */
+    .dzikir-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+    .dzikir-label {
+        font-size: 10px; font-weight: 600;
+        color: #94a3b8;
+        text-transform: uppercase; letter-spacing: 0.1em;
+        margin-bottom: 3px;
+    }
+    .dzikir-arabic {
+        font-family: 'Amiri', serif;
+        font-size: 22px; color: #0d9488;
+        line-height: 1.4; direction: rtl;
+        margin-bottom: 2px;
+    }
+    .dzikir-latin {
+        font-size: 12px; color: #94a3b8; font-style: italic;
+    }
+
+    /* ── Stats ── */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+    .stat-card {
+        background: #f0fdf9;
+        border: 1px solid #ccfbf1;
+        border-radius: 14px;
+        padding: 11px 8px;
+        text-align: center;
+    }
+    .stat-value {
+        font-size: 20px; font-weight: 700;
+        color: #0d9488;
+        font-variant-numeric: tabular-nums;
+        line-height: 1;
+    }
+    .stat-label {
+        font-size: 10px; color: #94a3b8;
+        margin-top: 4px;
+        text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    /* ── Completion banner ── */
+    .completion-banner {
+        background: linear-gradient(135deg, rgba(13,148,136,0.08), rgba(20,184,166,0.04));
+        border: 1px solid rgba(13,148,136,0.2);
+        border-radius: 14px;
+        padding: 12px 16px; text-align: center;
+        margin-bottom: 16px;
+    }
+    .completion-banner p { font-size: 14px; color: #0d9488; font-weight: 600; }
+    .completion-banner span { font-size: 12px; color: #94a3b8; margin-top: 2px; display: block; }
+
+    /* ── Action buttons ── */
+    .action-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .btn-reset {
+        padding: 13px;
+        background: transparent;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        color: #64748b;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 14px; font-weight: 500;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center; gap: 7px;
+        transition: all 0.2s;
+    }
+    .btn-reset:hover { border-color: #94a3b8; color: #334155; background: #f8fafc; }
+
+    .btn-count {
+        padding: 13px;
+        background: linear-gradient(135deg, #14b8a6, #0d9488);
+        border: none;
+        border-radius: 14px;
+        color: white;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 15px; font-weight: 700;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center; gap: 7px;
+        box-shadow: 0 4px 14px rgba(13,148,136,0.35);
+        transition: all 0.2s;
+    }
+    .btn-count:hover { box-shadow: 0 6px 18px rgba(13,148,136,0.45); transform: translateY(-1px); }
+    .btn-count:active { transform: translateY(0); }
+    .btn-count:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* ── Ripple overlay ── */
+    .ripple-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+    .ripple-circle {
+        position: absolute; border-radius: 50%;
+        background: rgba(255,255,255,0.22);
+        transform: translate(-50%, -50%) scale(0);
+        animation: rippleSpread 0.55s ease-out forwards;
+        pointer-events: none;
+    }
+    @keyframes rippleSpread {
+        to { transform: translate(-50%, -50%) scale(7); opacity: 0; }
     }
 </style>
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-teal-400 via-teal-500 to-emerald-500 py-8 md:py-12">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">Tasbih Digital</h1>
-            <p class="text-white/90 text-sm md:text-base">Hitung dzikir Anda dengan mudah</p>
-        </div>
+<div class="tasbih-page" x-data="tasbihCounter()" x-init="init()">
 
-        <div x-data="tasbihCounter()" x-init="init()" class="max-w-sm mx-auto">
-
-            {{-- MODAL KONFIRMASI RESET --}}
-            <div x-show="showResetModal"
-                 x-transition:enter="transition ease-out duration-200"
-                 x-transition:enter-start="opacity-0"
-                 x-transition:enter-end="opacity-100"
-                 x-transition:leave="transition ease-in duration-150"
-                 x-transition:leave-end="opacity-0"
-                 class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
-                 @click.self="showResetModal = false">
-                <div x-show="showResetModal"
-                     x-transition:enter="transition ease-out duration-200"
-                     x-transition:enter-start="opacity-0 scale-95 translate-y-4"
-                     x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                     x-transition:leave="transition ease-in duration-150"
-                     x-transition:leave-end="opacity-0 scale-95"
-                     class="bg-white rounded-2xl shadow-2xl p-5 w-[90vw] md:w-[360px] text-center">
-                    <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <svg class="w-7 h-7 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-2">Reset Counter?</h4>
-                    <p class="text-sm text-gray-500 mb-6">Semua hitungan dan sesi akan direset ke awal. Yakin ingin melanjutkan?</p>
-                    <div class="flex gap-3">
-                        <button @click="showResetModal = false"
-                                class="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-colors text-sm">
-                            Batal
-                        </button>
-                        <button @click="confirmReset()"
-                                class="flex-1 px-4 py-2.5 bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-semibold rounded-xl shadow hover:shadow-md transition-all text-sm">
-                            Ya, Reset
-                        </button>
-                    </div>
-                </div>
+    {{-- ═══════════════════════════════════════
+         MODAL KONFIRMASI RESET (logic asli)
+    ═══════════════════════════════════════ --}}
+    <div x-show="showResetModal"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+         @click.self="showResetModal = false">
+        <div x-show="showResetModal"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="bg-white rounded-2xl shadow-2xl p-6 w-[90vw] md:w-[360px] text-center">
+            <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg class="w-7 h-7 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
             </div>
-
-            {{-- MODAL SESI SELESAI --}}
-            <div x-show="showSessionModal"
-                 x-transition:enter="transition ease-out duration-200"
-                 x-transition:enter-start="opacity-0"
-                 x-transition:enter-end="opacity-100"
-                 x-transition:leave="transition ease-in duration-150"
-                 x-transition:leave-end="opacity-0"
-                 class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
-                 @click.self="showSessionModal = false">
-                <div x-show="showSessionModal"
-                     x-transition:enter="transition ease-out duration-200"
-                     x-transition:enter-start="opacity-0 scale-95 translate-y-4"
-                     x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                     x-transition:leave="transition ease-in duration-150"
-                     x-transition:leave-end="opacity-0 scale-95"
-                     class="bg-white rounded-2xl shadow-2xl p-6 w-[90vw] md:w-[380px] text-center">
-
-                    <template x-if="currentSession < 3">
-                        <div>
-                            <div class="text-4xl mb-3">✨</div>
-                            <h4 class="text-xl font-bold text-gray-800 mb-1">
-                                Sesi <span x-text="currentSession"></span> Selesai!
-                            </h4>
-                            <p class="text-sm text-gray-500 mb-2">
-                                <span x-text="currentSession * 33"></span> dari 99 dzikir selesai
-                            </p>
-                            <p class="text-sm text-teal-600 font-medium mb-6">
-                                Lanjutkan sesi <span x-text="currentSession + 1"></span> dari 3
-                            </p>
-                            <button @click="showSessionModal = false"
-                                    class="w-full px-4 py-3 bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-semibold rounded-xl shadow hover:shadow-md transition-all">
-                                Lanjutkan →
-                            </button>
-                        </div>
-                    </template>
-
-                    <template x-if="currentSession >= 3">
-                        <div>
-                            <div class="text-4xl mb-3">🎉</div>
-                            <h4 class="text-xl font-bold text-gray-800 mb-1">Alhamdulillah!</h4>
-                            <p class="text-sm text-gray-500 mb-2">99 dzikir telah selesai</p>
-                            <p class="text-sm text-teal-600 font-medium mb-6">Semua 3 sesi selesai!</p>
-                            <button @click="showSessionModal = false"
-                                    class="w-full px-4 py-3 bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-semibold rounded-xl shadow hover:shadow-md transition-all">
-                                Tutup
-                            </button>
-                        </div>
-                    </template>
-                </div>
+            <h4 class="text-lg font-bold text-gray-800 mb-2">Reset Counter?</h4>
+            <p class="text-sm text-gray-500 mb-6">Semua hitungan dan sesi akan direset ke awal. Yakin ingin melanjutkan?</p>
+            <div class="flex gap-3">
+                <button @click="showResetModal = false"
+                        class="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-colors text-sm">
+                    Batal
+                </button>
+                <button @click="confirmReset()"
+                        class="flex-1 px-4 py-2.5 bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-semibold rounded-xl shadow hover:shadow-md transition-all text-sm">
+                    Ya, Reset
+                </button>
             </div>
-            
-            <!-- Main Counter Card -->
-            <div class="bg-white rounded-3xl shadow-2xl p-5 mb-6 relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-40 h-40 bg-teal-50 rounded-full -mr-20 -mt-20"></div>
-                <div class="absolute bottom-0 left-0 w-32 h-32 bg-emerald-50 rounded-full -ml-16 -mb-16"></div>
-                
-                <div class="relative z-10">
-
-                    <!-- Indikator 3 Sesi -->
-                    <div class="flex items-center justify-center gap-6 mb-3">
-                        <template x-for="s in 3" :key="s">
-                            <div class="flex flex-col items-center gap-1">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm smooth-transition"
-                                     :class="{
-                                        'bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-md': s < currentSession || (s === currentSession && count >= 99),
-                                        'bg-teal-100 text-teal-700 ring-2 ring-teal-400': s === currentSession && count < 99,
-                                        'bg-gray-100 text-gray-400': s > currentSession
-                                     }">
-                                    <template x-if="s < currentSession || (s === currentSession && count >= 99)">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-                                        </svg>
-                                    </template>
-                                    <template x-if="!(s < currentSession || (s === currentSession && count >= 99))">
-                                        <span x-text="s"></span>
-                                    </template>
-                                </div>
-                                <span class="text-xs text-gray-500">Sesi <span x-text="s"></span></span>
-                            </div>
-                        </template>
-                    </div>
-
-                    <!-- Info sesi aktif -->
-                    <div class="text-center mb-3">
-                        <p class="text-sm text-teal-600 font-semibold">
-                            Sesi <span x-text="currentSession"></span> dari 3 &mdash;
-                            <span x-text="sessionCount"></span>/33
-                        </p>
-                        <p class="text-xs text-gray-400 mt-1">Total: <span x-text="count"></span>/99</p>
-                    </div>
-
-                    <!-- Counter Display + Button horizontal -->
-                    <div class="flex items-center justify-center gap-6 mb-4">
-                        
-                        <!-- Ring kiri -->
-                        <div class="inline-block relative flex-shrink-0">
-                            <svg class="transform -rotate-90 w-36 h-36" viewBox="0 0 200 200">
-                                <circle cx="100" cy="100" r="85" stroke="#E5E7EB" stroke-width="12" fill="none"/>
-                                <circle 
-                                    cx="100" 
-                                    cy="100" 
-                                    r="85" 
-                                    stroke="url(#gradient)" 
-                                    stroke-width="12" 
-                                    fill="none"
-                                    stroke-linecap="round"
-                                    :stroke-dasharray="circumference"
-                                    :stroke-dashoffset="progressOffset"
-                                    class="smooth-transition"
-                                />
-                                <defs>
-                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#2DD4BF;stop-opacity:1" />
-                                        <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <div class="text-4xl font-bold text-gray-800" 
-                                     x-text="sessionCount"
-                                     :class="{ 'count-pulse': counting }"></div>
-                                <div class="text-xs text-gray-500 mt-1">
-                                    <span x-text="33 - sessionCount"></span> lagi
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tombol kanan -->
-                        <div class="flex flex-col items-center gap-3 flex-shrink-0">
-                            <button 
-                                @click="increment()"
-                                class="ripple w-24 h-24 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-2xl hover:shadow-3xl transform hover:scale-105 active:scale-95 smooth-transition focus:outline-none focus:ring-4 focus:ring-teal-300"
-                                :disabled="count >= 99">
-                                <div class="text-2xl font-bold">+1</div>
-                                <div class="text-xs mt-0.5">Tap / Space</div>
-                            </button>
-
-                            <!-- Reset & Sound di bawah tombol -->
-                            <div class="flex gap-2">
-                                <button @click="reset()"
-                                        class="p-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl smooth-transition">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                                    </svg>
-                                </button>
-                                <button @click="toggleSound()"
-                                        class="p-2 rounded-xl smooth-transition"
-                                        :class="soundEnabled ? 'bg-teal-100 text-teal-600' : 'bg-gray-100 text-gray-600'">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="soundEnabled">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                                    </svg>
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!soundEnabled">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Completion Message (99x selesai) -->
-                    <div x-show="count >= 99" 
-                         x-transition:enter="transition ease-out duration-300"
-                         x-transition:enter-start="opacity-0 transform scale-95"
-                         x-transition:enter-end="opacity-100 transform scale-100"
-                         class="mt-6 p-4 bg-gradient-to-r from-teal-50 to-emerald-50 border-2 border-teal-200 rounded-2xl text-center">
-                        <p class="text-lg font-bold text-teal-700 mb-1">🎉 Alhamdulillah! 🎉</p>
-                        <p class="text-sm text-teal-600">99 dzikir telah selesai! Semua 3 sesi tuntas.</p>
-                    </div>
-                    <!-- Stats inline di dalam card utama -->
-                    <div class="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-gray-100">
-                        <div class="text-center">
-                            <div class="text-xl font-bold text-teal-600" x-text="totalToday"></div>
-                            <div class="text-xs text-gray-500 mt-0.5">Total Dzikir</div>
-                        </div>
-                        <div class="text-center border-x border-gray-100">
-                            <div class="text-xl font-bold text-emerald-600" x-text="(currentSession - 1) + (count >= 99 ? 1 : 0)"></div>
-                            <div class="text-xs text-gray-500 mt-0.5">Sesi Selesai</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-xl font-bold text-teal-600" x-text="count + '/99'"></div>
-                            <div class="text-xs text-gray-500 mt-0.5">Progress</div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
         </div>
     </div>
+
+    {{-- ═══════════════════════════════════════
+         MODAL SESI SELESAI (logic asli)
+    ═══════════════════════════════════════ --}}
+    <div x-show="showSessionModal"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+         @click.self="showSessionModal = false">
+        <div x-show="showSessionModal"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="bg-white rounded-2xl shadow-2xl p-6 w-[90vw] md:w-[380px] text-center">
+
+            <template x-if="currentSession < 3">
+                <div>
+                    <div class="text-4xl mb-3">✨</div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-1">
+                        Sesi <span x-text="currentSession"></span> Selesai!
+                    </h4>
+                    <p class="text-sm text-gray-500 mb-2">
+                        <span x-text="currentSession * 33"></span> dari 99 dzikir selesai
+                    </p>
+                    <p class="text-sm text-teal-600 font-medium mb-6">
+                        Lanjutkan sesi <span x-text="currentSession + 1"></span> dari 3
+                    </p>
+                    <button @click="showSessionModal = false"
+                            class="w-full px-4 py-3 bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-semibold rounded-xl shadow hover:shadow-md transition-all">
+                        Lanjutkan →
+                    </button>
+                </div>
+            </template>
+
+            <template x-if="currentSession >= 3">
+                <div>
+                    <div class="text-4xl mb-3">🎉</div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-1">Alhamdulillah!</h4>
+                    <p class="text-sm text-gray-500 mb-2">99 dzikir telah selesai</p>
+                    <p class="text-sm text-teal-600 font-medium mb-6">Semua 3 sesi selesai!</p>
+                    <button @click="showSessionModal = false"
+                            class="w-full px-4 py-3 bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-semibold rounded-xl shadow hover:shadow-md transition-all">
+                        Tutup
+                    </button>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    {{-- ═══════════════════════════════════════
+         TOP BAR
+    ═══════════════════════════════════════ --}}
+    <div class="top-bar">
+        <a href="{{ url()->previous() }}" class="icon-btn">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+        </a>
+        <div class="text-center">
+            <div class="top-bar-title">Tasbih Digital</div>
+            <div class="top-bar-sub">Hitung dzikir Anda dengan mudah</div>
+        </div>
+        <div class="flex gap-1">
+            <button class="icon-btn" @click="reset()" title="Reset">
+                <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+            </button>
+            <button class="icon-btn" :class="soundEnabled ? 'sound-on' : ''" @click="toggleSound()" title="Suara">
+                <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" x-show="soundEnabled">
+                    <path d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+                <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" x-show="!soundEnabled">
+                    <path d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                    <path d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    {{-- ═══════════════════════════════════════
+         SESSION LABEL
+    ═══════════════════════════════════════ --}}
+    <div class="session-label">
+        Sesi <span x-text="currentSession"></span> dari 3
+        &nbsp;·&nbsp;
+        <span x-text="sessionCount"></span>/33
+    </div>
+
+    {{-- ═══════════════════════════════════════
+         COUNTER (tap area)
+    ═══════════════════════════════════════ --}}
+    <div class="counter-area" @click="increment(); spawnRipple($event)">
+        <div class="count-number"
+             x-text="String(sessionCount).padStart(2,'0')"
+             :class="{ 'count-pulse': counting }">
+        </div>
+        <div class="count-of">/ 33 &nbsp;·&nbsp; Total <span x-text="count"></span>/99</div>
+    </div>
+
+    {{-- ═══════════════════════════════════════
+         BEAD VISUAL (driven by sessionCount)
+    ═══════════════════════════════════════ --}}
+    <div class="bead-section">
+        <div class="bead-line"></div>
+        <div class="bead-row" id="beadRow">
+            {{-- 11 beads rendered via Alpine --}}
+            <template x-for="i in 11" :key="i">
+                <div class="bead"
+                     :id="'bead-' + i"
+                     :class="i <= Math.round((sessionCount / 33) * 11) ? 'filled' : 'empty'">
+                </div>
+            </template>
+        </div>
+    </div>
+
+    {{-- ═══════════════════════════════════════
+         TAP HINT
+    ═══════════════════════════════════════ --}}
+    <div class="tap-hint" x-show="count < 99">
+        Tap di mana saja untuk mulai
+        <br><span style="font-size:11px;opacity:0.7">Tekan Space dari keyboard</span>
+    </div>
+
+    {{-- ═══════════════════════════════════════
+         SESSION DOTS
+    ═══════════════════════════════════════ --}}
+    <div class="session-dots">
+        <template x-for="s in 3" :key="s">
+            <div class="s-dot"
+                 :class="{
+                     'done':    s < currentSession || (s === currentSession && count >= 99),
+                     'current': s === currentSession && count < 99
+                 }">
+                <template x-if="s < currentSession || (s === currentSession && count >= 99)">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                        <path d="M5 13l4 4L19 7"/>
+                    </svg>
+                </template>
+                <template x-if="!(s < currentSession || (s === currentSession && count >= 99))">
+                    <span x-text="s"></span>
+                </template>
+            </div>
+        </template>
+    </div>
+
+    {{-- ripple overlay --}}
+    <div class="ripple-overlay" id="rippleOverlay"></div>
+
+    {{-- ═══════════════════════════════════════
+         BOTTOM SHEET
+    ═══════════════════════════════════════ --}}
+    <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+
+        {{-- Dzikir info --}}
+        <div class="dzikir-row">
+            <div>
+                <div class="dzikir-label">Dzikir aktif</div>
+                <div class="dzikir-arabic">سُبْحَانَ اللَّهِ</div>
+                <div class="dzikir-latin">Subhanallah · 33×</div>
+            </div>
+        </div>
+
+        {{-- Completion banner --}}
+        <div class="completion-banner"
+             x-show="count >= 99"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100">
+            <p>🎉 Alhamdulillah!</p>
+            <span>99 dzikir telah selesai. Semua sesi tuntas.</span>
+        </div>
+
+        {{-- Stats --}}
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" x-text="totalToday"></div>
+                <div class="stat-label">Total Dzikir</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" x-text="(currentSession - 1) + (count >= 99 ? 1 : 0)"></div>
+                <div class="stat-label">Sesi Selesai</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" x-text="count + '/99'"></div>
+                <div class="stat-label">Progress</div>
+            </div>
+        </div>
+
+        {{-- Action buttons --}}
+        <div class="action-row">
+            <button class="btn-reset" @click="reset()">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Reset
+            </button>
+            <button class="btn-count ripple"
+                    @click="increment(); spawnRipple($event)"
+                    :disabled="count >= 99">
+                +1 &nbsp;Hitung
+            </button>
+        </div>
+    </div>
+
 </div>
 @endsection
 
@@ -356,6 +621,14 @@ function tasbihCounter() {
             if (this.soundEnabled) this.playSound();
             if (navigator.vibrate) navigator.vibrate(50);
 
+            // Flash bead yang baru terisi
+            const filledIdx = Math.round((this.sessionCount / 33) * 11);
+            const bead = document.getElementById('bead-' + filledIdx);
+            if (bead) {
+                bead.classList.add('bead-pop');
+                setTimeout(() => bead.classList.remove('bead-pop'), 400);
+            }
+
             // Cek apakah sesi selesai (setiap 33x)
             if (this.count % 33 === 0) {
                 // Naikan sesi kalau belum sesi 3
@@ -383,6 +656,19 @@ function tasbihCounter() {
 
         toggleSound() {
             this.soundEnabled = !this.soundEnabled;
+        },
+
+        // Ripple effect pada tap area
+        spawnRipple(event) {
+            const overlay = document.getElementById('rippleOverlay');
+            const r = document.createElement('div');
+            r.className = 'ripple-circle';
+            r.style.width = '80px';
+            r.style.height = '80px';
+            r.style.left = (event.clientX ?? window.innerWidth / 2) + 'px';
+            r.style.top  = (event.clientY ?? window.innerHeight / 2) + 'px';
+            overlay.appendChild(r);
+            setTimeout(() => r.remove(), 600);
         },
 
         playSound() {
