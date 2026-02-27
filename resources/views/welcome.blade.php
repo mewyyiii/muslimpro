@@ -338,7 +338,7 @@
                     Masuk
                 </a>
                 <a href="{{ route('register') }}" class="btn-shine px-4 py-1.5 sm:px-6 sm:py-2.5 bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-xs sm:text-sm font-bold rounded-lg sm:rounded-xl shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:scale-105 transition-all duration-200">
-                    Daftar Gratis
+                    Daftar
                 </a>
             </div>
         </div>
