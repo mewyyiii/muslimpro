@@ -310,22 +310,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Tips -->
-            <div class="mt-6 bg-teal-50 border-2 border-teal-100 rounded-2xl p-5">
-                <div class="flex items-start gap-3">
-                    <div class="text-2xl">💡</div>
-                    <div>
-                        <h4 class="font-bold text-teal-800 mb-1">Tips:</h4>
-                        <ul class="text-sm text-teal-700 space-y-1">
-                            <li>• Tekan <kbd class="px-2 py-1 bg-white rounded shadow-sm font-mono text-xs">Space</kbd> untuk hitung cepat</li>
-                            <li>• Aktifkan suara untuk feedback audio</li>
-                            <li>• Fokus dan khusyuk dalam berdzikir</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
