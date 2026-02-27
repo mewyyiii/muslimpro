@@ -133,7 +133,7 @@
                     </div>
                     <a href="{{ route('prayer-tracking.index') }}" 
                        class="px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold rounded-xl transition-all shadow-md">
-                        Details →
+                        Lihat Details →
                     </a>
                 </div>
 

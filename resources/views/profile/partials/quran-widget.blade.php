@@ -21,7 +21,7 @@
         @if($lastReadQuran)
             <a href="{{ route('quran-tracking.index') }}" 
                class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl transition-all shadow-md">
-                Detail →
+                Lihat Detail →
             </a>
         @else
             <span class="px-4 py-2 bg-gray-100 text-gray-400 text-sm font-semibold rounded-xl">
