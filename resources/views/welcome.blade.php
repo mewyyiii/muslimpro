@@ -290,13 +290,13 @@
 
         @keyframes typing {
             0%   { width: 0 }
-            40%  { width: 6.5ch }
-            60%  { width: 6.5ch }
-            100% { width: 0 }
+            40%  { width: 6.5ch }   /* selesai ngetik */
+            70%  { width: 6.5ch }   /* tahan lebih lama */
+            100% { width: 0 }       /* hapus */
         }
 
         @keyframes blink {
-            50% { border-color: transparent }
+            50% { border-color: transparent; }
         }
     </style>
 </head>
