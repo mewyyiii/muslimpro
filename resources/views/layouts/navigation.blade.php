@@ -425,8 +425,21 @@
 
             <a href="{{ route('tasbih.index') }}" 
                class="block px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-teal-50 transition-all duration-200 {{ request()->routeIs('tasbih.*') ? 'bg-teal-50 text-teal-700' : '' }}">
-                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24">
-                    <circle cx="3" cy="12" r="2"/><circle cx="12" cy="3" r="2"/><circle cx="21" cy="12" r="2"/><circle cx="12" cy="21" r="2"/>
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1 text-teal-600" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="3" cy="12" r="2"/>
+                    <circle cx="5.5" cy="8" r="2"/>
+                    <circle cx="9" cy="5.5" r="2"/>
+                    <circle cx="12" cy="3" r="2"/>
+                    <circle cx="15" cy="5.5" r="2"/>
+                    <circle cx="18.5" cy="8" r="2"/>
+                    <circle cx="21" cy="12" r="2"/>
+                    <circle cx="18.5" cy="16" r="2"/>
+                    <circle cx="15" cy="18.5" r="2"/>
+                    <circle cx="12" cy="21" r="2"/>
+                    <circle cx="9" cy="18.5" r="2"/>
+                    <circle cx="5.5" cy="16" r="2"/>
+                    <rect x="11" y="21" width="2" height="3" rx="0.5"/>
+                    <circle cx="12" cy="24.5" r="1"/>
                 </svg>
                 Tasbih Digital
             </a>
