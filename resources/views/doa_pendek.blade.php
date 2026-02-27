@@ -82,7 +82,7 @@
     <div class="w-full max-w-md mx-auto mb-8">
         <input type="text" 
             id="doa-search-input" 
-            placeholder="Cari doa (e.g. Rabbana Atina)" 
+            placeholder="Cari doa (Rabbana Atina)" 
             class="w-full p-3 rounded-lg shadow-sm border focus:outline-none focus:ring-2" 
             style="border-color: #10B981;">
     </div>

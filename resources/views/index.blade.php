@@ -45,7 +45,7 @@
     <div class="w-full max-w-md mx-auto mb-8">
         <input type="text"
             id="surah-search-input"
-            placeholder="Cari surah (e.g. Al-Fatihah, Pembukaan)"
+            placeholder="Cari surah (Al-Fatihah, Pembukaan)"
             class="w-full px-4 py-3 rounded-xl border-2 focus:outline-none focus:ring-2 transition-all"
             style="
                 background-color: var(--surface);

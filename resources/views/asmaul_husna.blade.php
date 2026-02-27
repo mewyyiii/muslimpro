@@ -64,7 +64,7 @@
     <div class="w-full max-w-md mx-auto mb-8">
         <input type="text"
             id="asmaul-husna-search-input"
-            placeholder="Cari nama atau arti (e.g. Ar-Rahman, Pengasih)"
+            placeholder="Cari nama atau arti (Ar-Rahman, Pengasih)"
             class="w-full p-3 rounded-lg shadow-sm border focus:outline-none focus:ring-2"
             style="border-color: #10B981;">
     </div>
