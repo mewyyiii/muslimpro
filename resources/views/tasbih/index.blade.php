@@ -375,17 +375,17 @@
              x-transition:leave-end="opacity-0 scale-95"
              class="bg-white rounded-2xl shadow-2xl p-6 w-[90vw] md:w-[380px] text-center">
 
-            <template x-if="currentSession < 3">
+            <template x-if="completedSession < 3">
                 <div>
                     <div class="text-4xl mb-3">✨</div>
                     <h4 class="text-xl font-bold text-gray-800 mb-1">
-                        Sesi <span x-text="currentSession"></span> Selesai!
+                        Sesi <span x-text="completedSession"></span> Selesai!
                     </h4>
                     <p class="text-sm text-gray-500 mb-2">
-                        <span x-text="currentSession * 33"></span> dari 99 dzikir selesai
+                        <span x-text="completedSession * 33"></span> dari 99 dzikir selesai
                     </p>
                     <p class="text-sm text-teal-600 font-medium mb-6">
-                        Lanjutkan sesi <span x-text="currentSession + 1"></span> dari 3
+                        Lanjutkan sesi <span x-text="completedSession + 1"></span> dari 3
                     </p>
                     <button @click="showSessionModal = false"
                             class="w-full px-4 py-3 bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-semibold rounded-xl shadow hover:shadow-md transition-all">
@@ -394,7 +394,7 @@
                 </div>
             </template>
 
-            <template x-if="currentSession >= 3">
+            <template x-if="completedSession >= 3">
                 <div>
                     <div class="text-4xl mb-3">🎉</div>
                     <h4 class="text-xl font-bold text-gray-800 mb-1">Alhamdulillah!</h4>
@@ -515,15 +515,6 @@
     <div class="bottom-sheet">
         <div class="sheet-handle"></div>
 
-        {{-- Dzikir info --}}
-        <div class="dzikir-row">
-            <div>
-                <div class="dzikir-label">Dzikir aktif</div>
-                <div class="dzikir-arabic">سُبْحَانَ اللَّهِ</div>
-                <div class="dzikir-latin">Subhanallah · 33×</div>
-            </div>
-        </div>
-
         {{-- Completion banner --}}
         <div class="completion-banner"
              x-show="count >= 99"
@@ -575,6 +566,7 @@ function tasbihCounter() {
     return {
         count: 0,           // total keseluruhan (0-99)
         currentSession: 1,  // sesi aktif (1, 2, 3)
+        completedSession: 0, // sesi yang baru saja selesai (untuk modal)
         soundEnabled: true,
         counting: false,
         totalToday: 0,
@@ -631,6 +623,7 @@ function tasbihCounter() {
 
             // Cek apakah sesi selesai (setiap 33x)
             if (this.count % 33 === 0) {
+                this.completedSession = this.currentSession; // simpan dulu sebelum naik
                 // Naikan sesi kalau belum sesi 3
                 if (this.currentSession < 3) {
                     this.currentSession++;
@@ -651,6 +644,7 @@ function tasbihCounter() {
         confirmReset() {
             this.count = 0;
             this.currentSession = 1;
+            this.completedSession = 0;
             this.showResetModal = false;
         },
 
