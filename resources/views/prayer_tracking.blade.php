@@ -130,12 +130,12 @@
             </h2>
 
             {{-- Debug Info --}}
-            <div class="mb-4 p-3 bg-gray-50 rounded-lg text-xs space-y-1">
+            {{-- <div class="mb-4 p-3 bg-gray-50 rounded-lg text-xs space-y-1">
                 <div><strong>DEBUG:</strong></div>
                 <div>Waktu Sekarang: {{ $currentServerTime }}</div>
                 <div>Shalat Berikutnya: {{ ucfirst($nextPrayer['name']) }} ({{ $nextPrayer['time'] }})</div>
                 <div>Tanggal Dipilih: {{ $selectedDate }} | Hari Ini: {{ now()->toDateString() }}</div>
-            </div>
+            </div> --}}
 
             {{-- Shalat Cards --}}
             <div class="space-y-3">
@@ -188,9 +188,9 @@
                                     <span class="text-gray-400">Belum dicatat</span>
                                 @endif
                                 {{-- Debug per shalat --}}
-                                <span class="ml-2 text-gray-400">
+                                {{-- <span class="ml-2 text-gray-400">
                                     (Waktu: {{ $currentTime }} | Shalat: {{ $prayerTime }} | canCheck: {{ $canCheck ? 'YES' : 'NO' }} | reached: {{ $isTimeReached ? 'YES' : 'NO' }})
-                                </span>
+                                </span> --}}
                             </div>
                         </div>
 
