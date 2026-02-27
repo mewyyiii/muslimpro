@@ -152,24 +152,6 @@
                 </div>
             @endif
         </div>
-
-        {{-- ══════════════════════════════════════════════════════════════
-             TIPS
-        ══════════════════════════════════════════════════════════════ --}}
-        <div class="bg-emerald-50 border-2 border-emerald-100 rounded-2xl p-5">
-            <div class="flex items-start gap-3">
-                <div class="text-2xl">💡</div>
-                <div>
-                    <h4 class="font-bold text-emerald-800 mb-1">Tips Tracking:</h4>
-                    <ul class="text-sm text-emerald-700 space-y-1">
-                        <li>• Progress otomatis tersimpan saat kamu membaca surah</li>
-                        <li>• Durasi membaca dihitung otomatis dengan timer</li>
-                        <li>• Baca setiap hari untuk menjaga streak!</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
 @endsection

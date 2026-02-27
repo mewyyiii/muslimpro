@@ -268,61 +268,6 @@
                 </button>
             </div>
 
-            <!-- Information Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <!-- How to Use -->
-                <div class="bg-white rounded-2xl shadow-lg p-6">
-                    <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
-                        <span class="text-2xl">📖</span>
-                        Cara Menggunakan
-                    </h3>
-                    <ol class="text-sm text-gray-700 space-y-2">
-                        <li class="flex items-start gap-2">
-                            <span class="font-bold text-teal-600 min-w-[20px]">1.</span>
-                            <span>Klik tombol "Aktifkan Lokasi"</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="font-bold text-teal-600 min-w-[20px]">2.</span>
-                            <span>Izinkan browser mengakses lokasi Anda</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="font-bold text-teal-600 min-w-[20px]">3.</span>
-                            <span>Panah hijau akan menunjukkan arah Ka'bah</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="font-bold text-teal-600 min-w-[20px]">4.</span>
-                            <span>Di smartphone, kompas akan mengikuti orientasi device</span>
-                        </li>
-                    </ol>
-                </div>
-
-                <!-- Tips -->
-                <div class="bg-white rounded-2xl shadow-lg p-6">
-                    <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
-                        <span class="text-2xl">💡</span>
-                        Tips
-                    </h3>
-                    <ul class="text-sm text-gray-700 space-y-2">
-                        <li class="flex items-start gap-2">
-                            <span class="text-teal-600">•</span>
-                            <span>Gunakan di tempat terbuka untuk GPS akurat</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-teal-600">•</span>
-                            <span>Kalibrasi kompas dengan gerakan angka 8</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-teal-600">•</span>
-                            <span>Jauhkan dari benda logam/magnet</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-teal-600">•</span>
-                            <span>Fitur kompas hanya tersedia di smartphone</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
             <!-- Ka'bah Info -->
             <div class="bg-white/90 backdrop-blur rounded-2xl shadow-lg p-6 text-center">
                 <div class="text-4xl mb-3">🕋</div>

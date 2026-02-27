@@ -150,13 +150,13 @@
                             <div class="text-4xl font-bold">{{ $prayerPerformed }}</div>
                         </div>
                     </div>
-                    <div class="text-sm opacity-90">Days Prayed</div>
+                    <div class="text-sm opacity-90">Hari Berdoa</div>
                 </div>
 
                 {{-- Progress Bar --}}
                 <div>
                     <div class="flex items-center justify-between text-sm text-gray-700 mb-2">
-                        <span class="font-semibold">Monthly Goal</span>
+                        <span class="font-semibold">Target Bulanan</span>
                         <span class="text-lg font-bold text-teal-600">{{ $prayerPercent }}%</span>
                     </div>
                     <div class="h-3 bg-gray-100 rounded-full overflow-hidden shadow-inner">
@@ -179,8 +179,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">Profile Information</h3>
-                        <p class="text-sm text-gray-500">Update your account details</p>
+                        <h3 class="text-xl font-bold text-gray-800">Informasi Profil</h3>
+                        <p class="text-sm text-gray-500">Perbarui detail akun Anda</p>
                     </div>
                 </div>
 
@@ -191,7 +191,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label for="name" class="block text-sm font-bold text-gray-700 mb-2">
-                                Full Name
+                                Nama Lengkap
                             </label>
                             <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}"
                                    required autofocus autocomplete="name"
@@ -205,7 +205,7 @@
 
                         <div>
                             <label for="email" class="block text-sm font-bold text-gray-700 mb-2">
-                                Email Address
+                                Alamat Email
                             </label>
                             <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}"
                                    required autocomplete="username"
@@ -239,9 +239,8 @@
                     <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                         <button type="submit"
                                 class="px-8 py-3 bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
-                            Save Changes
+                            Simpan
                         </button>
-
                         @if (session('status') === 'profile-updated')
                             <p x-data="{ show: true }"
                                x-show="show"
@@ -264,8 +263,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">Change Password</h3>
-                        <p class="text-sm text-gray-500">Update your security credentials</p>
+                        <h3 class="text-xl font-bold text-gray-800">Perbarui Kata Sandi</h3>
+                        <p class="text-sm text-gray-500">Perbarui keamanan akun anda</p>
                     </div>
                 </div>
 
@@ -276,7 +275,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                         <div>
                             <label for="current_password" class="block text-sm font-bold text-gray-700 mb-2">
-                                Current Password
+                                Kata Sandi Saat Ini
                             </label>
                             <input type="password" id="current_password" name="current_password" autocomplete="current-password"
                                    class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
@@ -289,7 +288,7 @@
 
                         <div>
                             <label for="password" class="block text-sm font-bold text-gray-700 mb-2">
-                                New Password
+                                Kata Sandi Baru
                             </label>
                             <input type="password" id="password" name="password" autocomplete="new-password"
                                    class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
@@ -302,7 +301,7 @@
 
                         <div>
                             <label for="password_confirmation" class="block text-sm font-bold text-gray-700 mb-2">
-                                Confirm Password
+                                Konfirmaasi Kata Sandi
                             </label>
                             <input type="password" id="password_confirmation" name="password_confirmation" autocomplete="new-password"
                                    class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
@@ -313,7 +312,7 @@
                     <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                         <button type="submit"
                                 class="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
-                            Update Password
+                            Perbarui Sandi
                         </button>
 
                         @if (session('status') === 'password-updated')
@@ -322,7 +321,7 @@
                                x-transition
                                x-init="setTimeout(() => show = false, 3000)"
                                class="px-4 py-2 bg-purple-100 text-purple-700 rounded-xl text-sm font-bold">
-                                ✓ Password berhasil diperbarui!
+                                ✓ Sandi berhasil diperbarui!
                             </p>
                         @endif
                     </div>
@@ -339,18 +338,17 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">Delete Account</h3>
-                        <p class="text-sm text-gray-500">Permanently remove your account</p>
+                        <h3 class="text-xl font-bold text-gray-800">Hapus Akun</h3>
+                        <p class="text-sm text-gray-500">Hapus akun permanen</p>
                     </div>
                 </div>
                 
                 <p class="text-gray-700 mb-6 leading-relaxed">
-                    Once your account is deleted, all of your data including prayer history will be permanently removed. This action cannot be undone.
+                    Setelah akun Anda dihapus, semua data Anda termasuk riwayat doa akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.                
                 </p>
-                
                 <button @click="showDeleteModal = true"
                         class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
-                    Hapus AKun
+                    Hapus Akun
                 </button>
 
                 {{-- Modal Delete Account --}}
