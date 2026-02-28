@@ -11,7 +11,7 @@
                 Assalamu'alaikum
             </h1>
             <p class="text-lg md:text-xl lg:text-2xl text-white/90 font-medium">
-                Selamat datang di Al-Huda - Pendamping Ibadah Anda
+                Selamat datang di NurSteps - Pendamping Ibadah Anda
             </p>
         </div>
 
