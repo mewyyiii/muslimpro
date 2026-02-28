@@ -24,9 +24,11 @@
                 class="w-full mt-2 border-gray-200 rounded-lg focus:ring-teal-500 focus:border-teal-500">
                 
                 @foreach($availableCities as $city)
-                    <option value="{{ $city }}"
-                        {{ $userCity === $city ? 'selected' : '' }}>
-                        {{ $city }}
+                    <option value="{{ $city['name'] }}"
+                        data-lat="{{ $city['lat'] }}"
+                        data-lng="{{ $city['lng'] }}"
+                        {{ $userCity === $city['name'] ? 'selected' : '' }}>
+                        {{ $city['name'] }}
                     </option>
                 @endforeach
 
@@ -327,7 +329,11 @@ function prayerTracker() {
     }
 }
 async function saveLocation() {
-    const city = document.getElementById('citySelect').value;
+    const select = document.getElementById('citySelect');
+    const selectedOption = select.options[select.selectedIndex];
+    const city = selectedOption.value;
+    const lat = selectedOption.dataset.lat;
+    const lng = selectedOption.dataset.lng;
 
     try {
         const res = await fetch('{{ route("prayer-tracking.set-location") }}', {
@@ -338,7 +344,9 @@ async function saveLocation() {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                city: city
+                city: city,
+                latitude: lat,
+                longitude: lng
             })
         });
 
