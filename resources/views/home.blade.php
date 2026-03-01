@@ -13,8 +13,41 @@
                 <h1 class="text-xl md:text-2xl font-bold text-white leading-tight">Assalamu'alaikum 👋</h1>
                 <p class="text-teal-200 text-xs mt-0.5">NurSteps — Pendamping Ibadah Anda</p>
             </div>
-            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                <span class="text-xl">🕌</span>
+            <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="40" height="40">
+                  <defs>
+                    <radialGradient id="bgGrad" cx="50%" cy="40%" r="60%">
+                      <stop offset="0%" stop-color="#2d8a5a"/>
+                      <stop offset="100%" stop-color="#0d3a27"/>
+                    </radialGradient>
+                    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur1"/>
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2"/>
+                      <feMerge>
+                        <feMergeNode in="blur1"/>
+                        <feMergeNode in="blur2"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <rect width="1024" height="1024" rx="180" ry="180" fill="url(#bgGrad)"/>
+                  <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+                    <stop offset="0%" stop-color="transparent"/>
+                    <stop offset="100%" stop-color="#060f0a" stop-opacity="0.6"/>
+                  </radialGradient>
+                  <rect width="1024" height="1024" rx="180" ry="180" fill="url(#vignette)"/>
+                  <g filter="url(#glow)" transform="translate(512, 520)">
+                    <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"
+                      font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', serif"
+                      font-size="400" font-weight="bold" fill="white" direction="rtl">نور</text>
+                  </g>
+                  <g transform="translate(680, 195) rotate(45)">
+                    <rect x="-22" y="-22" width="44" height="44" fill="white" filter="url(#glow)"/>
+                  </g>
+                  <g transform="translate(960, 960)" fill="white" opacity="0.7">
+                    <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3"/>
+                  </g>
+                </svg>
             </div>
         </div>
     </div>
