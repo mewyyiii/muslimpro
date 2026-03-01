@@ -11,37 +11,50 @@
             </h1>
             <p class="text-white/80 text-base md:text-lg">Catat & pantau ibadah shalat harianmu</p>
         </div>
+
         {{-- PILIH LOKASI --}}
-<div class="bg-white rounded-2xl shadow-xl p-5 md:p-6 mb-6">
-    <div class="flex flex-col md:flex-row gap-4 md:items-end">
+        <div class="bg-white rounded-2xl shadow-xl p-5 md:p-6 mb-6">
+            <div class="flex flex-col md:flex-row gap-4 md:items-end">
 
-        <div class="flex-1">
-            <label class="text-sm font-semibold text-gray-600">
-                📍 Lokasi Waktu Shalat
-            </label>
+                <div class="flex-1">
+                    <label class="text-sm font-semibold text-gray-600">
+                        📍 Lokasi Waktu Shalat
+                    </label>
 
-            <select id="citySelect"
-                class="w-full mt-2 border-gray-200 rounded-lg focus:ring-teal-500 focus:border-teal-500">
-                
-                @foreach($availableCities as $city)
-                    <option value="{{ $city['name'] }}"
-                        data-lat="{{ $city['lat'] }}"
-                        data-lng="{{ $city['lng'] }}"
-                        {{ $userCity === $city['name'] ? 'selected' : '' }}>
-                        {{ $city['name'] }}
-                    </option>
-                @endforeach
+                    <div class="relative mt-2" id="cityAutocomplete">
+                        <input
+                            type="text"
+                            id="cityInput"
+                            placeholder="Ketik nama kota/kabupaten..."
+                            autocomplete="off"
+                            value="{{ $userCity }}"
+                            class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                            oninput="onCityInput(this.value)"
+                            onfocus="onCityInput(this.value)"
+                        />
+                        {{-- Hidden fields untuk menyimpan data terpilih --}}
+                        <input type="hidden" id="cityLat" value="">
+                        <input type="hidden" id="cityLng" value="">
+                        <input type="hidden" id="cityName" value="{{ $userCity }}">
 
-            </select>
+                        {{-- Dropdown suggestions --}}
+                        <ul id="citySuggestions"
+                            class="absolute z-50 w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1 max-h-56 overflow-y-auto hidden">
+                        </ul>
+                    </div>
+                </div>
+
+                <button onclick="saveLocation()"
+                    class="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition">
+                    Simpan
+                </button>
+
+            </div>
+
+            <p class="text-xs text-gray-400 mt-2">
+                💡 Ketik minimal 2 huruf untuk mencari kabupaten/kota di seluruh Indonesia
+            </p>
         </div>
-
-        <button onclick="saveLocation()"
-            class="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition">
-            Simpan
-        </button>
-
-    </div>
-</div>
 
         {{-- STATISTIK RINGKASAN --}}
         <div class="grid grid-cols-3 gap-3 md:gap-4 mb-6">
@@ -80,15 +93,13 @@
             </div>
         </div>
 
-        {{-- ========================================
-            🌙 FITUR BARU: WAKTU IMSAK & BUKA PUASA
-        ========================================= --}}
+        {{-- WAKTU IMSAK & BUKA PUASA --}}
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6">
             <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-5 flex items-center gap-2">
                 <span class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">🌙</span>
                 Waktu Puasa
             </h2>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {{-- Card Imsak/Sahur --}}
                 <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-5 border-2 border-purple-200">
@@ -119,7 +130,6 @@
                 </div>
             </div>
         </div>
-        {{-- ======================================== --}}
 
         {{-- CHECKLIST SHALAT HARIAN --}}
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6"
@@ -131,45 +141,26 @@
                 Catat Shalat - {{ $userCity }}
             </h2>
 
-            {{-- Debug Info --}}
-            {{-- <div class="mb-4 p-3 bg-gray-50 rounded-lg text-xs space-y-1">
-                <div><strong>DEBUG:</strong></div>
-                <div>Waktu Sekarang: {{ $currentServerTime }}</div>
-                <div>Shalat Berikutnya: {{ ucfirst($nextPrayer['name']) }} ({{ $nextPrayer['time'] }})</div>
-                <div>Tanggal Dipilih: {{ $selectedDate }} | Hari Ini: {{ now()->toDateString() }}</div>
-            </div> --}}
-
             {{-- Shalat Cards --}}
             <div class="space-y-3">
                 @foreach($prayers as $prayerIndex => $prayer)
                 @php
                     $rec = $todayPrayers->get($prayer);
                     $status = $rec ? $rec->status : null;
-                    
-                    // PERBAIKAN: Gunakan timezone yang sama dengan controller
-                    $currentTime = \Carbon\Carbon::now($locationTimezone ?? config('app.timezone'))->format('H:i');
-                    $prayerTime = $prayerTimes[$prayer]; // Sudah dalam format H:i
-                    
-                    // Parse kedua waktu untuk perbandingan yang akurat
+
+                    $currentTime    = \Carbon\Carbon::now($locationTimezone ?? config('app.timezone'))->format('H:i');
+                    $prayerTime     = $prayerTimes[$prayer];
                     $currentTimeObj = \Carbon\Carbon::createFromFormat('H:i', $currentTime);
-                    $prayerTimeObj = \Carbon\Carbon::createFromFormat('H:i', $prayerTime);
-                    
-                    $isTimeReached = $currentTimeObj->greaterThanOrEqualTo($prayerTimeObj);
-                    
-                    // Jika bukan hari ini, semua shalat bisa dicatat
-                    $isToday = $selectedDate === now()->toDateString();
-                    
-                    // Logika: bisa check jika:
-                    // 1. Bukan hari ini (hari lalu bisa dicatat semua)
-                    // 2. Atau waktu shalat sudah tiba
-                    $canCheck = !$isToday || $isTimeReached;
+                    $prayerTimeObj  = \Carbon\Carbon::createFromFormat('H:i', $prayerTime);
+                    $isTimeReached  = $currentTimeObj->greaterThanOrEqualTo($prayerTimeObj);
+                    $isToday        = $selectedDate === now()->toDateString();
+                    $canCheck       = !$isToday || $isTimeReached;
                 @endphp
                 <div class="prayer-row border rounded-xl p-4 transition-all duration-300
                     {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' : 'border-gray-200 bg-gray-50' }}
                     {{ !$canCheck && $status !== 'performed' ? 'opacity-60' : '' }}">
 
                     <div class="flex items-center gap-3">
-                        {{-- Icon & Nama --}}
                         <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0
                                     {{ $status === 'performed' ? 'bg-teal-100' : 'bg-gray-100' }}">
                             {{ ['fajr'=>'🌅','dhuhr'=>'☀️','asr'=>'🌤️','maghrib'=>'🌇','isha'=>'🌙'][$prayer] }}
@@ -180,26 +171,24 @@
                                 <div class="text-xs font-semibold text-teal-600 px-2 py-0.5 bg-teal-50 rounded-full">
                                     {{ $prayerTimes[$prayer] }}
                                 </div>
-                            </div>
-                            <div class="text-xs text-gray-500">
-                                @if($status === 'performed')
-                                    <span class="text-teal-600 font-medium">✓ Terlaksana</span>
-                                @elseif(!$canCheck)
-                                    <span class="text-amber-500 font-medium">⏰ Belum waktunya</span>
-                                @else
-                                    <span class="text-gray-400">Belum dicatat</span>
+                                @if(isset($nextPrayer) && $nextPrayer['name'] === $prayer && $isToday)
+                                    <span class="text-xs bg-amber-100 text-amber-600 px-2 py-0.5 rounded-full font-medium">
+                                        Berikutnya
+                                    </span>
                                 @endif
-                                {{-- Debug per shalat --}}
-                                {{-- <span class="ml-2 text-gray-400">
-                                    (Waktu: {{ $currentTime }} | Shalat: {{ $prayerTime }} | canCheck: {{ $canCheck ? 'YES' : 'NO' }} | reached: {{ $isTimeReached ? 'YES' : 'NO' }})
-                                </span> --}}
                             </div>
+                            @if($status)
+                                <div class="text-xs mt-0.5
+                                    {{ $status === 'performed' ? 'text-teal-500' :
+                                       ($status === 'qada' ? 'text-amber-500' : 'text-red-400') }}">
+                                    {{ $status === 'performed' ? '✓ Tepat waktu' :
+                                       ($status === 'qada' ? '⏰ Qada' : '✗ Terlewat') }}
+                                </div>
+                            @endif
                         </div>
 
-                        {{-- Tombol Status --}}
                         <div class="flex items-center gap-1.5 flex-shrink-0">
                             @if($status === 'performed')
-                                {{-- Jika sudah di-check, selalu bisa uncheck --}}
                                 <button
                                     @click="updatePrayer('{{ $prayer }}', 'remove')"
                                     class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
@@ -207,7 +196,6 @@
                                     ✓
                                 </button>
                             @elseif($canCheck)
-                                {{-- Jika belum di-check dan sudah waktunya --}}
                                 <button
                                     @click="updatePrayer('{{ $prayer }}', 'performed')"
                                     class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
@@ -215,7 +203,6 @@
                                     ✓
                                 </button>
                             @else
-                                {{-- Jika belum waktunya --}}
                                 <button
                                     disabled
                                     class="w-9 h-9 rounded-lg flex items-center justify-center text-sm
@@ -268,6 +255,7 @@
 
 @push('scripts')
 <script>
+// ── Prayer Tracker (Alpine.js) ─────────────────────────────────────────────
 function prayerTracker() {
     return {
         selectedDate: '{{ $selectedDate }}',
@@ -277,17 +265,9 @@ function prayerTracker() {
 
         init() {
             console.log('Prayer Tracker initialized');
-            console.log('Selected date:', this.selectedDate);
-            console.log('Today:', this.today);
         },
 
         async updatePrayer(prayer, status) {
-            console.log('Button clicked!', prayer, status);
-            
-            // Jika status 'remove', artinya uncheck (menghapus catatan)
-            const action = status === 'remove' ? 'uncheck' : 'check';
-            console.log('Action:', action);
-            
             try {
                 const res = await fetch('{{ route("prayer-tracking.store") }}', {
                     method: 'POST',
@@ -303,20 +283,15 @@ function prayerTracker() {
                     })
                 });
 
-                console.log('Response status:', res.status);
                 const data = await res.json();
-                console.log('Response data:', data);
 
                 if (data.success) {
                     this.showFlash('✅ ' + data.message);
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 500);
+                    setTimeout(() => window.location.reload(), 500);
                 } else {
                     this.showFlash('🚫 ' + data.message);
                 }
             } catch (error) {
-                console.error('Error:', error);
                 this.showFlash('❌ Gagal menyimpan');
             }
         },
@@ -328,12 +303,80 @@ function prayerTracker() {
         }
     }
 }
+
+// ── Autocomplete Lokasi ────────────────────────────────────────────────────
+let autocompleteTimeout = null;
+
+async function onCityInput(query) {
+    clearTimeout(autocompleteTimeout);
+    const list = document.getElementById('citySuggestions');
+
+    if (query.length < 2) {
+        list.classList.add('hidden');
+        return;
+    }
+
+    autocompleteTimeout = setTimeout(async () => {
+        try {
+            const res = await fetch(
+                '{{ route("prayer-tracking.search-cities") }}?q=' + encodeURIComponent(query),
+                { headers: { 'Accept': 'application/json' } }
+            );
+            const cities = await res.json();
+
+            list.innerHTML = '';
+
+            if (cities.length === 0) {
+                list.innerHTML = '<li class="px-4 py-3 text-gray-400 text-sm">Tidak ditemukan</li>';
+            } else {
+                cities.forEach(city => {
+                    const li = document.createElement('li');
+                    li.className = 'px-4 py-2.5 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 cursor-pointer border-b border-gray-50 last:border-0';
+                    li.textContent = city.name;
+                    li.addEventListener('click', () => selectCity(city));
+                    list.appendChild(li);
+                });
+            }
+
+            list.classList.remove('hidden');
+        } catch (err) {
+            console.error('Autocomplete error:', err);
+        }
+    }, 250);
+}
+
+function selectCity(city) {
+    document.getElementById('cityInput').value = city.name;
+    document.getElementById('cityName').value  = city.name;
+    document.getElementById('cityLat').value   = city.lat;
+    document.getElementById('cityLng').value   = city.lng;
+    document.getElementById('citySuggestions').classList.add('hidden');
+}
+
+// Tutup dropdown kalau klik di luar
+document.addEventListener('click', function (e) {
+    const wrapper = document.getElementById('cityAutocomplete');
+    if (wrapper && !wrapper.contains(e.target)) {
+        document.getElementById('citySuggestions').classList.add('hidden');
+    }
+});
+
+// ── Simpan Lokasi ──────────────────────────────────────────────────────────
 async function saveLocation() {
-    const select = document.getElementById('citySelect');
-    const selectedOption = select.options[select.selectedIndex];
-    const city = selectedOption.value;
-    const lat = selectedOption.dataset.lat;
-    const lng = selectedOption.dataset.lng;
+    const city = document.getElementById('cityName').value;
+    const lat  = document.getElementById('cityLat').value;
+    const lng  = document.getElementById('cityLng').value;
+
+    if (!city) {
+        alert('Pilih kota/kabupaten terlebih dahulu dari daftar saran');
+        return;
+    }
+
+    // Kalau lat/lng tersedia → kirim koordinat (lebih akurat untuk level kabupaten)
+    // Kalau tidak (lokasi lama dari session) → fallback ke nama kota
+    const payload = (lat && lng)
+        ? { city, latitude: parseFloat(lat), longitude: parseFloat(lng) }
+        : { city };
 
     try {
         const res = await fetch('{{ route("prayer-tracking.set-location") }}', {
@@ -343,11 +386,7 @@ async function saveLocation() {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                 'Accept': 'application/json'
             },
-            body: JSON.stringify({
-                city: city,
-                latitude: lat,
-                longitude: lng
-            })
+            body: JSON.stringify(payload)
         });
 
         const data = await res.json();
@@ -357,27 +396,25 @@ async function saveLocation() {
         } else {
             alert('Gagal menyimpan lokasi');
         }
-
     } catch (err) {
         console.error(err);
         alert('Terjadi kesalahan');
     }
 }
-
 </script>
 @endpush
 
 @push('styles')
 <style>
-    .prayer-row { 
-        transition: all 0.2s ease; 
+    .prayer-row {
+        transition: all 0.2s ease;
     }
-    
+
     button:disabled {
         cursor: not-allowed;
         opacity: 0.6;
     }
-    
+
     button:disabled:hover {
         transform: none !important;
     }

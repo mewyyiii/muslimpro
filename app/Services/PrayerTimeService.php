@@ -155,7 +155,7 @@ class PrayerTimeService
         $regions = self::getAllRegions();
 
         if ($query === '') {
-            return array_slice($regions, 0, 20);
+            return [];
         }
 
         $results = array_values(array_filter($regions, function ($region) use ($query) {
