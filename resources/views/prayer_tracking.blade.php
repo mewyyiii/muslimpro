@@ -306,10 +306,17 @@ function prayerTracker() {
 
 // ── Autocomplete Lokasi ────────────────────────────────────────────────────
 let autocompleteTimeout = null;
+let citySelected = false; // ← flag: true hanya jika user klik dari dropdown
 
 async function onCityInput(query) {
     clearTimeout(autocompleteTimeout);
-    const list = document.getElementById('citySuggestions');
+    const list  = document.getElementById('citySuggestions');
+    const input = document.getElementById('cityInput');
+
+    // Reset flag & hapus visual error saat user mulai mengetik ulang
+    citySelected = false;
+    input.classList.remove('border-red-400', 'ring-red-300');
+    input.classList.add('border-gray-200');
 
     if (query.length < 2) {
         list.classList.add('hidden');
@@ -351,6 +358,12 @@ function selectCity(city) {
     document.getElementById('cityLat').value   = city.lat;
     document.getElementById('cityLng').value   = city.lng;
     document.getElementById('citySuggestions').classList.add('hidden');
+
+    // Tandai bahwa user sudah memilih dari dropdown + tampilkan border hijau
+    citySelected = true;
+    const input = document.getElementById('cityInput');
+    input.classList.remove('border-gray-200', 'border-red-400', 'ring-red-300');
+    input.classList.add('border-teal-400');
 }
 
 // Tutup dropdown kalau klik di luar
@@ -363,20 +376,24 @@ document.addEventListener('click', function (e) {
 
 // ── Simpan Lokasi ──────────────────────────────────────────────────────────
 async function saveLocation() {
-    const city = document.getElementById('cityName').value;
-    const lat  = document.getElementById('cityLat').value;
-    const lng  = document.getElementById('cityLng').value;
+    const input = document.getElementById('cityInput');
+    const city  = document.getElementById('cityName').value;
+    const lat   = document.getElementById('cityLat').value;
+    const lng   = document.getElementById('cityLng').value;
 
-    if (!city) {
-        alert('Pilih kota/kabupaten terlebih dahulu dari daftar saran');
+    // Validasi: harus pilih dari dropdown
+    if (!citySelected || !lat || !lng) {
+        input.classList.remove('border-gray-200', 'border-teal-400');
+        input.classList.add('border-red-400');
+        input.focus();
+        input.placeholder = '⚠️ Pilih dari daftar saran di bawah!';
+        setTimeout(() => {
+            input.placeholder = 'Ketik nama kota/kabupaten...';
+            input.classList.remove('border-red-400');
+            input.classList.add('border-gray-200');
+        }, 2500);
         return;
     }
-
-    // Kalau lat/lng tersedia → kirim koordinat (lebih akurat untuk level kabupaten)
-    // Kalau tidak (lokasi lama dari session) → fallback ke nama kota
-    const payload = (lat && lng)
-        ? { city, latitude: parseFloat(lat), longitude: parseFloat(lng) }
-        : { city };
 
     try {
         const res = await fetch('{{ route("prayer-tracking.set-location") }}', {
@@ -386,7 +403,11 @@ async function saveLocation() {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({
+                city,
+                latitude: parseFloat(lat),
+                longitude: parseFloat(lng)
+            })
         });
 
         const data = await res.json();
