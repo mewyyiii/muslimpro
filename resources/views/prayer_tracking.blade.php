@@ -306,16 +306,18 @@ function prayerTracker() {
 
 // ── Autocomplete Lokasi ────────────────────────────────────────────────────
 let autocompleteTimeout = null;
-let citySelected = false; // ← flag: true hanya jika user klik dari dropdown
 
 async function onCityInput(query) {
     clearTimeout(autocompleteTimeout);
     const list  = document.getElementById('citySuggestions');
     const input = document.getElementById('cityInput');
 
-    // Reset flag & hapus visual error saat user mulai mengetik ulang
-    citySelected = false;
-    input.classList.remove('border-red-400', 'ring-red-300');
+    // Reset pilihan saat user ketik ulang — hapus data di hidden fields
+    document.getElementById('cityLat').value  = '';
+    document.getElementById('cityLng').value  = '';
+    document.getElementById('cityName').value = '';
+    input.removeAttribute('data-selected');
+    input.classList.remove('border-teal-400', 'border-red-400');
     input.classList.add('border-gray-200');
 
     if (query.length < 2) {
@@ -340,7 +342,11 @@ async function onCityInput(query) {
                     const li = document.createElement('li');
                     li.className = 'px-4 py-2.5 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 cursor-pointer border-b border-gray-50 last:border-0';
                     li.textContent = city.name;
-                    li.addEventListener('click', () => selectCity(city));
+                    li.addEventListener('mousedown', (e) => {
+                        // mousedown bukan click agar tidak tertutup oleh blur event
+                        e.preventDefault();
+                        selectCity(city);
+                    });
                     list.appendChild(li);
                 });
             }
@@ -353,20 +359,24 @@ async function onCityInput(query) {
 }
 
 function selectCity(city) {
-    document.getElementById('cityInput').value = city.name;
-    document.getElementById('cityName').value  = city.name;
-    document.getElementById('cityLat').value   = city.lat;
-    document.getElementById('cityLng').value   = city.lng;
+    const input = document.getElementById('cityInput');
+
+    // Simpan semua data ke hidden fields + data-attribute sebagai penanda
+    input.value = city.name;
+    input.setAttribute('data-selected', '1');
+    document.getElementById('cityName').value = city.name;
+    document.getElementById('cityLat').value  = String(city.lat);
+    document.getElementById('cityLng').value  = String(city.lng);
     document.getElementById('citySuggestions').classList.add('hidden');
 
-    // Tandai bahwa user sudah memilih dari dropdown + tampilkan border hijau
-    citySelected = true;
-    const input = document.getElementById('cityInput');
-    input.classList.remove('border-gray-200', 'border-red-400', 'ring-red-300');
+    // Visual konfirmasi — border hijau
+    input.classList.remove('border-gray-200', 'border-red-400');
     input.classList.add('border-teal-400');
+
+    console.log('City selected:', city.name, city.lat, city.lng);
 }
 
-// Tutup dropdown kalau klik di luar
+// Tutup dropdown saat blur (klik di luar)
 document.addEventListener('click', function (e) {
     const wrapper = document.getElementById('cityAutocomplete');
     if (wrapper && !wrapper.contains(e.target)) {
@@ -377,18 +387,21 @@ document.addEventListener('click', function (e) {
 // ── Simpan Lokasi ──────────────────────────────────────────────────────────
 async function saveLocation() {
     const input = document.getElementById('cityInput');
-    const city  = document.getElementById('cityName').value;
     const lat   = document.getElementById('cityLat').value;
     const lng   = document.getElementById('cityLng').value;
+    const city  = document.getElementById('cityName').value;
 
-    // Validasi: harus pilih dari dropdown
-    if (!citySelected || !lat || !lng) {
+    console.log('saveLocation called — city:', city, 'lat:', lat, 'lng:', lng, 'data-selected:', input.getAttribute('data-selected'));
+
+    // Validasi: lat & lng harus terisi (hanya ada jika user klik dari dropdown)
+    if (!lat || !lng || !city || !input.getAttribute('data-selected')) {
         input.classList.remove('border-gray-200', 'border-teal-400');
         input.classList.add('border-red-400');
         input.focus();
-        input.placeholder = '⚠️ Pilih dari daftar saran di bawah!';
+        const originalPlaceholder = input.placeholder;
+        input.placeholder = '⚠️ Pilih dari daftar saran terlebih dahulu!';
         setTimeout(() => {
-            input.placeholder = 'Ketik nama kota/kabupaten...';
+            input.placeholder = originalPlaceholder;
             input.classList.remove('border-red-400');
             input.classList.add('border-gray-200');
         }, 2500);
@@ -404,13 +417,14 @@ async function saveLocation() {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                city,
-                latitude: parseFloat(lat),
+                city     : city,
+                latitude : parseFloat(lat),
                 longitude: parseFloat(lng)
             })
         });
 
         const data = await res.json();
+        console.log('setLocation response:', data);
 
         if (data.success) {
             window.location.reload();
