@@ -30,7 +30,6 @@
                             value="{{ $userCity }}"
                             class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                             oninput="onCityInput(this.value)"
-                            onfocus="onCityInput(this.value)"
                         />
                         {{-- Hidden fields untuk menyimpan data terpilih --}}
                         <input type="hidden" id="cityLat" value="">
@@ -44,7 +43,7 @@
                     </div>
                 </div>
 
-                <button onclick="saveLocation()"
+                <button type="button" onclick="saveLocation()"
                     class="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition">
                     Simpan
                 </button>
