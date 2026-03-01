@@ -16,35 +16,33 @@
         </div>
 
         <!-- Feature Dock -->
-        <div class="flex justify-center px-4 mb-10 pt-5">
-            <div class="inline-flex items-center gap-1 bg-white/10
-                    backdrop-blur-xl border border-white/20
-                    rounded-[32px] px-5 pt-5 pb-3.5
-                    shadow-2xl overflow-visible">
+        <div class="flex justify-center px-4 mb-8 pt-5">
+            <div class="inline-flex items-center gap-1 bg-white
+                    rounded-2xl px-5 pt-5 pb-3.5
+                    shadow-xl overflow-visible">
 
                 <!-- Al-Quran -->
                 <a href="{{ route('quran.index') }}"
                     data-tooltip="Al-Quran"
                     class="group relative flex flex-col items-center gap-1.5
-                            px-4 py-2.5 rounded-[22px] hover:bg-white/20
+                            px-4 py-2.5 rounded-[22px] hover:bg-teal-50
                             transition-all duration-200
                             hover:-translate-y-[7px] hover:scale-[1.06]">
                     <span class="text-[28px] leading-none
                                 group-hover:scale-110 transition-transform">📖</span>
-                    <span class="text-[10px] font-bold text-white/80
-                                group-hover:text-white">Al-Quran</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-teal-600">Al-Quran</span>
                 </a>
 
                 <!-- Shalat (SVG sujud) -->
                 <a href="{{ route('prayer-tracking.index') }}"
                     data-tooltip="Tracking Shalat"
                     class="group relative flex flex-col items-center gap-1.5
-                            px-4 py-2.5 rounded-[22px] hover:bg-white/20
+                            px-4 py-2.5 rounded-[22px] hover:bg-teal-50
                             transition-all duration-200
                             hover:-translate-y-[7px] hover:scale-[1.06]">
                     <svg class="w-8 h-8 group-hover:scale-110 transition-transform"
                         viewBox="60 120 360 220" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="white"
+                        <path fill="#0d9488"
                             d="M397.886,238.967c-1.202-2.712-3.89-4.46-6.856-4.46h-32.162c-3.413-9.876-12.071-31.572-28.48-53.45
                             c-29.019-38.692-68.521-59.229-114.27-59.44c-6.534-1.114-56.24-8.741-81.407,12.237c-9.696,8.083-14.613,19.147-14.613,32.886
                             c0,20.927,28.343,64.929,43.219,86.583H108.78c-2.546,0-7.078-2.654-11.076-4.997c-6.04-3.538-12.887-7.548-20.285-7.548
@@ -75,63 +73,58 @@
                             C344.594,284.698,337.103,284.684,334.579,284.684z M391.251,309.773h-10.792c0.604-11.732-0.039-34.071-9.658-60.267h15.218
                             C395.734,274.75,393.136,299.207,391.251,309.773z"/>
                     </svg>
-                    <span class="text-[10px] font-bold text-white/80
-                                group-hover:text-white">Shalat</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-teal-600">Shalat</span>
                 </a>
 
                 <!-- Kiblat -->
                 <a href="{{ route('qibla.index') }}"
                     data-tooltip="Arah Kiblat"
                     class="group relative flex flex-col items-center gap-1.5
-                            px-4 py-2.5 rounded-[22px] hover:bg-white/20
+                            px-4 py-2.5 rounded-[22px] hover:bg-teal-50
                             transition-all duration-200
                             hover:-translate-y-[7px] hover:scale-[1.06]">
                     <span class="text-[28px] leading-none
                                 group-hover:scale-110 transition-transform">🧭</span>
-                    <span class="text-[10px] font-bold text-white/80
-                                group-hover:text-white">Kiblat</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-teal-600">Kiblat</span>
                 </a>
 
                 <!-- Asmaul Husna -->
                 <a href="{{ route('asmaul-husna.index') }}"
                     data-tooltip="Asmaul Husna"
                     class="group relative flex flex-col items-center gap-1.5
-                            px-4 py-2.5 rounded-[22px] hover:bg-white/20
+                            px-4 py-2.5 rounded-[22px] hover:bg-teal-50
                             transition-all duration-200
                             hover:-translate-y-[7px] hover:scale-[1.06]">
                     <span class="w-8 h-8 flex items-center justify-center
-                                text-[20px] font-extrabold text-white
+                                text-[20px] font-extrabold text-teal-600
                                 tracking-tighter leading-none
                                 group-hover:scale-110 transition-transform
                                 drop-shadow-md">99</span>
-                    <span class="text-[10px] font-bold text-white/80
-                                group-hover:text-white">Asmaul</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-teal-600">Asmaul</span>
                 </a>
 
                 <!-- Doa -->
                 <a href="{{ route('doa-pendek.index') }}"
                     data-tooltip="Doa-doa Pendek"
                     class="group relative flex flex-col items-center gap-1.5
-                            px-4 py-2.5 rounded-[22px] hover:bg-white/20
+                            px-4 py-2.5 rounded-[22px] hover:bg-teal-50
                             transition-all duration-200
                             hover:-translate-y-[7px] hover:scale-[1.06]">
                     <span class="text-[28px] leading-none
                                 group-hover:scale-110 transition-transform">🌙</span>
-                    <span class="text-[10px] font-bold text-white/80
-                                group-hover:text-white">Doa</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-teal-600">Doa</span>
                 </a>
 
                 <!-- Tasbih -->
                 <a href="{{ route('tasbih.index') }}"
                     data-tooltip="Tasbih Digital"
                     class="group relative flex flex-col items-center gap-1.5
-                            px-4 py-2.5 rounded-[22px] hover:bg-white/20
+                            px-4 py-2.5 rounded-[22px] hover:bg-teal-50
                             transition-all duration-200
                             hover:-translate-y-[7px] hover:scale-[1.06]">
                     <span class="text-[28px] leading-none
                                 group-hover:scale-110 transition-transform">📿</span>
-                    <span class="text-[10px] font-bold text-white/80
-                                group-hover:text-white">Tasbih</span>
+                    <span class="text-[10px] font-bold text-gray-500 group-hover:text-teal-600">Tasbih</span>
                 </a>
 
             </div>
