@@ -6,8 +6,8 @@
     {{-- ═══════════════════════════════════════
          HEADER
     ═══════════════════════════════════════ --}}
-    <div class="px-4 pt-10 pb-5 md:px-6">
-        <div class="max-w-2xl mx-auto flex items-center justify-between">
+    <div class="px-4 pt-10 pb-5 md:px-8 lg:px-12">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
             <div>
                 <p class="text-teal-200 text-xs font-medium mb-0.5">Bismillah,</p>
                 <h1 class="text-xl md:text-2xl font-bold text-white leading-tight">Assalamu'alaikum 👋</h1>
@@ -22,33 +22,33 @@
     {{-- ═══════════════════════════════════════
          MAIN CONTENT
     ═══════════════════════════════════════ --}}
-    <div class="px-4 md:px-6 pb-10">
-        <div class="max-w-2xl mx-auto space-y-3">
+    <div class="px-4 md:px-8 lg:px-12 pb-10">
+        <div class="max-w-4xl mx-auto space-y-3">
 
             {{-- ─────────────────────────────────────
                  FITUR GRID — ala Muslim Pro
             ───────────────────────────────────── --}}
             <div class="bg-white rounded-2xl shadow-md p-4">
                 <p class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Fitur</p>
-                <div class="grid grid-cols-6 gap-1">
+                <div class="grid grid-cols-6 gap-2">
 
                     {{-- Al-Quran --}}
                     <a href="{{ route('quran.index') }}"
-                       class="flex flex-col items-center gap-1.5 p-1.5 rounded-xl
+                       class="flex flex-col items-center gap-1.5 p-2 rounded-xl
                               hover:bg-gray-50 active:scale-95 transition-all duration-150">
-                        <div class="w-11 h-11 rounded-2xl shadow
+                        <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-emerald-400 to-teal-600
                                     flex items-center justify-center">
-                            <span class="text-xl">📖</span>
+                            <span class="text-2xl">📖</span>
                         </div>
-                        <span class="text-[9.5px] font-semibold text-gray-500 text-center leading-tight">Al-Quran</span>
+                        <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Al-Quran</span>
                     </a>
 
                     {{-- Shalat --}}
                     <a href="{{ route('prayer-tracking.index') }}"
-                       class="flex flex-col items-center gap-1.5 p-1.5 rounded-xl
+                       class="flex flex-col items-center gap-1.5 p-2 rounded-xl
                               hover:bg-gray-50 active:scale-95 transition-all duration-150">
-                        <div class="w-11 h-11 rounded-2xl shadow
+                        <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-teal-400 to-cyan-600
                                     flex items-center justify-center">
                             <svg class="w-6 h-6" viewBox="60 120 360 220" xmlns="http://www.w3.org/2000/svg">
@@ -83,55 +83,55 @@
                                 C395.734,274.75,393.136,299.207,391.251,309.773z"/>
                             </svg>
                         </div>
-                        <span class="text-[9.5px] font-semibold text-gray-500 text-center leading-tight">Shalat</span>
+                        <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Shalat</span>
                     </a>
 
                     {{-- Kiblat --}}
                     <a href="{{ route('qibla.index') }}"
-                       class="flex flex-col items-center gap-1.5 p-1.5 rounded-xl
+                       class="flex flex-col items-center gap-1.5 p-2 rounded-xl
                               hover:bg-gray-50 active:scale-95 transition-all duration-150">
-                        <div class="w-11 h-11 rounded-2xl shadow
+                        <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-amber-400 to-orange-500
                                     flex items-center justify-center">
-                            <span class="text-xl">🧭</span>
+                            <span class="text-2xl">🧭</span>
                         </div>
-                        <span class="text-[9.5px] font-semibold text-gray-500 text-center leading-tight">Kiblat</span>
+                        <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Kiblat</span>
                     </a>
 
                     {{-- Asmaul Husna --}}
                     <a href="{{ route('asmaul-husna.index') }}"
-                       class="flex flex-col items-center gap-1.5 p-1.5 rounded-xl
+                       class="flex flex-col items-center gap-1.5 p-2 rounded-xl
                               hover:bg-gray-50 active:scale-95 transition-all duration-150">
-                        <div class="w-11 h-11 rounded-2xl shadow
+                        <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-violet-400 to-purple-600
                                     flex items-center justify-center">
                             <span class="text-white font-extrabold text-sm tracking-tighter">99</span>
                         </div>
-                        <span class="text-[9.5px] font-semibold text-gray-500 text-center leading-tight">Asmaul</span>
+                        <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Asmaul</span>
                     </a>
 
                     {{-- Doa --}}
                     <a href="{{ route('doa-pendek.index') }}"
-                       class="flex flex-col items-center gap-1.5 p-1.5 rounded-xl
+                       class="flex flex-col items-center gap-1.5 p-2 rounded-xl
                               hover:bg-gray-50 active:scale-95 transition-all duration-150">
-                        <div class="w-11 h-11 rounded-2xl shadow
+                        <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-sky-400 to-blue-600
                                     flex items-center justify-center">
-                            <span class="text-xl">🌙</span>
+                            <span class="text-2xl">🌙</span>
                         </div>
-                        <span class="text-[9.5px] font-semibold text-gray-500 text-center leading-tight">Doa</span>
+                        <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Doa</span>
                     </a>
 
                     {{-- Tasbih --}}
                     <a href="{{ route('tasbih.index') }}"
-                       class="flex flex-col items-center gap-1.5 p-1.5 rounded-xl
+                       class="flex flex-col items-center gap-1.5 p-2 rounded-xl
                               hover:bg-gray-50 active:scale-95 transition-all duration-150">
-                        <div class="w-11 h-11 rounded-2xl shadow
+                        <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-rose-400 to-pink-600
                                     flex items-center justify-center">
-                            <span class="text-xl">📿</span>
+                            <span class="text-2xl">📿</span>
                         </div>
-                        <span class="text-[9.5px] font-semibold text-gray-500 text-center leading-tight">Tasbih</span>
+                        <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Tasbih</span>
                     </a>
 
                 </div>
@@ -336,12 +336,12 @@
             {{-- ─────────────────────────────────────
                  QUOTE BISMILLAH
             ───────────────────────────────────── --}}
-            <div class="rounded-2xl p-5 text-center
+            <div class="rounded-2xl p-6 text-center
                         bg-white/15 backdrop-blur-sm border border-white/25">
-                <p class="font-arabic text-2xl font-bold text-white mb-2 leading-loose">
+                <p class="font-arabic text-3xl font-bold text-white mb-3 leading-loose" style="font-family: 'Amiri', serif; direction: rtl;">
                     بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                 </p>
-                <p class="text-white/75 text-xs font-medium">
+                <p class="text-white/80 text-xs font-medium">
                     "Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang"
                 </p>
             </div>
@@ -354,7 +354,14 @@
 @push('styles')
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
-    .font-arabic { font-family: 'Amiri', serif; }
+    .font-arabic {
+        font-family: 'Amiri', serif !important;
+        direction: rtl;
+    }
+    /* Ensure teal background always visible */
+    body {
+        background-color: #0f766e;
+    }
 </style>
 @endpush
 
