@@ -14,38 +14,53 @@
                 <p class="text-teal-200 text-xs mt-0.5">NurSteps — Pendamping Ibadah Anda</p>
             </div>
             <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0">
+                <!-- NURSTEPS LOGO ICON (NEW) -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="40" height="40">
                   <defs>
-                    <radialGradient id="bgGrad" cx="50%" cy="40%" r="60%">
-                      <stop offset="0%" stop-color="#2d8a5a"/>
-                      <stop offset="100%" stop-color="#0d3a27"/>
+                    <radialGradient id="bgGradHome" cx="50%" cy="45%" r="65%">
+                      <stop offset="0%" stop-color="#2ecf8e"/>
+                      <stop offset="100%" stop-color="#1aaa72"/>
                     </radialGradient>
-                    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-                      <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur1"/>
-                      <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2"/>
+                    <filter id="glowHome" x="-40%" y="-40%" width="180%" height="180%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="blur1"/>
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2"/>
+                      <feColorMatrix in="blur1" type="matrix"
+                        values="0 0 0 0 0.5 0 0 0 0 1 0 0 0 0 0.7 0 0 0 0.6 0" result="colorBlur"/>
                       <feMerge>
-                        <feMergeNode in="blur1"/>
+                        <feMergeNode in="colorBlur"/>
                         <feMergeNode in="blur2"/>
                         <feMergeNode in="SourceGraphic"/>
                       </feMerge>
                     </filter>
+                    <filter id="diamondGlowHome" x="-80%" y="-80%" width="360%" height="360%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+                      <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <filter id="sparkleGlowHome" x="-100%" y="-100%" width="400%" height="400%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+                      <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <radialGradient id="centerGlowHome" cx="52%" cy="48%" r="35%">
+                      <stop offset="0%" stop-color="white" stop-opacity="0.08"/>
+                      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+                    </radialGradient>
                   </defs>
-                  <rect width="1024" height="1024" rx="180" ry="180" fill="url(#bgGrad)"/>
-                  <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
-                    <stop offset="0%" stop-color="transparent"/>
-                    <stop offset="100%" stop-color="#060f0a" stop-opacity="0.6"/>
-                  </radialGradient>
-                  <rect width="1024" height="1024" rx="180" ry="180" fill="url(#vignette)"/>
-                  <g filter="url(#glow)" transform="translate(512, 520)">
-                    <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"
-                      font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', serif"
-                      font-size="400" font-weight="bold" fill="white" direction="rtl">نور</text>
-                  </g>
-                  <g transform="translate(680, 195) rotate(45)">
-                    <rect x="-22" y="-22" width="44" height="44" fill="white" filter="url(#glow)"/>
-                  </g>
-                  <g transform="translate(960, 960)" fill="white" opacity="0.7">
-                    <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3"/>
+                  <rect width="1024" height="1024" fill="url(#bgGradHome)"/>
+                  <rect width="1024" height="1024" fill="url(#centerGlowHome)"/>
+                  <text x="510" y="570" text-anchor="middle" dominant-baseline="middle"
+                    font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', 'Geeza Pro', serif"
+                    font-size="430" font-weight="bold" fill="white" direction="rtl"
+                    filter="url(#glowHome)">نور</text>
+                  <rect x="668" y="168" width="46" height="46" rx="4" ry="4" fill="white"
+                    transform="rotate(45, 691, 191)" filter="url(#diamondGlowHome)"/>
+                  <g transform="translate(952, 952)" filter="url(#sparkleGlowHome)" fill="white" opacity="0.75">
+                    <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4"/>
                   </g>
                 </svg>
             </div>
