@@ -386,7 +386,7 @@
                     <span class="gradient-text">Allah SWT</span>
                 </h1>
                 <p class="fade-in-d2 text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 lg:mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                    NurSteps hadir sebagai pendamping ibadah harian Anda. Terinspirasi dari kata *Nur* yang berarti cahaya dan *Steps* yang berarti langkah, NurSteps membantu setiap Muslim melangkah lebih dekat kepada Allah SWT melalui Al-Qur'an digital, jadwal shalat, dan dzikir dalam satu aplikasi
+                    <b>NurSteps</b> hadir sebagai pendamping ibadah harian Anda. Terinspirasi dari kata <b>Nur</b> yang berarti cahaya dan <b>Steps</b> yang berarti langkah, <b>NurSteps</b> membantu setiap Muslim melangkah lebih dekat kepada Allah SWT melalui Al-Qur'an digital, jadwal shalat, dan dzikir dalam satu aplikasi
                 </p>
                 <div class="fade-in-d3 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
                     <a href="{{ route('register') }}" class="btn-shine inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-sm sm:text-base font-bold rounded-xl shadow-xl shadow-cyan-500/30 hover:shadow-2xl hover:scale-105 transition-all duration-300">
