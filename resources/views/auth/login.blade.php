@@ -3,39 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login - Al-Huda Islamic App</title>
+    <title>Preview Login - NurSteps</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body { height: 100%; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #5eead4 100%);
+            background-attachment: fixed;
             overflow-y: auto;
+            overflow-x: hidden;
             position: relative;
-            padding: 30px 20px;
+            padding: 20px 0;
         }
 
-        /* Animated background pattern */
         body::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.15) 0%, transparent 50%);
             animation: moveBackground 20s ease-in-out infinite;
+            pointer-events: none;
         }
 
         @keyframes moveBackground {
@@ -49,6 +45,7 @@
             max-width: 460px;
             padding: 20px;
             z-index: 1;
+            margin: auto;
         }
 
         .login-card {
@@ -62,65 +59,60 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         .icon-container {
-            width: 100px;
-            height: 100px;
+            width: 100px; height: 100px;
+            background: white;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50%       { transform: translateY(-10px); }
         }
 
-        .tasbih-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 18px;
-            overflow: hidden;
+        .tasbih-icon { width: 50px; height: 50px; }
+
+        .app-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0d9488;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-            position: relative;
+        .app-tagline {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 28px;
         }
+
+        .form-group { margin-bottom: 16px; position: relative; }
 
         .input-wrapper {
             position: relative;
-            background: rgba(13, 148, 136, 0.1);
+            background: rgba(13, 148, 136, 0.08);
             border-radius: 25px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
-        .input-wrapper:hover {
+        .input-wrapper:hover  { background: rgba(13, 148, 136, 0.13); }
+        .input-wrapper:focus-within {
             background: rgba(13, 148, 136, 0.15);
-        }
-
-        .input-wrapper.focused {
-            background: rgba(13, 148, 136, 0.2);
-            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
         }
 
         .form-input {
             width: 100%;
-            padding: 16px 20px 16px 55px;
+            padding: 15px 20px 15px 52px;
             border: none;
             background: transparent;
             font-size: 15px;
@@ -128,17 +120,13 @@
             outline: none;
         }
 
-        .form-input::placeholder {
-            color: rgba(45, 55, 72, 0.5);
-        }
+        .form-input::placeholder { color: rgba(45, 55, 72, 0.45); }
 
         .input-icon {
             position: absolute;
-            left: 20px;
-            top: 50%;
+            left: 18px; top: 50%;
             transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             color: #14b8a6;
         }
 
@@ -146,20 +134,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 20px 0;
+            margin: 18px 0;
             font-size: 13px;
         }
 
         .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #4a5568;
+            display: flex; align-items: center; gap: 8px;
+            color: #4a5568; cursor: pointer;
         }
 
         .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+            width: 17px; height: 17px;
             accent-color: #14b8a6;
         }
 
@@ -167,43 +152,52 @@
             color: #14b8a6;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: color 0.2s;
         }
 
-        .forgot-password:hover {
-            color: #0d9488;
-        }
+        .forgot-password:hover { color: #0d9488; }
 
         .login-button {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             border: none;
             border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
-            background: white;
-            color: #0d9488;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #0d9488, #14b8a6);
+            color: white;
+            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.4);
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 10px;
+            letter-spacing: 0.5px;
+            margin-top: 6px;
         }
 
         .login-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 28px rgba(13, 148, 136, 0.5);
         }
 
-        .login-button:active {
-            transform: translateY(0);
+        .login-button:active { transform: translateY(0); }
+
+        .divider {
+            display: flex; align-items: center; gap: 12px;
+            margin: 20px 0;
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
         }
 
         .register-link {
-            margin-top: 25px;
+            margin-top: 20px;
             font-size: 14px;
-            color: #4a5568;
+            color: #64748b;
         }
 
         .register-link a {
@@ -212,174 +206,101 @@
             font-weight: 600;
         }
 
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            background: #fee;
-            color: #c33;
-            padding: 12px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            text-align: left;
-        }
+        .register-link a:hover { text-decoration: underline; }
 
         .footer-text {
             margin-top: 20px;
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.75);
+            text-align: center;
         }
 
-        /* Mobile responsive */
         @media (max-width: 480px) {
-            .login-card {
-                padding: 40px 30px;
-            }
-
-            .icon-container {
-                width: 80px;
-                height: 80px;
-            }
-
-            .tasbih-icon {
-                width: 64px;
-                height: 64px;
-            }
+            body { align-items: flex-start; padding: 24px 0 32px; }
+            .container { padding: 16px; }
+            .login-card { padding: 36px 24px; }
+            .icon-container { width: 80px; height: 80px; }
+            .tasbih-icon { width: 40px; height: 40px; }
+            .app-name { font-size: 18px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="login-card">
-            <!-- NurSteps Logo Icon -->
+
+            <!-- Icon -->
             <div class="icon-container">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="tasbih-icon">
-                    <defs>
-                        <radialGradient id="bgGradLogin" cx="50%" cy="40%" r="60%">
-                            <stop offset="0%" stop-color="#2d8a5a"/>
-                            <stop offset="100%" stop-color="#0d3a27"/>
-                        </radialGradient>
-                        <filter id="glowLogin" x="-30%" y="-30%" width="160%" height="160%">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur1"/>
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2"/>
-                            <feMerge>
-                                <feMergeNode in="blur1"/>
-                                <feMergeNode in="blur2"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                        <radialGradient id="vignetteLogin" cx="50%" cy="50%" r="70%">
-                            <stop offset="0%" stop-color="transparent"/>
-                            <stop offset="100%" stop-color="#060f0a" stop-opacity="0.6"/>
-                        </radialGradient>
-                    </defs>
-                    <rect width="1024" height="1024" rx="512" ry="512" fill="url(#bgGradLogin)"/>
-                    <rect width="1024" height="1024" rx="512" ry="512" fill="url(#vignetteLogin)"/>
-                    <g filter="url(#glowLogin)" transform="translate(512, 520)">
-                        <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', serif" font-size="400" font-weight="bold" fill="white" direction="rtl">نور</text>
-                    </g>
-                    <g transform="translate(680, 195) rotate(45)">
-                        <rect x="-22" y="-22" width="44" height="44" fill="white" filter="url(#glowLogin)"/>
-                    </g>
-                    <g transform="translate(960, 960)" fill="white" opacity="0.7">
-                        <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3"/>
-                    </g>
+                <svg viewBox="0 0 100 120" class="tasbih-icon" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="11" r="6" fill="#14b8a6"/>
+                    <circle cx="68" cy="16" r="5.5" fill="#14b8a6"/>
+                    <circle cx="80" cy="29" r="5.5" fill="#14b8a6"/>
+                    <circle cx="84" cy="46" r="5.5" fill="#14b8a6"/>
+                    <circle cx="78" cy="62" r="5.5" fill="#14b8a6"/>
+                    <circle cx="64" cy="73" r="5.5" fill="#14b8a6"/>
+                    <circle cx="50" cy="77" r="6" fill="#14b8a6"/>
+                    <circle cx="36" cy="73" r="5.5" fill="#14b8a6"/>
+                    <circle cx="22" cy="62" r="5.5" fill="#14b8a6"/>
+                    <circle cx="16" cy="46" r="5.5" fill="#14b8a6"/>
+                    <circle cx="20" cy="29" r="5.5" fill="#14b8a6"/>
+                    <circle cx="32" cy="16" r="5.5" fill="#14b8a6"/>
+                    <circle cx="50" cy="85" r="5" fill="#14b8a6"/>
+                    <line x1="44" y1="90" x2="41" y2="108" stroke="#14b8a6" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="50" y1="90" x2="50" y2="110" stroke="#14b8a6" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="56" y1="90" x2="59" y2="108" stroke="#14b8a6" stroke-width="3" stroke-linecap="round"/>
                 </svg>
             </div>
 
-            <!-- Session Status -->
-            @if (session('status'))
-                <div class="error-message">
-                    {{ session('status') }}
-                </div>
-            @endif
+            <p class="app-name">NurSteps</p>
+            <p class="app-tagline">Pendamping Ibadah Anda</p>
 
-            <!-- Validation Errors -->
-            @if ($errors->any())
-                <div class="error-message">
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <form onsubmit="return false;">
 
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-
-                <!-- Username/Email -->
+                <!-- Email -->
                 <div class="form-group">
-                    <div class="input-wrapper" id="username-wrapper">
+                    <div class="input-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
-                        <input 
-                            type="email" 
-                            name="email" 
-                            class="form-input" 
-                            placeholder="Username" 
-                            value="{{ old('email') }}"
-                            required 
-                            autofocus
-                            onfocus="document.getElementById('username-wrapper').classList.add('focused')"
-                            onblur="document.getElementById('username-wrapper').classList.remove('focused')"
-                        >
+                        <input type="email" class="form-input" placeholder="Email">
                     </div>
                 </div>
 
-                <!-- Password -->
+                <!-- Kata Sandi -->
                 <div class="form-group">
-                    <div class="input-wrapper" id="password-wrapper">
+                    <div class="input-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                         </svg>
-                        <input 
-                            type="password" 
-                            name="password" 
-                            class="form-input" 
-                            placeholder="Password" 
-                            required
-                            onfocus="document.getElementById('password-wrapper').classList.add('focused')"
-                            onblur="document.getElementById('password-wrapper').classList.remove('focused')"
-                        >
+                        <input type="password" class="form-input" placeholder="Kata Sandi">
                     </div>
                 </div>
 
-                <!-- Remember Me & Forgot Password -->
+                <!-- Ingat Saya & Lupa Kata Sandi -->
                 <div class="checkbox-group">
                     <label class="remember-me">
-                        <input type="checkbox" name="remember" id="remember_me">
-                        <span>Remember Me</span>
+                        <input type="checkbox">
+                        <span>Ingat Saya</span>
                     </label>
-                    @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="forgot-password">
-                            Forgot Password?
-                        </a>
-                    @endif
+                    <a href="#" class="forgot-password">Lupa Kata Sandi?</a>
                 </div>
 
-                <!-- Login Button -->
-                <button type="submit" class="login-button">
-                    Login
-                </button>
+                <!-- Tombol Masuk -->
+                <button type="submit" class="login-button">Masuk</button>
 
-                <!-- Register Link -->
-                @if (Route::has('register'))
-                    <div class="register-link">
-                        Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a>
-                    </div>
-                @endif
+                <div class="divider">atau</div>
+
+                <!-- Link Daftar -->
+                <div class="register-link">
+                    Belum punya akun? <a href="#">Daftar sekarang</a>
+                </div>
+
             </form>
         </div>
 
-        <p class="footer-text" style="text-align: center;">
-            designed by Al-Huda Team
-        </p>
+        <p class="footer-text">dibuat oleh Tim Al-Huda</p>
     </div>
 </body>
 </html>
