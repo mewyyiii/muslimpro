@@ -18,52 +18,33 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #5eead4 100%);
+            background: linear-gradient(160deg, #0d9488 0%, #14b8a6 45%, #5eead4 100%);
             background-attachment: fixed;
-            overflow-y: auto;
-            overflow-x: hidden;
-            position: relative;
-            padding: 20px 0;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
-            animation: moveBackground 20s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes moveBackground {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(20px, 20px); }
+            overflow: hidden;
+            padding: 16px;
         }
 
         .container {
             position: relative;
             width: 100%;
-            max-width: 460px;
-            padding: 20px;
+            max-width: 420px;
             z-index: 1;
-            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .login-card {
+            width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 50px 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border-radius: 28px;
+            padding: 32px 36px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
             text-align: center;
             animation: slideUp 0.6s ease-out;
         }
@@ -74,50 +55,46 @@
         }
 
         .icon-container {
-            width: 110px;
-            height: 110px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 16px;
+            margin: 0 auto 10px;
             animation: float 3s ease-in-out infinite;
-            background: transparent;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50%       { transform: translateY(-10px); }
+            50%       { transform: translateY(-8px); }
         }
 
         .nur-icon {
-            width: 110px;
-            height: 110px;
+            width: 80px;
+            height: 80px;
             display: block;
             border-radius: 50%;
         }
 
         .app-name {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
             color: #0d9488;
-            text-align: center;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             letter-spacing: -0.3px;
         }
 
         .app-tagline {
-            font-size: 13px;
+            font-size: 12px;
             color: #94a3b8;
-            text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
             font-weight: 400;
         }
 
         .form-group {
-            margin-bottom: 20px;
-            position: relative;
+            margin-bottom: 14px;
         }
 
         .input-wrapper {
@@ -139,10 +116,10 @@
 
         .form-input {
             width: 100%;
-            padding: 16px 20px 16px 55px;
+            padding: 13px 20px 13px 50px;
             border: none;
             background: transparent;
-            font-size: 15px;
+            font-size: 14px;
             color: #2d3748;
             outline: none;
         }
@@ -153,11 +130,11 @@
 
         .input-icon {
             position: absolute;
-            left: 20px;
+            left: 18px;
             top: 50%;
             transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             color: #14b8a6;
         }
 
@@ -165,20 +142,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 20px 0;
-            font-size: 13px;
+            margin: 14px 0;
+            font-size: 12px;
         }
 
         .remember-me {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
             color: #4a5568;
         }
 
         .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             accent-color: #14b8a6;
         }
 
@@ -189,38 +166,44 @@
             transition: color 0.3s ease;
         }
 
-        .forgot-password:hover {
-            color: #0d9488;
-        }
+        .forgot-password:hover { color: #0d9488; }
 
         .login-button {
             width: 100%;
-            padding: 16px;
+            padding: 13px;
             border: none;
             border-radius: 25px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             background: linear-gradient(135deg, #0d9488, #14b8a6);
             color: white;
-            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.4);
+            box-shadow: 0 6px 16px rgba(13, 148, 136, 0.4);
             transition: all 0.3s ease;
             letter-spacing: 1px;
-            margin-top: 10px;
+            margin-top: 6px;
         }
 
         .login-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(13, 148, 136, 0.5);
+            box-shadow: 0 10px 24px rgba(13, 148, 136, 0.5);
         }
 
-        .login-button:active {
-            transform: translateY(0);
+        .login-button:active { transform: translateY(0); }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 0 0;
         }
+
+        .divider-line { flex: 1; height: 1px; background: #e2e8f0; }
+        .divider-text { font-size: 11px; color: #94a3b8; font-weight: 500; }
 
         .register-link {
-            margin-top: 25px;
-            font-size: 14px;
+            margin-top: 14px;
+            font-size: 13px;
             color: #4a5568;
         }
 
@@ -230,36 +213,43 @@
             font-weight: 600;
         }
 
-        .register-link a:hover {
-            text-decoration: underline;
-        }
+        .register-link a:hover { text-decoration: underline; }
 
         .error-message {
             background: #fee;
             color: #c33;
-            padding: 12px;
+            padding: 10px 12px;
             border-radius: 12px;
-            margin-bottom: 20px;
-            font-size: 14px;
+            margin-bottom: 16px;
+            font-size: 13px;
             text-align: left;
         }
 
         .footer-text {
-            margin-top: 20px;
+            margin-top: 14px;
             font-size: 11px;
             color: rgba(255, 255, 255, 0.8);
             text-align: center;
         }
 
+        /* Mobile: tetap fit di layar, tidak scroll */
         @media (max-width: 480px) {
             body {
-                align-items: flex-start;
-                padding: 24px 0 32px;
+                padding: 16px;
             }
-            .container { padding: 16px; }
-            .login-card { padding: 40px 30px; }
-            .icon-container { width: 90px; height: 90px; }
-            .nur-icon { width: 90px; height: 90px; }
+            .login-card { padding: 24px 22px; }
+            .icon-container { width: 68px; height: 68px; }
+            .nur-icon { width: 68px; height: 68px; }
+            .app-name { font-size: 18px; }
+            .app-tagline { margin-bottom: 14px; }
+            .form-group { margin-bottom: 10px; }
+            .form-input { padding: 11px 16px 11px 44px; font-size: 14px; }
+            .input-icon { width: 16px; height: 16px; left: 14px; }
+            .checkbox-group { margin: 10px 0; }
+            .login-button { padding: 11px; font-size: 14px; margin-top: 4px; }
+            .divider { margin-top: 12px; }
+            .register-link { margin-top: 10px; font-size: 12px; }
+            .footer-text { margin-top: 10px; }
         }
     </style>
 </head>
@@ -271,9 +261,7 @@
             <div class="icon-container">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="nur-icon">
                     <defs>
-                        <clipPath id="circleClip">
-                            <circle cx="512" cy="512" r="512"/>
-                        </clipPath>
+                        <clipPath id="circleClip"><circle cx="512" cy="512" r="512"/></clipPath>
                         <radialGradient id="bgGrad" cx="50%" cy="45%" r="65%">
                             <stop offset="0%" stop-color="#2ecf8e"/>
                             <stop offset="100%" stop-color="#1aaa72"/>
@@ -394,10 +382,10 @@
                 </button>
 
                 <!-- Divider -->
-                <div style="display:flex; align-items:center; gap:12px; margin: 20px 0 0;">
-                    <div style="flex:1; height:1px; background:#e2e8f0;"></div>
-                    <span style="font-size:12px; color:#94a3b8; font-weight:500;">atau</span>
-                    <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <span class="divider-text">atau</span>
+                    <div class="divider-line"></div>
                 </div>
 
                 <!-- Link Daftar -->
@@ -406,12 +394,11 @@
                         Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a>
                     </div>
                 @endif
+
             </form>
         </div>
 
-        <p class="footer-text">
-            dirancang oleh Tim NurSteps
-        </p>
+        <p class="footer-text">dirancang oleh Tim NurSteps</p>
     </div>
 </body>
 </html>
