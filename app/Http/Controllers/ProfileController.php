@@ -31,7 +31,7 @@ class ProfileController extends Controller
             ->pluck('total', 'status');
 
         $prayerPerformed = $prayerStats['performed'] ?? 0;
-        $prayerTotal     = now()->day * 5;
+        $prayerTotal = now()->daysInMonth * 5;  // Maret 31 hari → 155
         $prayerPercent   = $prayerTotal > 0 ? round(($prayerPerformed / $prayerTotal) * 100) : 0;
 
         // Prayer streak calculation
