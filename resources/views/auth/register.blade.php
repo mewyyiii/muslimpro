@@ -12,21 +12,34 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            /* Hapus scrollbar default yang bikin garis di kanan/bawah */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             background: linear-gradient(135deg, #14b8a6 0%, #5eead4 50%, #fde68a 100%);
-            overflow-y: auto;
+            background-attachment: fixed;
+            overflow: hidden auto;
             position: relative;
             padding: 30px 20px;
         }
 
         body::before {
             content: '';
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
@@ -36,6 +49,7 @@
                 radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
             animation: moveBackground 20s ease-in-out infinite;
             pointer-events: none;
+            z-index: 0;
         }
 
         @keyframes moveBackground {
@@ -46,17 +60,18 @@
         .container {
             position: relative;
             width: 100%;
-            max-width: 460px;
+            max-width: 520px;
             padding: 20px;
             z-index: 1;
+            margin: auto;
         }
 
         .register-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 30px;
-            padding: 40px 35px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             text-align: center;
             animation: slideUp 0.6s ease-out;
         }
@@ -66,7 +81,6 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── ICON — sama persis dengan halaman login ── */
         .icon-container {
             width: 110px;
             height: 110px;
@@ -221,11 +235,58 @@
             text-align: center;
         }
 
+        /* ── Responsif Mobile ── */
         @media (max-width: 480px) {
-            .register-card { padding: 35px 28px; }
-            .icon-container { width: 90px; height: 90px; }
-            .nur-icon { width: 90px; height: 90px; }
-            .title { font-size: 20px; }
+            body {
+                align-items: flex-start;
+                padding: 20px 16px;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .register-card {
+                padding: 32px 24px;
+                border-radius: 24px;
+            }
+
+            .icon-container {
+                width: 90px;
+                height: 90px;
+            }
+
+            .nur-icon {
+                width: 90px;
+                height: 90px;
+            }
+
+            .title {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .form-input {
+                font-size: 16px; /* Mencegah zoom otomatis di iOS */
+                padding: 13px 18px 13px 46px;
+            }
+
+            .register-button {
+                padding: 14px;
+                font-size: 14px;
+            }
+        }
+
+        /* ── Tablet ── */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .container {
+                max-width: 480px;
+            }
+
+            .register-card {
+                padding: 38px 36px;
+            }
         }
     </style>
 </head>
@@ -233,7 +294,7 @@
     <div class="container">
         <div class="register-card">
 
-            <!-- Icon Nur — sama persis dengan halaman login -->
+            <!-- Icon Nur -->
             <div class="icon-container">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="nur-icon">
                     <defs>
@@ -324,7 +385,7 @@
                             type="text" 
                             name="username" 
                             class="form-input" 
-                            placeholder="Nama" 
+                            placeholder="Nama Pengguna" 
                             value="{{ old('username') }}"
                             onfocus="document.getElementById('username-wrapper').classList.add('focused')"
                             onblur="document.getElementById('username-wrapper').classList.remove('focused')"
