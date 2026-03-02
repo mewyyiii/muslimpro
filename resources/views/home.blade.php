@@ -9,7 +9,6 @@
     <div class="px-4 pt-10 pb-5 md:px-8 lg:px-12">
         <div class="max-w-4xl mx-auto flex items-center justify-between">
             <div>
-                <p class="text-teal-200 text-xs font-medium mb-0.5">Bismillah,</p>
                 <h1 class="text-xl md:text-2xl font-bold text-white leading-tight">Assalamu'alaikum 👋</h1>
                 <p class="text-teal-200 text-xs mt-0.5">NurSteps — Pendamping Ibadah Anda</p>
             </div>
