@@ -81,7 +81,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 30px;
+            margin: 0 auto 16px;
             animation: float 3s ease-in-out infinite;
             background: transparent;
         }
@@ -96,6 +96,23 @@
             height: 110px;
             display: block;
             border-radius: 50%;
+        }
+
+        .app-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0d9488;
+            text-align: center;
+            margin-bottom: 4px;
+            letter-spacing: -0.3px;
+        }
+
+        .app-tagline {
+            font-size: 13px;
+            color: #94a3b8;
+            text-align: center;
+            margin-bottom: 28px;
+            font-weight: 400;
         }
 
         .form-group {
@@ -293,6 +310,10 @@
                 </svg>
             </div>
 
+            <!-- Nama App -->
+            <h1 class="app-name">NurSteps</h1>
+            <p class="app-tagline">Pendamping Ibadah Anda</p>
+
             <!-- Session Status -->
             @if (session('status'))
                 <div class="error-message">
@@ -389,7 +410,7 @@
         </div>
 
         <p class="footer-text">
-            dirancang oleh Tim Al-Huda
+            dibuat oleh Tim NurSteps
         </p>
     </div>
 </body>
