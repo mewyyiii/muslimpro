@@ -372,6 +372,13 @@
                     Masuk
                 </button>
 
+                <!-- Divider -->
+                <div style="display:flex; align-items:center; gap:12px; margin: 20px 0 0;">
+                    <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                    <span style="font-size:12px; color:#94a3b8; font-weight:500;">atau</span>
+                    <div style="flex:1; height:1px; background:#e2e8f0;"></div>
+                </div>
+
                 <!-- Link Daftar -->
                 @if (Route::has('register'))
                     <div class="register-link">

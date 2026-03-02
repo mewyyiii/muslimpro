@@ -24,7 +24,6 @@
             padding: 30px 20px;
         }
 
-        /* Animated background pattern */
         body::before {
             content: '';
             position: absolute;
@@ -36,6 +35,7 @@
                 radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
             animation: moveBackground 20s ease-in-out infinite;
+            pointer-events: none;
         }
 
         @keyframes moveBackground {
@@ -62,38 +62,34 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
+        /* ── ICON — sama persis dengan halaman login ── */
         .icon-container {
-            width: 90px;
-            height: 90px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 25px;
-            overflow: hidden;
             animation: float 3s ease-in-out infinite;
+            background: transparent;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50%       { transform: translateY(-10px); }
         }
 
-        .tasbih-icon {
-            width: 72px;
-            height: 72px;
-            border-radius: 16px;
-            overflow: hidden;
+        .nur-icon {
+            width: 110px;
+            height: 110px;
+            display: block;
+            border-radius: 50%;
         }
 
         .title {
@@ -222,65 +218,60 @@
             margin-top: 15px;
             font-size: 11px;
             color: rgba(255, 255, 255, 0.8);
+            text-align: center;
         }
 
-        /* Mobile responsive */
         @media (max-width: 480px) {
-            .register-card {
-                padding: 35px 28px;
-            }
-
-            .icon-container {
-                width: 75px;
-                height: 75px;
-            }
-
-            .tasbih-icon {
-                width: 60px;
-                height: 60px;
-            }
-
-            .title {
-                font-size: 20px;
-            }
+            .register-card { padding: 35px 28px; }
+            .icon-container { width: 90px; height: 90px; }
+            .nur-icon { width: 90px; height: 90px; }
+            .title { font-size: 20px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="register-card">
-            <!-- NurSteps Logo Icon -->
+
+            <!-- Icon Nur — sama persis dengan halaman login -->
             <div class="icon-container">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="tasbih-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="nur-icon">
                     <defs>
-                        <radialGradient id="bgGradRegister" cx="50%" cy="40%" r="60%">
-                            <stop offset="0%" stop-color="#2d8a5a"/>
-                            <stop offset="100%" stop-color="#0d3a27"/>
+                        <clipPath id="circleClip">
+                            <circle cx="512" cy="512" r="512"/>
+                        </clipPath>
+                        <radialGradient id="bgGrad" cx="50%" cy="45%" r="65%">
+                            <stop offset="0%" stop-color="#2ecf8e"/>
+                            <stop offset="100%" stop-color="#1aaa72"/>
                         </radialGradient>
-                        <filter id="glowRegister" x="-30%" y="-30%" width="160%" height="160%">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur1"/>
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2"/>
+                        <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="blur1"/>
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2"/>
+                            <feColorMatrix in="blur1" type="matrix"
+                                values="0 0 0 0 0.5 0 0 0 0 1 0 0 0 0 0.7 0 0 0 0.6 0" result="colorBlur"/>
                             <feMerge>
-                                <feMergeNode in="blur1"/>
+                                <feMergeNode in="colorBlur"/>
                                 <feMergeNode in="blur2"/>
                                 <feMergeNode in="SourceGraphic"/>
                             </feMerge>
                         </filter>
-                        <radialGradient id="vignetteRegister" cx="50%" cy="50%" r="70%">
-                            <stop offset="0%" stop-color="transparent"/>
-                            <stop offset="100%" stop-color="#060f0a" stop-opacity="0.6"/>
+                        <radialGradient id="centerGlow" cx="52%" cy="48%" r="35%">
+                            <stop offset="0%" stop-color="white" stop-opacity="0.08"/>
+                            <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
                         </radialGradient>
                     </defs>
-                    <rect width="1024" height="1024" rx="512" ry="512" fill="url(#bgGradRegister)"/>
-                    <rect width="1024" height="1024" rx="512" ry="512" fill="url(#vignetteRegister)"/>
-                    <g filter="url(#glowRegister)" transform="translate(512, 520)">
-                        <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', serif" font-size="400" font-weight="bold" fill="white" direction="rtl">نور</text>
-                    </g>
-                    <g transform="translate(680, 195) rotate(45)">
-                        <rect x="-22" y="-22" width="44" height="44" fill="white" filter="url(#glowRegister)"/>
-                    </g>
-                    <g transform="translate(960, 960)" fill="white" opacity="0.7">
-                        <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3"/>
+                    <g clip-path="url(#circleClip)">
+                        <rect width="1024" height="1024" fill="url(#bgGrad)"/>
+                        <rect width="1024" height="1024" fill="url(#centerGlow)"/>
+                        <text x="510" y="570"
+                            text-anchor="middle"
+                            dominant-baseline="middle"
+                            font-family="'Noto Naskh Arabic','Arabic Typesetting','Traditional Arabic','Geeza Pro',serif"
+                            font-size="430"
+                            font-weight="bold"
+                            fill="white"
+                            direction="rtl"
+                            filter="url(#glow)">نور</text>
                     </g>
                 </svg>
             </div>
@@ -301,7 +292,7 @@
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
-                <!-- Name -->
+                <!-- Nama Lengkap -->
                 <div class="form-group">
                     <div class="input-wrapper" id="name-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -322,7 +313,7 @@
                     </div>
                 </div>
 
-                <!-- Username (optional, if you want it) -->
+                <!-- Username -->
                 <div class="form-group">
                     <div class="input-wrapper" id="username-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -361,7 +352,7 @@
                     </div>
                 </div>
 
-                <!-- Password -->
+                <!-- Kata Sandi -->
                 <div class="form-group">
                     <div class="input-wrapper" id="password-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -380,7 +371,7 @@
                     </div>
                 </div>
 
-                <!-- Confirm Password -->
+                <!-- Konfirmasi Kata Sandi -->
                 <div class="form-group">
                     <div class="input-wrapper" id="confirm-password-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -405,19 +396,19 @@
                     Silahkan lihat <a href="#">Ketentuan Layanan</a> & <a href="#">Kebijakan Privasi</a>
                 </p>
 
-                <!-- Register Button -->
+                <!-- Tombol Daftar -->
                 <button type="submit" class="register-button">
                     Daftar
                 </button>
 
-                <!-- Login Link -->
+                <!-- Link Masuk -->
                 <div class="login-link">
                     Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
                 </div>
             </form>
         </div>
 
-        <p class="footer-text" style="text-align: center;">
+        <p class="footer-text">
             dirancang oleh Tim NurSteps
         </p>
     </div>
