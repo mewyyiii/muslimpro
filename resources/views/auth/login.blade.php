@@ -14,55 +14,36 @@
 
         html, body {
             height: 100%;
+            overflow: hidden;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #5eead4 100%);
-            background-attachment: fixed;
-            overflow-y: auto;
-            overflow-x: hidden;
-            position: relative;
-            padding: 20px 0;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
-            animation: moveBackground 20s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes moveBackground {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(20px, 20px); }
+            /* Gradient halus tanpa garis, warna sama seperti asli */
+            background: linear-gradient(160deg, #0d9488 0%, #14b8a6 50%, #5eead4 100%);
+            padding: 20px;
         }
 
         .container {
             position: relative;
             width: 100%;
             max-width: 460px;
-            padding: 20px;
             z-index: 1;
-            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .login-card {
+            width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 30px;
-            padding: 50px 40px;
+            padding: 50px 40px 44px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             text-align: center;
             animation: slideUp 0.6s ease-out;
@@ -81,7 +62,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 16px;
+            margin: 20px auto 16px;
             animation: float 3s ease-in-out infinite;
             background: transparent;
         }
@@ -165,7 +146,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 20px 0;
+            margin: 16px 0;
             font-size: 13px;
         }
 
@@ -218,10 +199,17 @@
             transform: translateY(0);
         }
 
+        .checkbox-separator {
+            width: 1px;
+            height: 14px;
+            background: #cbd5e0;
+        }
+
         .register-link {
-            margin-top: 25px;
+            margin-top: 20px;
             font-size: 14px;
             color: #4a5568;
+            text-align: center;
         }
 
         .register-link a {
@@ -252,16 +240,36 @@
         }
 
         @media (max-width: 480px) {
-            body {
-                align-items: flex-start;
-                padding: 24px 0 32px;
-            }
-            .container { padding: 16px; }
+            body { padding: 16px; }
             .login-card { padding: 40px 30px; }
             .icon-container { width: 90px; height: 90px; }
             .nur-icon { width: 90px; height: 90px; }
         }
     </style>
+    <script>
+        function scaleCard() {
+            var container = document.querySelector('.container');
+            if (!container) return;
+            container.style.transform = '';
+            container.style.transformOrigin = '';
+
+            var viewH = window.innerHeight;
+            var viewW = window.innerWidth;
+            var cardH = container.offsetHeight;
+            var cardW = container.offsetWidth;
+
+            var scaleH = (viewH - 40) / cardH;
+            var scaleW = (viewW - 40) / cardW;
+            var scale = Math.min(scaleH, scaleW, 1);
+
+            if (scale < 1) {
+                container.style.transform = 'scale(' + scale + ')';
+                container.style.transformOrigin = 'center center';
+            }
+        }
+        window.addEventListener('load', scaleCard);
+        window.addEventListener('resize', scaleCard);
+    </script>
 </head>
 <body>
     <div class="container">
