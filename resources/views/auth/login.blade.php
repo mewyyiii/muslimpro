@@ -22,29 +22,43 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Smooth radial gradient - no visible lines */
-            background: radial-gradient(ellipse at center, #14b8a6 0%, #0d9488 50%, #0a7c71 100%);
+            background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #5eead4 100%);
             background-attachment: fixed;
             overflow-y: auto;
             overflow-x: hidden;
             position: relative;
-            padding: 20px;
+            padding: 20px 0;
         }
 
-        /* Removed ::before pseudo-element that caused visible lines */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+            animation: moveBackground 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes moveBackground {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, 20px); }
+        }
 
         .container {
             position: relative;
             width: 100%;
             max-width: 460px;
+            padding: 20px;
             z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin: auto;
         }
 
         .login-card {
-            width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 30px;
@@ -239,9 +253,10 @@
 
         @media (max-width: 480px) {
             body {
-                align-items: center;
-                padding: 24px 16px;
+                align-items: flex-start;
+                padding: 24px 0 32px;
             }
+            .container { padding: 16px; }
             .login-card { padding: 40px 30px; }
             .icon-container { width: 90px; height: 90px; }
             .nur-icon { width: 90px; height: 90px; }
@@ -325,7 +340,7 @@
                     <div class="input-wrapper" id="username-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M16 7a4 4 0 11-8 0 4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
                         <input
                             type="email"
