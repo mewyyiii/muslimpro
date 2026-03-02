@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login - Al-Huda Islamic App</title>
+    <title>Masuk - NurSteps</title>
     <style>
         * {
             margin: 0;
@@ -12,16 +12,22 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #5eead4 100%);
+            background-attachment: fixed;
             overflow-y: auto;
+            overflow-x: hidden;
             position: relative;
-            padding: 30px 20px;
+            padding: 20px 0;
         }
 
         /* Animated background pattern */
@@ -49,6 +55,7 @@
             max-width: 460px;
             padding: 20px;
             z-index: 1;
+            margin: auto;
         }
 
         .login-card {
@@ -75,12 +82,13 @@
         .icon-container {
             width: 100px;
             height: 100px;
+            background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 30px;
-            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             animation: float 3s ease-in-out infinite;
         }
 
@@ -90,10 +98,8 @@
         }
 
         .tasbih-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 18px;
-            overflow: hidden;
+            width: 50px;
+            height: 50px;
         }
 
         .form-group {
@@ -230,12 +236,22 @@
             margin-top: 20px;
             font-size: 11px;
             color: rgba(255, 255, 255, 0.8);
+            text-align: center;
         }
 
         /* Mobile responsive */
         @media (max-width: 480px) {
+            body {
+                align-items: flex-start;
+                padding: 24px 0 32px;
+            }
+
+            .container {
+                padding: 16px;
+            }
+
             .login-card {
-                padding: 40px 30px;
+                padding: 36px 24px;
             }
 
             .icon-container {
@@ -244,8 +260,8 @@
             }
 
             .tasbih-icon {
-                width: 64px;
-                height: 64px;
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
@@ -253,38 +269,88 @@
 <body>
     <div class="container">
         <div class="login-card">
-            <!-- NurSteps Logo Icon -->
+            <!-- Tasbih Icon -->
             <div class="icon-container">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="tasbih-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
                     <defs>
-                        <radialGradient id="bgGradLogin" cx="50%" cy="40%" r="60%">
-                            <stop offset="0%" stop-color="#2d8a5a"/>
-                            <stop offset="100%" stop-color="#0d3a27"/>
+                        <!-- Flat teal/green background gradient (subtle radial) -->
+                        <radialGradient id="bgGrad" cx="50%" cy="45%" r="65%">
+                        <stop offset="0%" stop-color="#2ecf8e"/>
+                        <stop offset="100%" stop-color="#1aaa72"/>
                         </radialGradient>
-                        <filter id="glowLogin" x="-30%" y="-30%" width="160%" height="160%">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur1"/>
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2"/>
-                            <feMerge>
-                                <feMergeNode in="blur1"/>
-                                <feMergeNode in="blur2"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
+
+                        <!-- Soft glow behind text -->
+                        <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="blur1"/>
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2"/>
+                        <feColorMatrix in="blur1" type="matrix"
+                            values="0 0 0 0 0.5
+                                    0 0 0 0 1
+                                    0 0 0 0 0.7
+                                    0 0 0 0.6 0" result="colorBlur"/>
+                        <feMerge>
+                            <feMergeNode in="colorBlur"/>
+                            <feMergeNode in="blur2"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
                         </filter>
-                        <radialGradient id="vignetteLogin" cx="50%" cy="50%" r="70%">
-                            <stop offset="0%" stop-color="transparent"/>
-                            <stop offset="100%" stop-color="#060f0a" stop-opacity="0.6"/>
-                        </radialGradient>
+
+                        <!-- Diamond glow filter -->
+                        <filter id="diamondGlow" x="-80%" y="-80%" width="360%" height="360%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+                        <feMerge>
+                            <feMergeNode in="blur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                        </filter>
+
+                        <!-- Sparkle filter -->
+                        <filter id="sparkleGlow" x="-100%" y="-100%" width="400%" height="400%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+                        <feMerge>
+                            <feMergeNode in="blur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                        </filter>
                     </defs>
-                    <rect width="1024" height="1024" rx="512" ry="512" fill="url(#bgGradLogin)"/>
-                    <rect width="1024" height="1024" rx="512" ry="512" fill="url(#vignetteLogin)"/>
-                    <g filter="url(#glowLogin)" transform="translate(512, 520)">
-                        <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', serif" font-size="400" font-weight="bold" fill="white" direction="rtl">نور</text>
-                    </g>
-                    <g transform="translate(680, 195) rotate(45)">
-                        <rect x="-22" y="-22" width="44" height="44" fill="white" filter="url(#glowLogin)"/>
-                    </g>
-                    <g transform="translate(960, 960)" fill="white" opacity="0.7">
-                        <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3"/>
+
+                    <!-- Background - flat green, no rounded corners (this version has no border radius) -->
+                    <rect width="1024" height="1024" fill="url(#bgGrad)"/>
+
+                    <!-- Subtle center glow on background -->
+                    <radialGradient id="centerGlow" cx="52%" cy="48%" r="35%">
+                        <stop offset="0%" stop-color="white" stop-opacity="0.08"/>
+                        <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+                    </radialGradient>
+                    <rect width="1024" height="1024" fill="url(#centerGlow)"/>
+
+                    <!-- Arabic text نور with glow effect -->
+                    <text
+                        x="510"
+                        y="570"
+                        text-anchor="middle"
+                        dominant-baseline="middle"
+                        font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', 'Geeza Pro', serif"
+                        font-size="430"
+                        font-weight="bold"
+                        fill="white"
+                        direction="rtl"
+                        filter="url(#glow)"
+                    >نور</text>
+
+                    <!-- Diamond accent (rotated square) top right area - near ن dot position -->
+                    <rect
+                        x="668" y="168"
+                        width="46" height="46"
+                        rx="4" ry="4"
+                        fill="white"
+                        transform="rotate(45, 691, 191)"
+                        filter="url(#diamondGlow)"
+                    />
+
+                    <!-- 4-point sparkle bottom right -->
+                    <g transform="translate(952, 952)" filter="url(#sparkleGlow)" fill="white" opacity="0.75">
+                        <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4"/>
                     </g>
                 </svg>
             </div>
@@ -321,7 +387,7 @@
                             type="email" 
                             name="email" 
                             class="form-input" 
-                            placeholder="Username" 
+                            placeholder="Email" 
                             value="{{ old('email') }}"
                             required 
                             autofocus
@@ -342,7 +408,7 @@
                             type="password" 
                             name="password" 
                             class="form-input" 
-                            placeholder="Password" 
+                            placeholder="Kata Sandi" 
                             required
                             onfocus="document.getElementById('password-wrapper').classList.add('focused')"
                             onblur="document.getElementById('password-wrapper').classList.remove('focused')"
@@ -354,18 +420,18 @@
                 <div class="checkbox-group">
                     <label class="remember-me">
                         <input type="checkbox" name="remember" id="remember_me">
-                        <span>Remember Me</span>
+                        <span>Ingat Saya</span>
                     </label>
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" class="forgot-password">
-                            Forgot Password?
+                            Lupa Kata Sandi?
                         </a>
                     @endif
                 </div>
 
                 <!-- Login Button -->
                 <button type="submit" class="login-button">
-                    Login
+                    Masuk
                 </button>
 
                 <!-- Register Link -->
@@ -378,7 +444,7 @@
         </div>
 
         <p class="footer-text" style="text-align: center;">
-            designed by Al-Huda Team
+            dibuat oleh Tim NurSteps
         </p>
     </div>
 </body>
