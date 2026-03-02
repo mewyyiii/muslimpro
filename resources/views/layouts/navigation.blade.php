@@ -7,25 +7,39 @@
             <!-- Logo & Brand -->
             <div class="flex items-center">
                 <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
-                    <div class="w-10 h-10 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-lg flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                        <!-- TASBIH ICON -->
-                        <svg viewBox="0 0 100 120" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="50" cy="11" r="6" fill="white"/>
-                            <circle cx="68" cy="16" r="5.5" fill="white"/>
-                            <circle cx="80" cy="29" r="5.5" fill="white"/>
-                            <circle cx="84" cy="46" r="5.5" fill="white"/>
-                            <circle cx="78" cy="62" r="5.5" fill="white"/>
-                            <circle cx="64" cy="73" r="5.5" fill="white"/>
-                            <circle cx="50" cy="77" r="6" fill="white"/>
-                            <circle cx="36" cy="73" r="5.5" fill="white"/>
-                            <circle cx="22" cy="62" r="5.5" fill="white"/>
-                            <circle cx="16" cy="46" r="5.5" fill="white"/>
-                            <circle cx="20" cy="29" r="5.5" fill="white"/>
-                            <circle cx="32" cy="16" r="5.5" fill="white"/>
-                            <circle cx="50" cy="85" r="5" fill="white"/>
-                            <line x1="44" y1="90" x2="41" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                            <line x1="50" y1="90" x2="50" y2="110" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                            <line x1="56" y1="90" x2="59" y2="108" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    <div class="w-10 h-10 rounded-lg overflow-hidden shadow-md group-hover:scale-110 transition-transform flex-shrink-0">
+                        <!-- NURSTEPS LOGO ICON -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="w-full h-full">
+                            <defs>
+                                <radialGradient id="bgGradAppNav" cx="50%" cy="40%" r="60%">
+                                    <stop offset="0%" stop-color="#2d8a5a"/>
+                                    <stop offset="100%" stop-color="#0d3a27"/>
+                                </radialGradient>
+                                <filter id="glowAppNav" x="-30%" y="-30%" width="160%" height="160%">
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur1"/>
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur1"/>
+                                        <feMergeNode in="blur2"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                <radialGradient id="vignetteAppNav" cx="50%" cy="50%" r="70%">
+                                    <stop offset="0%" stop-color="transparent"/>
+                                    <stop offset="100%" stop-color="#060f0a" stop-opacity="0.6"/>
+                                </radialGradient>
+                            </defs>
+                            <rect width="1024" height="1024" rx="180" ry="180" fill="url(#bgGradAppNav)"/>
+                            <rect width="1024" height="1024" rx="180" ry="180" fill="url(#vignetteAppNav)"/>
+                            <g filter="url(#glowAppNav)" transform="translate(512, 520)">
+                                <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', serif" font-size="400" font-weight="bold" fill="white" direction="rtl">نور</text>
+                            </g>
+                            <g transform="translate(680, 195) rotate(45)">
+                                <rect x="-22" y="-22" width="44" height="44" fill="white" filter="url(#glowAppNav)"/>
+                            </g>
+                            <g transform="translate(960, 960)" fill="white" opacity="0.7">
+                                <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3"/>
+                            </g>
                         </svg>
                     </div>
                     <span class="text-xl font-bold text-teal-700 hidden sm:block">NurSteps</span>
@@ -530,7 +544,7 @@
                         <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                         </svg>
-                        Logout
+                        Keluar
                     </button>
 
                     {{-- Modal Mobile --}}

@@ -17,10 +17,11 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #5eead4 100%);
-            overflow: hidden;
+            overflow-y: auto;
             position: relative;
+            padding: 30px 20px;
         }
 
         /* Animated background pattern */
@@ -74,13 +75,12 @@
         .icon-container {
             width: 100px;
             height: 100px;
-            background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
             animation: float 3s ease-in-out infinite;
         }
 
@@ -90,8 +90,10 @@
         }
 
         .tasbih-icon {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
+            border-radius: 18px;
+            overflow: hidden;
         }
 
         .form-group {
@@ -242,8 +244,8 @@
             }
 
             .tasbih-icon {
-                width: 40px;
-                height: 40px;
+                width: 64px;
+                height: 64px;
             }
         }
     </style>
@@ -251,26 +253,39 @@
 <body>
     <div class="container">
         <div class="login-card">
-            <!-- Tasbih Icon -->
+            <!-- NurSteps Logo Icon -->
             <div class="icon-container">
-                <svg viewBox="0 0 100 120" class="tasbih-icon" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="11" r="6" fill="#14b8a6"/>
-                    <circle cx="68" cy="16" r="5.5" fill="#14b8a6"/>
-                    <circle cx="80" cy="29" r="5.5" fill="#14b8a6"/>
-                    <circle cx="84" cy="46" r="5.5" fill="#14b8a6"/>
-                    <circle cx="78" cy="62" r="5.5" fill="#14b8a6"/>
-                    <circle cx="64" cy="73" r="5.5" fill="#14b8a6"/>
-                    <circle cx="50" cy="77" r="6" fill="#14b8a6"/>
-                    <circle cx="36" cy="73" r="5.5" fill="#14b8a6"/>
-                    <circle cx="22" cy="62" r="5.5" fill="#14b8a6"/>
-                    <circle cx="16" cy="46" r="5.5" fill="#14b8a6"/>
-                    <circle cx="20" cy="29" r="5.5" fill="#14b8a6"/>
-                    <circle cx="32" cy="16" r="5.5" fill="#14b8a6"/>
-                    <circle cx="50" cy="85" r="5" fill="#14b8a6"/>
-
-                    <line x1="44" y1="90" x2="41" y2="108" stroke="#14b8a6" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="50" y1="90" x2="50" y2="110" stroke="#14b8a6" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="56" y1="90" x2="59" y2="108" stroke="#14b8a6" stroke-width="3" stroke-linecap="round"/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="tasbih-icon">
+                    <defs>
+                        <radialGradient id="bgGradLogin" cx="50%" cy="40%" r="60%">
+                            <stop offset="0%" stop-color="#2d8a5a"/>
+                            <stop offset="100%" stop-color="#0d3a27"/>
+                        </radialGradient>
+                        <filter id="glowLogin" x="-30%" y="-30%" width="160%" height="160%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur1"/>
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2"/>
+                            <feMerge>
+                                <feMergeNode in="blur1"/>
+                                <feMergeNode in="blur2"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <radialGradient id="vignetteLogin" cx="50%" cy="50%" r="70%">
+                            <stop offset="0%" stop-color="transparent"/>
+                            <stop offset="100%" stop-color="#060f0a" stop-opacity="0.6"/>
+                        </radialGradient>
+                    </defs>
+                    <rect width="1024" height="1024" rx="512" ry="512" fill="url(#bgGradLogin)"/>
+                    <rect width="1024" height="1024" rx="512" ry="512" fill="url(#vignetteLogin)"/>
+                    <g filter="url(#glowLogin)" transform="translate(512, 520)">
+                        <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', serif" font-size="400" font-weight="bold" fill="white" direction="rtl">نور</text>
+                    </g>
+                    <g transform="translate(680, 195) rotate(45)">
+                        <rect x="-22" y="-22" width="44" height="44" fill="white" filter="url(#glowLogin)"/>
+                    </g>
+                    <g transform="translate(960, 960)" fill="white" opacity="0.7">
+                        <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3"/>
+                    </g>
                 </svg>
             </div>
 
