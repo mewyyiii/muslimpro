@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Register Account - Al-Huda Islamic App</title>
+    <title>Daftar Akun - Aplikasi NurSteps</title>
     <style>
         * {
             margin: 0;
@@ -285,7 +285,7 @@
                 </svg>
             </div>
 
-            <h2 class="title">Register Account</h2>
+            <h2 class="title">Daftar Akun</h2>
 
             <!-- Validation Errors -->
             @if ($errors->any())
@@ -312,7 +312,7 @@
                             type="text" 
                             name="name" 
                             class="form-input" 
-                            placeholder="Your Name" 
+                            placeholder="Nama Lengkap" 
                             value="{{ old('name') }}"
                             required 
                             autofocus
@@ -333,7 +333,7 @@
                             type="text" 
                             name="username" 
                             class="form-input" 
-                            placeholder="Username" 
+                            placeholder="Nama" 
                             value="{{ old('username') }}"
                             onfocus="document.getElementById('username-wrapper').classList.add('focused')"
                             onblur="document.getElementById('username-wrapper').classList.remove('focused')"
@@ -352,7 +352,7 @@
                             type="email" 
                             name="email" 
                             class="form-input" 
-                            placeholder="Your Email" 
+                            placeholder="Email Anda" 
                             value="{{ old('email') }}"
                             required
                             onfocus="document.getElementById('email-wrapper').classList.add('focused')"
@@ -372,7 +372,7 @@
                             type="password" 
                             name="password" 
                             class="form-input" 
-                            placeholder="Password" 
+                            placeholder="Kata Sandi" 
                             required
                             onfocus="document.getElementById('password-wrapper').classList.add('focused')"
                             onblur="document.getElementById('password-wrapper').classList.remove('focused')"
@@ -391,7 +391,7 @@
                             type="password" 
                             name="password_confirmation" 
                             class="form-input" 
-                            placeholder="Confirm Password" 
+                            placeholder="Konfirmasi Kata Sandi" 
                             required
                             onfocus="document.getElementById('confirm-password-wrapper').classList.add('focused')"
                             onblur="document.getElementById('confirm-password-wrapper').classList.remove('focused')"
@@ -401,24 +401,24 @@
 
                 <!-- Terms -->
                 <p class="terms">
-                    Don't worry, you can change your username later.<br>
-                    Login to <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>
+                    Jangan khawatir, Anda dapat mengubah nama pengguna Anda nanti.<br>
+                    Silahkan lihat <a href="#">Ketentuan Layanan</a> & <a href="#">Kebijakan Privasi</a>
                 </p>
 
                 <!-- Register Button -->
                 <button type="submit" class="register-button">
-                    Register
+                    Daftar
                 </button>
 
                 <!-- Login Link -->
                 <div class="login-link">
-                    Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a>
+                    Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
                 </div>
             </form>
         </div>
 
         <p class="footer-text" style="text-align: center;">
-            designed by Al-Huda Team
+            dirancang oleh Tim NurSteps
         </p>
     </div>
 </body>

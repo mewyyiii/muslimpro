@@ -298,44 +298,62 @@
         <div class="flex justify-between items-center h-14 sm:h-16">
             <div class="flex items-center space-x-2 sm:space-x-3">
                 <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl overflow-hidden shadow-lg shadow-cyan-500/30 flex-shrink-0">
-                    <!-- NURSTEPS LOGO ICON -->
+                    <!-- NURSTEPS LOGO ICON (NEW) -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="w-full h-full">
                         <defs>
-                            <radialGradient id="bgGradNav" cx="50%" cy="40%" r="60%">
-                                <stop offset="0%" stop-color="#2d8a5a"/>
-                                <stop offset="100%" stop-color="#0d3a27"/>
+                            <radialGradient id="bgGradNav" cx="50%" cy="45%" r="65%">
+                                <stop offset="0%" stop-color="#2ecf8e"/>
+                                <stop offset="100%" stop-color="#1aaa72"/>
                             </radialGradient>
-                            <filter id="glowNav" x="-30%" y="-30%" width="160%" height="160%">
-                                <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur1"/>
-                                <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2"/>
+                            <filter id="glowNav" x="-40%" y="-40%" width="180%" height="180%">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="blur1"/>
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2"/>
+                                <feColorMatrix in="blur1" type="matrix"
+                                    values="0 0 0 0 0.5
+                                            0 0 0 0 1
+                                            0 0 0 0 0.7
+                                            0 0 0 0.6 0" result="colorBlur"/>
                                 <feMerge>
-                                    <feMergeNode in="blur1"/>
+                                    <feMergeNode in="colorBlur"/>
                                     <feMergeNode in="blur2"/>
                                     <feMergeNode in="SourceGraphic"/>
                                 </feMerge>
                             </filter>
-                            <radialGradient id="vignetteNav" cx="50%" cy="50%" r="70%">
-                                <stop offset="0%" stop-color="transparent"/>
-                                <stop offset="100%" stop-color="#060f0a" stop-opacity="0.6"/>
+                            <filter id="diamondGlowNav" x="-80%" y="-80%" width="360%" height="360%">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+                                <feMerge>
+                                    <feMergeNode in="blur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                            <filter id="sparkleGlowNav" x="-100%" y="-100%" width="400%" height="400%">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+                                <feMerge>
+                                    <feMergeNode in="blur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                            <radialGradient id="centerGlowNav" cx="52%" cy="48%" r="35%">
+                                <stop offset="0%" stop-color="white" stop-opacity="0.08"/>
+                                <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
                             </radialGradient>
                         </defs>
-                        <rect width="1024" height="1024" rx="180" ry="180" fill="url(#bgGradNav)"/>
-                        <rect width="1024" height="1024" rx="180" ry="180" fill="url(#vignetteNav)"/>
-                        <g filter="url(#glowNav)" transform="translate(512, 520)">
-                            <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', serif" font-size="400" font-weight="bold" fill="white" direction="rtl">نور</text>
-                        </g>
-                        <g transform="translate(680, 195) rotate(45)">
-                            <rect x="-22" y="-22" width="44" height="44" fill="white" filter="url(#glowNav)"/>
-                        </g>
-                        <g transform="translate(960, 960)" fill="white" opacity="0.7">
-                            <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3"/>
+                        <rect width="1024" height="1024" fill="url(#bgGradNav)"/>
+                        <rect width="1024" height="1024" fill="url(#centerGlowNav)"/>
+                        <text x="510" y="570" text-anchor="middle" dominant-baseline="middle"
+                            font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', 'Geeza Pro', serif"
+                            font-size="430" font-weight="bold" fill="white" direction="rtl"
+                            filter="url(#glowNav)">نور</text>
+                        <rect x="668" y="168" width="46" height="46" rx="4" ry="4" fill="white"
+                            transform="rotate(45, 691, 191)" filter="url(#diamondGlowNav)"/>
+                        <g transform="translate(952, 952)" filter="url(#sparkleGlowNav)" fill="white" opacity="0.75">
+                            <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4"/>
                         </g>
                     </svg>
                 </div>
                 <span id="typing-logo" class="typing-text text-lg sm:text-xl font-bold text-cyan-700"></span>
             </div>
             <div class="flex items-center space-x-2 sm:space-x-3">
-                {{-- ✅ Langsung ke halaman login Breeze --}}
                 <a href="{{ route('login') }}" class="px-3 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm font-semibold text-gray-700 hover:text-cyan-700 transition-colors duration-200 hover:scale-105 transform">
                     Masuk
                 </a>
@@ -368,17 +386,15 @@
                     <span class="gradient-text">Allah SWT</span>
                 </h1>
                 <p class="fade-in-d2 text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 lg:mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                    NurSteps hadir sebagai pendamping ibadah harian Anda. Terinspirasi dari kata *Nur* yang berarti cahaya dan *Steps* yang berarti langkah, NurSteps membantu setiap Muslim melangkah lebih dekat kepada Allah SWT melalui Al-Qur’an digital, jadwal shalat, dan dzikir dalam satu aplikasi
+                    NurSteps hadir sebagai pendamping ibadah harian Anda. Terinspirasi dari kata *Nur* yang berarti cahaya dan *Steps* yang berarti langkah, NurSteps membantu setiap Muslim melangkah lebih dekat kepada Allah SWT melalui Al-Qur'an digital, jadwal shalat, dan dzikir dalam satu aplikasi
                 </p>
                 <div class="fade-in-d3 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-                    {{-- ✅ Langsung redirect ke register Breeze --}}
                     <a href="{{ route('register') }}" class="btn-shine inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-sm sm:text-base font-bold rounded-xl shadow-xl shadow-cyan-500/30 hover:shadow-2xl hover:scale-105 transition-all duration-300">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                         </svg>
                         Mulai Sekarang
                     </a>
-                    {{-- ✅ Langsung redirect ke login Breeze --}}
                     <a href="{{ route('login') }}" class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-white text-cyan-700 text-sm sm:text-base font-bold rounded-xl border-2 border-cyan-400 hover:border-cyan-600 hover:bg-cyan-50 transition-all duration-300 shadow-lg">
                         Sudah Punya Akun?
                     </a>
@@ -603,14 +619,12 @@
             Bergabunglah dengan ribuan Muslim yang sudah menjadikan NurSteps sebagai pendamping ibadah harian mereka
         </p>
         <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center px-4">
-            {{-- ✅ Langsung ke register Breeze --}}
             <a href="{{ route('register') }}" class="btn-shine inline-flex items-center justify-center px-8 py-4 sm:px-10 sm:py-5 bg-white text-cyan-700 font-bold text-base sm:text-lg rounded-xl shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all duration-300">
                 <svg class="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                 </svg>
                 Daftar Sekarang
             </a>
-            {{-- ✅ Langsung ke login Breeze --}}
             <a href="{{ route('login') }}" class="inline-flex items-center justify-center px-8 py-4 sm:px-10 sm:py-5 bg-cyan-600/60 backdrop-blur-sm text-white font-bold text-base sm:text-lg rounded-xl border-2 border-white/30 hover:bg-cyan-700 hover:border-white/50 transition-all duration-300 shadow-lg">
                 <svg class="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
@@ -629,37 +643,56 @@
             <div>
                 <div class="flex items-center space-x-3 mb-4 sm:mb-5">
                     <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-lg flex-shrink-0">
-                        <!-- NURSTEPS LOGO ICON FOOTER -->
+                        <!-- NURSTEPS LOGO ICON FOOTER (NEW) -->
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="w-full h-full">
                             <defs>
-                                <radialGradient id="bgGradFooter" cx="50%" cy="40%" r="60%">
-                                    <stop offset="0%" stop-color="#2d8a5a"/>
-                                    <stop offset="100%" stop-color="#0d3a27"/>
+                                <radialGradient id="bgGradFooter" cx="50%" cy="45%" r="65%">
+                                    <stop offset="0%" stop-color="#2ecf8e"/>
+                                    <stop offset="100%" stop-color="#1aaa72"/>
                                 </radialGradient>
-                                <filter id="glowFooter" x="-30%" y="-30%" width="160%" height="160%">
-                                    <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur1"/>
-                                    <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2"/>
+                                <filter id="glowFooter" x="-40%" y="-40%" width="180%" height="180%">
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="blur1"/>
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2"/>
+                                    <feColorMatrix in="blur1" type="matrix"
+                                        values="0 0 0 0 0.5
+                                                0 0 0 0 1
+                                                0 0 0 0 0.7
+                                                0 0 0 0.6 0" result="colorBlur"/>
                                     <feMerge>
-                                        <feMergeNode in="blur1"/>
+                                        <feMergeNode in="colorBlur"/>
                                         <feMergeNode in="blur2"/>
                                         <feMergeNode in="SourceGraphic"/>
                                     </feMerge>
                                 </filter>
-                                <radialGradient id="vignetteFooter" cx="50%" cy="50%" r="70%">
-                                    <stop offset="0%" stop-color="transparent"/>
-                                    <stop offset="100%" stop-color="#060f0a" stop-opacity="0.6"/>
+                                <filter id="diamondGlowFooter" x="-80%" y="-80%" width="360%" height="360%">
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                <filter id="sparkleGlowFooter" x="-100%" y="-100%" width="400%" height="400%">
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                <radialGradient id="centerGlowFooter" cx="52%" cy="48%" r="35%">
+                                    <stop offset="0%" stop-color="white" stop-opacity="0.08"/>
+                                    <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
                                 </radialGradient>
                             </defs>
-                            <rect width="1024" height="1024" rx="180" ry="180" fill="url(#bgGradFooter)"/>
-                            <rect width="1024" height="1024" rx="180" ry="180" fill="url(#vignetteFooter)"/>
-                            <g filter="url(#glowFooter)" transform="translate(512, 520)">
-                                <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', serif" font-size="400" font-weight="bold" fill="white" direction="rtl">نور</text>
-                            </g>
-                            <g transform="translate(680, 195) rotate(45)">
-                                <rect x="-22" y="-22" width="44" height="44" fill="white" filter="url(#glowFooter)"/>
-                            </g>
-                            <g transform="translate(960, 960)" fill="white" opacity="0.7">
-                                <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3"/>
+                            <rect width="1024" height="1024" fill="url(#bgGradFooter)"/>
+                            <rect width="1024" height="1024" fill="url(#centerGlowFooter)"/>
+                            <text x="510" y="570" text-anchor="middle" dominant-baseline="middle"
+                                font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', 'Geeza Pro', serif"
+                                font-size="430" font-weight="bold" fill="white" direction="rtl"
+                                filter="url(#glowFooter)">نور</text>
+                            <rect x="668" y="168" width="46" height="46" rx="4" ry="4" fill="white"
+                                transform="rotate(45, 691, 191)" filter="url(#diamondGlowFooter)"/>
+                            <g transform="translate(952, 952)" filter="url(#sparkleGlowFooter)" fill="white" opacity="0.75">
+                                <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4"/>
                             </g>
                         </svg>
                     </div>
