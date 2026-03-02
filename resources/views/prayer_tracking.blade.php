@@ -87,7 +87,7 @@
                 </div>
                 <div class="text-xs md:text-sm text-gray-500 font-medium">Shalat Bulan Ini</div>
                 <div class="mt-2 text-xs text-emerald-400 font-medium">
-                    dari {{ now()->day * 5 }} target
+                    dari {{ now()->daysInMonth * 5 }} target
                 </div>
             </div>
         </div>
