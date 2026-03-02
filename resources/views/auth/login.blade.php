@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preview Login - NurSteps</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Masuk - NurSteps</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        html, body { height: 100%; }
+        html, body {
+            height: 100%;
+        }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -26,10 +33,13 @@
         body::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background-image:
-                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
             animation: moveBackground 20s ease-in-out infinite;
             pointer-events: none;
         }
@@ -66,15 +76,14 @@
         .icon-container {
             width: 110px;
             height: 110px;
-            background: white;
             border-radius: 50%;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 0 auto 30px;
             animation: float 3s ease-in-out infinite;
+            background: transparent;
         }
 
         @keyframes float {
@@ -82,41 +91,38 @@
             50%       { transform: translateY(-10px); }
         }
 
-        .tasbih-icon { width: 110px; height: 110px; }
-
-        .app-name {
-            font-size: 22px;
-            font-weight: 800;
-            color: #0d9488;
-            margin-bottom: 4px;
-            letter-spacing: -0.5px;
+        .nur-icon {
+            width: 110px;
+            height: 110px;
+            display: block;
+            border-radius: 50%;
         }
 
-        .app-tagline {
-            font-size: 13px;
-            color: #94a3b8;
-            margin-bottom: 28px;
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
         }
-
-        .form-group { margin-bottom: 16px; position: relative; }
 
         .input-wrapper {
             position: relative;
-            background: rgba(13, 148, 136, 0.08);
+            background: rgba(13, 148, 136, 0.1);
             border-radius: 25px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
-        .input-wrapper:hover  { background: rgba(13, 148, 136, 0.13); }
-        .input-wrapper:focus-within {
+        .input-wrapper:hover {
             background: rgba(13, 148, 136, 0.15);
-            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+        }
+
+        .input-wrapper.focused {
+            background: rgba(13, 148, 136, 0.2);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
         }
 
         .form-input {
             width: 100%;
-            padding: 15px 20px 15px 52px;
+            padding: 16px 20px 16px 55px;
             border: none;
             background: transparent;
             font-size: 15px;
@@ -124,13 +130,17 @@
             outline: none;
         }
 
-        .form-input::placeholder { color: rgba(45, 55, 72, 0.45); }
+        .form-input::placeholder {
+            color: rgba(45, 55, 72, 0.5);
+        }
 
         .input-icon {
             position: absolute;
-            left: 18px; top: 50%;
+            left: 20px;
+            top: 50%;
             transform: translateY(-50%);
-            width: 20px; height: 20px;
+            width: 20px;
+            height: 20px;
             color: #14b8a6;
         }
 
@@ -138,17 +148,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 18px 0;
+            margin: 20px 0;
             font-size: 13px;
         }
 
         .remember-me {
-            display: flex; align-items: center; gap: 8px;
-            color: #4a5568; cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a5568;
         }
 
         .remember-me input[type="checkbox"] {
-            width: 17px; height: 17px;
+            width: 18px;
+            height: 18px;
             accent-color: #14b8a6;
         }
 
@@ -156,52 +169,42 @@
             color: #14b8a6;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.2s;
+            transition: color 0.3s ease;
         }
 
-        .forgot-password:hover { color: #0d9488; }
+        .forgot-password:hover {
+            color: #0d9488;
+        }
 
         .login-button {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             border: none;
             border-radius: 25px;
-            font-size: 15px;
-            font-weight: 700;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
             background: linear-gradient(135deg, #0d9488, #14b8a6);
             color: white;
             box-shadow: 0 8px 20px rgba(13, 148, 136, 0.4);
             transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-            margin-top: 6px;
+            letter-spacing: 1px;
+            margin-top: 10px;
         }
 
         .login-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(13, 148, 136, 0.5);
+            box-shadow: 0 12px 30px rgba(13, 148, 136, 0.5);
         }
 
-        .login-button:active { transform: translateY(0); }
-
-        .divider {
-            display: flex; align-items: center; gap: 12px;
-            margin: 20px 0;
-            color: #cbd5e1;
-            font-size: 12px;
-        }
-
-        .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e2e8f0;
+        .login-button:active {
+            transform: translateY(0);
         }
 
         .register-link {
-            margin-top: 20px;
+            margin-top: 25px;
             font-size: 14px;
-            color: #64748b;
+            color: #4a5568;
         }
 
         .register-link a {
@@ -210,22 +213,36 @@
             font-weight: 600;
         }
 
-        .register-link a:hover { text-decoration: underline; }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: left;
+        }
 
         .footer-text {
             margin-top: 20px;
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.75);
+            color: rgba(255, 255, 255, 0.8);
             text-align: center;
         }
 
         @media (max-width: 480px) {
-            body { align-items: flex-start; padding: 24px 0 32px; }
+            body {
+                align-items: flex-start;
+                padding: 24px 0 32px;
+            }
             .container { padding: 16px; }
-            .login-card { padding: 36px 24px; }
-            .icon-container { width: 80px; height: 80px; }
-            .tasbih-icon { width: 40px; height: 40px; }
-            .app-name { font-size: 18px; }
+            .login-card { padding: 40px 30px; }
+            .icon-container { width: 90px; height: 90px; }
+            .nur-icon { width: 90px; height: 90px; }
         }
     </style>
 </head>
@@ -235,7 +252,7 @@
 
             <!-- Icon Nur -->
             <div class="icon-container">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="tasbih-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="nur-icon">
                     <defs>
                         <clipPath id="circleClip">
                             <circle cx="512" cy="512" r="512"/>
@@ -255,20 +272,6 @@
                                 <feMergeNode in="SourceGraphic"/>
                             </feMerge>
                         </filter>
-                        <filter id="diamondGlow" x="-80%" y="-80%" width="360%" height="360%">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
-                            <feMerge>
-                                <feMergeNode in="blur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                        <filter id="sparkleGlow" x="-100%" y="-100%" width="400%" height="400%">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
-                            <feMerge>
-                                <feMergeNode in="blur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
                         <radialGradient id="centerGlow" cx="52%" cy="48%" r="35%">
                             <stop offset="0%" stop-color="white" stop-opacity="0.08"/>
                             <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
@@ -277,69 +280,110 @@
                     <g clip-path="url(#circleClip)">
                         <rect width="1024" height="1024" fill="url(#bgGrad)"/>
                         <rect width="1024" height="1024" fill="url(#centerGlow)"/>
-                        <text x="510" y="570" text-anchor="middle" dominant-baseline="middle"
+                        <text x="510" y="570"
+                            text-anchor="middle"
+                            dominant-baseline="middle"
                             font-family="'Noto Naskh Arabic','Arabic Typesetting','Traditional Arabic','Geeza Pro',serif"
-                            font-size="430" font-weight="bold" fill="white" direction="rtl"
+                            font-size="430"
+                            font-weight="bold"
+                            fill="white"
+                            direction="rtl"
                             filter="url(#glow)">نور</text>
-                        <rect x="668" y="168" width="46" height="46" rx="4" ry="4" fill="white"
-                            transform="rotate(45, 691, 191)" filter="url(#diamondGlow)"/>
-                        <g transform="translate(952, 952)" filter="url(#sparkleGlow)" fill="white" opacity="0.75">
-                            <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4"/>
-                        </g>
                     </g>
                 </svg>
             </div>
 
-            <p class="app-name">NurSteps</p>
-            <p class="app-tagline">Pendamping Ibadah Anda</p>
+            <!-- Session Status -->
+            @if (session('status'))
+                <div class="error-message">
+                    {{ session('status') }}
+                </div>
+            @endif
 
-            <form onsubmit="return false;">
+            <!-- Validation Errors -->
+            @if ($errors->any())
+                <div class="error-message">
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
 
                 <!-- Email -->
                 <div class="form-group">
-                    <div class="input-wrapper">
+                    <div class="input-wrapper" id="username-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
-                        <input type="email" class="form-input" placeholder="Email">
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-input"
+                            placeholder="Email"
+                            value="{{ old('email') }}"
+                            required
+                            autofocus
+                            onfocus="document.getElementById('username-wrapper').classList.add('focused')"
+                            onblur="document.getElementById('username-wrapper').classList.remove('focused')"
+                        >
                     </div>
                 </div>
 
                 <!-- Kata Sandi -->
                 <div class="form-group">
-                    <div class="input-wrapper">
+                    <div class="input-wrapper" id="password-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                         </svg>
-                        <input type="password" class="form-input" placeholder="Kata Sandi">
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-input"
+                            placeholder="Kata Sandi"
+                            required
+                            onfocus="document.getElementById('password-wrapper').classList.add('focused')"
+                            onblur="document.getElementById('password-wrapper').classList.remove('focused')"
+                        >
                     </div>
                 </div>
 
                 <!-- Ingat Saya & Lupa Kata Sandi -->
                 <div class="checkbox-group">
                     <label class="remember-me">
-                        <input type="checkbox">
+                        <input type="checkbox" name="remember" id="remember_me">
                         <span>Ingat Saya</span>
                     </label>
-                    <a href="#" class="forgot-password">Lupa Kata Sandi?</a>
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}" class="forgot-password">
+                            Lupa Kata Sandi?
+                        </a>
+                    @endif
                 </div>
 
                 <!-- Tombol Masuk -->
-                <button type="submit" class="login-button">Masuk</button>
-
-                <div class="divider">atau</div>
+                <button type="submit" class="login-button">
+                    Masuk
+                </button>
 
                 <!-- Link Daftar -->
-                <div class="register-link">
-                    Belum punya akun? <a href="/register">Daftar sekarang</a>
-                </div>
-
+                @if (Route::has('register'))
+                    <div class="register-link">
+                        Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a>
+                    </div>
+                @endif
             </form>
         </div>
 
-        <p class="footer-text">dirancang oleh Tim NurSteps</p>
+        <p class="footer-text">
+            dirancang oleh Tim Al-Huda
+        </p>
     </div>
 </body>
 </html>
