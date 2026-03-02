@@ -237,11 +237,14 @@
             <div class="icon-container">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="tasbih-icon">
                     <defs>
-                        <radialGradient id="bgGrad2" cx="50%" cy="45%" r="65%">
+                        <clipPath id="circleClip">
+                            <circle cx="512" cy="512" r="512"/>
+                        </clipPath>
+                        <radialGradient id="bgGrad" cx="50%" cy="45%" r="65%">
                             <stop offset="0%" stop-color="#2ecf8e"/>
                             <stop offset="100%" stop-color="#1aaa72"/>
                         </radialGradient>
-                        <filter id="glow2" x="-40%" y="-40%" width="180%" height="180%">
+                        <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
                             <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="blur1"/>
                             <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2"/>
                             <feColorMatrix in="blur1" type="matrix"
@@ -252,35 +255,37 @@
                                 <feMergeNode in="SourceGraphic"/>
                             </feMerge>
                         </filter>
-                        <filter id="diamondGlow2" x="-80%" y="-80%" width="360%" height="360%">
+                        <filter id="diamondGlow" x="-80%" y="-80%" width="360%" height="360%">
                             <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
                             <feMerge>
                                 <feMergeNode in="blur"/>
                                 <feMergeNode in="SourceGraphic"/>
                             </feMerge>
                         </filter>
-                        <filter id="sparkleGlow2" x="-100%" y="-100%" width="400%" height="400%">
+                        <filter id="sparkleGlow" x="-100%" y="-100%" width="400%" height="400%">
                             <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
                             <feMerge>
                                 <feMergeNode in="blur"/>
                                 <feMergeNode in="SourceGraphic"/>
                             </feMerge>
                         </filter>
-                        <radialGradient id="centerGlow2" cx="52%" cy="48%" r="35%">
+                        <radialGradient id="centerGlow" cx="52%" cy="48%" r="35%">
                             <stop offset="0%" stop-color="white" stop-opacity="0.08"/>
                             <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
                         </radialGradient>
                     </defs>
-                    <rect width="1024" height="1024" fill="url(#bgGrad2)"/>
-                    <rect width="1024" height="1024" fill="url(#centerGlow2)"/>
-                    <text x="510" y="570" text-anchor="middle" dominant-baseline="middle"
-                        font-family="'Noto Naskh Arabic','Arabic Typesetting','Traditional Arabic','Geeza Pro',serif"
-                        font-size="430" font-weight="bold" fill="white" direction="rtl"
-                        filter="url(#glow2)">نور</text>
-                    <rect x="668" y="168" width="46" height="46" rx="4" ry="4" fill="white"
-                        transform="rotate(45, 691, 191)" filter="url(#diamondGlow2)"/>
-                    <g transform="translate(952, 952)" filter="url(#sparkleGlow2)" fill="white" opacity="0.75">
-                        <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4"/>
+                    <g clip-path="url(#circleClip)">
+                        <rect width="1024" height="1024" fill="url(#bgGrad)"/>
+                        <rect width="1024" height="1024" fill="url(#centerGlow)"/>
+                        <text x="510" y="570" text-anchor="middle" dominant-baseline="middle"
+                            font-family="'Noto Naskh Arabic','Arabic Typesetting','Traditional Arabic','Geeza Pro',serif"
+                            font-size="430" font-weight="bold" fill="white" direction="rtl"
+                            filter="url(#glow)">نور</text>
+                        <rect x="668" y="168" width="46" height="46" rx="4" ry="4" fill="white"
+                            transform="rotate(45, 691, 191)" filter="url(#diamondGlow)"/>
+                        <g transform="translate(952, 952)" filter="url(#sparkleGlow)" fill="white" opacity="0.75">
+                            <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4"/>
+                        </g>
                     </g>
                 </svg>
             </div>
@@ -334,7 +339,7 @@
             </form>
         </div>
 
-        <p class="footer-text">dibuat oleh Tim Al-Huda</p>
+        <p class="footer-text">dirancang oleh Tim NurSteps</p>
     </div>
 </body>
 </html>
