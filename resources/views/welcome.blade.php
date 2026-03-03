@@ -557,15 +557,19 @@
             <!-- Feature 4: Arah Kiblat -->
             <div class="feature-card reveal reveal-d4 bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border-2 border-orange-100/50 shadow-lg hover:border-cyan-300">
                 <div class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-cyan-400 to-teal-500 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg shadow-cyan-500/30">
-                    <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" stroke-width="2"/>
-                        <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/>
+                    <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M12 4 L12.8 11.2 L12 12 L11.2 11.2 Z" fill="currentColor"/>
+                        <path d="M12 20 L11.2 12.8 L12 12 L12.8 12.8 Z" fill="currentColor" opacity="0.5"/>
+                        <path d="M20 12 L12.8 11.2 L12 12 L12.8 12.8 Z" fill="currentColor" opacity="0.4"/>
+                        <path d="M4 12 L11.2 12.8 L12 12 L11.2 11.2 Z" fill="currentColor" opacity="0.4"/>
+                        <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                        <text x="12" y="3.5" text-anchor="middle" font-size="2.2" font-weight="bold" fill="currentColor">N</text>
                     </svg>
                 </div>
                 <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Arah Kiblat</h3>
                 <p class="text-sm sm:text-base text-gray-600 leading-relaxed">Temukan arah kiblat dengan kompas digital yang akurat</p>
             </div>
-
             <!-- Feature 5: Doa Harian -->
             <div class="feature-card reveal reveal-d5 bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border-2 border-orange-100/50 shadow-lg hover:border-cyan-300">
                 <div class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-cyan-400 to-teal-500 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg shadow-cyan-500/30">
