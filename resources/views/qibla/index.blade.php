@@ -1,283 +1,549 @@
 @extends('layouts.app')
 
 @push('styles')
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@700&display=swap" rel="stylesheet">
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&display=swap');
-    .font-arabic {
-        font-family: 'Amiri', serif;
+    :root {
+        --teal-deep:   #0d9488;
+        --teal-mid:    #14b8a6;
+        --teal-light:  #5eead4;
+        --emerald:     #10b981;
+        --gold:        #f59e0b;
+        --dark:        #0f172a;
+        --card-bg:     rgba(255,255,255,0.06);
+        --card-border: rgba(255,255,255,0.12);
     }
-    
-    /* Compass animations */
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
+
+    .qibla-page * { font-family: 'Plus Jakarta Sans', sans-serif; box-sizing: border-box; }
+    .font-arabic  { font-family: 'Noto Naskh Arabic', serif; }
+
+    /* ── Page Shell ── */
+    .qibla-page {
+        min-height: 100vh;
+        background: linear-gradient(160deg, #0d4f47 0%, #0d9488 45%, #0f766e 100%);
+        padding: 0 0 32px;
+        position: relative;
+        overflow-x: hidden;
     }
-    
+
+    /* subtle geometric bg pattern */
+    .qibla-page::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image:
+            radial-gradient(circle at 80% 10%, rgba(94,234,212,0.15) 0%, transparent 40%),
+            radial-gradient(circle at 10% 90%, rgba(16,185,129,0.12) 0%, transparent 40%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .qibla-wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 0 16px;
+    }
+
+    /* ── Hero Header ── */
+    .qibla-hero {
+        text-align: center;
+        padding: 28px 0 20px;
+    }
+    .qibla-hero h1 {
+        font-size: 28px;
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: -0.5px;
+        margin-bottom: 4px;
+    }
+    .qibla-hero p {
+        font-size: 13px;
+        color: rgba(255,255,255,0.65);
+        font-weight: 500;
+    }
+
+    /* ── Glass Card ── */
+    .glass-card {
+        background: rgba(255,255,255,0.10);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(255,255,255,0.16);
+        border-radius: 24px;
+        padding: 20px;
+        margin-bottom: 12px;
+    }
+
+    /* ── State: Need Permission ── */
+    .state-permission {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 10px 0;
+    }
+    .state-icon-wrap {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.12);
+        border: 2px solid rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        animation: float-icon 3s ease-in-out infinite;
+    }
+    @keyframes float-icon {
+        0%,100% { transform: translateY(0); }
+        50%      { transform: translateY(-8px); }
+    }
+    .state-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+    }
+    .state-sub {
+        font-size: 13px;
+        color: rgba(255,255,255,0.6);
+        text-align: center;
+        line-height: 1.5;
+        max-width: 260px;
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 28px;
+        background: linear-gradient(135deg, #10b981, #14b8a6);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(16,185,129,0.4);
+        transition: all 0.25s ease;
+        letter-spacing: 0.3px;
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(16,185,129,0.5);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 22px;
+        background: rgba(255,255,255,0.12);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+
+    /* ── Loading ── */
+    .state-loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+    }
+    .spinner {
+        width: 44px; height: 44px;
+        border: 3px solid rgba(255,255,255,0.2);
+        border-top-color: #5eead4;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Compass ── */
+    .compass-section { display: flex; flex-direction: column; gap: 16px; }
+
+    /* Location pill */
+    .loc-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 50px;
+        padding: 8px 16px;
+        width: fit-content;
+        margin: 0 auto;
+    }
+    .loc-pill span { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 500; }
+    .loc-dot { width: 8px; height: 8px; border-radius: 50%; background: #5eead4; box-shadow: 0 0 6px #5eead4; }
+
+    /* Compass container */
+    .compass-wrap {
+        position: relative;
+        width: 260px;
+        height: 260px;
+        margin: 0 auto;
+    }
+
+    .compass-outer-ring {
+        position: absolute; inset: 0;
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.15);
+    }
+    .compass-pulse-ring {
+        position: absolute; inset: -4px;
+        border-radius: 50%;
+        border: 2px solid rgba(94,234,212,0.3);
+        animation: pulse-ring 2.5s ease-in-out infinite;
+    }
     @keyframes pulse-ring {
-        0%, 100% {
-            transform: scale(1);
-            opacity: 1;
-        }
-        50% {
-            transform: scale(1.1);
-            opacity: 0.5;
-        }
-    }
-    
-    .compass-ring {
-        animation: pulse-ring 2s ease-in-out infinite;
-    }
-    
-    .smooth-transition {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .arrow-transition {
-        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        0%,100% { transform: scale(1); opacity: 0.6; }
+        50%      { transform: scale(1.04); opacity: 1; }
     }
 
-    /* Glow effect */
-    .glow-green {
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    .compass-face {
+        position: absolute;
+        inset: 10px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 40% 35%, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.25) 100%);
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
     }
 
-    .glow-teal {
-        box-shadow: 0 0 30px rgba(20, 184, 166, 0.5);
+    /* Cardinal labels */
+    .cardinal {
+        position: absolute;
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1;
     }
+    .cardinal.N { top: 10px; left: 50%; transform: translateX(-50%); color: #f87171; }
+    .cardinal.S { bottom: 10px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.5); }
+    .cardinal.E { right: 10px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5); }
+    .cardinal.W { left: 10px;  top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5); }
+
+    /* Degree ticks */
+    .tick-ring {
+        position: absolute;
+        inset: 6px;
+        border-radius: 50%;
+    }
+
+    /* Needle */
+    .needle-wrap {
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
+        transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .needle {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: translateY(-30px);
+    }
+    .needle-kaaba { font-size: 22px; margin-bottom: 2px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
+    .needle-head {
+        width: 0; height: 0;
+        border-left: 9px solid transparent;
+        border-right: 9px solid transparent;
+        border-bottom: 16px solid #10b981;
+        filter: drop-shadow(0 0 8px rgba(16,185,129,0.7));
+    }
+    .needle-body {
+        width: 6px;
+        height: 80px;
+        background: linear-gradient(to bottom, #10b981, #059669);
+        border-radius: 0 0 4px 4px;
+        box-shadow: 0 0 12px rgba(16,185,129,0.5);
+    }
+
+    /* Center dot */
+    .compass-center {
+        position: absolute; inset: 0;
+        display: flex; align-items: center; justify-content: center;
+        pointer-events: none;
+    }
+    .center-dot {
+        width: 12px; height: 12px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #5eead4, #10b981);
+        box-shadow: 0 0 12px rgba(94,234,212,0.8);
+        z-index: 10;
+    }
+
+    /* ── Stats Row ── */
+    .stats-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .stat-card {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 16px;
+        padding: 14px 12px;
+        text-align: center;
+    }
+    .stat-label { font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+    .stat-value { font-size: 26px; font-weight: 800; color: #5eead4; line-height: 1; }
+    .stat-unit  { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 3px; }
+
+    /* ── Notice Banners ── */
+    .notice {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        font-size: 12.5px;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+    .notice.amber {
+        background: rgba(245,158,11,0.12);
+        border: 1px solid rgba(245,158,11,0.25);
+        color: #fde68a;
+    }
+    .notice.teal {
+        background: rgba(20,184,166,0.12);
+        border: 1px solid rgba(20,184,166,0.25);
+        color: #99f6e4;
+    }
+    .notice-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Manual Input ── */
+    .manual-card .card-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: rgba(255,255,255,0.9);
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+    .input-group label { display: block; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.4px; margin-bottom: 6px; text-transform: uppercase; }
+    .input-group input {
+        width: 100%;
+        padding: 11px 14px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.14);
+        border-radius: 12px;
+        color: #fff;
+        font-size: 13px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        outline: none;
+        transition: border-color 0.2s, background 0.2s;
+    }
+    .input-group input::placeholder { color: rgba(255,255,255,0.3); }
+    .input-group input:focus {
+        border-color: rgba(94,234,212,0.5);
+        background: rgba(255,255,255,0.12);
+    }
+    .btn-calc {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #0d9488, #10b981);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.25s;
+        letter-spacing: 0.3px;
+    }
+    .btn-calc:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── Kaabah Info Card ── */
+    .kaaba-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 20px;
+        padding: 16px 18px;
+        margin-bottom: 12px;
+    }
+    .kaaba-emoji { font-size: 40px; flex-shrink: 0; }
+    .kaaba-text {}
+    .kaaba-arabic { font-family: 'Noto Naskh Arabic', serif; font-size: 18px; color: #fff; line-height: 1.3; }
+    .kaaba-name { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+    .kaaba-coords { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; font-weight: 500; }
+
+    /* ── Error ── */
+    .state-error { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 0; }
+    .error-msg { font-size: 13px; color: #fca5a5; text-align: center; line-height: 1.5; max-width: 280px; }
+    .error-hint { font-size: 12px; color: rgba(255,255,255,0.4); text-align: center; }
 </style>
 @endpush
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-teal-400 via-teal-500 to-emerald-500 py-8 md:py-12">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">Arah Kiblat</h1>
-            <p class="text-white/90 text-sm md:text-base">Temukan arah Ka'bah dari lokasi Anda</p>
+<div class="qibla-page">
+    <div class="qibla-wrap">
+
+        <!-- Hero -->
+        <div class="qibla-hero">
+            <h1>Arah Kiblat</h1>
+            <p>Temukan arah Ka'bah dari lokasi Anda</p>
         </div>
 
         <div x-data="qiblaFinder()" x-init="init()">
-            
-            <!-- Main Compass Card -->
-            <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-10 mb-6 relative overflow-hidden">
-                <!-- Decorative circles -->
-                <div class="absolute top-0 right-0 w-40 h-40 bg-teal-50 rounded-full -mr-20 -mt-20"></div>
-                <div class="absolute bottom-0 left-0 w-32 h-32 bg-emerald-50 rounded-full -ml-16 -mb-16"></div>
-                
-                <div class="relative z-10">
-                    
-                    <!-- Status Messages -->
-                    <div class="text-center mb-6">
-                        <!-- Loading -->
-                        <div x-show="status === 'loading'" class="py-4">
-                            <div class="inline-block w-12 h-12 border-4 border-teal-200 border-t-teal-500 rounded-full animate-spin mb-3"></div>
-                            <p class="text-gray-600 font-medium">Mendapatkan lokasi Anda...</p>
+
+            <!-- ── Main Card ── -->
+            <div class="glass-card">
+
+                <!-- LOADING -->
+                <div x-show="status === 'loading'" class="state-loading">
+                    <div class="spinner"></div>
+                    <p style="color:rgba(255,255,255,0.7);font-size:13px;font-weight:600;">Mendapatkan lokasi Anda…</p>
+                </div>
+
+                <!-- NEED PERMISSION -->
+                <div x-show="status === 'need-permission'" class="state-permission">
+                    <div class="state-icon-wrap">📍</div>
+                    <div>
+                        <p class="state-title">Izinkan Akses Lokasi</p>
+                        <p class="state-sub">Untuk menghitung arah kiblat yang akurat dari posisi Anda saat ini</p>
+                    </div>
+                    <button @click="requestLocation()" class="btn-primary">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Aktifkan Lokasi
+                    </button>
+                </div>
+
+                <!-- ERROR -->
+                <div x-show="status === 'error'" class="state-error">
+                    <div class="state-icon-wrap">⚠️</div>
+                    <p class="error-msg" x-text="errorMessage"></p>
+                    <p class="error-hint">Coba aktifkan GPS atau gunakan input manual di bawah</p>
+                    <button @click="requestLocation()" class="btn-primary">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        Coba Lagi
+                    </button>
+                </div>
+
+                <!-- SUCCESS -->
+                <div x-show="status === 'success'" class="compass-section">
+
+                    <!-- Location pill -->
+                    <div class="loc-pill">
+                        <div class="loc-dot"></div>
+                        <span>
+                            <span x-text="userLocation.lat?.toFixed(4)"></span>°,
+                            <span x-text="userLocation.lng?.toFixed(4)"></span>°
+                        </span>
+                    </div>
+
+                    <!-- Compass -->
+                    <div class="compass-wrap">
+                        <div class="compass-pulse-ring"></div>
+                        <div class="compass-outer-ring"></div>
+
+                        <!-- Rotating face -->
+                        <div class="compass-face" :style="`transform: rotate(${-heading}deg)`">
+                            <div class="cardinal N">N</div>
+                            <div class="cardinal S">S</div>
+                            <div class="cardinal E">E</div>
+                            <div class="cardinal W">W</div>
+
+                            <!-- 36 tick marks -->
+                            <template x-for="i in 36" :key="i">
+                                <div style="position:absolute;top:50%;left:50%;width:1.5px;transform-origin:0 0;"
+                                     :style="`height:${i%9===0?'14px':'8px'};background:rgba(255,255,255,${i%9===0?'0.5':'0.2'});transform:rotate(${i*10}deg) translate(-50%, -${118}px)`">
+                                </div>
+                            </template>
                         </div>
 
-                        <!-- Need Permission -->
-                        <div x-show="status === 'need-permission'" class="py-4">
-                            <div class="text-5xl mb-3">📍</div>
-                            <p class="text-gray-700 font-medium mb-4">Izinkan akses lokasi untuk menemukan arah kiblat</p>
-                            <button @click="requestLocation()" 
-                                    class="px-6 py-3 bg-gradient-to-r from-teal-400 to-emerald-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl smooth-transition transform hover:-translate-y-1">
-                                Aktifkan Lokasi
-                            </button>
+                        <!-- Qibla Needle -->
+                        <div class="needle-wrap" :style="`transform: rotate(${getNeedleAngle()}deg)`">
+                            <div class="needle">
+                                <div class="needle-kaaba">🕋</div>
+                                <div class="needle-head"></div>
+                                <div class="needle-body"></div>
+                            </div>
                         </div>
 
-                        <!-- Error -->
-                        <div x-show="status === 'error'" class="py-4">
-                            <div class="text-5xl mb-3">⚠️</div>
-                            <p class="text-red-600 font-medium mb-2" x-text="errorMessage"></p>
-                            <p class="text-sm text-gray-600 mb-4">Coba aktifkan GPS atau input lokasi manual</p>
-                            <button @click="requestLocation()" 
-                                    class="px-6 py-3 bg-gradient-to-r from-teal-400 to-emerald-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl smooth-transition">
-                                Coba Lagi
-                            </button>
-                        </div>
-
-                        <!-- Success - Show Compass -->
-                        <div x-show="status === 'success'" class="space-y-6">
-                            
-                            <!-- Location Info -->
-                            <div class="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl p-4">
-                                <div class="flex items-center justify-center gap-2 text-sm text-gray-700">
-                                    <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    </svg>
-                                    <span class="font-medium">Lokasi Anda</span>
-                                </div>
-                                <div class="text-xs text-gray-600 mt-1">
-                                    <span x-text="userLocation.lat?.toFixed(4)"></span>°, 
-                                    <span x-text="userLocation.lng?.toFixed(4)"></span>°
-                                </div>
-                            </div>
-
-                            <!-- Main Compass -->
-                            <div class="relative flex justify-center items-center">
-                                <!-- Compass Container -->
-                                <div class="relative w-72 h-72 md:w-80 md:h-80">
-                                    
-                                    <!-- Outer Ring -->
-                                    <div class="absolute inset-0 rounded-full border-4 border-teal-200"></div>
-                                    
-                                    <!-- Pulsing Ring -->
-                                    <div class="absolute inset-0 rounded-full border-4 border-teal-400 compass-ring"></div>
-                                    
-                                    <!-- Compass Rose Background -->
-                                    <div class="absolute inset-4 rounded-full bg-gradient-to-br from-gray-50 to-gray-100 shadow-inner"
-                                         :style="`transform: rotate(${-heading}deg)`">
-                                        
-                                        <!-- Cardinal Directions -->
-                                        <div class="absolute inset-0">
-                                            <!-- North (Red) -->
-                                            <div class="absolute top-2 left-1/2 -translate-x-1/2 text-red-600 font-bold text-lg">
-                                                N
-                                            </div>
-                                            <!-- East -->
-                                            <div class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-600 font-bold">
-                                                E
-                                            </div>
-                                            <!-- South -->
-                                            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-gray-600 font-bold">
-                                                S
-                                            </div>
-                                            <!-- West -->
-                                            <div class="absolute left-2 top-1/2 -translate-y-1/2 text-gray-600 font-bold">
-                                                W
-                                            </div>
-                                        </div>
-
-                                        <!-- Degree Markers -->
-                                        <template x-for="i in 36" :key="i">
-                                            <div class="absolute top-1/2 left-1/2 w-0.5 h-3 bg-gray-400 origin-bottom"
-                                                 :style="`transform: translate(-50%, -50%) rotate(${i * 10}deg) translateY(-${i % 3 === 0 ? '130px' : '135px'})`">
-                                            </div>
-                                        </template>
-                                    </div>
-
-                                    <!-- Center Point -->
-                                    <div class="absolute inset-0 flex items-center justify-center">
-                                        <div class="w-3 h-3 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 shadow-lg"></div>
-                                    </div>
-
-                                    <!-- Qibla Arrow (Green) -->
-                                    <div class="absolute inset-0 flex items-center justify-center arrow-transition"
-                                         :style="`transform: rotate(${getNeedleAngle()}deg)`">
-                                        <div class="relative">
-                                            <!-- Arrow Body -->
-                                            <div class="w-2 h-32 bg-gradient-to-t from-emerald-600 to-emerald-400 rounded-full shadow-lg glow-green"
-                                                 style="transform: translateY(-50px);">
-                                            </div>
-                                            <!-- Arrow Head -->
-                                            <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[20px] border-b-emerald-500"
-                                                 style="filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.6));">
-                                            </div>
-                                            <!-- Ka'bah Icon at Arrow Tip -->
-                                            <div class="absolute -top-10 left-1/2 -translate-x-1/2 text-2xl" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2))">
-                                                🕋
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Qibla Info -->
-                            <div class="grid grid-cols-2 gap-4">
-                                <!-- Direction -->
-                                <div class="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-2xl p-4 text-center">
-                                    <div class="text-xs text-gray-600 mb-1">Arah Kiblat</div>
-                                    <div class="text-2xl font-bold text-teal-600">
-                                        <span x-text="Math.round(qiblaAngle)"></span>°
-                                    </div>
-                                    <div class="text-xs text-gray-500 mt-1" x-text="getCardinalDirection(qiblaAngle)"></div>
-                                </div>
-
-                                <!-- Distance -->
-                                <div class="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-2xl p-4 text-center">
-                                    <div class="text-xs text-gray-600 mb-1">Jarak ke Ka'bah</div>
-                                    <div class="text-2xl font-bold text-emerald-600">
-                                        <span x-text="distanceToKaaba"></span>
-                                    </div>
-                                    <div class="text-xs text-gray-500 mt-1">kilometer</div>
-                                </div>
-                            </div>
-
-                            <!-- Compass Calibration Notice -->
-                            <div x-show="!compassAvailable" class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center">
-                                <div class="text-amber-600 text-sm">
-                                    <span class="font-semibold">💡 Mode Desktop:</span> 
-                                    Arah kiblat ditampilkan relatif dari Utara. Gunakan smartphone untuk kompas digital.
-                                </div>
-                            </div>
-
-                            <div x-show="compassAvailable" class="bg-teal-50 border-2 border-teal-200 rounded-2xl p-4 text-center">
-                                <div class="text-teal-700 text-sm">
-                                    <span class="font-semibold">📱 Kompas Aktif!</span> 
-                                    Putar device Anda, panah hijau akan selalu menunjuk ke Ka'bah.
-                                </div>
-                            </div>
-                            <div x-show="needsCompassPermission" class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center mt-3">
-                                <div class="text-amber-700 text-sm mb-3">
-                                    <span class="font-semibold">🧭 Izin Kompas Dibutuhkan</span>
-                                    <div>Tekan tombol di bawah untuk mengaktifkan kompas.</div>
-                                </div>
-
-                                <button type="button"
-                                        @click="requestCompassPermission()"
-                                        class="px-4 py-2 rounded-xl bg-teal-600 text-white font-semibold shadow hover:bg-teal-700 transition">
-                                    Aktifkan Kompas
-                                </button>
-                            </div>
-
+                        <!-- Center dot -->
+                        <div class="compass-center">
+                            <div class="center-dot"></div>
                         </div>
                     </div>
+
+                    <!-- Stats -->
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-label">Arah Kiblat</div>
+                            <div class="stat-value"><span x-text="Math.round(qiblaAngle)"></span>°</div>
+                            <div class="stat-unit" x-text="getCardinalDirection(qiblaAngle)"></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Jarak Ka'bah</div>
+                            <div class="stat-value" style="font-size:20px;" x-text="distanceToKaaba"></div>
+                            <div class="stat-unit">kilometer</div>
+                        </div>
+                    </div>
+
+                    <!-- Notices -->
+                    <div x-show="!compassAvailable && !needsCompassPermission" class="notice amber">
+                        <span class="notice-icon">💡</span>
+                        <span><strong>Mode Desktop:</strong> Arah ditampilkan dari Utara. Gunakan smartphone untuk kompas digital.</span>
+                    </div>
+                    <div x-show="compassAvailable" class="notice teal">
+                        <span class="notice-icon">📱</span>
+                        <span><strong>Kompas Aktif!</strong> Putar device, panah hijau selalu menunjuk ke Ka'bah.</span>
+                    </div>
+                    <div x-show="needsCompassPermission" class="notice amber" style="flex-direction:column;gap:10px;">
+                        <div style="display:flex;gap:8px;align-items:flex-start;">
+                            <span class="notice-icon">🧭</span>
+                            <span><strong>Izin Kompas Dibutuhkan</strong><br>Tekan tombol untuk mengaktifkan kompas.</span>
+                        </div>
+                        <button @click="requestCompassPermission()" class="btn-secondary" style="align-self:flex-start;">
+                            Aktifkan Kompas
+                        </button>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- Manual Location Input -->
-            <div x-show="status === 'success' || status === 'error'" class="bg-white rounded-2xl shadow-lg p-6 mb-6">
-                <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <svg class="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
-                    </svg>
+            <!-- ── Manual Input ── -->
+            <div x-show="status === 'success' || status === 'error'" class="glass-card manual-card">
+                <div class="card-title">
+                    <svg width="16" height="16" fill="none" stroke="rgba(255,255,255,0.6)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
                     Input Lokasi Manual
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Latitude</label>
-                        <input type="number" 
-                               x-model="manualLat"
-                               step="0.0001"
-                               placeholder="Contoh: -7.7956"
-                               class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-teal-400 focus:ring-4 focus:ring-teal-100 focus:outline-none smooth-transition">
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Latitude</label>
+                        <input type="number" x-model="manualLat" step="0.0001" placeholder="-7.7956">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Longitude</label>
-                        <input type="number" 
-                               x-model="manualLng"
-                               step="0.0001"
-                               placeholder="Contoh: 110.3695"
-                               class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-teal-400 focus:ring-4 focus:ring-teal-100 focus:outline-none smooth-transition">
+                    <div class="input-group">
+                        <label>Longitude</label>
+                        <input type="number" x-model="manualLng" step="0.0001" placeholder="110.3695">
                     </div>
                 </div>
-                <button @click="setManualLocation()"
-                        class="w-full px-6 py-3 bg-gradient-to-r from-teal-400 to-emerald-500 text-white rounded-xl font-medium shadow-md hover:shadow-lg smooth-transition transform hover:-translate-y-1">
-                    Hitung Arah Kiblat
-                </button>
+                <button @click="setManualLocation()" class="btn-calc">Hitung Arah Kiblat</button>
             </div>
 
-            <!-- Ka'bah Info -->
-            <div class="bg-white/90 backdrop-blur rounded-2xl shadow-lg p-6 text-center">
-                <div class="text-4xl mb-3">🕋</div>
-                <h3 class="text-xl font-arabic font-bold text-gray-800 mb-2">
-                    الْكَعْبَة الْمُشَرَّفَة
-                </h3>
-                <p class="text-sm text-gray-600 mb-3">Ka'bah Al-Musharrafah</p>
-                <div class="text-xs text-gray-500">
-                    Lokasi: Masjidil Haram, Makkah, Arab Saudi<br>
-                    Koordinat: 21.4225° N, 39.8262° E
+            <!-- ── Ka'bah Info ── -->
+            <div class="kaaba-card">
+                <div class="kaaba-emoji">🕋</div>
+                <div class="kaaba-text">
+                    <div class="kaaba-arabic">الْكَعْبَة الْمُشَرَّفَة</div>
+                    <div class="kaaba-name">Ka'bah Al-Musharrafah</div>
+                    <div class="kaaba-coords">Masjidil Haram, Makkah · 21.4225°N, 39.8262°E</div>
                 </div>
             </div>
 
@@ -290,7 +556,7 @@
 <script>
 function qiblaFinder() {
     return {
-        status: 'need-permission', // need-permission, loading, success, error
+        status: 'need-permission',
         errorMessage: '',
         userLocation: { lat: null, lng: null },
         manualLat: null,
@@ -300,56 +566,37 @@ function qiblaFinder() {
         heading: 0,
         compassAvailable: false,
         needsCompassPermission: false,
-        
-        // Ka'bah coordinates
         kaabaLat: 21.4225,
         kaabaLng: 39.8262,
 
         init() {
-            // Check if geolocation is available
             if (!navigator.geolocation) {
                 this.status = 'error';
                 this.errorMessage = 'Browser Anda tidak mendukung Geolocation';
             }
-            
-            // Check if device orientation is available (for compass)
-            if (window.DeviceOrientationEvent) {
-                this.setupCompass();
-            }
+            if (window.DeviceOrientationEvent) this.setupCompass();
         },
 
         requestLocation() {
             this.status = 'loading';
             this.errorMessage = '';
-
             navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    this.userLocation.lat = position.coords.latitude;
-                    this.userLocation.lng = position.coords.longitude;
+                (pos) => {
+                    this.userLocation.lat = pos.coords.latitude;
+                    this.userLocation.lng = pos.coords.longitude;
                     this.calculateQibla();
                     this.status = 'success';
                 },
-                (error) => {
+                (err) => {
                     this.status = 'error';
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            this.errorMessage = 'Akses lokasi ditolak. Izinkan akses lokasi di pengaturan browser.';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            this.errorMessage = 'Informasi lokasi tidak tersedia. Pastikan GPS aktif.';
-                            break;
-                        case error.TIMEOUT:
-                            this.errorMessage = 'Request lokasi timeout. Coba lagi.';
-                            break;
-                        default:
-                            this.errorMessage = 'Error mendapatkan lokasi. Coba lagi.';
-                    }
+                    const msgs = {
+                        [err.PERMISSION_DENIED]:    'Akses lokasi ditolak. Izinkan di pengaturan browser.',
+                        [err.POSITION_UNAVAILABLE]: 'Informasi lokasi tidak tersedia. Pastikan GPS aktif.',
+                        [err.TIMEOUT]:              'Request lokasi timeout. Coba lagi.',
+                    };
+                    this.errorMessage = msgs[err.code] || 'Error mendapatkan lokasi. Coba lagi.';
                 },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 0
-                }
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
             );
         },
 
@@ -365,121 +612,62 @@ function qiblaFinder() {
         },
 
         calculateQibla() {
-            // Convert to radians
             const lat1 = this.toRadians(this.userLocation.lat);
             const lng1 = this.toRadians(this.userLocation.lng);
             const lat2 = this.toRadians(this.kaabaLat);
             const lng2 = this.toRadians(this.kaabaLng);
-
-            // Calculate qibla direction using formula
             const dLng = lng2 - lng1;
             const y = Math.sin(dLng);
             const x = Math.cos(lat1) * Math.tan(lat2) - Math.sin(lat1) * Math.cos(dLng);
-            
-            let bearing = Math.atan2(y, x);
-            bearing = this.toDegrees(bearing);
-            
-            // Normalize to 0-360
-            this.qiblaAngle = (bearing + 360) % 360;
-
-            // Calculate distance
+            this.qiblaAngle = (this.toDegrees(Math.atan2(y, x)) + 360) % 360;
             this.calculateDistance();
         },
 
         calculateDistance() {
-            const R = 6371; // Earth radius in km
+            const R = 6371;
             const lat1 = this.toRadians(this.userLocation.lat);
             const lat2 = this.toRadians(this.kaabaLat);
             const dLat = this.toRadians(this.kaabaLat - this.userLocation.lat);
             const dLng = this.toRadians(this.kaabaLng - this.userLocation.lng);
-
-            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                      Math.cos(lat1) * Math.cos(lat2) *
-                      Math.sin(dLng/2) * Math.sin(dLng/2);
-            
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            const distance = R * c;
-
-            this.distanceToKaaba = Math.round(distance).toLocaleString();
+            const a = Math.sin(dLat/2)**2 + Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLng/2)**2;
+            this.distanceToKaaba = Math.round(6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))).toLocaleString();
         },
 
-        
         setupCompass() {
-            // iOS 13+ butuh permission dari user gesture (klik tombol)
             if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                this.needsCompassPermission = true;
-                this.compassAvailable = false;
-                return;
+                this.needsCompassPermission = true; return;
             }
-
-            // selain iOS: langsung mulai listener kompas
             this.startCompassListener();
         },
 
         async requestCompassPermission() {
             try {
                 const res = await DeviceOrientationEvent.requestPermission();
-                if (res === 'granted') {
-                    this.needsCompassPermission = false;
-                    this.startCompassListener();
-                } else {
-                    this.compassAvailable = false;
-                    this.errorMessage = 'Izin kompas ditolak.';
-                }
-            } catch (e) {
-                this.compassAvailable = false;
-                this.errorMessage = 'Gagal meminta izin kompas.';
-            }
+                if (res === 'granted') { this.needsCompassPermission = false; this.startCompassListener(); }
+                else { this.compassAvailable = false; }
+            } catch(e) { this.compassAvailable = false; }
         },
 
         startCompassListener() {
-            const handler = (event) => {
-                let heading = null;
-
-                // iOS Safari: heading sudah dalam derajat (0..360)
-                if (event.webkitCompassHeading != null) {
-                    heading = event.webkitCompassHeading;
-                } else if (event.alpha != null) {
-                    // Android/Chrome: alpha sering berlawanan arah jarum jam
-                    heading = 360 - event.alpha;
-                }
-
-                if (heading == null) return;
-
-                // koreksi orientasi layar
-                const screenAngle =
-                    (screen.orientation && typeof screen.orientation.angle === 'number')
-                        ? screen.orientation.angle
-                        : (typeof window.orientation === 'number' ? window.orientation : 0);
-
-                heading = (heading + screenAngle + 360) % 360;
-
-                this.heading = heading;
+            const handler = (e) => {
+                let h = e.webkitCompassHeading != null ? e.webkitCompassHeading : (e.alpha != null ? 360 - e.alpha : null);
+                if (h == null) return;
+                const sa = (screen.orientation?.angle ?? window.orientation ?? 0);
+                this.heading = (h + sa + 360) % 360;
                 this.compassAvailable = true;
             };
-
             window.addEventListener('deviceorientationabsolute', handler, true);
             window.addEventListener('deviceorientation', handler, true);
         },
 
-        getNeedleAngle() {
-            // jarum Ka'bah = arah kiblat - arah HP (heading)
-            return (this.qiblaAngle - this.heading + 360) % 360;
+        getNeedleAngle() { return (this.qiblaAngle - this.heading + 360) % 360; },
+
+        getCardinalDirection(a) {
+            return ['Utara','Timur Laut','Timur','Tenggara','Selatan','Barat Daya','Barat','Barat Laut'][Math.round(a/45)%8];
         },
 
-        getCardinalDirection(angle) {
-            const directions = ['Utara', 'Timur Laut', 'Timur', 'Tenggara', 'Selatan', 'Barat Daya', 'Barat', 'Barat Laut'];
-            const index = Math.round(angle / 45) % 8;
-            return directions[index];
-        },
-
-        toRadians(degrees) {
-            return degrees * Math.PI / 180;
-        },
-
-        toDegrees(radians) {
-            return radians * 180 / Math.PI;
-        }
+        toRadians(d) { return d * Math.PI / 180; },
+        toDegrees(r) { return r * 180 / Math.PI; }
     };
 }
 </script>
