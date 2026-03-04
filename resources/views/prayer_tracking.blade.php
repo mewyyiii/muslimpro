@@ -4,12 +4,63 @@
 <div class="min-h-screen bg-gradient-to-br from-teal-400 via-teal-500 to-emerald-500 py-8 md:py-12">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {{-- HEADER --}}
-        <div class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-lg mb-2">
-                🕌 Tracking Shalat
-            </h1>
-            <p class="text-white/80 text-base md:text-lg">Catat & pantau ibadah shalat harianmu</p>
+        {{-- DATE HEADER --}}
+        @php
+            // ── Pure-PHP Hijri converter (no calendar extension required) ──
+            // Algorithm: Fliegel & Van Flandern via Julian Day Number
+            $d = (int)\Carbon\Carbon::parse($selectedDate)->format('d');
+            $m = (int)\Carbon\Carbon::parse($selectedDate)->format('m');
+            $y = (int)\Carbon\Carbon::parse($selectedDate)->format('Y');
+
+            // Gregorian → Julian Day Number
+            $jdn = (int)(365.25 * ($y + 4716))
+                 + (int)(30.6001 * ($m + 1))
+                 + $d - 1524;
+            if ($m <= 2) {
+                $jdn = (int)(365.25 * ($y - 1 + 4716))
+                     + (int)(30.6001 * ($m + 13))
+                     + $d - 1524;
+            }
+            $a = $jdn - 1867216 - 1;
+            // Gregorian correction
+            $b = (int)(($jdn + 0.5 - 1867216.25) / 36524.25);
+            if ($jdn >= 2299161) {
+                $a = $jdn + 1 + $b - (int)($b / 4);
+            }
+
+            // JDN → Islamic
+            $l  = $jdn - 1948440 + 10632;
+            $n  = (int)(($l - 1) / 10631);
+            $l  = $l - 10631 * $n + 354;
+            $j  = (int)((10985 - $l) / 5316) * (int)((50 * $l) / 17719)
+                + (int)($l / 5670) * (int)((43 * $l) / 15238);
+            $l  = $l - (int)((30 - $j) / 15) * (int)((17719 * $j) / 50)
+                - (int)($j / 16) * (int)((15238 * $j) / 43) + 29;
+            $hYear  = 30 * $n + $j - 29;
+            $hMonth = (int)(24 * $l / 709);
+            $hDay   = $l - (int)(709 * $hMonth / 24);
+
+            $hijriMonths = ['Muharram','Safar','Rabiul Awal','Rabiul Akhir',
+                            'Jumadil Awal','Jumadil Akhir','Rajab','Syaban',
+                            'Ramadan','Syawal','Dzulkaidah','Dzulhijjah'];
+            $hijriMonthName = $hijriMonths[$hMonth - 1] ?? '';
+        @endphp
+
+        <div class="flex items-center justify-between mb-5">
+            <div>
+                <div class="text-white text-xl md:text-2xl font-bold drop-shadow">
+                    {{ \Carbon\Carbon::parse($selectedDate)->locale('id')->translatedFormat('l, j F Y') }}
+                </div>
+                <div class="text-white/75 text-sm font-medium mt-0.5">
+                    {{ $hDay }} {{ $hijriMonthName }} {{ $hYear }} H
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <a href="?date={{ \Carbon\Carbon::parse($selectedDate)->subDay()->toDateString() }}"
+                   class="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white text-lg font-bold transition">‹</a>
+                <a href="?date={{ \Carbon\Carbon::parse($selectedDate)->addDay()->toDateString() }}"
+                   class="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white text-lg font-bold transition">›</a>
+            </div>
         </div>
 
         {{-- PILIH LOKASI --}}
@@ -43,19 +94,6 @@
                     </div>
                 </div>
 
-                {{-- Tombol GPS --}}
-                <button type="button" id="gpsBtn" onclick="useGPS()"
-                    class="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition whitespace-nowrap">
-                    <svg id="gpsIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                    <span id="gpsBtnText">Lokasi Saya</span>
-                </button>
-
-                {{-- Tombol Simpan --}}
                 <button type="button" onclick="saveLocation()"
                     class="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition">
                     Simpan
@@ -63,11 +101,8 @@
 
             </div>
 
-            {{-- Status GPS --}}
-            <div id="gpsStatus" class="hidden mt-2 text-xs font-medium"></div>
-
             <p class="text-xs text-gray-400 mt-2">
-                💡 Ketik nama kota/kabupaten <span class="text-gray-500 font-medium">atau</span> klik <span class="text-emerald-600 font-semibold">Lokasi Saya</span> untuk akurat sampai level kecamatan
+                💡 Ketik minimal 2 huruf untuk mencari kabupaten/kota di seluruh Indonesia
             </p>
         </div>
 
@@ -85,15 +120,31 @@
                 </div>
             </div>
 
-            {{-- Streak --}}
+            {{-- Next Prayer Reminder --}}
             <div class="bg-white rounded-2xl p-4 md:p-6 shadow-xl text-center">
-                <div class="text-3xl md:text-4xl font-bold text-amber-500 mb-1">
-                    {{ $streak }}<span class="text-lg text-gray-400"> 🔥</span>
-                </div>
-                <div class="text-xs md:text-sm text-gray-500 font-medium">Hari Berturut</div>
-                <div class="mt-2 text-xs text-amber-400 font-medium">
-                    {{ $streak > 0 ? 'Pertahankan!' : 'Mulai sekarang!' }}
-                </div>
+                @if(isset($nextPrayer) && $selectedDate === now()->toDateString())
+                    @php
+                        $npNames = ['fajr'=>'Subuh','dhuhr'=>'Dzuhur','asr'=>'Ashar','maghrib'=>'Maghrib','isha'=>'Isya'];
+                        $npEmoji = ['fajr'=>'🌅','dhuhr'=>'☀️','asr'=>'🌤️','maghrib'=>'🌇','isha'=>'🌙'];
+                        $npKey   = $nextPrayer['name'];
+                        $npTime  = $nextPrayer['time'];
+                        $remMin  = (int)($nextPrayer['remaining_minutes'] ?? 0);
+                        $remH    = floor($remMin / 60);
+                        $remM    = $remMin % 60;
+                        $countdownStr = $remH > 0 ? "{$remH}j {$remM}m lagi" : "{$remM}m lagi";
+                    @endphp
+                    <div class="text-2xl mb-0.5">{{ $npEmoji[$npKey] ?? '🕌' }}</div>
+                    <div class="text-2xl md:text-3xl font-bold text-teal-600 leading-tight">{{ $npTime }}</div>
+                    <div class="text-xs md:text-sm text-gray-500 font-medium mt-0.5">{{ $npNames[$npKey] ?? ucfirst($npKey) }}</div>
+                    <div class="mt-2 text-xs font-semibold text-teal-500 bg-teal-50 rounded-full px-3 py-0.5 inline-block">
+                        {{ $countdownStr }}
+                    </div>
+                @else
+                    <div class="text-2xl mb-1">✅</div>
+                    <div class="text-xl font-bold text-emerald-600">Selesai</div>
+                    <div class="text-xs text-gray-500 font-medium mt-0.5">Shalat Hari Ini</div>
+                    <div class="mt-2 text-xs text-emerald-400 font-medium">Alhamdulillah!</div>
+                @endif
             </div>
 
             {{-- Bulan Ini --}}
@@ -172,8 +223,8 @@
                     $canCheck       = !$isToday || $isTimeReached;
                 @endphp
                 <div class="prayer-row border rounded-xl p-4 transition-all duration-300
-                    {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' : 'border-gray-200 bg-gray-50' }}
-                    {{ !$canCheck && $status !== 'performed' ? 'opacity-60' : '' }}">
+                    {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' : 'border-gray-100 bg-white' }}"
+                >
 
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0
@@ -204,24 +255,28 @@
 
                         <div class="flex items-center gap-1.5 flex-shrink-0">
                             @if($status === 'performed')
+                                {{-- Sudah shalat: lingkaran teal berisi centang --}}
                                 <button
                                     @click="updatePrayer('{{ $prayer }}', 'remove')"
-                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
+                                    class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200
                                         bg-teal-500 text-white shadow-md hover:bg-teal-600 hover:scale-110 active:scale-95">
-                                    ✓
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
                                 </button>
                             @elseif($canCheck)
+                                {{-- Waktunya sudah tiba, belum shalat: lingkaran outline kosong --}}
                                 <button
                                     @click="updatePrayer('{{ $prayer }}', 'performed')"
-                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
-                                        bg-gray-200 hover:bg-teal-100 text-gray-600 hover:scale-110 active:scale-95">
-                                    ✓
+                                    class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200
+                                        border-2 border-gray-300 bg-white hover:border-teal-400 hover:bg-teal-50 hover:scale-110 active:scale-95">
                                 </button>
                             @else
+                                {{-- Belum waktunya: lingkaran outline kosong, redup --}}
                                 <button
                                     disabled
-                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm
-                                        bg-gray-300 text-gray-500 cursor-not-allowed opacity-60">
+                                    class="w-10 h-10 rounded-full flex items-center justify-center
+                                        border-2 border-gray-200 bg-white opacity-40 cursor-not-allowed">
                                     🔒
                                 </button>
                             @endif
@@ -399,102 +454,7 @@ document.addEventListener('click', function (e) {
     }
 });
 
-// ── GPS Lokasi Otomatis ────────────────────────────────────────────────────
-function useGPS() {
-    if (!navigator.geolocation) {
-        showGpsStatus('❌ Browser tidak mendukung GPS', 'text-red-500');
-        return;
-    }
-
-    const btn      = document.getElementById('gpsBtn');
-    const btnText  = document.getElementById('gpsBtnText');
-    const gpsIcon  = document.getElementById('gpsIcon');
-
-    // Loading state
-    btn.disabled = true;
-    btn.classList.add('opacity-70', 'cursor-not-allowed');
-    btnText.textContent = 'Mendeteksi...';
-    gpsIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>`;
-    showGpsStatus('📡 Mendeteksi lokasi GPS...', 'text-emerald-600');
-
-    navigator.geolocation.getCurrentPosition(
-        async (position) => {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-
-            // Reverse geocode pakai nominatim untuk dapat nama lokasi
-            try {
-                const res = await fetch(
-                    `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=id`,
-                    { headers: { 'Accept': 'application/json' } }
-                );
-                const geo = await res.json();
-
-                // Ambil nama kecamatan/kabupaten dari hasil reverse geocode
-                const addr      = geo.address || {};
-                const cityName  = addr.village
-                    || addr.suburb
-                    || addr.town
-                    || addr.city_district
-                    || addr.county
-                    || addr.city
-                    || addr.state
-                    || 'Lokasi GPS';
-
-                // Isi input dan hidden fields
-                document.getElementById('cityInput').value = cityName;
-                document.getElementById('cityName').value  = cityName;
-                document.getElementById('cityLat').value   = String(lat);
-                document.getElementById('cityLng').value   = String(lng);
-                document.getElementById('cityInput').setAttribute('data-selected', '1');
-                document.getElementById('cityInput').classList.remove('border-gray-200', 'border-red-400');
-                document.getElementById('cityInput').classList.add('border-emerald-400');
-
-                showGpsStatus(`✅ Lokasi terdeteksi: ${cityName}`, 'text-emerald-600');
-
-            } catch (e) {
-                // Kalau reverse geocode gagal, tetap pakai koordinat tanpa nama
-                document.getElementById('cityInput').value = 'Lokasi GPS';
-                document.getElementById('cityName').value  = 'Lokasi GPS';
-                document.getElementById('cityLat').value   = String(lat);
-                document.getElementById('cityLng').value   = String(lng);
-                document.getElementById('cityInput').setAttribute('data-selected', '1');
-                showGpsStatus('✅ Koordinat GPS berhasil didapat', 'text-emerald-600');
-            }
-
-            // Reset button
-            btn.disabled = false;
-            btn.classList.remove('opacity-70', 'cursor-not-allowed');
-            btnText.textContent = 'Lokasi Saya';
-            gpsIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>`;
-        },
-        (error) => {
-            let msg = '❌ Gagal mendapatkan lokasi';
-            if (error.code === 1) msg = '❌ Izin lokasi ditolak. Aktifkan di pengaturan browser.';
-            if (error.code === 2) msg = '❌ Lokasi tidak tersedia, coba lagi.';
-            if (error.code === 3) msg = '❌ Timeout, coba lagi.';
-
-            showGpsStatus(msg, 'text-red-500');
-            btn.disabled = false;
-            btn.classList.remove('opacity-70', 'cursor-not-allowed');
-            btnText.textContent = 'Lokasi Saya';
-        },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-    );
-}
-
-function showGpsStatus(msg, colorClass) {
-    const el = document.getElementById('gpsStatus');
-    el.className = `mt-2 text-xs font-medium ${colorClass}`;
-    el.textContent = msg;
-    el.classList.remove('hidden');
-}
-
-
+// ── Simpan Lokasi ──────────────────────────────────────────────────────────
 async function saveLocation() {
     const input = document.getElementById('cityInput');
     const lat   = document.getElementById('cityLat').value;
