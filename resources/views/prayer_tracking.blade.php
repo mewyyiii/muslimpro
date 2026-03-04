@@ -94,6 +94,19 @@
                     </div>
                 </div>
 
+                {{-- Tombol GPS --}}
+                <button type="button" id="gpsBtn" onclick="useGPS()"
+                    class="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition whitespace-nowrap">
+                    <svg id="gpsIcon" class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <span id="gpsBtnText">Lokasi Saya</span>
+                </button>
+
+                {{-- Tombol Simpan --}}
                 <button type="button" onclick="saveLocation()"
                     class="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition">
                     Simpan
@@ -101,8 +114,11 @@
 
             </div>
 
+            {{-- Status GPS --}}
+            <div id="gpsStatus" class="hidden mt-2 text-xs font-medium"></div>
+
             <p class="text-xs text-gray-400 mt-2">
-                💡 Ketik minimal 2 huruf untuk mencari kabupaten/kota di seluruh Indonesia
+                💡 Ketik nama kota/kabupaten <span class="font-medium text-gray-500">atau</span> klik <span class="text-emerald-600 font-semibold">Lokasi Saya</span> untuk akurat sampai kecamatan
             </p>
         </div>
 
@@ -374,7 +390,90 @@ function prayerTracker() {
     }
 }
 
-// ── Autocomplete Lokasi ────────────────────────────────────────────────────
+// ── GPS Lokasi Otomatis ────────────────────────────────────────────────────
+function useGPS() {
+    if (!navigator.geolocation) {
+        showGpsStatus('❌ Browser tidak mendukung GPS', 'text-red-500');
+        return;
+    }
+
+    const btn     = document.getElementById('gpsBtn');
+    const btnText = document.getElementById('gpsBtnText');
+    const gpsIcon = document.getElementById('gpsIcon');
+
+    // Loading state
+    btn.disabled = true;
+    btn.classList.add('opacity-70', 'cursor-not-allowed');
+    btnText.textContent = 'Mendeteksi...';
+    showGpsStatus('📡 Mendeteksi lokasi GPS...', 'text-emerald-600');
+
+    navigator.geolocation.getCurrentPosition(
+        async (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            // Reverse geocode → nama kecamatan/desa
+            try {
+                const res = await fetch(
+                    `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=id`,
+                    { headers: { 'Accept': 'application/json' } }
+                );
+                const geo  = await res.json();
+                const addr = geo.address || {};
+                const cityName = addr.village
+                    || addr.suburb
+                    || addr.town
+                    || addr.city_district
+                    || addr.county
+                    || addr.city
+                    || addr.state
+                    || 'Lokasi GPS';
+
+                setGpsCity(cityName, lat, lng);
+                showGpsStatus(`✅ Lokasi: ${cityName}`, 'text-emerald-600');
+            } catch (e) {
+                setGpsCity('Lokasi GPS', lat, lng);
+                showGpsStatus('✅ Koordinat GPS berhasil didapat', 'text-emerald-600');
+            }
+
+            // Reset button
+            btn.disabled = false;
+            btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            btnText.textContent = 'Lokasi Saya';
+        },
+        (error) => {
+            let msg = '❌ Gagal mendapatkan lokasi';
+            if (error.code === 1) msg = '❌ Izin lokasi ditolak. Aktifkan di pengaturan browser.';
+            if (error.code === 2) msg = '❌ Lokasi tidak tersedia, coba lagi.';
+            if (error.code === 3) msg = '❌ Timeout, coba lagi.';
+            showGpsStatus(msg, 'text-red-500');
+            btn.disabled = false;
+            btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            btnText.textContent = 'Lokasi Saya';
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    );
+}
+
+function setGpsCity(name, lat, lng) {
+    const input = document.getElementById('cityInput');
+    input.value = name;
+    input.setAttribute('data-selected', '1');
+    input.classList.remove('border-gray-200', 'border-red-400');
+    input.classList.add('border-emerald-400');
+    document.getElementById('cityName').value = name;
+    document.getElementById('cityLat').value  = String(lat);
+    document.getElementById('cityLng').value  = String(lng);
+}
+
+function showGpsStatus(msg, colorClass) {
+    const el = document.getElementById('gpsStatus');
+    el.className = `mt-2 text-xs font-medium ${colorClass}`;
+    el.textContent = msg;
+    el.classList.remove('hidden');
+}
+
+
 let autocompleteTimeout = null;
 
 async function onCityInput(query) {
