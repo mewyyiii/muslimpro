@@ -51,7 +51,7 @@
         color: var(--text-primary-muted);
     }
 
-    /* Icon arrow */
+    Icon arrow
     .doa-icon {
         color: rgba(255,255,255,0.9);
     }
@@ -65,7 +65,7 @@
         transition: all 0.3s ease;
     }
 
-    /* Icon rotation */
+    Icon rotation
     .rotate-45 {
         transform: rotate(45deg);
     }
