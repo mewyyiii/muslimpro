@@ -269,7 +269,7 @@
                     <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                 </div>
-                <div class="field-error" id="email-error">Format email tidak valid. Contoh: nama@email.com</div>
+                <div class="field-error" id="email-error">Format email tidak valid. Contoh: nama@gmail.com</div>
             </div>
 
             <!-- Kata Sandi -->
@@ -302,7 +302,7 @@
                     </div>
                     <div class="strength-label" id="strength-label">Masukkan kata sandi</div>
                 </div>
-                <div class="field-error" id="password-error">Kata sandi minimal 8 karakter.</div>
+                <div class="field-error" id="password-error">Kata sandi minimal 6 karakter + harus ada huruf &amp; angka.</div>
             </div>
 
             <!-- Konfirmasi Kata Sandi -->
@@ -345,7 +345,7 @@
     <p class="footer-text">dirancang oleh Tim NurSteps</p>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* ── Helpers ── */
     function setFocus(id) { document.getElementById(id).classList.add('focused'); }
 
@@ -424,10 +424,17 @@
 
     /* ── Validasi Password ── */
     function validatePassword() {
-        var val = document.getElementById('input-password').value;
-        var ok  = val.length >= 8;
-        setWrapperState('password-wrapper', ok ? 'valid' : 'error');
-        showError('password-error', !ok);
+        var val       = document.getElementById("input-password").value;
+        var errEl     = document.getElementById("password-error");
+        var hasLetter = /[a-zA-Z]/.test(val);
+        var hasNumber = /[0-9]/.test(val);
+        var longEnough = val.length >= 6;
+        var ok = longEnough && hasLetter && hasNumber;
+        if (!longEnough)      errEl.textContent = "Kata sandi minimal 6 karakter.";
+        else if (!hasLetter)  errEl.textContent = "Kata sandi harus mengandung minimal satu huruf.";
+        else if (!hasNumber)  errEl.textContent = "Kata sandi harus mengandung minimal satu angka.";
+        setWrapperState("password-wrapper", ok ? "valid" : "error");
+        showError("password-error", !ok);
         return ok;
     }
 
@@ -446,7 +453,7 @@
         var val = document.getElementById('input-password').value;
         document.getElementById('strength-wrap').classList.toggle('show', val.length > 0);
         var score = 0;
-        if (val.length >= 8)          score++;
+        if (val.length >= 6)          score++;
         if (/[A-Z]/.test(val))        score++;
         if (/[0-9]/.test(val))        score++;
         if (/[^A-Za-z0-9]/.test(val)) score++;
@@ -464,8 +471,8 @@
         var ok = validateName() & validateEmail() & validateUsername() & validatePassword() & validateConfirm();
         if (!ok) {
             e.preventDefault();
-            var first = document.querySelector('.field-error.show');
-            if (first) first.scrollIntoView({ behavior:'smooth', block:'center' });
+            var first = document.querySelector(".field-error.show");
+            if (first) first.scrollIntoView({ behavior:"smooth", block:"center" });
         }
     });
 
