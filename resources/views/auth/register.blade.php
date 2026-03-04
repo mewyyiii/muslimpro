@@ -73,13 +73,29 @@
             background: rgba(13,148,136,0.08);
             border-radius: 25px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: background 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
         }
         .input-wrapper:hover   { background: rgba(13,148,136,0.13); }
         .input-wrapper.focused { background: rgba(13,148,136,0.18); box-shadow: 0 0 0 3px rgba(13,148,136,0.1); }
         .input-wrapper.error   { background: rgba(220,38,38,0.07);  box-shadow: 0 0 0 2px rgba(220,38,38,0.3); }
         .input-wrapper.valid   { background: rgba(16,185,129,0.08);  box-shadow: 0 0 0 2px rgba(16,185,129,0.3); }
-        .input-wrapper.locked  { opacity: 0.5; pointer-events: none; }
+
+        /* Locked state */
+        .input-wrapper.locked {
+            opacity: 0.45;
+            pointer-events: none;
+            background: rgba(148,163,184,0.1);
+            box-shadow: none;
+        }
+        
+        
+            
+            
+            
+        }
+
+
+        }
 
         .form-input {
             width: 100%;
@@ -90,6 +106,8 @@
         .form-input.has-eye { padding-right: 48px; }
         .form-input::placeholder { color: rgba(45,55,72,0.5); }
         .form-input:disabled { cursor: not-allowed; }
+        /* Matikan outline merah bawaan browser */
+        .form-input:invalid { box-shadow: none; outline: none; }
 
         .input-icon {
             position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
@@ -152,7 +170,7 @@
 
         .error-message {
             background: #fee; color: #c33; padding: 10px;
-            border-radius: 12px; margin-bottom: 15px; font-size: 13px; text-align: left;
+            border-radius: 12px; margin-bottom: 20px; font-size: 13px; text-align: left;
         }
 
         .footer-text { margin-top: 15px; font-size: 11px; color: rgba(255,255,255,0.8); text-align: center; }
@@ -228,12 +246,12 @@
                               d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
                     <input type="text" id="input-name" name="name" class="form-input"
-                        placeholder="Nama Lengkap" value="{{ old('name') }}" required autofocus
+                        placeholder="Nama Lengkap" value="{{ old('name') }}" autofocus
                         onfocus="setFocus('name-wrapper')" onblur="validateName()">
                     <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                 </div>
-                <div class="field-error" id="name-error">Nama lengkap wajib diisi (minimal 2 karakter).</div>
+                <div class="field-error" id="name-error">Nama lengkap wajib diisi.</div>
             </div>
 
             <!-- Username (bebas, tidak ada syarat) -->
@@ -258,7 +276,7 @@
                               d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                     <input type="email" id="input-email" name="email" class="form-input"
-                        placeholder="Email Anda" value="{{ old('email') }}" required
+                        placeholder="Email Anda" value="{{ old('email') }}"
                         onfocus="setFocus('email-wrapper')" onblur="validateEmail()">
                     <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -274,7 +292,7 @@
                               d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                     </svg>
                     <input type="password" id="input-password" name="password"
-                        class="form-input has-eye" placeholder="Kata Sandi" required
+                        class="form-input has-eye" placeholder="Kata Sandi"
                         onfocus="setFocus('password-wrapper')"
                         onblur="validatePassword()"
                         oninput="checkStrength()">
@@ -308,7 +326,7 @@
                               d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
                     <input type="password" id="input-confirm" name="password_confirmation"
-                        class="form-input has-eye" placeholder="Konfirmasi Kata Sandi" required
+                        class="form-input has-eye" placeholder="Konfirmasi Kata Sandi"
                         onfocus="setFocus('confirm-password-wrapper')"
                         onblur="validateConfirm()">
                     <button type="button" class="eye-toggle" onclick="toggleEye('input-confirm','eye-open-2','eye-closed-2')" tabindex="-1">
@@ -348,7 +366,7 @@
 
     function setWrapperState(id, state) {
         var w = document.getElementById(id);
-        w.classList.remove('focused','error','valid');
+        w.classList.remove('focused', 'error', 'valid');
         if (state) w.classList.add(state);
     }
 
@@ -373,29 +391,42 @@
     }
 
     function lockPasswordFields(lock) {
-        ['input-password','input-confirm'].forEach(function(id, i) {
-            var inp = document.getElementById(id);
-            var w   = document.getElementById(i === 0 ? 'password-wrapper' : 'confirm-password-wrapper');
+        var wrapperIds = ['password-wrapper', 'confirm-password-wrapper'];
+        var inputIds   = ['input-password', 'input-confirm'];
+        var placeholders = ['Kata Sandi', 'Konfirmasi Kata Sandi'];
+
+        wrapperIds.forEach(function(wId, i) {
+            var inp = document.getElementById(inputIds[i]);
+            var w   = document.getElementById(wId);
+
             if (lock) {
                 inp.disabled = true;
+                w.classList.remove('unlocking', 'valid', 'error', 'focused');
                 w.classList.add('locked');
                 inp.placeholder = 'Isi email yang valid dulu';
             } else {
                 inp.disabled = false;
-                w.classList.remove('locked');
-                inp.placeholder = i === 0 ? 'Kata Sandi' : 'Konfirmasi Kata Sandi';
+                w.classList.remove("locked", "error", "valid");
+                inp.placeholder = placeholders[i];
+                // Langsung set ke warna teal normal, tetap permanen
+                w.classList.add("focused");
+                setTimeout(function(wrapper) {
+                    return function() { wrapper.classList.remove("focused"); };
+                }(w), 600);
             }
         });
     }
 
+    // Nama lengkap: wajib diisi, tidak ada minimal karakter
     function validateName() {
         var val = document.getElementById('input-name').value.trim();
-        var ok  = val.length >= 2;
+        var ok  = val.length > 0;
         setWrapperState('name-wrapper', ok ? 'valid' : 'error');
         showError('name-error', !ok);
         return ok;
     }
 
+    // Email: validasi format, lalu kunci/buka kolom sandi
     function validateEmail() {
         var val = document.getElementById('input-email').value.trim();
         var ok  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
@@ -405,11 +436,12 @@
         return ok;
     }
 
+    // Password: min 6 karakter + huruf + angka
     function validatePassword() {
-        var val       = document.getElementById('input-password').value;
-        var errEl     = document.getElementById('password-error');
-        var hasLetter = /[a-zA-Z]/.test(val);
-        var hasNumber = /[0-9]/.test(val);
+        var val        = document.getElementById('input-password').value;
+        var errEl      = document.getElementById('password-error');
+        var hasLetter  = /[a-zA-Z]/.test(val);
+        var hasNumber  = /[0-9]/.test(val);
         var longEnough = val.length >= 6;
         var ok = longEnough && hasLetter && hasNumber;
 
@@ -439,13 +471,13 @@
         if (/[A-Z]/.test(val))         score++;
         if (/[0-9]/.test(val))         score++;
         if (/[^A-Za-z0-9]/.test(val))  score++;
-        var colors = ['#ef4444','#f97316','#eab308','#22c55e'];
-        var labels = ['Sangat lemah','Lemah','Cukup kuat','Kuat'];
+        var colors = ['#ef4444', '#f97316', '#eab308', '#22c55e'];
+        var labels = ['Sangat lemah', 'Lemah', 'Cukup kuat', 'Kuat'];
         for (var i = 1; i <= 4; i++) {
-            document.getElementById('bar'+i).style.background = i <= score ? colors[score-1] : '#e2e8f0';
+            document.getElementById('bar' + i).style.background = i <= score ? colors[score - 1] : '#e2e8f0';
         }
-        document.getElementById('strength-label').textContent = labels[score-1] || 'Sangat lemah';
-        document.getElementById('strength-label').style.color  = colors[score-1] || '#ef4444';
+        document.getElementById('strength-label').textContent = labels[score - 1] || 'Sangat lemah';
+        document.getElementById('strength-label').style.color  = colors[score - 1] || '#ef4444';
     }
 
     document.getElementById('register-form').addEventListener('submit', function(e) {
@@ -453,10 +485,11 @@
         if (!ok) {
             e.preventDefault();
             var first = document.querySelector('.field-error.show');
-            if (first) first.scrollIntoView({ behavior:'smooth', block:'center' });
+            if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     });
 
+    // Kunci kolom sandi saat halaman pertama dimuat
     lockPasswordFields(true);
 </script>
 </body>
