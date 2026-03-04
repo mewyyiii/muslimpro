@@ -80,14 +80,12 @@
         .input-wrapper.error   { background: rgba(220,38,38,0.07);  box-shadow: 0 0 0 2px rgba(220,38,38,0.3); }
         .input-wrapper.valid   { background: rgba(16,185,129,0.08);  box-shadow: 0 0 0 2px rgba(16,185,129,0.3); }
 
-        /* Abu-abu saat terkunci */
         .input-wrapper.locked {
             opacity: 0.45;
             pointer-events: none;
             background: rgba(148,163,184,0.12);
             box-shadow: none;
         }
-        /* Warna teal normal saat terbuka - permanen */
         .input-wrapper.unlocked {
             background: rgba(13,148,136,0.08);
             box-shadow: none;
@@ -191,7 +189,6 @@
 <div class="container">
     <div class="register-card">
 
-        <!-- Icon Nur -->
         <div class="icon-container">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="nur-icon">
                 <defs>
@@ -223,16 +220,18 @@
 
         <h2 class="title">Daftar Akun</h2>
 
-        
+        @if ($errors->any())
             <div class="error-message">
                 <ul style="list-style:none;padding:0;margin:0;">
-                    <li></li>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
                 </ul>
             </div>
-        
+        @endif
 
-        <form method="POST" action="#" id="register-form" novalidate>
-            
+        <form method="POST" action="{{ route('register') }}" id="register-form" novalidate>
+            @csrf
 
             <!-- Nama Lengkap -->
             <div class="form-group">
@@ -242,15 +241,19 @@
                               d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
                     <input type="text" id="input-name" name="name" class="form-input"
-                        placeholder="Nama Lengkap"  autofocus
+                        placeholder="Nama Lengkap" value="{{ old('name') }}" autofocus
                         onfocus="setFocus('name-wrapper')" onblur="validateName()">
-                    <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                    <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                    <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
                 </div>
                 <div class="field-error" id="name-error">Nama lengkap wajib diisi.</div>
             </div>
 
-            <!-- Username (bebas, tidak ada syarat) -->
+            <!-- Nama Pengguna (bebas, tidak ada syarat) -->
             <div class="form-group">
                 <div class="input-wrapper" id="username-wrapper">
                     <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -258,7 +261,7 @@
                               d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/>
                     </svg>
                     <input type="text" id="input-username" name="username" class="form-input"
-                        placeholder="Nama Pengguna" 
+                        placeholder="Nama Pengguna" value="{{ old('username') }}"
                         onfocus="setFocus('username-wrapper')"
                         onblur="document.getElementById('username-wrapper').classList.remove('focused')">
                 </div>
@@ -272,10 +275,14 @@
                               d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                     <input type="email" id="input-email" name="email" class="form-input"
-                        placeholder="Email Anda" 
+                        placeholder="Email Anda" value="{{ old('email') }}"
                         onfocus="setFocus('email-wrapper')" onblur="validateEmail()">
-                    <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                    <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                    <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
                 </div>
                 <div class="field-error" id="email-error">Format email tidak valid. Contoh: nama@gmail.com</div>
             </div>
@@ -347,7 +354,7 @@
             <button type="submit" class="register-button">Daftar</button>
 
             <div class="login-link">
-                Sudah punya akun? <a href="#">Masuk di sini</a>
+                Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
             </div>
         </form>
     </div>
@@ -388,8 +395,8 @@
 
     function lockPasswordFields(lock) {
         var pairs = [
-            { inp: 'input-password',  wrap: 'password-wrapper',         ph: 'Kata Sandi' },
-            { inp: 'input-confirm',   wrap: 'confirm-password-wrapper',  ph: 'Konfirmasi Kata Sandi' }
+            { inp: 'input-password', wrap: 'password-wrapper',        ph: 'Kata Sandi' },
+            { inp: 'input-confirm',  wrap: 'confirm-password-wrapper', ph: 'Konfirmasi Kata Sandi' }
         ];
         pairs.forEach(function(p) {
             var inp = document.getElementById(p.inp);
@@ -401,7 +408,6 @@
                 inp.placeholder = 'Isi email yang valid dulu';
             } else {
                 inp.disabled = false;
-                // Hapus locked, langsung set ke warna teal normal (permanen)
                 w.classList.remove('locked', 'error', 'valid', 'focused');
                 w.classList.add('unlocked');
                 inp.placeholder = p.ph;
@@ -409,7 +415,6 @@
         });
     }
 
-    // Nama lengkap: wajib diisi, TANPA syarat minimal
     function validateName() {
         var val = document.getElementById('input-name').value.trim();
         var ok  = val.length > 0;
@@ -479,7 +484,6 @@
         }
     });
 
-    // Kunci kolom sandi saat halaman pertama dimuat
     lockPasswordFields(true);
 </script>
 </body>
