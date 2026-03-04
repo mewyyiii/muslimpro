@@ -52,6 +52,23 @@
         color: var(--text-primary) !important;
     }
 
+    /* ===== Header: tinggi konsisten di semua card ===== */
+    .doa-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 56px;
+        gap: 8px;
+    }
+
+    .doa-card-header-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        flex: 1;
+    }
+
     /* Lingkaran Nomor */
     .doa-number {
         display: flex;
@@ -70,6 +87,15 @@
 
     .doa-card.active .doa-number {
         background: var(--primary-accent);
+    }
+
+    /* Judul card */
+    .doa-card h2 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: white;
+        line-height: 1.4;
+        transition: color 0.3s;
     }
 
     /* Teks putih soft */
@@ -179,16 +205,16 @@
             <div class="doa-card" data-search-terms="{{ strtolower($doa->title) }}">
 
                 {{-- Header Card --}}
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center gap-2 min-w-0 flex-1">
+                <div class="doa-card-header">
+                    <div class="doa-card-header-left">
                         <div class="doa-number">
                             <span>{{ $doa->id }}</span>
                         </div>
-                        <h2 class="text-sm font-semibold text-white leading-snug">{{ $doa->title }}</h2>
+                        <h2>{{ $doa->title }}</h2>
                     </div>
 
                     {{-- Chevron animasi --}}
-                    <div class="doa-chevron ml-2">
+                    <div class="doa-chevron">
                         <svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"/>
                         </svg>
