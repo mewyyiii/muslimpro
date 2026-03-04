@@ -277,6 +277,7 @@
                                     disabled
                                     class="w-10 h-10 rounded-full flex items-center justify-center
                                         border-2 border-gray-200 bg-white opacity-40 cursor-not-allowed">
+                                    🔒
                                 </button>
                             @endif
                         </div>
