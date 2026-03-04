@@ -5,32 +5,61 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {{-- DATE HEADER --}}
+        @php
+            // ── Pure-PHP Hijri converter (no calendar extension required) ──
+            // Algorithm: Fliegel & Van Flandern via Julian Day Number
+            $d = (int)\Carbon\Carbon::parse($selectedDate)->format('d');
+            $m = (int)\Carbon\Carbon::parse($selectedDate)->format('m');
+            $y = (int)\Carbon\Carbon::parse($selectedDate)->format('Y');
+
+            // Gregorian → Julian Day Number
+            $jdn = (int)(365.25 * ($y + 4716))
+                 + (int)(30.6001 * ($m + 1))
+                 + $d - 1524;
+            if ($m <= 2) {
+                $jdn = (int)(365.25 * ($y - 1 + 4716))
+                     + (int)(30.6001 * ($m + 13))
+                     + $d - 1524;
+            }
+            $a = $jdn - 1867216 - 1;
+            // Gregorian correction
+            $b = (int)(($jdn + 0.5 - 1867216.25) / 36524.25);
+            if ($jdn >= 2299161) {
+                $a = $jdn + 1 + $b - (int)($b / 4);
+            }
+
+            // JDN → Islamic
+            $l  = $jdn - 1948440 + 10632;
+            $n  = (int)(($l - 1) / 10631);
+            $l  = $l - 10631 * $n + 354;
+            $j  = (int)((10985 - $l) / 5316) * (int)((50 * $l) / 17719)
+                + (int)($l / 5670) * (int)((43 * $l) / 15238);
+            $l  = $l - (int)((30 - $j) / 15) * (int)((17719 * $j) / 50)
+                - (int)($j / 16) * (int)((15238 * $j) / 43) + 29;
+            $hYear  = 30 * $n + $j - 29;
+            $hMonth = (int)(24 * $l / 709);
+            $hDay   = $l - (int)(709 * $hMonth / 24);
+
+            $hijriMonths = ['Muharram','Safar','Rabiul Awal','Rabiul Akhir',
+                            'Jumadil Awal','Jumadil Akhir','Rajab','Syaban',
+                            'Ramadan','Syawal','Dzulkaidah','Dzulhijjah'];
+            $hijriMonthName = $hijriMonths[$hMonth - 1] ?? '';
+        @endphp
+
         <div class="flex items-center justify-between mb-5">
             <div>
                 <div class="text-white text-xl md:text-2xl font-bold drop-shadow">
-                    {{ \Carbon\Carbon::parse($selectedDate)->translatedFormat('l, j F Y') }}
+                    {{ \Carbon\Carbon::parse($selectedDate)->locale('id')->translatedFormat('l, j F Y') }}
                 </div>
-                <div class="text-white/75 text-sm font-medium mt-0.5" id="hijri-date">
-                    @php
-                        // Simple Hijri calculation (approximate) using intl if available, else fallback
-                        $hijriMonths = ['Muharram','Safar','Rabiul Awal','Rabiul Akhir','Jumadil Awal','Jumadil Akhir','Rajab','Syaban','Ramadan','Syawal','Dzulkaidah','Dzulhijjah'];
-                        $jd = gregoriantojd(
-                            (int)\Carbon\Carbon::parse($selectedDate)->format('m'),
-                            (int)\Carbon\Carbon::parse($selectedDate)->format('d'),
-                            (int)\Carbon\Carbon::parse($selectedDate)->format('Y')
-                        );
-                        $islamic = jdtoislamic($jd);
-                        [$hm, $hd, $hy] = explode('/', $islamic);
-                        $hijriMonthName = $hijriMonths[(int)$hm - 1];
-                    @endphp
-                    {{ (int)$hd }} {{ $hijriMonthName }} {{ $hy }} H
+                <div class="text-white/75 text-sm font-medium mt-0.5">
+                    {{ $hDay }} {{ $hijriMonthName }} {{ $hYear }} H
                 </div>
             </div>
             <div class="flex gap-2">
                 <a href="?date={{ \Carbon\Carbon::parse($selectedDate)->subDay()->toDateString() }}"
-                   class="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition">‹</a>
+                   class="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white text-lg font-bold transition">‹</a>
                 <a href="?date={{ \Carbon\Carbon::parse($selectedDate)->addDay()->toDateString() }}"
-                   class="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition">›</a>
+                   class="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white text-lg font-bold transition">›</a>
             </div>
         </div>
 
@@ -92,31 +121,29 @@
             </div>
 
             {{-- Next Prayer Reminder --}}
-            <div class="bg-white rounded-2xl p-4 md:p-6 shadow-xl text-center relative overflow-hidden">
+            <div class="bg-white rounded-2xl p-4 md:p-6 shadow-xl text-center">
                 @if(isset($nextPrayer) && $selectedDate === now()->toDateString())
                     @php
                         $npNames = ['fajr'=>'Subuh','dhuhr'=>'Dzuhur','asr'=>'Ashar','maghrib'=>'Maghrib','isha'=>'Isya'];
                         $npEmoji = ['fajr'=>'🌅','dhuhr'=>'☀️','asr'=>'🌤️','maghrib'=>'🌇','isha'=>'🌙'];
                         $npKey   = $nextPrayer['name'];
                         $npTime  = $nextPrayer['time'];
-                        $now     = \Carbon\Carbon::now($locationTimezone);
-                        $npDt    = \Carbon\Carbon::createFromFormat('H:i', $npTime, $locationTimezone)->setDate($now->year, $now->month, $now->day);
-                        $diffMin = (int) $now->diffInMinutes($npDt, false);
-                        $diffH   = floor($diffMin / 60);
-                        $diffM   = $diffMin % 60;
-                        $countdownStr = $diffH > 0 ? "{$diffH}j {$diffM}m" : "{$diffM}m lagi";
+                        $remMin  = (int)($nextPrayer['remaining_minutes'] ?? 0);
+                        $remH    = floor($remMin / 60);
+                        $remM    = $remMin % 60;
+                        $countdownStr = $remH > 0 ? "{$remH}j {$remM}m lagi" : "{$remM}m lagi";
                     @endphp
-                    <div class="text-xl mb-0.5">{{ $npEmoji[$npKey] ?? '🕌' }}</div>
-                    <div class="text-lg md:text-xl font-bold text-teal-600 leading-tight">{{ $npTime }}</div>
+                    <div class="text-2xl mb-0.5">{{ $npEmoji[$npKey] ?? '🕌' }}</div>
+                    <div class="text-2xl md:text-3xl font-bold text-teal-600 leading-tight">{{ $npTime }}</div>
                     <div class="text-xs md:text-sm text-gray-500 font-medium mt-0.5">{{ $npNames[$npKey] ?? ucfirst($npKey) }}</div>
-                    <div class="mt-1.5 text-xs font-semibold text-teal-500 bg-teal-50 rounded-full px-2 py-0.5 inline-block" id="nextPrayerCountdown">
+                    <div class="mt-2 text-xs font-semibold text-teal-500 bg-teal-50 rounded-full px-3 py-0.5 inline-block">
                         {{ $countdownStr }}
                     </div>
                 @else
                     <div class="text-2xl mb-1">✅</div>
-                    <div class="text-lg font-bold text-emerald-600">Selesai</div>
+                    <div class="text-xl font-bold text-emerald-600">Selesai</div>
                     <div class="text-xs text-gray-500 font-medium mt-0.5">Shalat Hari Ini</div>
-                    <div class="mt-1.5 text-xs text-emerald-400 font-medium">Alhamdulillah!</div>
+                    <div class="mt-2 text-xs text-emerald-400 font-medium">Alhamdulillah!</div>
                 @endif
             </div>
 
