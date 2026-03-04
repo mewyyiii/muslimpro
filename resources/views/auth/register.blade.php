@@ -66,7 +66,6 @@
 
         .title { font-size: 22px; font-weight: 600; color: #2d3748; margin-bottom: 25px; }
 
-        /* ── Form Groups ── */
         .form-group { margin-bottom: 16px; position: relative; }
 
         .input-wrapper {
@@ -76,11 +75,11 @@
             overflow: hidden;
             transition: all 0.3s ease;
         }
-        .input-wrapper:hover  { background: rgba(13,148,136,0.13); }
+        .input-wrapper:hover   { background: rgba(13,148,136,0.13); }
         .input-wrapper.focused { background: rgba(13,148,136,0.18); box-shadow: 0 0 0 3px rgba(13,148,136,0.1); }
-        .input-wrapper.error  { background: rgba(220,38,38,0.07);  box-shadow: 0 0 0 2px rgba(220,38,38,0.3); }
-        .input-wrapper.valid  { background: rgba(16,185,129,0.08);  box-shadow: 0 0 0 2px rgba(16,185,129,0.3); }
-        .input-wrapper.locked { opacity: 0.5; pointer-events: none; }
+        .input-wrapper.error   { background: rgba(220,38,38,0.07);  box-shadow: 0 0 0 2px rgba(220,38,38,0.3); }
+        .input-wrapper.valid   { background: rgba(16,185,129,0.08);  box-shadow: 0 0 0 2px rgba(16,185,129,0.3); }
+        .input-wrapper.locked  { opacity: 0.5; pointer-events: none; }
 
         .form-input {
             width: 100%;
@@ -97,7 +96,6 @@
             width: 18px; height: 18px; color: #14b8a6; pointer-events: none;
         }
 
-        /* status tick / cross */
         .status-icon {
             position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
             width: 16px; height: 16px; display: none; pointer-events: none;
@@ -105,7 +103,6 @@
         .input-wrapper.valid .status-icon.ok  { display: block; color: #10b981; }
         .input-wrapper.error .status-icon.err { display: block; color: #dc2626; }
 
-        /* eye button */
         .eye-toggle {
             position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
             background: none; border: none; cursor: pointer;
@@ -115,7 +112,6 @@
         .eye-toggle:hover { color: #14b8a6; }
         .eye-toggle svg { width: 19px; height: 19px; }
 
-        /* inline error text */
         .field-error {
             display: none;
             font-size: 11.5px; color: #dc2626;
@@ -126,14 +122,12 @@
         .field-error.show { display: block; }
         @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
 
-        /* password strength */
         .password-strength { display: none; margin-top: 8px; margin-left: 4px; }
         .password-strength.show { display: block; }
         .strength-bars { display: flex; gap: 4px; margin-bottom: 4px; }
         .strength-bar  { height: 4px; flex: 1; border-radius: 2px; background: #e2e8f0; transition: background 0.3s; }
         .strength-label { font-size: 11px; color: #718096; text-align: left; }
 
-        /* ── Buttons ── */
         .register-button {
             width: 100%; padding: 15px;
             border: none; border-radius: 25px;
@@ -145,7 +139,7 @@
             text-transform: uppercase; letter-spacing: 1px;
             margin-top: 15px;
         }
-        .register-button:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(13,148,136,0.4); }
+        .register-button:hover  { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(13,148,136,0.4); }
         .register-button:active { transform: translateY(0); }
 
         .terms { font-size: 11px; color: #718096; margin-top: 15px; line-height: 1.5; }
@@ -163,7 +157,6 @@
 
         .footer-text { margin-top: 15px; font-size: 11px; color: rgba(255,255,255,0.8); text-align: center; }
 
-        /* ── Responsive ── */
         @media (max-width: 480px) {
             body { align-items: flex-start; padding: 20px 16px; }
             .container { max-width: 100%; padding: 0; }
@@ -231,7 +224,8 @@
             <div class="form-group">
                 <div class="input-wrapper" id="name-wrapper">
                     <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
                     <input type="text" id="input-name" name="name" class="form-input"
                         placeholder="Nama Lengkap" value="{{ old('name') }}" required autofocus
@@ -242,26 +236,26 @@
                 <div class="field-error" id="name-error">Nama lengkap wajib diisi (minimal 2 karakter).</div>
             </div>
 
-            <!-- Username -->
+            <!-- Username (bebas, tidak ada syarat) -->
             <div class="form-group">
                 <div class="input-wrapper" id="username-wrapper">
                     <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/>
                     </svg>
                     <input type="text" id="input-username" name="username" class="form-input"
                         placeholder="Nama Pengguna" value="{{ old('username') }}"
-                        onfocus="setFocus('username-wrapper')" onblur="validateUsername()">
-                    <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                    <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                        onfocus="setFocus('username-wrapper')"
+                        onblur="document.getElementById('username-wrapper').classList.remove('focused')">
                 </div>
-                <div class="field-error" id="username-error">Nama pengguna hanya boleh huruf, angka, dan garis bawah (_).</div>
             </div>
 
             <!-- Email -->
             <div class="form-group">
                 <div class="input-wrapper" id="email-wrapper">
                     <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                     <input type="email" id="input-email" name="email" class="form-input"
                         placeholder="Email Anda" value="{{ old('email') }}" required
@@ -276,7 +270,8 @@
             <div class="form-group">
                 <div class="input-wrapper" id="password-wrapper">
                     <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                     </svg>
                     <input type="password" id="input-password" name="password"
                         class="form-input has-eye" placeholder="Kata Sandi" required
@@ -302,14 +297,15 @@
                     </div>
                     <div class="strength-label" id="strength-label">Masukkan kata sandi</div>
                 </div>
-                <div class="field-error" id="password-error">Kata sandi minimal 6 karakter + harus ada huruf &amp; angka.</div>
+                <div class="field-error" id="password-error">Kata sandi minimal 6 karakter dan harus mengandung huruf serta angka.</div>
             </div>
 
             <!-- Konfirmasi Kata Sandi -->
             <div class="form-group">
                 <div class="input-wrapper" id="confirm-password-wrapper">
                     <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
                     <input type="password" id="input-confirm" name="password_confirmation"
                         class="form-input has-eye" placeholder="Konfirmasi Kata Sandi" required
@@ -345,9 +341,10 @@
     <p class="footer-text">dirancang oleh Tim NurSteps</p>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    /* ── Helpers ── */
-    function setFocus(id) { document.getElementById(id).classList.add('focused'); }
+<script>
+    function setFocus(id) {
+        document.getElementById(id).classList.add('focused');
+    }
 
     function setWrapperState(id, state) {
         var w = document.getElementById(id);
@@ -360,7 +357,6 @@
         show ? el.classList.add('show') : el.classList.remove('show');
     }
 
-    /* ── Toggle Mata ── */
     function toggleEye(inputId, openId, closedId) {
         var inp = document.getElementById(inputId);
         var o   = document.getElementById(openId);
@@ -376,7 +372,6 @@
         }
     }
 
-    /* ── Kunci / buka kolom password ── */
     function lockPasswordFields(lock) {
         ['input-password','input-confirm'].forEach(function(id, i) {
             var inp = document.getElementById(id);
@@ -393,7 +388,6 @@
         });
     }
 
-    /* ── Validasi Nama ── */
     function validateName() {
         var val = document.getElementById('input-name').value.trim();
         var ok  = val.length >= 2;
@@ -402,17 +396,6 @@
         return ok;
     }
 
-    /* ── Validasi Username (opsional) ── */
-    function validateUsername() {
-        var val = document.getElementById('input-username').value.trim();
-        if (val === '') { setWrapperState('username-wrapper',''); showError('username-error',false); return true; }
-        var ok = /^[a-zA-Z0-9_]+$/.test(val);
-        setWrapperState('username-wrapper', ok ? 'valid' : 'error');
-        showError('username-error', !ok);
-        return ok;
-    }
-
-    /* ── Validasi Email → kunci/buka password ── */
     function validateEmail() {
         var val = document.getElementById('input-email').value.trim();
         var ok  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
@@ -422,23 +405,23 @@
         return ok;
     }
 
-    /* ── Validasi Password ── */
     function validatePassword() {
-        var val       = document.getElementById("input-password").value;
-        var errEl     = document.getElementById("password-error");
+        var val       = document.getElementById('input-password').value;
+        var errEl     = document.getElementById('password-error');
         var hasLetter = /[a-zA-Z]/.test(val);
         var hasNumber = /[0-9]/.test(val);
         var longEnough = val.length >= 6;
         var ok = longEnough && hasLetter && hasNumber;
-        if (!longEnough)      errEl.textContent = "Kata sandi minimal 6 karakter.";
-        else if (!hasLetter)  errEl.textContent = "Kata sandi harus mengandung minimal satu huruf.";
-        else if (!hasNumber)  errEl.textContent = "Kata sandi harus mengandung minimal satu angka.";
-        setWrapperState("password-wrapper", ok ? "valid" : "error");
-        showError("password-error", !ok);
+
+        if (!longEnough)     errEl.textContent = 'Kata sandi minimal 6 karakter.';
+        else if (!hasLetter) errEl.textContent = 'Kata sandi harus mengandung minimal satu huruf.';
+        else if (!hasNumber) errEl.textContent = 'Kata sandi harus mengandung minimal satu angka.';
+
+        setWrapperState('password-wrapper', ok ? 'valid' : 'error');
+        showError('password-error', !ok);
         return ok;
     }
 
-    /* ── Validasi Konfirmasi ── */
     function validateConfirm() {
         var p1 = document.getElementById('input-password').value;
         var p2 = document.getElementById('input-confirm').value;
@@ -448,15 +431,14 @@
         return ok;
     }
 
-    /* ── Kekuatan Password ── */
     function checkStrength() {
         var val = document.getElementById('input-password').value;
         document.getElementById('strength-wrap').classList.toggle('show', val.length > 0);
         var score = 0;
-        if (val.length >= 6)          score++;
-        if (/[A-Z]/.test(val))        score++;
-        if (/[0-9]/.test(val))        score++;
-        if (/[^A-Za-z0-9]/.test(val)) score++;
+        if (val.length >= 6)           score++;
+        if (/[A-Z]/.test(val))         score++;
+        if (/[0-9]/.test(val))         score++;
+        if (/[^A-Za-z0-9]/.test(val))  score++;
         var colors = ['#ef4444','#f97316','#eab308','#22c55e'];
         var labels = ['Sangat lemah','Lemah','Cukup kuat','Kuat'];
         for (var i = 1; i <= 4; i++) {
@@ -466,17 +448,15 @@
         document.getElementById('strength-label').style.color  = colors[score-1] || '#ef4444';
     }
 
-    /* ── Submit guard ── */
     document.getElementById('register-form').addEventListener('submit', function(e) {
-        var ok = validateName() & validateEmail() & validateUsername() & validatePassword() & validateConfirm();
+        var ok = validateName() & validateEmail() & validatePassword() & validateConfirm();
         if (!ok) {
             e.preventDefault();
-            var first = document.querySelector(".field-error.show");
-            if (first) first.scrollIntoView({ behavior:"smooth", block:"center" });
+            var first = document.querySelector('.field-error.show');
+            if (first) first.scrollIntoView({ behavior:'smooth', block:'center' });
         }
     });
 
-    /* Kunci password saat halaman pertama muat */
     lockPasswordFields(true);
 </script>
 </body>
