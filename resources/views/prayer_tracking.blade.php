@@ -46,20 +46,12 @@
             $hijriMonthName = $hijriMonths[$hMonth - 1] ?? '';
         @endphp
 
-        <div class="flex items-center justify-between mb-5">
-            <div>
-                <div class="text-white text-xl md:text-2xl font-bold drop-shadow">
-                    {{ \Carbon\Carbon::parse($selectedDate)->locale('id')->translatedFormat('l, j F Y') }}
-                </div>
-                <div class="text-white/75 text-sm font-medium mt-0.5">
-                    {{ $hDay }} {{ $hijriMonthName }} {{ $hYear }} H
-                </div>
+        <div class="mb-5">
+            <div class="text-white text-xl md:text-2xl font-bold drop-shadow">
+                {{ \Carbon\Carbon::parse($selectedDate)->locale('id')->translatedFormat('l, j F Y') }}
             </div>
-            <div class="flex gap-2">
-                <a href="?date={{ \Carbon\Carbon::parse($selectedDate)->subDay()->toDateString() }}"
-                   class="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white text-lg font-bold transition">‹</a>
-                <a href="?date={{ \Carbon\Carbon::parse($selectedDate)->addDay()->toDateString() }}"
-                   class="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white text-lg font-bold transition">›</a>
+            <div class="text-white/75 text-sm font-medium mt-0.5">
+                {{ $hDay }} {{ $hijriMonthName }} {{ $hYear }} H
             </div>
         </div>
 
