@@ -4,12 +4,34 @@
 <div class="min-h-screen bg-gradient-to-br from-teal-400 via-teal-500 to-emerald-500 py-8 md:py-12">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {{-- HEADER --}}
-        <div class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-lg mb-2">
-                🕌 Tracking Shalat
-            </h1>
-            <p class="text-white/80 text-base md:text-lg">Catat & pantau ibadah shalat harianmu</p>
+        {{-- DATE HEADER --}}
+        <div class="flex items-center justify-between mb-5">
+            <div>
+                <div class="text-white text-xl md:text-2xl font-bold drop-shadow">
+                    {{ \Carbon\Carbon::parse($selectedDate)->translatedFormat('l, j F Y') }}
+                </div>
+                <div class="text-white/75 text-sm font-medium mt-0.5" id="hijri-date">
+                    @php
+                        // Simple Hijri calculation (approximate) using intl if available, else fallback
+                        $hijriMonths = ['Muharram','Safar','Rabiul Awal','Rabiul Akhir','Jumadil Awal','Jumadil Akhir','Rajab','Syaban','Ramadan','Syawal','Dzulkaidah','Dzulhijjah'];
+                        $jd = gregoriantojd(
+                            (int)\Carbon\Carbon::parse($selectedDate)->format('m'),
+                            (int)\Carbon\Carbon::parse($selectedDate)->format('d'),
+                            (int)\Carbon\Carbon::parse($selectedDate)->format('Y')
+                        );
+                        $islamic = jdtoislamic($jd);
+                        [$hm, $hd, $hy] = explode('/', $islamic);
+                        $hijriMonthName = $hijriMonths[(int)$hm - 1];
+                    @endphp
+                    {{ (int)$hd }} {{ $hijriMonthName }} {{ $hy }} H
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <a href="?date={{ \Carbon\Carbon::parse($selectedDate)->subDay()->toDateString() }}"
+                   class="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition">‹</a>
+                <a href="?date={{ \Carbon\Carbon::parse($selectedDate)->addDay()->toDateString() }}"
+                   class="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition">›</a>
+            </div>
         </div>
 
         {{-- PILIH LOKASI --}}
@@ -69,15 +91,33 @@
                 </div>
             </div>
 
-            {{-- Streak --}}
-            <div class="bg-white rounded-2xl p-4 md:p-6 shadow-xl text-center">
-                <div class="text-3xl md:text-4xl font-bold text-amber-500 mb-1">
-                    {{ $streak }}<span class="text-lg text-gray-400"> 🔥</span>
-                </div>
-                <div class="text-xs md:text-sm text-gray-500 font-medium">Hari Berturut</div>
-                <div class="mt-2 text-xs text-amber-400 font-medium">
-                    {{ $streak > 0 ? 'Pertahankan!' : 'Mulai sekarang!' }}
-                </div>
+            {{-- Next Prayer Reminder --}}
+            <div class="bg-white rounded-2xl p-4 md:p-6 shadow-xl text-center relative overflow-hidden">
+                @if(isset($nextPrayer) && $selectedDate === now()->toDateString())
+                    @php
+                        $npNames = ['fajr'=>'Subuh','dhuhr'=>'Dzuhur','asr'=>'Ashar','maghrib'=>'Maghrib','isha'=>'Isya'];
+                        $npEmoji = ['fajr'=>'🌅','dhuhr'=>'☀️','asr'=>'🌤️','maghrib'=>'🌇','isha'=>'🌙'];
+                        $npKey   = $nextPrayer['name'];
+                        $npTime  = $nextPrayer['time'];
+                        $now     = \Carbon\Carbon::now($locationTimezone);
+                        $npDt    = \Carbon\Carbon::createFromFormat('H:i', $npTime, $locationTimezone)->setDate($now->year, $now->month, $now->day);
+                        $diffMin = (int) $now->diffInMinutes($npDt, false);
+                        $diffH   = floor($diffMin / 60);
+                        $diffM   = $diffMin % 60;
+                        $countdownStr = $diffH > 0 ? "{$diffH}j {$diffM}m" : "{$diffM}m lagi";
+                    @endphp
+                    <div class="text-xl mb-0.5">{{ $npEmoji[$npKey] ?? '🕌' }}</div>
+                    <div class="text-lg md:text-xl font-bold text-teal-600 leading-tight">{{ $npTime }}</div>
+                    <div class="text-xs md:text-sm text-gray-500 font-medium mt-0.5">{{ $npNames[$npKey] ?? ucfirst($npKey) }}</div>
+                    <div class="mt-1.5 text-xs font-semibold text-teal-500 bg-teal-50 rounded-full px-2 py-0.5 inline-block" id="nextPrayerCountdown">
+                        {{ $countdownStr }}
+                    </div>
+                @else
+                    <div class="text-2xl mb-1">✅</div>
+                    <div class="text-lg font-bold text-emerald-600">Selesai</div>
+                    <div class="text-xs text-gray-500 font-medium mt-0.5">Shalat Hari Ini</div>
+                    <div class="mt-1.5 text-xs text-emerald-400 font-medium">Alhamdulillah!</div>
+                @endif
             </div>
 
             {{-- Bulan Ini --}}
