@@ -216,16 +216,16 @@
 
         <h2 class="title">Daftar Akun</h2>
 
-        
+        @if ($errors->any())
             <div class="error-message">
                 <ul style="list-style:none;padding:0;margin:0;">
-                    <li></li>
+                    @foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach
                 </ul>
             </div>
-        
+        @endif
 
-        <form method="POST" action="#" id="register-form" novalidate>
-            
+        <form method="POST" action="{{ route('register') }}" id="register-form" novalidate>
+            @csrf
 
             <!-- Nama Lengkap -->
             <div class="form-group">
@@ -234,7 +234,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
                     <input type="text" id="input-name" name="name" class="form-input"
-                        placeholder="Nama Lengkap"  required autofocus
+                        placeholder="Nama Lengkap" value="{{ old('name') }}" required autofocus
                         onfocus="setFocus('name-wrapper')" onblur="validateName()">
                     <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -249,7 +249,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/>
                     </svg>
                     <input type="text" id="input-username" name="username" class="form-input"
-                        placeholder="Nama Pengguna" 
+                        placeholder="Nama Pengguna" value="{{ old('username') }}"
                         onfocus="setFocus('username-wrapper')" onblur="validateUsername()">
                     <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -264,7 +264,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                     <input type="email" id="input-email" name="email" class="form-input"
-                        placeholder="Email Anda"  required
+                        placeholder="Email Anda" value="{{ old('email') }}" required
                         onfocus="setFocus('email-wrapper')" onblur="validateEmail()">
                     <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -337,7 +337,7 @@
             <button type="submit" class="register-button">Daftar</button>
 
             <div class="login-link">
-                Sudah punya akun? <a href="#">Masuk di sini</a>
+                Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
             </div>
         </form>
     </div>
