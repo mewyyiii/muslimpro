@@ -51,9 +51,30 @@
         color: var(--text-primary-muted);
     }
 
+<<<<<<< HEAD
     /* Icon arrow */
     .doa-icon {
         color: rgba(255,255,255,0.9);
+=======
+<<<<<<< HEAD
+    Icon arrow
+    .doa-icon {
+        color: rgba(255,255,255,0.9);
+=======
+    /* ===== Chevron Indicator ===== */
+    .doa-chevron {
+        width: 26px;
+        min-width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.3s ease;
+>>>>>>> 17bf04fc2e0c20ee7ced2e237f4381416c73a33a
+>>>>>>> e3eb02b98608e3f06d701cb4ea38f68276050fb8
     }
 
     .doa-card.active .doa-icon {
@@ -65,9 +86,31 @@
         transition: all 0.3s ease;
     }
 
+<<<<<<< HEAD
     /* Icon rotation */
     .rotate-45 {
         transform: rotate(45deg);
+=======
+<<<<<<< HEAD
+    Icon rotation
+    .rotate-45 {
+        transform: rotate(45deg);
+=======
+    .doa-content.open {
+        max-height: 500px;
+        opacity: 1;
+    }
+
+    .doa-divider {
+        height: 1px;
+        background: rgba(255,255,255,0.22);
+        margin-bottom: 12px;
+    }
+
+    .doa-card.active .doa-divider {
+        background: #e5e7eb;
+>>>>>>> 17bf04fc2e0c20ee7ced2e237f4381416c73a33a
+>>>>>>> e3eb02b98608e3f06d701cb4ea38f68276050fb8
     }
 </style>
 @endpush

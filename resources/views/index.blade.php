@@ -2,99 +2,176 @@
 
 @push('styles')
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700&display=swap');
 
     .font-arabic {
         font-family: 'Amiri', serif;
     }
 
-    /* ===== Card Emerald ===== */
     .surah-card {
-        background: linear-gradient(90deg, #1FAF90, #10B981);
-        color: white;
-        border-radius: 14px;
-        transition: all 0.3s ease;
-        cursor: pointer;
+        position: relative;
+        overflow: hidden;
     }
 
-    .surah-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    /* Badge "sudah dibaca" — kanan bawah */
+    .read-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background: rgba(255,255,255,0.22);
+        border: 1px solid rgba(255,255,255,0.35);
+        backdrop-filter: blur(4px);
+        border-radius: 99px;
+        padding: 3px 9px 3px 6px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.04em;
     }
 
-    /* Lingkaran nomor */
-    .surah-number {
-        background-color: rgba(255,255,255,0.25);
+    .read-badge svg {
+        flex-shrink: 0;
     }
 
-    /* teks putih soft */
-    .surah-muted {
-        color: rgba(255,255,255,0.85);
+    /* Badge "sedang dibaca" (progress < 100%) */
+    .reading-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background: rgba(253,224,71,0.2);
+        border: 1px solid rgba(253,224,71,0.45);
+        backdrop-filter: blur(4px);
+        border-radius: 99px;
+        padding: 3px 9px 3px 6px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        color: #fde047;
+        letter-spacing: 0.04em;
+    }
+
+    /* Mini progress bar inside card (for in-progress surahs) */
+    .card-progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: rgba(255,255,255,0.15);
+        border-radius: 0 0 12px 12px;
+        overflow: hidden;
+    }
+
+    .card-progress-fill {
+        height: 100%;
+        background: rgba(255,255,255,0.7);
+        border-radius: 0 0 12px 12px;
+        transition: width 0.4s ease;
     }
 </style>
 @endpush
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
+<div class="min-h-screen py-10 px-4 sm:px-6 lg:px-8" style="background: var(--bg-primary);">
+    <div class="max-w-5xl mx-auto">
 
-    <h1 class="text-3xl font-bold text-center mb-6 mt-4">
-        Al-Quran
-    </h1>
+        {{-- Header --}}
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2" style="color: var(--text-primary);">
+                Al-Quran
+            </h1>
+        </div>
 
-    {{-- SEARCH TANPA ICON --}}
-    <div class="w-full max-w-md mx-auto mb-8">
-        <input type="text"
-            id="surah-search-input"
-            placeholder="Cari surah (Al-Fatihah, Pembukaan)"
-            class="w-full px-4 py-3 rounded-xl border-2 focus:outline-none focus:ring-2 transition-all"
-            style="
-                background-color: var(--surface);
-                color: var(--text-primary);
-                border-color: #10B981;
-            ">
-    </div>
+        {{-- Search --}}
+        <div class="mb-8">
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Cari surah (Al-Fatihah, Pembukaan)"
+                class="w-full px-5 py-3 rounded-xl border-2 text-base transition focus:outline-none"
+                style="
+                    border-color: rgba(20,184,166,0.35);
+                    background: var(--bg-secondary, #fff);
+                    color: var(--text-primary);
+                "
+                oninput="filterSurahs(this.value)"
+            >
+        </div>
 
-    {{-- GRID SURAH --}}
-    <div id="surah-grid"
-         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {{-- Surah Grid --}}
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="surah-grid">
+            @foreach($surahs as $surah)
+                @php
+                    $tracking = $trackingMap[$surah->number] ?? null;
+                    $isCompleted = $tracking && $tracking->is_completed;
+                    $isReading   = $tracking && !$tracking->is_completed && $tracking->last_verse > 0;
+                    $progress    = $tracking ? $tracking->progress_percent : 0;
+                @endphp
 
-        @foreach($surahs as $surah)
-            <a href="{{ route('quran.show', $surah->number) }}"
-               class="surah-card block p-5 shadow-md surah-card-item"
-               data-surah-terms="{{ strtolower($surah->name . ' ' . $surah->translation . ' ' . $surah->arabic_name) }}">
+                <a href="{{ route('quran.show', $surah->number) }}"
+                   class="surah-card block rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                   style="background: linear-gradient(135deg, #1FAF90, #10B981);"
+                   data-name="{{ strtolower($surah->name) }}"
+                   data-arabic="{{ $surah->arabic_name }}"
+                   data-translation="{{ strtolower($surah->translation) }}">
 
-                <div class="flex justify-between items-center mb-3">
-
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full surah-number">
-                        <span class="font-bold text-sm text-white">
+                    {{-- Number + Arabic name --}}
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold"
+                              style="background: rgba(255,255,255,0.2); color: #fff;">
                             {{ $surah->number }}
+                        </span>
+                        <span class="font-arabic text-2xl text-white leading-snug">
+                            {{ $surah->arabic_name }}
                         </span>
                     </div>
 
-                    <div class="text-right">
-                        <h2 class="text-2xl font-arabic font-bold text-white">
-                            {{ $surah->arabic_name }}
-                        </h2>
+                    {{-- Latin name & translation --}}
+                    <div class="mt-2">
+                        <p class="font-bold text-white text-sm">{{ $surah->name }}</p>
+                        <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.75);">
+                            "{{ $surah->translation }}"
+                        </p>
+                        <p class="text-xs mt-1" style="color:rgba(255,255,255,0.65);">
+                            {{ $surah->total_verses }} Ayat
+                        </p>
                     </div>
 
-                </div>
+                    {{-- Badge: Selesai --}}
+                    @if($isCompleted)
+                        <div class="read-badge">
+                            <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Selesai
+                        </div>
+                        {{-- Full green bar --}}
+                        <div class="card-progress-bar">
+                            <div class="card-progress-fill" style="width:100%"></div>
+                        </div>
 
-                <div>
-                    <h3 class="text-lg font-bold text-white">
-                        {{ $surah->name }}
-                    </h3>
+                    {{-- Badge: Sedang dibaca --}}
+                    @elseif($isReading)
+                        <div class="reading-badge">
+                            <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"/>
+                            </svg>
+                            Ayat {{ $tracking->last_verse }}
+                        </div>
+                        {{-- Progress bar --}}
+                        <div class="card-progress-bar">
+                            <div class="card-progress-fill" style="width:{{ $progress }}%"></div>
+                        </div>
+                    @endif
 
-                    <p class="text-sm surah-muted">
-                        "{{ $surah->translation }}"
-                    </p>
-
-                    <p class="text-xs mt-2 surah-muted">
-                        {{ $surah->total_verses }} Ayat
-                    </p>
-                </div>
-
-            </a>
-        @endforeach
+                </a>
+            @endforeach
+        </div>
 
     </div>
 </div>
@@ -102,27 +179,14 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    const searchInput = document.getElementById('surah-search-input');
-    const surahGrid = document.getElementById('surah-grid');
-    const surahCards = surahGrid.getElementsByClassName('surah-card-item');
-
-    searchInput.addEventListener('keyup', function () {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-
-        for (let i = 0; i < surahCards.length; i++) {
-            const card = surahCards[i];
-            const terms = card.getAttribute('data-surah-terms') || '';
-
-            if (terms.includes(searchTerm)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        }
+function filterSurahs(query) {
+    const q = query.toLowerCase().trim();
+    document.querySelectorAll('#surah-grid a').forEach(card => {
+        const name        = card.dataset.name || '';
+        const translation = card.dataset.translation || '';
+        const match       = name.includes(q) || translation.includes(q);
+        card.style.display = match ? '' : 'none';
     });
-
-});
+}
 </script>
 @endpush

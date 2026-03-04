@@ -4,9 +4,7 @@
 <div class="min-h-screen bg-gradient-to-br from-emerald-400 via-teal-500 to-teal-600 py-8 md:py-12">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {{-- ══════════════════════════════════════════════════════════════
-             HEADER
-        ══════════════════════════════════════════════════════════════ --}}
+        {{-- ══ HEADER ══ --}}
         <div class="text-center mb-8">
             <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-lg mb-2">
                 📖 Tracking Mengaji
@@ -14,11 +12,8 @@
             <p class="text-white/80 text-base md:text-lg">Pantau progres bacaan Al-Quran kamu</p>
         </div>
 
-        {{-- ══════════════════════════════════════════════════════════════
-             STATISTIK RINGKASAN
-        ══════════════════════════════════════════════════════════════ --}}
+        {{-- ══ STATISTIK ══ --}}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
-            {{-- Surah selesai --}}
             <div class="bg-white rounded-2xl p-4 shadow-xl text-center">
                 <div class="text-3xl md:text-4xl font-bold text-emerald-600 mb-1">
                     {{ $totalSurahCompleted }}<span class="text-lg text-gray-400">/114</span>
@@ -29,8 +24,6 @@
                          style="width: {{ $percentCompleted }}%"></div>
                 </div>
             </div>
-
-            {{-- Streak --}}
             <div class="bg-white rounded-2xl p-4 shadow-xl text-center">
                 <div class="text-3xl md:text-4xl font-bold text-amber-500 mb-1">
                     {{ $streak }}<span class="text-lg text-gray-400"> 🔥</span>
@@ -40,29 +33,19 @@
                     {{ $readToday ? '✓ Sudah baca hari ini' : 'Belum baca hari ini' }}
                 </div>
             </div>
-
-            {{-- Total ayat --}}
             <div class="bg-white rounded-2xl p-4 shadow-xl text-center">
                 <div class="text-3xl md:text-4xl font-bold text-teal-600 mb-1">
                     {{ number_format($totalVersesRead) }}
                 </div>
                 <div class="text-xs md:text-sm text-gray-500 font-medium">Ayat Dibaca</div>
             </div>
-
-            {{-- Durasi --}}
             <div class="bg-white rounded-2xl p-4 shadow-xl text-center">
-                <div class="text-3xl md:text-4xl font-bold text-indigo-600 mb-1">
-                    {{ $totalHours }}j
-                </div>
-                <div class="text-xs md:text-sm text-gray-500 font-medium">
-                    {{ $totalMinutes }} menit
-                </div>
+                <div class="text-3xl md:text-4xl font-bold text-indigo-600 mb-1">{{ $totalHours }}j</div>
+                <div class="text-xs md:text-sm text-gray-500 font-medium">{{ $totalMinutes }} menit</div>
             </div>
         </div>
 
-        {{-- ══════════════════════════════════════════════════════════════
-             DAFTAR TRACKING SURAH
-        ══════════════════════════════════════════════════════════════ --}}
+        {{-- ══ DAFTAR TRACKING ══ --}}
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6">
             <div class="flex items-center justify-between mb-5">
                 <h2 class="text-lg md:text-xl font-bold text-gray-800 flex items-center gap-2">
@@ -79,7 +62,7 @@
                 <div class="text-center py-12">
                     <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                         </svg>
                     </div>
                     <h3 class="text-lg font-bold text-gray-700 mb-2">Belum Ada Progress</h3>
@@ -90,39 +73,42 @@
                     </a>
                 </div>
             @else
-                <div class="space-y-3">
-                    @foreach($trackings as $track)
-                    <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-all duration-200
-                                {{ $track->is_completed ? 'bg-emerald-50 border-emerald-200' : 'bg-white' }}">
+                {{-- List surah (dikontrol JS pagination) --}}
+                <div id="tracking-list" class="space-y-3">
+                    @foreach($trackings as $i => $track)
+                    <div class="tracking-item border border-gray-200 rounded-xl p-4 transition-all duration-200
+                                {{ $track->is_completed ? 'bg-emerald-50 border-emerald-200' : 'bg-white' }}"
+                         data-index="{{ $i }}">
                         <div class="flex items-center justify-between gap-4">
-                            {{-- Info surah --}}
+
+                            {{-- Info --}}
                             <div class="flex-1 min-w-0">
-                                <div class="flex items-center gap-2 mb-1">
+                                <div class="flex items-center gap-2 mb-1 flex-wrap">
                                     <h3 class="font-bold text-gray-800 truncate">
                                         {{ $track->surah_number }}. {{ $track->surah->name }}
                                     </h3>
                                     @if($track->is_completed)
-                                        <span class="px-2 py-0.5 bg-emerald-500 text-white text-xs font-semibold rounded-full">
+                                        <span class="px-2 py-0.5 bg-emerald-500 text-white text-xs font-semibold rounded-full whitespace-nowrap">
                                             ✓ Selesai
                                         </span>
                                     @endif
                                 </div>
                                 <p class="text-xs text-gray-500">
                                     Ayat {{ $track->last_verse }} / {{ $track->surah->total_verses }}
-                                    • {{ $track->progress_percent }}% selesai
+                                    · {{ $track->progress_percent }}% selesai
                                 </p>
                                 <p class="text-xs text-gray-400 mt-1">
                                     Terakhir: {{ $track->last_read_date->locale('id')->isoFormat('D MMM YYYY') }}
                                     @if($track->duration_seconds > 0)
-                                        • {{ $track->formatted_duration }}
+                                        · {{ $track->formatted_duration }}
                                     @endif
                                 </p>
                             </div>
 
                             {{-- Progress ring --}}
-                            <div class="flex-shrink-0">
-                                <div class="relative w-16 h-16">
-                                    <svg class="transform -rotate-90 w-16 h-16" viewBox="0 0 64 64">
+                            <div class="flex-shrink-0 hidden sm:block">
+                                <div class="relative w-14 h-14">
+                                    <svg class="transform -rotate-90 w-14 h-14" viewBox="0 0 64 64">
                                         <circle cx="32" cy="32" r="28" stroke="#E5E7EB" stroke-width="6" fill="none"/>
                                         <circle cx="32" cy="32" r="28"
                                                 stroke="{{ $track->is_completed ? '#10B981' : '#14B8A6' }}"
@@ -132,17 +118,17 @@
                                                 class="transition-all duration-500"/>
                                     </svg>
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <span class="text-sm font-bold {{ $track->is_completed ? 'text-emerald-600' : 'text-teal-600' }}">
+                                        <span class="text-xs font-bold {{ $track->is_completed ? 'text-emerald-600' : 'text-teal-600' }}">
                                             {{ $track->progress_percent }}%
                                         </span>
                                     </div>
                                 </div>
                             </div>
 
-                            {{-- Action buttons --}}
-                            <div class="flex flex-col gap-2">
+                            {{-- Action --}}
+                            <div class="flex-shrink-0">
                                 <a href="{{ route('quran.show', $track->surah_number) }}"
-                                   class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-lg transition-colors text-center">
+                                   class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-lg transition-colors text-center whitespace-nowrap block">
                                     {{ $track->is_completed ? 'Baca Lagi' : 'Lanjutkan' }}
                                 </a>
                             </div>
@@ -150,17 +136,200 @@
                     </div>
                     @endforeach
                 </div>
+
+                {{-- ══ PAGINATION ══ --}}
+                <div id="pagination-wrap" class="mt-6 flex flex-col items-center gap-3">
+
+                    {{-- Info --}}
+                    <p id="page-info" class="text-xs text-gray-400"></p>
+
+                    {{-- Controls --}}
+                    <div id="pagination-controls" class="flex items-center gap-1 flex-wrap justify-center"></div>
+                </div>
             @endif
         </div>
+
     </div>
 </div>
 @endsection
 
 @push('styles')
 <style>
-    /* Animasi progress ring */
-    circle {
-        transition: stroke-dashoffset 0.5s ease;
+    /* Pagination buttons */
+    .page-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 6px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s, transform 0.1s;
+        text-decoration: none;
+        background: none;
+        color: #10b981;
+    }
+    .page-btn:hover { background: rgba(16,185,129,0.08); transform: translateY(-1px); }
+    .page-btn.active {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        box-shadow: 0 2px 8px rgba(16,185,129,0.35);
+    }
+    .page-btn.active:hover { transform: none; }
+    .page-btn.disabled { color: #d1d5db; pointer-events: none; }
+    .page-btn-prev-next {
+        color: #6b7280;
+        font-size: 0.8rem;
+        gap: 4px;
+    }
+    .page-btn-prev-next:hover { color: #10b981; }
+    .page-btn-prev-next.disabled { color: #e5e7eb; }
+
+    /* Dots separator */
+    .page-dots {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px; height: 36px;
+        color: #9ca3af;
+        font-weight: 700;
+        font-size: 0.85rem;
+    }
+
+    /* Mobile: smaller buttons */
+    @media (max-width: 480px) {
+        .page-btn { min-width: 32px; height: 32px; font-size: 0.78rem; }
+    }
+
+    /* Smooth item fade */
+    .tracking-item {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .tracking-item.hidden-item {
+        display: none;
     }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const PER_PAGE    = 5;
+    const items       = Array.from(document.querySelectorAll('.tracking-item'));
+    const total       = items.length;
+    const totalPages  = Math.ceil(total / PER_PAGE);
+
+    if (total <= PER_PAGE) {
+        // Semua muat 1 halaman, sembunyikan pagination
+        document.getElementById('pagination-wrap').style.display = 'none';
+        return;
+    }
+
+    let currentPage = 1;
+
+    function showPage(page) {
+        currentPage = page;
+
+        // Tampilkan/sembunyikan item
+        items.forEach((item, i) => {
+            const start = (page - 1) * PER_PAGE;
+            const end   = start + PER_PAGE;
+            if (i >= start && i < end) {
+                item.classList.remove('hidden-item');
+            } else {
+                item.classList.add('hidden-item');
+            }
+        });
+
+        // Update info
+        const start = (page - 1) * PER_PAGE + 1;
+        const end   = Math.min(page * PER_PAGE, total);
+        document.getElementById('page-info').textContent =
+            `Menampilkan ${start}–${end} dari ${total} surah`;
+
+        renderPagination();
+
+        // Scroll ke atas card
+        document.getElementById('tracking-list').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function renderPagination() {
+        const wrap = document.getElementById('pagination-controls');
+        wrap.innerHTML = '';
+
+        // ─ Prev ─
+        const prev = makeBtn('', 'prev');
+        prev.classList.add('page-btn-prev-next');
+        prev.innerHTML = `<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg><span class="hidden sm:inline">Sebelumnya</span>`;
+        if (currentPage === 1) prev.classList.add('disabled');
+        prev.addEventListener('click', () => { if (currentPage > 1) showPage(currentPage - 1); });
+        wrap.appendChild(prev);
+
+        // ─ Page numbers (Google style) ─
+        const pages = getPageRange(currentPage, totalPages);
+        pages.forEach(p => {
+            if (p === '...') {
+                const dots = document.createElement('span');
+                dots.className = 'page-dots';
+                dots.textContent = '...';
+                wrap.appendChild(dots);
+            } else {
+                const btn = makeBtn(p, 'num');
+                if (p === currentPage) btn.classList.add('active');
+                btn.addEventListener('click', () => showPage(p));
+                wrap.appendChild(btn);
+            }
+        });
+
+        // ─ Next ─
+        const next = makeBtn('', 'next');
+        next.classList.add('page-btn-prev-next');
+        next.innerHTML = `<span class="hidden sm:inline">Berikutnya</span><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>`;
+        if (currentPage === totalPages) next.classList.add('disabled');
+        next.addEventListener('click', () => { if (currentPage < totalPages) showPage(currentPage + 1); });
+        wrap.appendChild(next);
+    }
+
+    function makeBtn(label, type) {
+        const btn = document.createElement('button');
+        btn.className = 'page-btn';
+        btn.textContent = label;
+        return btn;
+    }
+
+    // Google-style page range: 1 ... 4 5 6 ... 10
+    function getPageRange(current, total) {
+        if (total <= 7) {
+            return Array.from({ length: total }, (_, i) => i + 1);
+        }
+        const pages = [];
+        if (current <= 4) {
+            for (let i = 1; i <= 5; i++) pages.push(i);
+            pages.push('...');
+            pages.push(total);
+        } else if (current >= total - 3) {
+            pages.push(1);
+            pages.push('...');
+            for (let i = total - 4; i <= total; i++) pages.push(i);
+        } else {
+            pages.push(1);
+            pages.push('...');
+            pages.push(current - 1);
+            pages.push(current);
+            pages.push(current + 1);
+            pages.push('...');
+            pages.push(total);
+        }
+        return pages;
+    }
+
+    // Init
+    showPage(1);
+});
+</script>
 @endpush

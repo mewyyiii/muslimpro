@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Surah; // Import the Surah model
+use App\Models\QuranTracking;
+use App\Models\Surah;
 use Illuminate\Http\Request;
-// Removed: use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class QuranController extends Controller
 {
     public function index()
     {
-        // Fetch all surahs from the database
         $surahs = Surah::all();
 
-        return view('index', ['surahs' => $surahs]);
+        // Ambil semua tracking user saat ini, di-map per surah_number
+        $trackingMap = [];
+        if (Auth::check()) {
+            $trackings = QuranTracking::where('user_id', Auth::id())->get();
+            foreach ($trackings as $t) {
+                $trackingMap[$t->surah_number] = $t;
+            }
+        }
+
+        return view('index', compact('surahs', 'trackingMap'));
     }
 
     public function show($id)
     {
-        // Fetch the specific surah with its verses from the database
         $surah = Surah::with('verses')->where('number', $id)->first();
 
         if (!$surah) {
