@@ -223,8 +223,8 @@
                     $canCheck       = !$isToday || $isTimeReached;
                 @endphp
                 <div class="prayer-row border rounded-xl p-4 transition-all duration-300
-                    {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' : 'border-gray-200 bg-gray-50' }}
-                    {{ !$canCheck && $status !== 'performed' ? 'opacity-60' : '' }}">
+                    {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' : 'border-gray-100 bg-white' }}"
+                >
 
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0
@@ -255,25 +255,28 @@
 
                         <div class="flex items-center gap-1.5 flex-shrink-0">
                             @if($status === 'performed')
+                                {{-- Sudah shalat: lingkaran teal berisi centang --}}
                                 <button
                                     @click="updatePrayer('{{ $prayer }}', 'remove')"
-                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
+                                    class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200
                                         bg-teal-500 text-white shadow-md hover:bg-teal-600 hover:scale-110 active:scale-95">
-                                    ✓
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
                                 </button>
                             @elseif($canCheck)
+                                {{-- Waktunya sudah tiba, belum shalat: lingkaran outline kosong --}}
                                 <button
                                     @click="updatePrayer('{{ $prayer }}', 'performed')"
-                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm transition-all duration-200
-                                        bg-gray-200 hover:bg-teal-100 text-gray-600 hover:scale-110 active:scale-95">
-                                    ✓
+                                    class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200
+                                        border-2 border-gray-300 bg-white hover:border-teal-400 hover:bg-teal-50 hover:scale-110 active:scale-95">
                                 </button>
                             @else
+                                {{-- Belum waktunya: lingkaran outline kosong, redup --}}
                                 <button
                                     disabled
-                                    class="w-9 h-9 rounded-lg flex items-center justify-center text-sm
-                                        bg-gray-300 text-gray-500 cursor-not-allowed opacity-60">
-                                    🔒
+                                    class="w-10 h-10 rounded-full flex items-center justify-center
+                                        border-2 border-gray-200 bg-white opacity-40 cursor-not-allowed">
                                 </button>
                             @endif
                         </div>
