@@ -39,7 +39,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 60px 48px;
+            padding: 48px 40px;
             overflow: hidden;
             background: linear-gradient(145deg, #0a7a71 0%, #0d9488 35%, #14b8a6 70%, #2dd4bf 100%);
             min-height: 100vh;
@@ -79,7 +79,8 @@
             position: relative;
             z-index: 2;
             text-align: center;
-            max-width: 480px;
+            width: 100%;
+            max-width: 520px;
             animation: fadeSlideIn 0.9s ease-out both;
         }
 
@@ -94,20 +95,26 @@
             align-items: center;
             justify-content: center;
             gap: 16px;
-            margin-bottom: 48px;
+            margin-bottom: 32px;
         }
 
         .nur-circle {
-            width: 72px;
-            height: 72px;
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3);
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(8px);
+            flex-shrink: 0;
             animation: float 4s ease-in-out infinite;
+        }
+
+        .nur-icon {
+            width: 64px;
+            height: 64px;
+            display: block;
+            border-radius: 50%;
         }
 
         @keyframes float {
@@ -132,11 +139,11 @@
 
         /* Main headline */
         .cover-headline {
-            font-size: clamp(28px, 3.5vw, 42px);
+            font-size: clamp(22px, 2.8vw, 38px);
             font-weight: 800;
             color: white;
             line-height: 1.2;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             letter-spacing: -0.5px;
         }
 
@@ -147,11 +154,11 @@
         }
 
         .cover-sub {
-            font-size: 16px;
+            font-size: clamp(13px, 1.2vw, 15px);
             color: rgba(255,255,255,0.8);
             line-height: 1.7;
-            margin-bottom: 48px;
-            max-width: 380px;
+            margin-bottom: 28px;
+            max-width: 400px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -162,7 +169,7 @@
             flex-wrap: wrap;
             gap: 10px;
             justify-content: center;
-            margin-bottom: 48px;
+            margin-bottom: 28px;
         }
 
         .pill {
@@ -429,17 +436,18 @@
 
             .cover-panel {
                 flex: 0 0 auto;
-                min-height: 220px;
-                padding: 32px 24px;
+                min-height: auto;
+                padding: 36px 24px 32px;
             }
 
             .cover-content { max-width: 100%; }
-            .cover-headline { font-size: 22px; }
+            .cover-headline { font-size: clamp(20px, 5vw, 28px); }
             .cover-sub { font-size: 14px; margin-bottom: 20px; }
             .cover-logo { margin-bottom: 20px; }
             .feature-pills { margin-bottom: 20px; }
             .arabic-quote { display: none; }
             .deco-circles { display: none; }
+            .deco-top { display: none; }
 
             .form-panel {
                 flex: 1;
@@ -448,10 +456,13 @@
         }
 
         @media (max-width: 480px) {
-            .cover-panel { min-height: 180px; padding: 24px 16px; }
-            .cover-headline { font-size: 18px; }
-            .cover-sub { display: none; }
+            .cover-panel { padding: 28px 16px 24px; }
+            .cover-headline { font-size: clamp(18px, 6vw, 24px); }
+            .cover-sub { font-size: 13px; }
             .pill { font-size: 12px; padding: 6px 12px; }
+            .nur-circle { width: 48px; height: 48px; }
+            .nur-icon { width: 48px; height: 48px; }
+            .cover-brand-name { font-size: 24px; }
         }
     </style>
 
@@ -500,10 +511,31 @@
             <!-- Logo -->
             <div class="cover-logo">
                 <div class="nur-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="44" height="44">
-                        <text x="50" y="68" text-anchor="middle"
-                            font-family="'Amiri','Traditional Arabic',serif"
-                            font-size="60" font-weight="bold" fill="white" direction="rtl">نور</text>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="nur-icon">
+                        <defs>
+                            <clipPath id="circleClip"><circle cx="512" cy="512" r="512"/></clipPath>
+                            <radialGradient id="bgGrad" cx="50%" cy="45%" r="65%">
+                                <stop offset="0%" stop-color="#2ecf8e"/>
+                                <stop offset="100%" stop-color="#1aaa72"/>
+                            </radialGradient>
+                            <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="blur1"/>
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2"/>
+                                <feColorMatrix in="blur1" type="matrix" values="0 0 0 0 0.5 0 0 0 0 1 0 0 0 0 0.7 0 0 0 0.6 0" result="colorBlur"/>
+                                <feMerge><feMergeNode in="colorBlur"/><feMergeNode in="blur2"/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
+                            <radialGradient id="centerGlow" cx="52%" cy="48%" r="35%">
+                                <stop offset="0%" stop-color="white" stop-opacity="0.08"/>
+                                <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                        <g clip-path="url(#circleClip)">
+                            <rect width="1024" height="1024" fill="url(#bgGrad)"/>
+                            <rect width="1024" height="1024" fill="url(#centerGlow)"/>
+                            <text x="510" y="570" text-anchor="middle" dominant-baseline="middle"
+                                font-family="'Noto Naskh Arabic','Arabic Typesetting','Traditional Arabic','Geeza Pro',serif"
+                                font-size="430" font-weight="bold" fill="white" direction="rtl" filter="url(#glow)">نور</text>
+                        </g>
                     </svg>
                 </div>
                 <div class="cover-brand-name">NurSteps</div>
@@ -680,7 +712,7 @@
                 @endif
             </form>
 
-            <div class="form-footer">dirancang oleh Tim NurSteps &nbsp;·&nbsp; v1.0</div>
+            <div class="form-footer">dirancang oleh Tim NurSteps &nbsp;·&nbsp;</div>
         </div>
     </div>
 
