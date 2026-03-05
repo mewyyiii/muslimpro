@@ -131,80 +131,43 @@
     .bead-pop { animation: beadPop 0.35s cubic-bezier(0.34,1.56,0.64,1); }
 
     /* ── Tap hint ── */
-    .tap-hint {
-        text-align: center; color: rgba(255,255,255,0.7);
-        font-size: 12px; padding: 0 20px 8px; line-height: 1.5;
-    }
+    .tap-hint { display: none; } /* diganti dengan inline label */
 
-    /* ── Tap indicator on counter ── */
+    /* ── Tap indicator — subtle pulse ring + label inline ── */
     .counter-area { position: relative; }
 
-    .tap-indicator {
+    .tap-ring {
         position: absolute;
-        width: 180px; height: 180px;
+        width: 196px; height: 196px;
         border-radius: 50%;
-        border: 2px solid rgba(255,255,255,0.5);
+        border: 1.5px solid rgba(255,255,255,0.3);
         top: 50%; left: 50%;
         transform: translate(-50%, -60%);
         pointer-events: none;
+        transition: opacity 0.5s ease;
+    }
+    .tap-ring::after {
+        content: '';
+        position: absolute; inset: -12px;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.12);
+        animation: softPulse 2s ease-in-out infinite 0.35s;
+    }
+    .tap-ring.hidden { opacity: 0; }
+    @keyframes softPulse {
+        0%, 100% { opacity: 0.4; transform: scale(0.98); }
+        50%       { opacity: 1;   transform: scale(1.02); }
+    }
+
+    .tap-label-inline {
+        font-size: 11px; font-weight: 600;
+        color: rgba(255,255,255,0.5);
+        letter-spacing: 0.18em; text-transform: uppercase;
+        margin-top: 6px;
+        display: flex; align-items: center; gap: 5px;
         transition: opacity 0.4s ease;
     }
-    .tap-indicator.hidden { opacity: 0; }
-
-    /* outer ring pulse */
-    .tap-indicator::before {
-        content: '';
-        position: absolute; inset: -10px;
-        border-radius: 50%;
-        border: 2px solid rgba(255,255,255,0.25);
-        animation: ringPulse 1.8s ease-out infinite;
-    }
-    /* inner fill pulse */
-    .tap-indicator::after {
-        content: '';
-        position: absolute; inset: 10px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.07);
-        animation: ringPulse 1.8s ease-out infinite 0.3s;
-    }
-    @keyframes ringPulse {
-        0%   { transform: scale(0.92); opacity: 0.7; }
-        60%  { transform: scale(1.08); opacity: 0.2; }
-        100% { transform: scale(0.92); opacity: 0.7; }
-    }
-
-    /* "Tap" label below the ring */
-    .tap-label {
-        position: absolute;
-        bottom: -28px; left: 50%;
-        transform: translateX(-50%);
-        font-size: 11px; font-weight: 600;
-        color: rgba(255,255,255,0.7);
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        white-space: nowrap;
-        animation: tapLabelBob 1.8s ease-in-out infinite;
-        pointer-events: none;
-    }
-    @keyframes tapLabelBob {
-        0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.7; }
-        50%       { transform: translateX(-50%) translateY(-3px); opacity: 1; }
-    }
-
-    /* hand icon bounce */
-    .tap-hand {
-        position: absolute;
-        bottom: -62px; left: 50%;
-        transform: translateX(-50%);
-        font-size: 22px;
-        animation: handBounce 1.8s ease-in-out infinite;
-        pointer-events: none;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    }
-    @keyframes handBounce {
-        0%, 100% { transform: translateX(-50%) translateY(0); }
-        50%       { transform: translateX(-50%) translateY(-5px); }
-    }
+    .tap-label-inline.hidden { opacity: 0; }
 
     /* ── Session dots ── */
     .session-dots {
@@ -581,11 +544,8 @@
     ═══════════════════════════════════════ --}}
     <div class="counter-area" @click="increment(); spawnRipple($event)">
 
-        {{-- Tap indicator — hilang setelah pertama kali tap --}}
-        <div class="tap-indicator" :class="{ hidden: count > 0 }">
-            <span class="tap-label">Tap</span>
-            <span class="tap-hand">👆</span>
-        </div>
+        {{-- Pulse ring — hanya muncul sebelum tap pertama --}}
+        <div class="tap-ring" :class="{ hidden: count > 0 }"></div>
 
         <div class="count-number"
              x-text="String(sessionCount).padStart(2,'0')"
@@ -594,6 +554,14 @@
         <div class="count-of">
             / <span x-text="dzikir.target"></span>
             &nbsp;·&nbsp; Total <span x-text="count"></span>/<span x-text="dzikir.sesi * dzikir.target"></span>
+        </div>
+
+        {{-- Label tap inline, hilang setelah tap pertama --}}
+        <div class="tap-label-inline" :class="{ hidden: count > 0 }">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+            tap untuk mulai
         </div>
     </div>
 
