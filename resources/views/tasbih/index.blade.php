@@ -131,41 +131,15 @@
     .bead-pop { animation: beadPop 0.35s cubic-bezier(0.34,1.56,0.64,1); }
 
     /* ── Tap hint ── */
-    .tap-hint { display: none; } /* diganti dengan inline label */
+    .tap-hint { display: none; }
 
-    /* ── Tap indicator — subtle pulse ring + label inline ── */
-    .counter-area { position: relative; }
-
-    .tap-ring {
-        position: absolute;
-        width: 196px; height: 196px;
-        border-radius: 50%;
-        border: 1.5px solid rgba(255,255,255,0.3);
-        top: 50%; left: 50%;
-        transform: translate(-50%, -60%);
-        pointer-events: none;
-        transition: opacity 0.5s ease;
-    }
-    .tap-ring::after {
-        content: '';
-        position: absolute; inset: -12px;
-        border-radius: 50%;
-        border: 1px solid rgba(255,255,255,0.12);
-        animation: softPulse 2s ease-in-out infinite 0.35s;
-    }
-    .tap-ring.hidden { opacity: 0; }
-    @keyframes softPulse {
-        0%, 100% { opacity: 0.4; transform: scale(0.98); }
-        50%       { opacity: 1;   transform: scale(1.02); }
-    }
-
+    /* label "tap untuk mulai" — kecil, di bawah angka, fade out setelah tap */
     .tap-label-inline {
-        font-size: 11px; font-weight: 600;
-        color: rgba(255,255,255,0.5);
-        letter-spacing: 0.18em; text-transform: uppercase;
-        margin-top: 6px;
-        display: flex; align-items: center; gap: 5px;
-        transition: opacity 0.4s ease;
+        font-size: 11px; font-weight: 500;
+        color: rgba(255,255,255,0.45);
+        letter-spacing: 0.14em; text-transform: uppercase;
+        margin-top: 10px;
+        transition: opacity 0.5s ease;
     }
     .tap-label-inline.hidden { opacity: 0; }
 
@@ -543,10 +517,6 @@
          COUNTER (tap area)
     ═══════════════════════════════════════ --}}
     <div class="counter-area" @click="increment(); spawnRipple($event)">
-
-        {{-- Pulse ring — hanya muncul sebelum tap pertama --}}
-        <div class="tap-ring" :class="{ hidden: count > 0 }"></div>
-
         <div class="count-number"
              x-text="String(sessionCount).padStart(2,'0')"
              :class="{ 'count-pulse': counting }">
@@ -555,14 +525,7 @@
             / <span x-text="dzikir.target"></span>
             &nbsp;·&nbsp; Total <span x-text="count"></span>/<span x-text="dzikir.sesi * dzikir.target"></span>
         </div>
-
-        {{-- Label tap inline, hilang setelah tap pertama --}}
-        <div class="tap-label-inline" :class="{ hidden: count > 0 }">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-            tap untuk mulai
-        </div>
+        <div class="tap-label-inline" :class="{ hidden: count > 0 }">tap untuk mulai</div>
     </div>
 
     {{-- ═══════════════════════════════════════
@@ -580,13 +543,8 @@
         </div>
     </div>
 
-    {{-- ═══════════════════════════════════════
-         TAP HINT
-    ═══════════════════════════════════════ --}}
-    <div class="tap-hint" x-show="count < dzikir.sesi * dzikir.target">
-        Tap di mana saja untuk mulai
-        <br><span style="font-size:11px;opacity:0.7">Tekan Space dari keyboard</span>
-    </div>
+    {{-- TAP HINT (hidden, diganti inline) --}}
+    <div class="tap-hint"></div>
 
     {{-- ═══════════════════════════════════════
          SESSION DOTS
