@@ -200,15 +200,50 @@
         border-radius: 50%;
         border: 2px solid rgba(255,255,255,0.15);
     }
-    .compass-pulse-ring {
-        position: absolute; inset: -4px;
+
+    /* Qibla fixed marker - static, does NOT rotate */
+    .qibla-marker-wrap {
+        position: absolute;
+        inset: 0;
         border-radius: 50%;
-        border: 2px solid rgba(94,234,212,0.3);
-        animation: pulse-ring 2.5s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 20;
     }
-    @keyframes pulse-ring {
-        0%,100% { transform: scale(1); opacity: 0.6; }
-        50%      { transform: scale(1.04); opacity: 1; }
+    /* The triangle pointer at top of compass, rotated to qibla direction */
+    .qibla-triangle {
+        position: absolute;
+        top: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 16px solid #f59e0b;
+        filter: drop-shadow(0 0 6px rgba(245,158,11,0.9));
+    }
+    .qibla-marker-text {
+        position: absolute;
+        top: -36px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fbbf24;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+        text-shadow: 0 0 8px rgba(245,158,11,0.9);
+    }
+    /* Dashed line from edge toward center for qibla direction reference */
+    .qibla-line {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 2px;
+        height: 32px;
+        background: linear-gradient(to bottom, #f59e0b, rgba(245,158,11,0.1));
+        transform: translateX(-50%);
+        border-radius: 1px;
     }
 
     .compass-face {
@@ -449,8 +484,14 @@
 
                     <!-- Compass -->
                     <div class="compass-wrap">
-                        <div class="compass-pulse-ring"></div>
                         <div class="compass-outer-ring"></div>
+
+                        <!-- Qibla Fixed Marker (rotates to qibla direction, then stays fixed relative to world) -->
+                        <div class="qibla-marker-wrap" :style="`transform: rotate(${qiblaAngle - heading}deg)`">
+                            <div class="qibla-marker-text">Ka'bah 🕋</div>
+                            <div class="qibla-triangle"></div>
+                            <div class="qibla-line"></div>
+                        </div>
 
                         <!-- Rotating face -->
                         <div class="compass-face" :style="`transform: rotate(${-heading}deg)`">
@@ -459,12 +500,21 @@
                             <div class="cardinal E">E</div>
                             <div class="cardinal W">W</div>
 
-                            <!-- 36 tick marks -->
-                            <template x-for="i in 36" :key="i">
-                                <div style="position:absolute;top:50%;left:50%;width:1.5px;transform-origin:0 0;"
-                                     :style="`height:${i%9===0?'14px':'8px'};background:rgba(255,255,255,${i%9===0?'0.5':'0.2'});transform:rotate(${i*10}deg) translate(-50%, -${118}px)`">
-                                </div>
-                            </template>
+                            <!-- Degree ticks (simple, clean) -->
+                            <svg style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;" viewBox="0 0 260 260">
+                                <g transform="translate(130,130)">
+                                    <template x-for="i in 36" :key="i">
+                                        <line
+                                            :x1="Math.sin((i-1)*10*Math.PI/180)*112"
+                                            :y1="-Math.cos((i-1)*10*Math.PI/180)*112"
+                                            :x2="Math.sin((i-1)*10*Math.PI/180)*((i-1)%9===0?100:105)"
+                                            :y2="-Math.cos((i-1)*10*Math.PI/180)*((i-1)%9===0?100:105)"
+                                            :stroke="(i-1)%9===0?'rgba(255,255,255,0.5)':'rgba(255,255,255,0.2)'"
+                                            :stroke-width="(i-1)%9===0?'1.5':'1'"
+                                        />
+                                    </template>
+                                </g>
+                            </svg>
                         </div>
 
                         <!-- Qibla Needle -->
