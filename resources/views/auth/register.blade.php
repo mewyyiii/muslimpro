@@ -564,12 +564,13 @@
                     <div class="divider-line"></div>
                 </div>
 
-                <div class="login-line">
-                    Sudah punya akun? <a href="#">Masuk di sini</a>
-                </div>
+                <!-- Link Masuk -->
+                <div class="login-link">
+                    Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
+                </div>
             </form>
 
-            <div class="form-footer">dirancang oleh Tim NurSteps &nbsp;·&nbsp; v1.0</div>
+            <div class="form-footer">dirancang oleh Tim NurSteps &nbsp;·&nbsp;</div>
         </div>
     </div>
 

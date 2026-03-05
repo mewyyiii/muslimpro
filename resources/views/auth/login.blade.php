@@ -342,12 +342,15 @@
                     <div class="divider-line"></div>
                 </div>
 
-                <div class="register-line">
-                    Belum punya akun? <a href="#">Daftar sekarang</a>
-                </div>
+                <!-- Register link -->
+                @if (Route::has('register'))
+                    <div class="register-line">
+                        Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a>
+                    </div>
+                @endif
             </form>
 
-            <div class="form-footer">dirancang oleh Tim NurSteps &nbsp;·&nbsp; v1.0</div>
+            <div class="form-footer">dirancang oleh Tim NurSteps &nbsp;·&nbsp;</div>
         </div>
     </div>
 
