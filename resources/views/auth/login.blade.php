@@ -8,133 +8,120 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
-            --teal-deep:  #0d9488; --teal-mid:   #14b8a6; --teal-pale:  #ccfbf1;
-            --text-dark:  #0f172a; --text-mid:   #475569; --text-soft:  #94a3b8;
-            --border:     #e2e8f0; --bg:         #f1f5f9;
+            --teal-deep:  #0d9488;
+            --teal-mid:   #14b8a6;
+            --teal-pale:  #ccfbf1;
+            --text-dark:  #0f172a;
+            --text-mid:   #475569;
+            --text-soft:  #94a3b8;
+            --border:     #e2e8f0;
+            --bg:         #f1f5f9;
         }
+
         html, body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100%; }
+
         body { display: flex; min-height: 100vh; background: #f0fdfa; }
 
-        /* ===== COVER PANEL ===== */
+        /* ===================== COVER PANEL ===================== */
         .cover-panel {
             flex: 1 1 55%; position: sticky; top: 0; height: 100vh;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             padding: 48px 40px; overflow: hidden;
             background: linear-gradient(145deg, #0a7a71 0%, #0d9488 35%, #14b8a6 70%, #2dd4bf 100%);
         }
+
         .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.25; animation: drift 8s ease-in-out infinite; }
         .blob-1 { width: 420px; height: 420px; background: #5eead4; top: -120px; left: -100px; }
         .blob-2 { width: 300px; height: 300px; background: #0f766e; bottom: -80px; right: -80px; animation-delay: -3s; }
         .blob-3 { width: 200px; height: 200px; background: #a7f3d0; top: 50%; left: 60%; animation-delay: -5s; }
+
         @keyframes drift { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(20px,-30px) scale(1.05); } 66% { transform: translate(-15px,20px) scale(0.95); } }
+
         .pattern-overlay { position: absolute; inset: 0; opacity: 0.06; background-image: repeating-linear-gradient(60deg, white 0px, white 1px, transparent 1px, transparent 30px), repeating-linear-gradient(-60deg, white 0px, white 1px, transparent 1px, transparent 30px); background-size: 35px 60px; }
+
         .cover-content { position: relative; z-index: 2; text-align: center; width: 100%; max-width: 520px; animation: fadeUp 0.9s ease-out both; }
+
         @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
         .cover-logo { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 32px; }
         .nur-circle { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; animation: float 4s ease-in-out infinite; }
         .nur-icon { width: 64px; height: 64px; display: block; border-radius: 50%; }
+
         @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
         .cover-brand { font-size: 32px; font-weight: 800; color: white; letter-spacing: -0.5px; }
         .cover-headline { font-size: clamp(22px,2.8vw,38px); font-weight: 800; color: white; line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.5px; }
         .cover-headline span { display: block; color: var(--teal-pale); font-style: italic; }
         .cover-sub { font-size: clamp(13px,1.2vw,15px); color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 28px; max-width: 400px; margin-left: auto; margin-right: auto; }
+
         .feature-pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 28px; }
         .pill { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; padding: 8px 16px; font-size: 13px; font-weight: 600; color: white; backdrop-filter: blur(4px); transition: background 0.2s; }
         .pill:hover { background: rgba(255,255,255,0.2); }
         .pill-icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; }
+
         .arabic-quote { font-family: 'Amiri', serif; font-size: 22px; color: rgba(255,255,255,0.6); border-top: 1px solid rgba(255,255,255,0.2); padding-top: 24px; direction: rtl; letter-spacing: 1px; }
         .arabic-quote-trans { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 6px; direction: ltr; font-style: italic; }
+
         .deco-top { position: absolute; top: 32px; right: 32px; opacity: 0.3; }
         .deco-circles { position: absolute; bottom: 40px; left: 40px; display: flex; gap: 10px; opacity: 0.3; }
         .deco-circle { border-radius: 50%; border: 2px solid white; }
 
-        /* ===== FORM PANEL Desktop ===== */
+        /* ===================== FORM PANEL Desktop ===================== */
         .form-panel { flex: 0 0 420px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 48px 40px; background: white; overflow-y: auto; }
         .form-inner { width: 100%; max-width: 360px; animation: fadeUp 0.7s 0.2s ease-out both; }
+
         .form-title { font-size: 26px; font-weight: 800; color: var(--text-dark); margin-bottom: 6px; letter-spacing: -0.5px; }
         .form-subtitle { font-size: 14px; color: var(--text-soft); margin-bottom: 32px; }
         .form-group { margin-bottom: 18px; }
+
         .input-label { display: block; font-size: 13px; font-weight: 600; color: var(--text-mid); margin-bottom: 8px; letter-spacing: 0.3px; }
+
         .input-wrapper { position: relative; border-radius: 14px; border: 1.5px solid var(--border); background: #f8fafc; transition: border-color 0.25s, box-shadow 0.25s, background 0.25s; }
         .input-wrapper:hover { border-color: var(--teal-mid); }
         .input-wrapper.focused { border-color: var(--teal-deep); box-shadow: 0 0 0 3px rgba(13,148,136,0.12); background: white; }
+
         .input-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--teal-mid); pointer-events: none; }
+
         .form-input { width: 100%; padding: 14px 16px 14px 48px; border: none; background: transparent; font-size: 14px; color: var(--text-dark); font-family: inherit; outline: none; }
         .form-input.has-eye { padding-right: 44px; }
         .form-input::placeholder { color: var(--text-soft); }
+
         .eye-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-soft); transition: color 0.2s; display: flex; align-items: center; }
         .eye-toggle:hover { color: var(--teal-deep); }
         .eye-toggle svg { width: 18px; height: 18px; }
+
         .remember-me { display: flex; align-items: center; gap: 8px; color: var(--text-mid); cursor: pointer; }
         .remember-me input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--teal-deep); }
+
         .forgot-link { color: var(--teal-deep); text-decoration: none; font-weight: 600; font-size: 12px; }
         .forgot-link:hover { text-decoration: underline; }
+
         .login-btn { width: 100%; padding: 15px; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; background: linear-gradient(135deg, #0d9488, #14b8a6); color: white; box-shadow: 0 6px 20px rgba(13,148,136,0.35); transition: all 0.25s; letter-spacing: 0.5px; }
         .login-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(13,148,136,0.45); }
         .login-btn:active { transform: translateY(0); }
+
         .divider { display: flex; align-items: center; gap: 12px; margin: 22px 0 0; }
         .divider-line { flex: 1; height: 1px; background: var(--border); }
         .divider-text { font-size: 12px; color: var(--text-soft); font-weight: 500; }
+
         .register-line { margin-top: 18px; font-size: 14px; color: var(--text-mid); text-align: center; }
         .register-line a { color: var(--teal-deep); font-weight: 700; text-decoration: none; }
         .register-line a:hover { text-decoration: underline; }
+
         .error-box { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 14px; font-size: 13px; margin-bottom: 18px; }
+
         .form-footer { margin-top: 32px; text-align: center; font-size: 11px; color: var(--text-soft); }
 
-        /* ===== MOBILE ===== */
+        /* ===================== MOBILE ===================== */
         @media (max-width: 860px) {
+            body { flex-direction: column; background: var(--bg); min-height: 100vh; }
 
-            /* Body = teal bg + dekorasi bulatan di area atas */
-            body {
-                flex-direction: column;
-                background: linear-gradient(160deg, #0a7a71 0%, #0d9488 45%, #14b8a6 100%);
-                min-height: 100vh;
-                position: relative;
-            }
+            .cover-panel { position: relative; height: auto; min-height: auto; flex: none; padding: 28px 24px 24px; background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%); }
 
-            /* Bulatan dekoratif pojok kiri atas + kanan atas */
-            body::before {
-                content: '';
-                position: fixed;
-                top: 0; left: 0; right: 0;
-                height: 260px;
-                pointer-events: none;
-                z-index: 0;
-                background-image:
-                    radial-gradient(circle 110px at -15px -10px, rgba(255,255,255,0.14) 0%, transparent 65%),
-                    radial-gradient(circle 65px at 55px 70px,   rgba(255,255,255,0.10) 0%, transparent 65%),
-                    radial-gradient(circle 42px at 130px 12px,  rgba(255,255,255,0.09) 0%, transparent 65%),
-                    radial-gradient(circle 30px at 15px 125px,  rgba(255,255,255,0.08) 0%, transparent 65%),
-                    radial-gradient(circle 105px at calc(100% + 20px) -10px, rgba(255,255,255,0.13) 0%, transparent 65%),
-                    radial-gradient(circle 60px at calc(100% - 28px) 75px,  rgba(255,255,255,0.09) 0%, transparent 65%),
-                    radial-gradient(circle 38px at calc(100% - 95px) 8px,   rgba(255,255,255,0.08) 0%, transparent 65%);
-            }
-
-            /* Lingkaran outline tipis */
-            body::after {
-                content: '';
-                position: fixed;
-                top: 0; left: 0; right: 0;
-                height: 260px;
-                pointer-events: none;
-                z-index: 0;
-                background-image:
-                    radial-gradient(circle 90px at 52px 155px, transparent 88px, rgba(255,255,255,0.12) 89px, rgba(255,255,255,0.12) 91px, transparent 92px),
-                    radial-gradient(circle 56px at calc(100% - 42px) 105px, transparent 54px, rgba(255,255,255,0.10) 55px, rgba(255,255,255,0.10) 57px, transparent 58px),
-                    radial-gradient(circle 36px at calc(100% - 125px) 38px, transparent 34px, rgba(255,255,255,0.09) 35px, rgba(255,255,255,0.09) 37px, transparent 38px);
-            }
-
-            /* Cover panel = compact header teal di atas */
-            .cover-panel {
-                position: relative;
-                z-index: 1;
-                height: auto; min-height: auto; flex: none;
-                padding: 36px 24px 28px;
-                background: transparent;
-                box-shadow: none;
-            }
             .blob, .pattern-overlay, .deco-circles, .deco-top, .arabic-quote, .cover-sub, .feature-pills { display: none; }
+
             .cover-content { max-width: 100%; }
             .cover-logo { margin-bottom: 12px; gap: 12px; }
             .nur-circle { width: 44px; height: 44px; animation: none; }
@@ -143,67 +130,39 @@
             .cover-headline { font-size: 20px; font-weight: 800; color: white; line-height: 1.3; margin-bottom: 0; text-align: center; }
             .cover-headline span { font-size: 17px; font-style: italic; color: #ccfbf1; }
 
-            /* Form panel = tidak ada padding luar, card langsung menempel ke bawah */
-            .form-panel {
-                position: relative;
-                z-index: 2;
-                flex: 1;
-                background: transparent;
-                padding: 0;
-                justify-content: flex-start;
-                overflow-y: visible;
-                align-items: stretch;
-            }
+            .form-panel { flex: 1; background: transparent; padding: 0 16px 40px; justify-content: flex-start; overflow-y: visible; align-items: stretch; }
 
-            /* Card putih — full width, rounded hanya di atas, memanjang penuh */
-            .form-inner {
-                max-width: 100%;
-                width: 100%;
-                margin: -24px 0 0 0;
-                background: white;
-                border-radius: 28px 28px 0 0;
-                box-shadow: 0 -4px 24px rgba(15,23,42,0.10);
-                padding: 32px 24px 0;
-                position: relative;
-                z-index: 10;
-                animation: none;
-                /* Kunci: min-height agar card memenuhi sisa layar */
-                min-height: calc(100vh - 140px);
-                display: flex;
-                flex-direction: column;
-            }
-
-            /* Form mengisi ruang tersisa, footer turun ke bawah */
-            .form-inner form { flex: 1; }
-            .form-footer {
-                margin-top: auto;
-                padding: 24px 0 32px;
-            }
+            .form-inner { max-width: 100%; margin: 0; background: white; border-radius: 24px; box-shadow: 0 4px 24px rgba(15,23,42,0.08), 0 1px 4px rgba(15,23,42,0.04); padding: 28px 22px; margin-top: -20px; position: relative; z-index: 10; }
 
             .form-title { font-size: 20px; margin-bottom: 4px; }
             .form-subtitle { font-size: 13px; margin-bottom: 24px; }
             .input-label { font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 7px; }
+
             .input-wrapper { border-radius: 10px; border: 1.5px solid var(--border); background: white; }
             .input-wrapper:hover { border-color: #94a3b8; }
             .input-wrapper.focused { border-color: var(--teal-mid); box-shadow: 0 0 0 3px rgba(20,184,166,0.1); }
+
             .input-icon { display: none; }
             .form-input { padding: 13px 14px; font-size: 14px; border-radius: 10px; }
             .form-input.has-eye { padding-right: 44px; }
+
             .form-group { margin-bottom: 14px; }
             .login-btn { padding: 15px; border-radius: 10px; font-size: 15px; margin-top: 4px; box-shadow: 0 4px 16px rgba(13,148,136,0.3); }
             .divider { margin: 18px 0 0; }
             .register-line { margin-top: 14px; }
+            .form-footer { margin-top: 20px; }
         }
 
         @media (max-width: 480px) {
-            .cover-panel { padding: 30px 20px 24px; }
+            .cover-panel { padding: 24px 20px 22px; }
             .cover-headline { font-size: 18px; }
             .cover-headline span { font-size: 15px; }
-            .form-inner { padding: 28px 20px 0; border-radius: 24px 24px 0 0; }
+            .form-panel { padding: 0 12px 36px; }
+            .form-inner { padding: 24px 18px; border-radius: 20px; }
         }
 
         @media (max-width: 360px) {
-            .form-inner { padding: 22px 16px 0; }
+            .form-inner { padding: 20px 14px; border-radius: 16px; }
             .form-title { font-size: 18px; }
         }
     </style>
@@ -224,21 +183,28 @@
 
     <!-- ===== COVER PANEL ===== -->
     <div class="cover-panel">
-        <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
         <div class="pattern-overlay"></div>
+
         <svg class="deco-top" width="80" height="80" viewBox="0 0 80 80" fill="none">
             <path d="M55 40c0 13.255-10.745 24-24 24-3.5 0-6.82-.75-9.82-2.09C26.5 64.6 32 66 38 66c14.912 0 27-12.088 27-27 0-6-.2-11.5-2.09-16.18C64.25 25.82 65 29.14 65 32.64 65 36.73 60 40 55 40z" fill="white" opacity="0.5"/>
             <circle cx="62" cy="18" r="3" fill="white" opacity="0.6"/>
             <circle cx="70" cy="28" r="2" fill="white" opacity="0.4"/>
             <circle cx="55" cy="10" r="1.5" fill="white" opacity="0.5"/>
         </svg>
+
         <div class="cover-content">
             <div class="cover-logo">
                 <div class="nur-circle">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="nur-icon">
                         <defs>
                             <clipPath id="cc"><circle cx="512" cy="512" r="512"/></clipPath>
-                            <radialGradient id="bg" cx="50%" cy="45%" r="65%"><stop offset="0%" stop-color="#2ecf8e"/><stop offset="100%" stop-color="#1aaa72"/></radialGradient>
+                            <radialGradient id="bg" cx="50%" cy="45%" r="65%">
+                                <stop offset="0%" stop-color="#2ecf8e"/>
+                                <stop offset="100%" stop-color="#1aaa72"/>
+                            </radialGradient>
                             <filter id="gw" x="-40%" y="-40%" width="180%" height="180%">
                                 <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="b1"/>
                                 <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="b2"/>
@@ -256,19 +222,27 @@
                 </div>
                 <div class="cover-brand">NurSteps</div>
             </div>
-            <h1 class="cover-headline">Perjalanan Ibadah<span>Dimulai dari Sini</span></h1>
+
+            <h1 class="cover-headline">
+                Perjalanan Ibadah
+                <span>Dimulai dari Sini</span>
+            </h1>
+
             <p class="cover-sub">NurSteps hadir sebagai pendamping setia ibadah harian Anda — mencatat, mengingatkan, dan memotivasi setiap langkah menuju kebaikan.</p>
+
             <div class="feature-pills">
                 <div class="pill"><span class="pill-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></span>Pelacak Ibadah</div>
                 <div class="pill"><span class="pill-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>Pengingat Shalat</div>
                 <div class="pill"><span class="pill-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></span>Catatan Al-Qur'an</div>
                 <div class="pill"><span class="pill-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></span>Statistik Amal</div>
             </div>
+
             <div class="arabic-quote">
                 وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا
                 <div class="arabic-quote-trans">"Dan orang-orang yang bersungguh-sungguh di jalan Kami, benar-benar akan Kami tunjukkan kepada mereka jalan-jalan Kami." — QS. Al-Ankabut: 69</div>
             </div>
         </div>
+
         <div class="deco-circles">
             <div class="deco-circle" style="width:14px;height:14px;"></div>
             <div class="deco-circle" style="width:10px;height:10px;"></div>
@@ -283,13 +257,18 @@
             <h2 class="form-title">Selamat Datang 👋</h2>
             <p class="form-subtitle">Masuk ke akun NurSteps Anda</p>
 
+            {{-- Session Status --}}
             @if (session('status'))
                 <div class="error-box">{{ session('status') }}</div>
             @endif
+
+            {{-- Validation Errors --}}
             @if ($errors->any())
                 <div class="error-box">
                     <ul style="list-style:none;padding:0;margin:0;">
-                        @foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
                     </ul>
                 </div>
             @endif
@@ -297,6 +276,7 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
+                {{-- Email --}}
                 <div class="form-group">
                     <label class="input-label" for="email-input">Alamat Email</label>
                     <div class="input-wrapper" id="email-wrapper">
@@ -304,12 +284,15 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
                         <input type="email" id="email-input" name="email" class="form-input"
-                            placeholder="contoh@email.com" value="{{ old('email') }}"
+                            placeholder="contoh@email.com"
+                            value="{{ old('email') }}"
                             required autofocus autocomplete="username"
-                            onfocus="focusWrapper('email-wrapper')" onblur="blurWrapper('email-wrapper')">
+                            onfocus="focusWrapper('email-wrapper')"
+                            onblur="blurWrapper('email-wrapper')">
                     </div>
                 </div>
 
+                {{-- Kata Sandi --}}
                 <div class="form-group">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                         <label class="input-label" for="password-input" style="margin-bottom:0;">Kata Sandi</label>
@@ -324,7 +307,8 @@
                         <input type="password" id="password-input" name="password"
                             class="form-input has-eye" placeholder="Kata sandi Anda"
                             required autocomplete="current-password"
-                            onfocus="focusWrapper('password-wrapper')" onblur="blurWrapper('password-wrapper')">
+                            onfocus="focusWrapper('password-wrapper')"
+                            onblur="blurWrapper('password-wrapper')">
                         <button type="button" class="eye-toggle" onclick="togglePassword()" tabindex="-1">
                             <svg id="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -337,6 +321,7 @@
                     </div>
                 </div>
 
+                {{-- Remember Me --}}
                 <div style="margin: 12px 0 20px;">
                     <label class="remember-me">
                         <input type="checkbox" name="remember" id="remember_me">
@@ -344,6 +329,7 @@
                     </label>
                 </div>
 
+                {{-- Submit --}}
                 <button type="submit" class="login-btn">Masuk</button>
 
                 <div class="divider">
@@ -352,6 +338,7 @@
                     <div class="divider-line"></div>
                 </div>
 
+                {{-- Register Link --}}
                 @if (Route::has('register'))
                     <div class="register-line">
                         Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a>
