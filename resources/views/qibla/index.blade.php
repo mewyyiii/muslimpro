@@ -287,7 +287,7 @@
         align-items: center;
         transform: translateY(-30px);
     }
-    .needle-kaaba { font-size: 22px; margin-bottom: 2px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
+    .needle-kaaba { display: none; }
     .needle-head {
         width: 0; height: 0;
         border-left: 9px solid transparent;
@@ -486,8 +486,8 @@
                     <div class="compass-wrap">
                         <div class="compass-outer-ring"></div>
 
-                        <!-- Qibla Fixed Marker (rotates to qibla direction, then stays fixed relative to world) -->
-                        <div class="qibla-marker-wrap" :style="`transform: rotate(${qiblaAngle - heading}deg)`">
+                        <!-- Qibla Fixed Marker — ALWAYS static at top, never moves -->
+                        <div class="qibla-marker-wrap">
                             <div class="qibla-marker-text">Ka'bah 🕋</div>
                             <div class="qibla-triangle"></div>
                             <div class="qibla-line"></div>
@@ -517,10 +517,9 @@
                             </svg>
                         </div>
 
-                        <!-- Qibla Needle -->
+                        <!-- Qibla Needle — rotates so it points toward the static Ka'bah marker above -->
                         <div class="needle-wrap" :style="`transform: rotate(${getNeedleAngle()}deg)`">
                             <div class="needle">
-                                <div class="needle-kaaba">🕋</div>
                                 <div class="needle-head"></div>
                                 <div class="needle-body"></div>
                             </div>
