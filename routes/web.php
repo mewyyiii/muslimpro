@@ -81,15 +81,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/ads/{ad}/click', [AdController::class, 'click'])->name('ads.click');
 
     // ── Admin ─────────────────────────────────────────────────────────
-    Route::middleware(function ($request, $next) {
-        abort_unless($request->user()->is_admin, 403, 'Akses ditolak.');
-        return $next($request);
-    })->prefix('admin')->name('admin.')->group(function () {
-
-        Route::resource('ads', AdController::class);
-        Route::post('ads/{ad}/toggle', [AdController::class, 'toggle'])->name('ads.toggle');
-
-    });
+    // ✅ BERSIH
+Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+    Route::resource('ads', AdController::class);
+    Route::post('ads/{ad}/toggle', [AdController::class, 'toggle'])->name('ads.toggle');
+});
 
 });
 
