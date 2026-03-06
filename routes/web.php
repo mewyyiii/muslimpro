@@ -7,13 +7,11 @@ use App\Http\Controllers\DoaPendekController;
 use App\Http\Controllers\QuranController;
 use App\Http\Controllers\PrayerTrackingController;
 use App\Http\Controllers\TasbihController;
-use App\Http\Controllers\QiblaController; // ★ BARU
-use App\Http\Controllers\QuranTrackingController; // ★ BARU
+use App\Http\Controllers\QiblaController;
+use App\Http\Controllers\QuranTrackingController;
+use App\Http\Controllers\AzanSettingController; // ★ TAMBAHAN
 
-// Route::get('/', function () {
-//     return redirect()->route('login');
-// });
-    Route::view('/', 'welcome')->name('welcome');
+Route::view('/', 'welcome')->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -25,20 +23,21 @@ Route::middleware('auth')->group(function () {
         return view('home');
     })->name('home');
 
-    // ★ Prayer Tracking Routes
+    // Prayer Tracking Routes
     Route::get('/prayer-tracking', [PrayerTrackingController::class, 'index'])
         ->name('prayer-tracking.index');
     Route::post('/prayer-tracking', [PrayerTrackingController::class, 'store'])
         ->name('prayer-tracking.store');
     Route::get('/prayer-tracking/summary', [PrayerTrackingController::class, 'summary'])
         ->name('prayer-tracking.summary');
-
-    // ✅ TAMBAHKAN INI
     Route::post('/prayer-tracking/set-location', [PrayerTrackingController::class, 'setLocation'])
         ->name('prayer-tracking.set-location');
-
     Route::get('/prayer-tracking/search-cities', [PrayerTrackingController::class, 'searchCities'])
         ->name('prayer-tracking.search-cities');
+
+    // ★ Azan Setting Routes
+    Route::get('/azan-settings',  [AzanSettingController::class, 'show'])->name('azan-settings.show');
+    Route::post('/azan-settings', [AzanSettingController::class, 'store'])->name('azan-settings.store');
 
     // Al-Quran Routes
     Route::get('/al-quran', [QuranController::class, 'index'])->name('quran.index');
@@ -50,33 +49,30 @@ Route::middleware('auth')->group(function () {
     // Doa Pendek Routes
     Route::get('/doa-pendek', [DoaPendekController::class, 'index'])->name('doa-pendek.index');
 
-    // ★ Tasbih Routes
+    // Tasbih Routes
     Route::get('/tasbih', [TasbihController::class, 'index'])->name('tasbih.index');
     Route::get('/tasbih/stats', [TasbihController::class, 'getStats'])->name('tasbih.stats');
     Route::post('/tasbih/save', [TasbihController::class, 'saveCount'])->name('tasbih.save');
 
-    // ★ BARU: Qibla Routes
+    // Qibla Routes
     Route::get('/qibla', [QiblaController::class, 'index'])->name('qibla.index');
 
-     // Profile routes
+    // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    // ✨ TAMBAHKAN ROUTE INI (route baru untuk delete avatar)
     Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
-    
+
 });
 
 // Quran Tracking Routes
-    Route::get('/quran-tracking', [QuranTrackingController::class, 'index'])
-        ->name('quran-tracking.index');
-    Route::get('/quran-tracking/summary', [QuranTrackingController::class, 'summary'])
-        ->name('quran-tracking.summary');
-    Route::post('/quran-tracking/update', [QuranTrackingController::class, 'updateProgress'])
-        ->name('quran-tracking.update');
-    Route::post('/quran-tracking/reset', [QuranTrackingController::class, 'resetSurah'])
-        ->name('quran-tracking.reset');
-
+Route::get('/quran-tracking', [QuranTrackingController::class, 'index'])
+    ->name('quran-tracking.index');
+Route::get('/quran-tracking/summary', [QuranTrackingController::class, 'summary'])
+    ->name('quran-tracking.summary');
+Route::post('/quran-tracking/update', [QuranTrackingController::class, 'updateProgress'])
+    ->name('quran-tracking.update');
+Route::post('/quran-tracking/reset', [QuranTrackingController::class, 'resetSurah'])
+    ->name('quran-tracking.reset');
 
 require __DIR__.'/auth.php';

@@ -15,7 +15,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <!-- Alpine.js for interactive components -->
+        <!-- Alpine.js -->
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
         @stack('styles')
@@ -24,7 +24,6 @@
         <div class="min-h-screen bg-gray-50">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -33,12 +32,79 @@
                 </header>
             @endisset
 
-            <!-- Page Content -->
             <main>
                 @yield('content')
             </main>
         </div>
 
         @stack('scripts')
+
+        {{-- ★ Azan Service Worker + Audio Player --}}
+        @auth
+        <script>
+        // Register service worker azan
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/azan-sw.js', { scope: '/' })
+                .then(() => console.log('[Azan SW] Registered'))
+                .catch(err => console.warn('[Azan SW] Failed:', err));
+
+            // Terima pesan PLAY_AZAN dari service worker
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                if (event.data?.type === 'PLAY_AZAN') {
+                    playAzan(event.data.audioUrl, event.data.label, event.data.emoji);
+                }
+            });
+        }
+
+        // Play audio azan di tab
+        let _azanAudio = null;
+
+        function playAzan(audioUrl, label, emoji) {
+            if (_azanAudio) { _azanAudio.pause(); _azanAudio = null; }
+            _azanAudio = new Audio(audioUrl);
+            _azanAudio.play().catch(() => showAzanBanner(label, emoji, audioUrl));
+            _azanAudio.onended = () => { _azanAudio = null; };
+            showAzanBanner(label, emoji, null);
+        }
+
+        // Banner notifikasi azan di halaman
+        function showAzanBanner(label, emoji, audioUrl) {
+            const old = document.getElementById('azanBanner');
+            if (old) old.remove();
+
+            const banner = document.createElement('div');
+            banner.id = 'azanBanner';
+            banner.style.cssText = [
+                'position:fixed', 'top:20px', 'left:50%', 'transform:translateX(-50%)',
+                'z-index:9999', 'min-width:320px', 'max-width:90vw',
+                'background:linear-gradient(135deg,#0d9488,#059669)',
+                'color:white', 'border-radius:16px', 'padding:16px 20px',
+                'box-shadow:0 20px 60px rgba(0,0,0,0.3)',
+                'display:flex', 'align-items:center', 'gap:12px',
+                'animation:azanSlide 0.4s cubic-bezier(0.34,1.56,0.64,1)',
+                'font-family:inherit'
+            ].join(';');
+
+            banner.innerHTML = `
+                <style>
+                    @keyframes azanSlide {
+                        from { transform:translateX(-50%) translateY(-100px); opacity:0; }
+                        to   { transform:translateX(-50%) translateY(0); opacity:1; }
+                    }
+                </style>
+                <span style="font-size:2rem">${emoji}</span>
+                <div style="flex:1">
+                    <div style="font-weight:700;font-size:1rem">Waktu ${label}</div>
+                    <div style="font-size:0.75rem;opacity:0.85">Allahu Akbar...</div>
+                </div>
+                ${audioUrl ? `<button onclick="(new Audio('${audioUrl}')).play()" style="background:rgba(255,255,255,0.2);border:none;color:white;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:0.8rem;font-weight:600">▶ Play</button>` : ''}
+                <button onclick="document.getElementById('azanBanner').remove()" style="background:rgba(255,255,255,0.2);border:none;color:white;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:1rem">✕</button>
+            `;
+
+            document.body.appendChild(banner);
+            setTimeout(() => { const b = document.getElementById('azanBanner'); if (b) b.remove(); }, 30000);
+        }
+        </script>
+        @endauth
     </body>
 </html>

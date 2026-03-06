@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Carbon\Carbon;
+use App\Models\AzanSetting; // ★ TAMBAHAN
 
 class ProfileController extends Controller
 {
@@ -31,7 +32,7 @@ class ProfileController extends Controller
             ->pluck('total', 'status');
 
         $prayerPerformed = $prayerStats['performed'] ?? 0;
-        $prayerTotal = now()->daysInMonth * 5;  // Maret 31 hari → 155
+        $prayerTotal     = now()->daysInMonth * 5;
         $prayerPercent   = $prayerTotal > 0 ? round(($prayerPerformed / $prayerTotal) * 100) : 0;
 
         // Prayer streak calculation
@@ -53,23 +54,26 @@ class ProfileController extends Controller
         // QURAN TRACKING STATS
         // ═══════════════════════════════════════════════════════════
         $quranTrackings = \App\Models\QuranTracking::where('user_id', $user->id)->get();
-        
+
         $totalSurahCompleted = $quranTrackings->where('is_completed', true)->count();
-        $totalSurah = 114;
-        $quranPercent = $totalSurah > 0 ? round(($totalSurahCompleted / $totalSurah) * 100) : 0;
-        
-        $totalVersesRead = $quranTrackings->sum('last_verse');
-        
+        $totalSurah          = 114;
+        $quranPercent        = $totalSurah > 0 ? round(($totalSurahCompleted / $totalSurah) * 100) : 0;
+        $totalVersesRead     = $quranTrackings->sum('last_verse');
+
         $lastReadQuran = \App\Models\QuranTracking::with('surah')
             ->where('user_id', $user->id)
             ->orderBy('last_read_date', 'desc')
             ->first();
-        
-        $quranStreak = $this->calculateQuranStreak($user->id);
-        
+
+        $quranStreak    = $this->calculateQuranStreak($user->id);
         $readQuranToday = \App\Models\QuranTracking::where('user_id', $user->id)
             ->whereDate('last_read_date', Carbon::today())
             ->exists();
+
+        // ═══════════════════════════════════════════════════════════
+        // ★ AZAN SETTINGS
+        // ═══════════════════════════════════════════════════════════
+        $azanSetting = AzanSetting::getForUser($user->id);
 
         return view('profile.edit', compact(
             'user',
@@ -83,7 +87,8 @@ class ProfileController extends Controller
             'totalVersesRead',
             'lastReadQuran',
             'quranStreak',
-            'readQuranToday'
+            'readQuranToday',
+            'azanSetting'  // ★ TAMBAHAN
         ));
     }
 
@@ -99,12 +104,11 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        // Handle avatar upload
         if ($request->hasFile('avatar')) {
             if ($user->avatar) {
                 Storage::disk('public')->delete($user->avatar);
             }
-            $path = $request->file('avatar')->store('avatars', 'public');
+            $path        = $request->file('avatar')->store('avatars', 'public');
             $user->avatar = $path;
         }
 
@@ -160,7 +164,7 @@ class ProfileController extends Controller
     private function calculateQuranStreak(int $userId): int
     {
         $streak = 0;
-        $date = Carbon::today();
+        $date   = Carbon::today();
 
         while (true) {
             $hasRead = \App\Models\QuranTracking::where('user_id', $userId)
