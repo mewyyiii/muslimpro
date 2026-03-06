@@ -12,7 +12,7 @@ use App\Http\Controllers\QuranTrackingController;
 use App\Http\Controllers\AzanSettingController;
 use App\Http\Controllers\Admin\AdController;       // ★ BARU
 use App\Http\Controllers\ProController;            // ★ BARU
-use App\Http\Controllers\IbadahReportController;   // ★ BARU
+// use App\Http\Controllers\IbadahReportController;   // ★ BARU
 
 Route::view('/', 'welcome')->name('welcome');
 
@@ -28,9 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pro/upgrade', [ProController::class, 'upgrade'])->name('pro.upgrade');
 
     // ── PRO: Statistik Laporan Ibadah ────────────────────────────────
-    Route::get('/ibadah-report', [IbadahReportController::class, 'index'])
-        ->middleware('pro')
-        ->name('ibadah-report.index');
+    // Route::get('/ibadah-report', [IbadahReportController::class, 'index'])
+    //     ->middleware('pro')
+    //     ->name('ibadah-report.index');
 
     // ── Prayer Tracking ──────────────────────────────────────────────
     Route::get('/prayer-tracking', [PrayerTrackingController::class, 'index'])
