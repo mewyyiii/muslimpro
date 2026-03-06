@@ -68,7 +68,7 @@
         .deco-circles { position: absolute; bottom: 40px; left: 40px; display: flex; gap: 10px; opacity: 0.3; }
         .deco-circle { border-radius: 50%; border: 2px solid white; }
 
-        /* ===================== FORM PANEL Desktop ===================== */
+        /* ===================== FORM PANEL ===================== */
         .form-panel { flex: 0 0 420px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 48px 40px; background: white; overflow-y: auto; }
         .form-inner { width: 100%; max-width: 360px; animation: fadeUp 0.7s 0.2s ease-out both; }
 
@@ -112,7 +112,74 @@
 
         .error-box { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 14px; font-size: 13px; margin-bottom: 18px; }
 
-        .form-footer { margin-top: 32px; text-align: center; font-size: 11px; color: var(--text-soft); }
+        .form-footer { margin-top: 14px; text-align: center; font-size: 11px; color: var(--text-soft); }
+
+        /* ===== HADITH SECTION ===== */
+        .hadith-section {
+            margin-top: 24px;
+            padding-top: 22px;
+            border-top: 1px solid var(--border);
+        }
+
+        .hadith-card {
+            background: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 100%);
+            border: 1px solid rgba(13,148,136,0.15);
+            border-radius: 16px;
+            padding: 18px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hadith-card::before {
+            content: '\275D';
+            position: absolute;
+            top: 8px; left: 14px;
+            font-size: 40px;
+            color: rgba(13,148,136,0.08);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .hadith-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--teal-deep);
+            line-height: 1.9;
+            margin-bottom: 10px;
+            direction: rtl;
+        }
+
+        .hadith-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .ornament-line { width: 30px; height: 1px; background: rgba(13,148,136,0.25); }
+        .ornament-diamond {
+            width: 6px; height: 6px;
+            background: var(--teal-mid);
+            transform: rotate(45deg);
+            opacity: 0.6;
+        }
+
+        .hadith-text {
+            font-size: 12px;
+            color: var(--text-mid);
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        .hadith-source {
+            font-size: 11px;
+            color: var(--teal-deep);
+            font-weight: 700;
+            opacity: 0.7;
+        }
 
         /* ===================== MOBILE ===================== */
         @media (max-width: 860px) {
@@ -150,7 +217,10 @@
             .login-btn { padding: 15px; border-radius: 10px; font-size: 15px; margin-top: 4px; box-shadow: 0 4px 16px rgba(13,148,136,0.3); }
             .divider { margin: 18px 0 0; }
             .register-line { margin-top: 14px; }
-            .form-footer { margin-top: 20px; }
+
+            .hadith-section { margin-top: 20px; padding-top: 18px; }
+            .hadith-arabic { font-size: 16px; }
+            .form-footer { margin-top: 14px; }
         }
 
         @media (max-width: 480px) {
@@ -257,12 +327,10 @@
             <h2 class="form-title">Selamat Datang 👋</h2>
             <p class="form-subtitle">Masuk ke akun NurSteps Anda</p>
 
-            {{-- Session Status --}}
             @if (session('status'))
                 <div class="error-box">{{ session('status') }}</div>
             @endif
 
-            {{-- Validation Errors --}}
             @if ($errors->any())
                 <div class="error-box">
                     <ul style="list-style:none;padding:0;margin:0;">
@@ -276,7 +344,7 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
-                {{-- Email --}}
+                <!-- Email -->
                 <div class="form-group">
                     <label class="input-label" for="email-input">Alamat Email</label>
                     <div class="input-wrapper" id="email-wrapper">
@@ -292,7 +360,7 @@
                     </div>
                 </div>
 
-                {{-- Kata Sandi --}}
+                <!-- Kata Sandi -->
                 <div class="form-group">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                         <label class="input-label" for="password-input" style="margin-bottom:0;">Kata Sandi</label>
@@ -321,7 +389,7 @@
                     </div>
                 </div>
 
-                {{-- Remember Me --}}
+                <!-- Ingat Saya -->
                 <div style="margin: 12px 0 20px;">
                     <label class="remember-me">
                         <input type="checkbox" name="remember" id="remember_me">
@@ -329,7 +397,7 @@
                     </label>
                 </div>
 
-                {{-- Submit --}}
+                <!-- Tombol Masuk -->
                 <button type="submit" class="login-btn">Masuk</button>
 
                 <div class="divider">
@@ -338,13 +406,26 @@
                     <div class="divider-line"></div>
                 </div>
 
-                {{-- Register Link --}}
                 @if (Route::has('register'))
                     <div class="register-line">
                         Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a>
                     </div>
                 @endif
             </form>
+
+            <!-- ===== HADITH SECTION ===== -->
+            <div class="hadith-section">
+                <div class="hadith-card">
+                    <p class="hadith-arabic">مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ</p>
+                    <div class="hadith-ornament">
+                        <div class="ornament-line"></div>
+                        <div class="ornament-diamond"></div>
+                        <div class="ornament-line"></div>
+                    </div>
+                    <p class="hadith-text">"Barangsiapa menempuh jalan untuk mencari ilmu, maka Allah akan mudahkan baginya jalan menuju surga."</p>
+                    <p class="hadith-source">HR. Muslim No. 2699</p>
+                </div>
+            </div>
 
             <div class="form-footer">dirancang oleh Tim NurSteps &nbsp;·&nbsp;</div>
         </div>
