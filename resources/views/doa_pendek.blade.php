@@ -40,8 +40,8 @@
 
     /* ===== Card Saat Aktif (terbuka) ===== */
     .doa-card.active {
-        background: var(--surface);
-        color: var(--text-primary);
+        background: var(--surface, #ffffff);
+        color: var(--text-primary, #1f2937);
         box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         transform: none;
     }
@@ -49,7 +49,7 @@
     .doa-card.active h2,
     .doa-card.active h3,
     .doa-card.active p {
-        color: var(--text-primary) !important;
+        color: var(--text-primary, #1f2937) !important;
     }
 
     /* ===== Header: tinggi konsisten di semua card ===== */
@@ -82,11 +82,13 @@
         font-size: 0.78rem;
         font-weight: 700;
         color: white;
-        transition: background 0.3s;
+        transition: background 0.3s, color 0.3s;
     }
 
+    /* Nomor berubah hijau solid saat card aktif */
     .doa-card.active .doa-number {
-        background: var(--primary-accent);
+        background: #10B981;
+        color: white;
     }
 
     /* Judul card */
@@ -105,7 +107,7 @@
     }
 
     .doa-card.active .doa-muted {
-        color: var(--text-primary-muted);
+        color: var(--text-primary-muted, #6b7280);
     }
 
     /* ===== Chevron (pengganti + / x) ===== */
@@ -180,7 +182,7 @@
     }
 
     .doa-card.active .doa-arabic {
-        color: var(--text-primary);
+        color: var(--text-primary, #1f2937);
     }
 </style>
 @endpush
@@ -195,7 +197,7 @@
     <div class="w-full max-w-md mx-auto mb-8">
         <input type="text"
             id="doa-search-input"
-            placeholder="Cari doa (Rabbana Atina)"
+            placeholder="Cari doa (Doa Sebelum Makan, Doa Masuk Rumah, dll.)"
             class="w-full p-3 rounded-lg shadow-sm border focus:outline-none focus:ring-2"
             style="border-color: #10B981;">
     </div>
@@ -213,7 +215,7 @@
                         <h2>{{ $doa->title }}</h2>
                     </div>
 
-                    {{-- Chevron animasi --}}
+                    {{-- Chevron: menghadap bawah saat tutup, atas saat buka --}}
                     <div class="doa-chevron">
                         <svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"/>
@@ -246,7 +248,7 @@
         const searchInput = document.getElementById('doa-search-input');
         const cards = document.querySelectorAll('.doa-card');
 
-        // Search
+        // ===== Search: filter card berdasarkan judul =====
         searchInput.addEventListener('keyup', function () {
             const term = this.value.toLowerCase().trim();
             cards.forEach(card => {
@@ -254,12 +256,17 @@
             });
         });
 
-        // Expand / Collapse dengan chevron
+        // ===== Expand / Collapse dengan animasi chevron =====
         cards.forEach(card => {
             card.addEventListener('click', function () {
                 const content = this.querySelector('.doa-content');
                 const isOpen = content.classList.contains('open');
+
+                // Toggle konten: open = expand, tutup = collapse
                 content.classList.toggle('open', !isOpen);
+
+                // Toggle class active pada card:
+                // active = card putih + nomor hijau + chevron putar ke atas
                 this.classList.toggle('active', !isOpen);
             });
         });

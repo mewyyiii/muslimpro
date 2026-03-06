@@ -346,7 +346,7 @@
                 @endif
             </form>
 
-            <div class="form-footer">dirancang oleh Tim NurSteps &nbsp;·&nbsp; v1.0</div>
+            <div class="form-footer">dirancang oleh Tim NurSteps &nbsp;·&nbsp;</div>
         </div>
     </div>
 
