@@ -41,4 +41,4 @@ class AzanSettingController extends Controller
             'setting' => $setting,
         ]);
     }
-}w
+}
