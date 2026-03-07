@@ -10,8 +10,8 @@ use App\Http\Controllers\TasbihController;
 use App\Http\Controllers\QiblaController;
 use App\Http\Controllers\QuranTrackingController;
 use App\Http\Controllers\AzanSettingController;
-use App\Http\Controllers\Admin\AdController;       // ★ BARU
-use App\Http\Controllers\ProController;            // ★ BARU
+// use App\Http\Controllers\Admin\AdController;       // ★ BARU
+// use App\Http\Controllers\ProController;            // ★ BARU
 // use App\Http\Controllers\IbadahReportController;   // ★ BARU
 
 Route::view('/', 'welcome')->name('welcome');
@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', fn() => view('home'))->name('home');
 
     // ── Halaman Upgrade Pro ──────────────────────────────────────────
-    Route::get('/pro/upgrade', [ProController::class, 'upgrade'])->name('pro.upgrade');
+    // Route::get('/pro/upgrade', [ProController::class, 'upgrade'])->name('pro.upgrade');
 
     // ── PRO: Statistik Laporan Ibadah ────────────────────────────────
     // Route::get('/ibadah-report', [IbadahReportController::class, 'index'])
@@ -78,14 +78,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile/avatar',[ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 
     // ── Record klik iklan ─────────────────────────────────────────────
-    Route::post('/ads/{ad}/click', [AdController::class, 'click'])->name('ads.click');
+//     Route::post('/ads/{ad}/click', [AdController::class, 'click'])->name('ads.click');
 
-    // ── Admin ─────────────────────────────────────────────────────────
-    // ✅ BERSIH
-Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
-    Route::resource('ads', AdController::class);
-    Route::post('ads/{ad}/toggle', [AdController::class, 'toggle'])->name('ads.toggle');
-});
+//     // ── Admin ─────────────────────────────────────────────────────────
+//     // ✅ BERSIH
+// Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+//     Route::resource('ads', AdController::class);
+//     Route::post('ads/{ad}/toggle', [AdController::class, 'toggle'])->name('ads.toggle');
+// });
 
 });
 

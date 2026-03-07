@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Traits\HasProAccess; // ← tambah ini
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasProAccess; // ← tambah HasProAccess
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'name',
         'email',
         'password',
         'avatar',
-        'is_pro',           // ← tambah
-        'is_admin',         // ← tambah
-        'pro_expires_at',   // ← tambah
-        'pro_activated_by', // ← tambah
+        // 'is_pro',           // ← tambah
+        // 'is_admin',         // ← tambah
+        // 'pro_expires_at',   // ← tambah
+        // 'pro_activated_by', // ← tambah
     ];
 
     protected $hidden = [
@@ -32,9 +31,9 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password'          => 'hashed',
-            'is_pro'            => 'boolean',  // ← tambah
-            'is_admin'          => 'boolean',  // ← tambah
-            'pro_expires_at'    => 'datetime', // ← tambah
+            // 'is_pro'            => 'boolean',  // ← tambah
+            // 'is_admin'          => 'boolean',  // ← tambah
+            // 'pro_expires_at'    => 'datetime', // ← tambah
         ];
     }
 
