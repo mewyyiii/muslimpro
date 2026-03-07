@@ -32,8 +32,6 @@
                 </header>
             @endisset
 
-<<<<<<< HEAD
-=======
             {{-- ★ IKLAN IN-CONTENT — tampil di bawah header, sebelum konten utama --}}
             {{--
                 'page' bisa diisi sesuai nama halaman masing-masing.
@@ -47,7 +45,6 @@
             ])
 
             <!-- Page Content -->
->>>>>>> 2b3f4651de0b7f7584bd24a22b68d2f556d75d9c
             <main>
                 @yield('content')
             </main>
