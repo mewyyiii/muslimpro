@@ -55,7 +55,7 @@
                 <span>👤</span> Manage Users
             </a>
             {{-- Roles --}}
-            <a href="#"
+            <a href="{{ route('admin.roles.index') }}"
                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition
                       {{ request()->routeIs('admin.roles.*') ? 'bg-teal-600 text-white' : 'text-teal-100 hover:bg-teal-700' }}">
                 <span>🛡️</span> Manage Roles

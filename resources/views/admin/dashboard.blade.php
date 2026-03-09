@@ -41,7 +41,7 @@
             <a href="{{ route('admin.users.index') }}" class="flex items-center gap-2 bg-gray-50 hover:bg-teal-50 hover:text-teal-700 transition rounded-xl px-4 py-3 text-sm font-medium text-gray-600">
                 👤 Manage Users
             </a>
-            <a href="#" class="flex items-center gap-2 bg-gray-50 hover:bg-teal-50 hover:text-teal-700 transition rounded-xl px-4 py-3 text-sm font-medium text-gray-600">
+            <a href="{{ route('admin.roles.index') }}" class="flex items-center gap-2 bg-gray-50 hover:bg-teal-50 hover:text-teal-700 transition rounded-xl px-4 py-3 text-sm font-medium text-gray-600">
                 🛡️ Manage Roles
             </a>
             <a href="#" class="flex items-center gap-2 bg-gray-50 hover:bg-teal-50 hover:text-teal-700 transition rounded-xl px-4 py-3 text-sm font-medium text-gray-600">
