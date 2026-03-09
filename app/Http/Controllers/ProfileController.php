@@ -160,18 +160,16 @@ class ProfileController extends Controller
     }
 
     /**
-     * Verify password via AJAX sebelum hapus akun.
+     * Verifikasi password via AJAX sebelum hapus akun.
      */
     public function verifyPassword(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate(['password' => ['required', 'string']]);
-
         $valid = Hash::check($request->password, $request->user()->password);
-
         return response()->json(['valid' => $valid]);
     }
 
-    /**
+        /**
      * Calculate Quran reading streak.
      */
     private function calculateQuranStreak(int $userId): int
