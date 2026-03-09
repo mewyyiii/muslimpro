@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
     // ── Payment ──────────────────────────────────────────────────────
     Route::get('/upgrade', [PaymentController::class, 'upgrade'])->name('payment.upgrade');
     Route::post('/checkout', [PaymentController::class, 'checkout'])->name('payment.checkout');
+    // Route::post('/payment/callback', [PaymentController::class, 'callback']);
 
     // ── Admin ─────────────────────────────────────────────────────────
     Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
