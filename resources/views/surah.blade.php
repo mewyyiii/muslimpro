@@ -4,7 +4,6 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700&display=swap');
 
-    /* ─── Design Tokens ──────────────────────────────────────────── */
     :root {
         --emerald-500: #10b981;
         --emerald-600: #059669;
@@ -19,8 +18,6 @@
     }
 
     .font-arabic { font-family: 'Amiri', serif; }
-
-    /* ─── Page layout ────────────────────────────────────────────── */
     .surah-dark-gray { color: #374151; }
     .dark .surah-dark-gray { color: #d1d5db; }
 
@@ -31,7 +28,6 @@
     }
     .dark .page-header { border-bottom-color: rgba(255,255,255,0.08); }
 
-    /* ─── Surah meta ─────────────────────────────────────────────── */
     .surah-meta-pill {
         display: inline-flex;
         align-items: center;
@@ -46,7 +42,6 @@
         margin-top: 10px;
     }
 
-    /* ─── Play All button ────────────────────────────────────────── */
     .btn-play-all {
         display: inline-flex;
         align-items: center;
@@ -66,7 +61,7 @@
     .btn-play-all:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16,185,129,0.4); }
     .btn-play-all:active { transform: translateY(0); }
 
-    /* ─── Sticky Audio Player ────────────────────────────────────── */
+    /* ─── Sticky Audio Player ─────────────────────────────────── */
     #main-player-container {
         position: sticky;
         top: 68px;
@@ -85,7 +80,6 @@
         border-color: rgba(52,211,153,0.12);
     }
 
-    /* Player top info row */
     .player-info-row {
         display: flex;
         align-items: center;
@@ -103,7 +97,6 @@
         letter-spacing: 0.01em;
     }
     .dark #player-verse-info { color: #6ee7b7; }
-
     .player-music-icon { color: #10b981; flex-shrink: 0; }
 
     .mode-badge {
@@ -118,7 +111,6 @@
         letter-spacing: 0.04em;
     }
 
-    /* Progress bar */
     .progress-track {
         position: relative;
         height: 5px;
@@ -155,12 +147,7 @@
         margin-bottom: 8px;
     }
 
-    /* Controls row */
-    .player-controls {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
+    .player-controls { display: flex; align-items: center; gap: 8px; }
     .ctrl-btn {
         display: flex;
         align-items: center;
@@ -213,7 +200,7 @@
         cursor: pointer;
     }
 
-    /* ─── Bookmark Banner ────────────────────────────────────────── */
+    /* ─── Bookmark Banner ─────────────────────────────────────── */
     #bookmark-banner {
         display: none;
         align-items: center;
@@ -224,51 +211,33 @@
         padding: 12px 14px;
         margin-bottom: 20px;
     }
-    .dark #bookmark-banner {
-        background: rgba(16,185,129,0.08);
-        border-color: rgba(52,211,153,0.18);
-    }
+    .dark #bookmark-banner { background: rgba(16,185,129,0.08); border-color: rgba(52,211,153,0.18); }
     .bookmark-icon-wrap {
         width: 34px; height: 34px;
         background: rgba(16,185,129,0.12);
         border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
         flex-shrink: 0;
         color: var(--emerald-600);
     }
     .dark .bookmark-icon-wrap { color: #34d399; background: rgba(52,211,153,0.12); }
     .bookmark-banner-text { flex: 1; min-width: 0; }
     .bookmark-banner-text p { margin: 0; }
-    .bookmark-banner-text .title {
-        font-size: 0.82rem;
-        font-weight: 700;
-        color: #065f46;
-    }
+    .bookmark-banner-text .title { font-size: 0.82rem; font-weight: 700; color: #065f46; }
     .dark .bookmark-banner-text .title { color: #6ee7b7; }
-    .bookmark-banner-text .sub {
-        font-size: 0.72rem;
-        color: #6b7280;
-        margin-top: 1px;
-    }
+    .bookmark-banner-text .sub { font-size: 0.72rem; color: #6b7280; margin-top: 1px; }
     .btn-bookmark-goto {
-        font-size: 0.75rem;
-        font-weight: 700;
-        padding: 6px 12px;
-        border-radius: 8px;
+        font-size: 0.75rem; font-weight: 700;
+        padding: 6px 12px; border-radius: 8px;
         border: 1px solid rgba(16,185,129,0.25);
         background: rgba(16,185,129,0.1);
-        color: var(--emerald-600);
-        cursor: pointer;
-        white-space: nowrap;
-        transition: background 0.15s;
-        flex-shrink: 0;
+        color: var(--emerald-600); cursor: pointer;
+        white-space: nowrap; transition: background 0.15s; flex-shrink: 0;
     }
     .btn-bookmark-goto:hover { background: rgba(16,185,129,0.18); }
     .dark .btn-bookmark-goto { color: #34d399; }
 
-    /* ─── Verse Cards ─────────────────────────────────────────────── */
+    /* ─── Verse Cards ─────────────────────────────────────────── */
     .verse-item {
         background: linear-gradient(135deg, #1faf90, var(--emerald-500));
         border-radius: var(--radius-card);
@@ -281,15 +250,12 @@
     }
     .verse-item::before {
         content: '';
-        position: absolute;
-        inset: 0;
+        position: absolute; inset: 0;
         background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
-        pointer-events: none;
-        border-radius: inherit;
+        pointer-events: none; border-radius: inherit;
     }
     .verse-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-float); }
 
-    /* Playing state */
     .verse-item.playing {
         background: linear-gradient(135deg, var(--emerald-600), var(--emerald-700));
         box-shadow: 0 0 0 3px rgba(52,211,153,0.5), 0 12px 32px rgba(5,150,105,0.3);
@@ -297,32 +263,23 @@
     }
     .verse-item.playing .transliteration-text { color: rgba(167,243,208,0.95) !important; }
 
-    /* Karaoke */
     .arabic-word { display: inline; transition: color 0.18s, text-shadow 0.18s; }
     .arabic-word.highlighted {
         color: #fde68a !important;
         text-shadow: 0 0 14px rgba(253,224,71,0.65);
     }
 
-    /* Verse number badge */
     .verse-number-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+        display: inline-flex; align-items: center; justify-content: center;
         width: 30px; height: 30px;
         background: rgba(255,255,255,0.18);
         border-radius: 8px;
-        font-size: 0.78rem;
-        font-weight: 700;
-        color: rgba(255,255,255,0.9);
-        flex-shrink: 0;
+        font-size: 0.78rem; font-weight: 700;
+        color: rgba(255,255,255,0.9); flex-shrink: 0;
     }
 
-    /* Play btn inside card */
     .play-verse-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
         width: 36px; height: 36px;
         background: rgba(255,255,255,0.15);
         border: 1px solid rgba(255,255,255,0.25);
@@ -334,79 +291,121 @@
     }
     .play-verse-btn:hover { background: rgba(255,255,255,0.28); transform: scale(1.1); color: #fff; }
 
-    /* Arabic text */
     .arabic-text {
         font-family: 'Amiri', serif;
         font-size: clamp(1.1rem, 2.8vw, 1.5rem);
-        line-height: 2;
-        color: #fff;
-        direction: rtl;
-        text-align: right;
+        line-height: 2; color: #fff;
+        direction: rtl; text-align: right;
     }
     .transliteration-text {
-        font-size: 0.9rem;
-        font-style: italic;
+        font-size: 0.9rem; font-style: italic;
         color: rgba(255,255,255,0.88);
-        margin-top: 10px;
-        line-height: 1.6;
+        margin-top: 10px; line-height: 1.6;
     }
     .translation-text {
         font-size: 0.85rem;
         color: rgba(255,255,255,0.8);
-        margin-top: 4px;
-        line-height: 1.6;
+        margin-top: 4px; line-height: 1.6;
     }
 
-    /* Divider inside card */
     .verse-divider {
         height: 1px;
         background: rgba(255,255,255,0.12);
         margin: 12px 0;
     }
 
-    /* Bookmark btn on every card */
+    /* ─── Bookmark btn: icon only, bawah card ─────────────────── */
+    .verse-bottom-row {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Wrapper untuk tooltip */
+    .verse-bookmark-wrap {
+        position: relative;
+        display: inline-flex;
+    }
+
     .verse-bookmark-btn {
         display: inline-flex;
         align-items: center;
-        gap: 4px;
-        background: rgba(255,255,255,0.12);
-        border: 1px solid rgba(255,255,255,0.22);
-        color: rgba(255,255,255,0.5);
-        font-size: 0.62rem;
-        font-weight: 700;
-        padding: 4px 8px 4px 6px;
-        border-radius: var(--radius-pill);
-        letter-spacing: 0.04em;
-        line-height: 1.4;
+        justify-content: center;
+        width: 28px; height: 28px;
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 8px;
+        color: rgba(255,255,255,0.35);
         cursor: pointer;
         flex-shrink: 0;
-        transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+        transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
     }
     .verse-bookmark-btn:hover {
-        background: rgba(255,255,255,0.25);
-        color: rgba(255,255,255,0.9);
-        border-color: rgba(255,255,255,0.4);
-        transform: scale(1.07);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        background: rgba(255,255,255,0.22);
+        color: rgba(255,255,255,0.85);
+        border-color: rgba(255,255,255,0.35);
+        transform: scale(1.1);
     }
     .verse-bookmark-btn.bookmarked {
-        background: rgba(253,224,71,0.22);
-        border-color: rgba(253,224,71,0.55);
+        background: rgba(253,224,71,0.2);
+        border-color: rgba(253,224,71,0.5);
         color: #fde047;
-        box-shadow: 0 0 8px rgba(253,224,71,0.2);
     }
     .verse-bookmark-btn.bookmarked:hover {
-        background: rgba(253,224,71,0.32);
-        border-color: rgba(253,224,71,0.7);
+        background: rgba(253,224,71,0.3);
         color: #fef08a;
-        box-shadow: 0 0 12px rgba(253,224,71,0.3);
+        border-color: rgba(253,224,71,0.65);
     }
 
-    /* ─── MODAL ──────────────────────────────────────────────────── */
+    /* ── Tooltip bubble ── */
+    .bm-tooltip {
+        position: absolute;
+        bottom: calc(100% + 8px);
+        right: 0;
+        white-space: nowrap;
+        background: #1e293b;
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 8px;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(4px) scale(0.95);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+        letter-spacing: 0.02em;
+        z-index: 10;
+    }
+    /* Ekor tooltip */
+    .bm-tooltip::after {
+        content: '';
+        position: absolute;
+        top: 100%; right: 8px;
+        border: 5px solid transparent;
+        border-top-color: #1e293b;
+    }
+    /* Bookmarked state: tooltip kuning */
+    .verse-bookmark-btn.bookmarked ~ .bm-tooltip {
+        background: #78350f;
+        color: #fef9c3;
+    }
+    .verse-bookmark-btn.bookmarked ~ .bm-tooltip::after {
+        border-top-color: #78350f;
+    }
+    /* Tampil saat hover wrapper */
+    .verse-bookmark-wrap:hover .bm-tooltip {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    /* ─── MODAL ──────────────────────────────────────────────── */
     #verse-modal-overlay {
         display: none;
-        position: fixed;
-        inset: 0;
+        position: fixed; inset: 0;
         background: rgba(0,0,0,0.5);
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
@@ -418,24 +417,18 @@
     #verse-modal-overlay.open { display: flex; }
 
     #verse-modal {
-        width: 100%;
-        max-width: 520px;
+        width: 100%; max-width: 520px;
         background: #fff;
-        border-radius: 24px;
-        overflow: hidden;
+        border-radius: 24px; overflow: hidden;
         box-shadow: 0 -4px 60px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.04);
         animation: modalSlideUp 0.28s cubic-bezier(0.34,1.1,0.64,1);
     }
-    .dark #verse-modal {
-        background: #1e293b;
-        box-shadow: 0 -4px 60px rgba(0,0,0,0.5);
-    }
+    .dark #verse-modal { background: #1e293b; box-shadow: 0 -4px 60px rgba(0,0,0,0.5); }
     @keyframes modalSlideUp {
         from { transform: translateY(50px); opacity: 0; }
         to   { transform: translateY(0);    opacity: 1; }
     }
 
-    /* Modal drag handle */
     .modal-handle {
         width: 36px; height: 4px;
         background: rgba(0,0,0,0.1);
@@ -444,145 +437,82 @@
     }
     .dark .modal-handle { background: rgba(255,255,255,0.12); }
 
-    /* Modal header with green accent strip */
-    .modal-header {
-        padding: 16px 20px 14px;
-        border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
+    .modal-header { padding: 16px 20px 14px; border-bottom: 1px solid rgba(0,0,0,0.06); }
     .dark .modal-header { border-bottom-color: rgba(255,255,255,0.06); }
-    .modal-ayat-label {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
+    .modal-ayat-label { display: flex; align-items: center; gap: 8px; }
     .modal-number-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 28px;
-        height: 28px;
-        padding: 0 8px;
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: 28px; height: 28px; padding: 0 8px;
         background: linear-gradient(135deg, #1faf90, var(--emerald-500));
-        color: white;
-        font-size: 0.75rem;
-        font-weight: 700;
-        border-radius: 8px;
+        color: white; font-size: 0.75rem; font-weight: 700; border-radius: 8px;
     }
-    .modal-surah-name {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #374151;
-    }
+    .modal-surah-name { font-size: 0.8rem; font-weight: 600; color: #374151; }
     .dark .modal-surah-name { color: #94a3b8; }
     .modal-close-btn {
         margin-left: auto;
         width: 28px; height: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0,0,0,0.05);
-        border: none;
-        border-radius: 8px;
-        color: #6b7280;
-        cursor: pointer;
-        transition: background 0.15s, color 0.15s;
-        flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        background: rgba(0,0,0,0.05); border: none; border-radius: 8px;
+        color: #6b7280; cursor: pointer;
+        transition: background 0.15s, color 0.15s; flex-shrink: 0;
     }
     .modal-close-btn:hover { background: rgba(0,0,0,0.1); color: #374151; }
     .dark .modal-close-btn { background: rgba(255,255,255,0.06); color: #64748b; }
     .dark .modal-close-btn:hover { background: rgba(255,255,255,0.1); color: #e2e8f0; }
 
-    /* Modal body */
     .modal-body { padding: 16px 20px; }
-
     .modal-arabic {
         font-family: 'Amiri', serif;
         font-size: 1.3rem;
-        direction: rtl;
-        text-align: right;
-        color: #065f46;
-        line-height: 2;
+        direction: rtl; text-align: right;
+        color: #065f46; line-height: 2;
         padding: 12px 14px;
         background: rgba(16,185,129,0.05);
         border-radius: 12px;
         border: 1px solid rgba(16,185,129,0.1);
         margin-bottom: 10px;
-        max-height: 160px;
-        overflow-y: auto;
-        /* smooth scroll */
+        max-height: 160px; overflow-y: auto;
         scroll-behavior: smooth;
     }
-    /* Scrollbar styling di modal arabic */
     .modal-arabic::-webkit-scrollbar { width: 4px; }
     .modal-arabic::-webkit-scrollbar-track { background: transparent; }
     .modal-arabic::-webkit-scrollbar-thumb { background: rgba(16,185,129,0.3); border-radius: 99px; }
-    .dark .modal-arabic {
-        color: #6ee7b7;
-        background: rgba(16,185,129,0.07);
-        border-color: rgba(52,211,153,0.12);
-    }
+    .dark .modal-arabic { color: #6ee7b7; background: rgba(16,185,129,0.07); border-color: rgba(52,211,153,0.12); }
 
     .modal-translation {
-        font-size: 0.82rem;
-        color: #6b7280;
-        font-style: italic;
-        line-height: 1.6;
-        padding: 0 2px;
-        margin-bottom: 16px;
+        font-size: 0.82rem; color: #6b7280;
+        font-style: italic; line-height: 1.6;
+        padding: 0 2px; margin-bottom: 16px;
     }
     .dark .modal-translation { color: #94a3b8; }
 
-    /* Modal actions */
     .modal-actions { display: flex; flex-direction: column; gap: 8px; }
-
     .modal-btn {
-        width: 100%;
-        padding: 13px 16px;
-        border-radius: var(--radius-btn);
-        border: none;
-        font-weight: 700;
-        font-size: 0.88rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+        width: 100%; padding: 13px 16px;
+        border-radius: var(--radius-btn); border: none;
+        font-weight: 700; font-size: 0.88rem; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
         transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
     }
     .modal-btn:active { transform: scale(0.98); }
-
     .modal-btn-primary {
         background: linear-gradient(135deg, #1faf90, var(--emerald-500));
-        color: white;
-        box-shadow: 0 4px 16px rgba(16,185,129,0.3);
+        color: white; box-shadow: 0 4px 16px rgba(16,185,129,0.3);
     }
     .modal-btn-primary:hover { box-shadow: 0 6px 22px rgba(16,185,129,0.4); transform: translateY(-1px); }
-
     .modal-btn-secondary {
-        background: var(--emerald-50);
-        color: var(--emerald-600);
+        background: var(--emerald-50); color: var(--emerald-600);
         border: 1px solid var(--emerald-border);
     }
-    .dark .modal-btn-secondary {
-        background: rgba(16,185,129,0.08);
-        color: #34d399;
-        border-color: rgba(52,211,153,0.18);
-    }
+    .dark .modal-btn-secondary { background: rgba(16,185,129,0.08); color: #34d399; border-color: rgba(52,211,153,0.18); }
     .modal-btn-secondary:hover { background: rgba(16,185,129,0.1); }
-
     .modal-btn-ghost {
-        background: rgba(107,114,128,0.06);
-        color: #9ca3af;
+        background: rgba(107,114,128,0.06); color: #9ca3af;
         border: 1px solid rgba(107,114,128,0.1);
     }
-    .dark .modal-btn-ghost {
-        background: rgba(255,255,255,0.04);
-        color: #64748b;
-        border-color: rgba(255,255,255,0.06);
-    }
+    .dark .modal-btn-ghost { background: rgba(255,255,255,0.04); color: #64748b; border-color: rgba(255,255,255,0.06); }
     .modal-btn-ghost:hover { background: rgba(107,114,128,0.1); color: #6b7280; }
 
-    /* ─── Responsive tweaks ──────────────────────────────────────── */
     @media (max-width: 480px) {
         #main-player-container { border-radius: 12px; padding: 12px 14px 10px; }
         .verse-item { padding: 16px; border-radius: 12px; }
@@ -655,13 +585,11 @@
         </div>
 
         <div class="player-controls">
-            {{-- Prev --}}
             <button class="ctrl-btn" id="prev-btn" title="Ayat sebelumnya">
                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M8.445 14.832A1 1 0 0010 14v-2.798l5.445 3.63A1 1 0 0017 14V6a1 1 0 00-1.555-.832L10 8.798V6a1 1 0 00-1.555-.832l-6 4a1 1 0 000 1.664l6 4z"/>
                 </svg>
             </button>
-            {{-- Play/Pause --}}
             <button class="ctrl-btn" id="play-pause-ctrl" title="Play / Pause">
                 <svg class="icon-play h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
@@ -670,20 +598,17 @@
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
                 </svg>
             </button>
-            {{-- Next --}}
             <button class="ctrl-btn" id="next-btn" title="Ayat berikutnya">
                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M4.555 5.168A1 1 0 003 6v8a1 1 0 001.555.832L10 11.202V14a1 1 0 001.555.832l6-4a1 1 0 000-1.664l-6-4A1 1 0 0010 6v2.798L4.555 5.168z"/>
                 </svg>
             </button>
-
             <div class="flex items-center gap-2 ml-2">
                 <svg class="h-4 w-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" style="color:#d1d5db">
                     <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd"/>
                 </svg>
                 <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="1">
             </div>
-
             <button class="ctrl-btn ml-auto" id="repeat-btn" title="Ulangi ayat ini">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -721,7 +646,7 @@
              data-translation="{{ $verse->translation }}"
              data-audio-url="https://everyayah.com/data/Alafasy_128kbps/{{ str_pad($surah->number, 3, '0', STR_PAD_LEFT) }}{{ str_pad($verse->number, 3, '0', STR_PAD_LEFT) }}.mp3">
 
-            {{-- Top row: number + play btn + arabic + bookmark --}}
+            {{-- Top row: number + play btn + arabic (NO bookmark here) --}}
             <div class="flex items-start justify-between gap-3 mb-2">
                 <div class="flex items-center gap-2 flex-shrink-0 mt-1">
                     <div class="verse-number-badge">{{ $verse->number }}</div>
@@ -734,29 +659,32 @@
                         </svg>
                     </button>
                 </div>
-
                 <p class="arabic-text flex-1">
                     @foreach(explode(' ', $verse->arabic) as $word)
                         <span class="arabic-word">{{ $word }}</span>{{ !$loop->last ? ' ' : '' }}
                     @endforeach
                 </p>
-
-                {{-- Inline bookmark button --}}
-                <button class="verse-bookmark-btn mt-1"
-                        data-verse-number="{{ $verse->number }}"
-                        onclick="event.stopPropagation(); handleBookmarkBtnClick({{ $verse->number }})"
-                        title="Tandai terakhir dibaca">
-                    <svg style="width:10px;height:10px;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"/>
-                    </svg>
-                    <span class="bm-label">Tandai</span>
-                </button>
             </div>
 
             <div class="verse-divider"></div>
 
             <p class="transliteration-text">{{ $verse->transliteration }}</p>
             <p class="translation-text">"{{ $verse->translation }}"</p>
+
+            {{-- Bottom row: bookmark icon + tooltip --}}
+            <div class="verse-bottom-row">
+                <div class="verse-bookmark-wrap">
+                    <button class="verse-bookmark-btn"
+                            data-verse-number="{{ $verse->number }}"
+                            onclick="event.stopPropagation(); handleBookmarkBtnClick({{ $verse->number }})"
+                            title="">
+                        <svg style="width:12px;height:12px" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"/>
+                        </svg>
+                    </button>
+                    <span class="bm-tooltip" data-verse-number="{{ $verse->number }}">Tandai terakhir dibaca</span>
+                </div>
+            </div>
         </div>
         @endforeach
     </div>
@@ -770,30 +698,12 @@
             <span style="font-weight:600; color: rgba(107,114,128,0.8);">Nahdlatul Ulama</span>
         </p>
     </div>
-
 </div>
 
 {{-- ── Scroll to Top FAB ── --}}
 <button id="scroll-top-btn"
         title="Kembali ke atas"
-        style="
-            display: none;
-            position: fixed;
-            bottom: 24px; right: 20px;
-            z-index: 50;
-            width: 40px; height: 40px;
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(16,185,129,0.25);
-            border-radius: 50%;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-            color: #059669;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.2s, transform 0.2s;
-        ">
+        style="display:none;position:fixed;bottom:24px;right:20px;z-index:50;width:40px;height:40px;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(16,185,129,0.25);border-radius:50%;box-shadow:0 4px 16px rgba(0,0,0,0.12);color:#059669;cursor:pointer;align-items:center;justify-content:center;transition:opacity 0.2s,transform 0.2s;">
     <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
         <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
     </svg>
@@ -841,7 +751,6 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ── DOM ───────────────────────────────────────────────────────
     const mainPlayer      = document.getElementById('main-player');
     const playerInfo      = document.getElementById('player-verse-info');
     const playAllBtn      = document.getElementById('play-all-btn');
@@ -869,12 +778,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const modalBtnCancel  = document.getElementById('modal-btn-cancel');
     const modalClose      = document.getElementById('modal-close');
 
-    // ── Config ────────────────────────────────────────────────────
     const surahName   = @json($surah->name);
     const surahNumber = {{ $surah->number }};
     const totalVerses = {{ $surah->total_verses }};
 
-    // ── State ─────────────────────────────────────────────────────
     let currentVerse     = 0;
     let isAutoPlay       = false;
     let isRepeat         = false;
@@ -902,7 +809,7 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem(bookmarkKey, num);
         bookmarkText.textContent = `Ayat ${num}`;
         bookmarkBanner.style.display = 'flex';
-        refreshBookmarkPin(num);
+        refreshBookmarkBtn(num);
     }
 
     if (savedVerse > 1) {
@@ -912,29 +819,28 @@ document.addEventListener('DOMContentLoaded', function () {
     bookmarkGoto.addEventListener('click', () => { scrollToVerse(savedVerse); bookmarkBanner.style.display = 'none'; });
     bookmarkDismiss.addEventListener('click', () => { bookmarkBanner.style.display = 'none'; });
 
-    function refreshBookmarkPin(num) {
-        // Reset all bookmark buttons to un-bookmarked state
+    // Refresh bookmark highlight on bottom-row btn (icon only, no text)
+    function refreshBookmarkBtn(num) {
         document.querySelectorAll('.verse-bookmark-btn').forEach(btn => {
             btn.classList.remove('bookmarked');
-            btn.querySelector('.bm-label').textContent = 'Tandai';
-            btn.title = 'Tandai terakhir dibaca';
+        });
+        document.querySelectorAll('.bm-tooltip').forEach(tip => {
+            tip.textContent = 'Tandai terakhir dibaca';
         });
         if (!num) return;
-        // Mark the saved verse button as bookmarked
         const btn = document.querySelector(`.verse-bookmark-btn[data-verse-number="${num}"]`);
-        if (!btn) return;
-        btn.classList.add('bookmarked');
-        btn.querySelector('.bm-label').textContent = 'Terakhir Dibaca';
-        btn.title = 'Terakhir Dibaca';
+        const tip = document.querySelector(`.bm-tooltip[data-verse-number="${num}"]`);
+        if (btn) btn.classList.add('bookmarked');
+        if (tip) tip.textContent = '✓ Terakhir Dibaca';
     }
 
-    // Global handler for inline bookmark button clicks
+    // Global handler — called from inline onclick on each card's bottom btn
     window.handleBookmarkBtnClick = function(num) {
         applyBookmark(num);
         saveProgress(num);
-        toast(`📖 Ditandai: terakhir baca Ayat ${num}`);
+        toast(`🔖 Ayat ${num} ditandai sebagai terakhir dibaca`);
     };
-    refreshBookmarkPin(savedVerse);
+    refreshBookmarkBtn(savedVerse);
 
     // ── Helpers ───────────────────────────────────────────────────
     const fmt = s => isNaN(s) ? '0:00' : `${Math.floor(s/60)}:${Math.floor(s%60).toString().padStart(2,'0')}`;
@@ -1066,9 +972,9 @@ document.addEventListener('DOMContentLoaded', function () {
         item.addEventListener('click', function () {
             const num = parseInt(this.dataset.verseNumber);
             modalTargetVerse = num;
-            modalVerseNum.textContent     = num;
-            modalArabic.textContent       = this.dataset.arabic || '';
-            modalTranslation.textContent  = '"' + (this.dataset.translation || '') + '"';
+            modalVerseNum.textContent    = num;
+            modalArabic.textContent      = this.dataset.arabic || '';
+            modalTranslation.textContent = '"' + (this.dataset.translation || '') + '"';
             modalOverlay.classList.add('open');
         });
     });
@@ -1078,7 +984,7 @@ document.addEventListener('DOMContentLoaded', function () {
         applyBookmark(modalTargetVerse);
         saveProgress(modalTargetVerse);
         closeModal();
-        toast(`📖 Ditandai: terakhir baca Ayat ${modalTargetVerse}`);
+        toast(`🔖 Ayat ${modalTargetVerse} ditandai sebagai terakhir dibaca`);
     });
     modalBtnPlay.addEventListener('click', () => {
         const v = modalTargetVerse; closeModal();
@@ -1086,7 +992,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     [modalBtnCancel, modalClose].forEach(b => b.addEventListener('click', closeModal));
     modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
-
     function closeModal() { modalOverlay.classList.remove('open'); modalTargetVerse = null; }
 
     // ── Scroll read tracking ──────────────────────────────────────
@@ -1139,8 +1044,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function toast(msg) {
+        // Remove existing toast if any
+        document.querySelectorAll('.bm-toast').forEach(t => t.remove());
         const t = document.createElement('div');
-        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:9px 16px;border-radius:99px;font-size:.78rem;font-weight:600;z-index:99;box-shadow:0 4px 16px rgba(0,0,0,.2);white-space:nowrap;animation:fadeInUp .2s ease';
+        t.className = 'bm-toast';
+        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 18px;border-radius:99px;font-size:.78rem;font-weight:600;z-index:99;box-shadow:0 4px 16px rgba(0,0,0,.25);white-space:nowrap;animation:fadeInUp .2s ease;display:flex;align-items:center;gap:6px;';
         t.textContent = msg;
         document.body.appendChild(t);
         setTimeout(() => { t.style.transition='opacity .3s'; t.style.opacity='0'; setTimeout(()=>t.remove(),300); }, 2500);
@@ -1150,21 +1058,14 @@ document.addEventListener('DOMContentLoaded', function () {
     s.textContent = '@keyframes slideInRight{from{transform:translateX(60px);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes fadeInUp{from{transform:translateX(-50%) translateY(10px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}';
     document.head.appendChild(s);
 
-    // Auto-scroll to bookmark
     if (savedVerse > 1) setTimeout(() => scrollToVerse(savedVerse), 800);
 
     // ── Scroll to top FAB ─────────────────────────────────────────
     const scrollTopBtn = document.getElementById('scroll-top-btn');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-            scrollTopBtn.style.display = 'flex';
-        } else {
-            scrollTopBtn.style.display = 'none';
-        }
+        scrollTopBtn.style.display = window.scrollY > 400 ? 'flex' : 'none';
     }, { passive: true });
-    scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 });
 </script>
 @endpush

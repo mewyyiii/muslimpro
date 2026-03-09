@@ -465,7 +465,6 @@ function showGpsStatus(msg, colorClass) {
     el.classList.remove('hidden');
 }
 
-
 let autocompleteTimeout = null;
 
 async function onCityInput(query) {
@@ -597,6 +596,206 @@ async function saveLocation() {
         alert('Terjadi kesalahan');
     }
 }
+
+// ══════════════════════════════════════════════════════════════════
+// 🔔 AZAN POLLING — cek setiap 30 detik, bunyi kalau sudah jamnya
+// ══════════════════════════════════════════════════════════════════
+(function initAzanPolling() {
+
+    // Waktu shalat hari ini dari server (sudah sesuai lokasi user via aladhan API)
+    const prayerTimes = {
+        fajr    : '{{ $prayerTimes["fajr"] }}',
+        dhuhr   : '{{ $prayerTimes["dhuhr"] }}',
+        asr     : '{{ $prayerTimes["asr"] }}',
+        maghrib : '{{ $prayerTimes["maghrib"] }}',
+        isha    : '{{ $prayerTimes["isha"] }}',
+    };
+
+    const prayerLabels = {
+        fajr: 'Subuh', dhuhr: 'Dzuhur', asr: 'Ashar', maghrib: 'Maghrib', isha: 'Isya'
+    };
+    const prayerEmojis = {
+        fajr: '🌅', dhuhr: '☀️', asr: '🌤️', maghrib: '🌇', isha: '🌙'
+    };
+    const audioUrls = {
+        makkah  : 'https://www.islamcan.com/audio/adhan/azan1.mp3',
+        madinah : 'https://www.islamcan.com/audio/adhan/azan2.mp3',
+        mesir   : 'https://www.islamcan.com/audio/adhan/azan3.mp3',
+    };
+
+    // Catat azan yang sudah dibunyikan hari ini
+    const todayStr = new Date().toDateString();
+    const firedKey = 'azanFired_' + todayStr;
+    let firedList  = [];
+    try { firedList = JSON.parse(sessionStorage.getItem(firedKey) || '[]'); } catch(e) {}
+
+    // Setting azan — default dulu, lalu update dari server setelah fetch selesai
+    // Default: semua aktif, muadzin Makkah
+    let azanSetting = {
+        azan_enabled    : true,
+        muadzin         : 'makkah',
+        fajr_enabled    : true,
+        dhuhr_enabled   : true,
+        asr_enabled     : true,
+        maghrib_enabled : true,
+        isha_enabled    : true,
+    };
+    let settingLoaded = false;
+
+    // Fetch setting dari server — update azanSetting begitu dapat response
+    fetch('{{ route("azan-settings.show") }}', { headers: { 'Accept': 'application/json' } })
+        .then(r => r.json())
+        .then(data => {
+            if (data.setting) {
+                azanSetting   = data.setting;
+                settingLoaded = true;
+                console.log('[Azan] ✅ Setting loaded:', azanSetting);
+            }
+        })
+        .catch(() => {
+            settingLoaded = true; // tetap jalan walau gagal, pakai default
+            console.warn('[Azan] ⚠️ Gagal load setting, pakai default (semua aktif, Makkah).');
+        });
+
+    // Kirim prayer times ke Service Worker supaya SW juga bisa cek
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(reg => {
+            if (reg.active) {
+                reg.active.postMessage({
+                    type     : 'UPDATE_ALL',
+                    settings : azanSetting,
+                    times    : prayerTimes,
+                });
+                console.log('[Azan] ✅ Data dikirim ke SW:', prayerTimes);
+            }
+        });
+    }
+
+    function getCurrentHHMM() {
+        const now = new Date();
+        return String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    }
+
+    // Toleransi 0–1 menit dari waktu azan
+    function isWithinMinute(current, target) {
+        const [ch, cm] = current.split(':').map(Number);
+        const [th, tm] = target.split(':').map(Number);
+        const diff = (ch * 60 + cm) - (th * 60 + tm);
+        return diff >= 0 && diff <= 1;
+    }
+
+    function checkAzan() {
+        if (!azanSetting.azan_enabled) return;
+
+        const current = getCurrentHHMM();
+
+        for (const prayer of ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha']) {
+            const time    = prayerTimes[prayer];
+            const enabled = azanSetting[prayer + '_enabled'];
+
+            if (!time || !enabled)           continue;
+            if (firedList.includes(prayer))  continue;
+            if (!isWithinMinute(current, time)) continue;
+
+            // Tandai sudah dibunyikan
+            firedList.push(prayer);
+            try { sessionStorage.setItem(firedKey, JSON.stringify(firedList)); } catch(e) {}
+
+            triggerAzan(prayer);
+        }
+    }
+
+    function triggerAzan(prayer) {
+        const label    = prayerLabels[prayer];
+        const emoji    = prayerEmojis[prayer];
+        const muadzin  = azanSetting?.muadzin || 'makkah';
+        const audioUrl = audioUrls[muadzin] || audioUrls.makkah;
+
+        console.log(`[Azan] 🔔 Waktunya ${label}! Memutar ${muadzin}...`);
+
+        // Kalau app.blade.php sudah punya fungsi playAzan global, pakai itu
+        if (typeof playAzan === 'function') {
+            playAzan(audioUrl, label, emoji);
+            return;
+        }
+
+        // Fallback: play langsung dari sini
+        const audio = new Audio(audioUrl);
+        audio.play()
+            .then(() => {
+                showAzanBannerLocal(label, emoji, null);
+            })
+            .catch(() => {
+                // Autoplay diblokir → tampilkan banner + tombol play manual
+                showAzanBannerLocal(label, emoji, audioUrl);
+            });
+    }
+
+    function showAzanBannerLocal(label, emoji, manualAudioUrl) {
+        // Kalau app.blade.php sudah punya showAzanBanner global, pakai itu
+        if (typeof showAzanBanner === 'function') {
+            showAzanBanner(label, emoji, manualAudioUrl);
+            return;
+        }
+
+        const old = document.getElementById('azanBanner');
+        if (old) old.remove();
+
+        const banner = document.createElement('div');
+        banner.id = 'azanBanner';
+        banner.style.cssText = [
+            'position:fixed','top:20px','left:50%','transform:translateX(-50%)',
+            'z-index:9999','min-width:300px','max-width:92vw',
+            'background:linear-gradient(135deg,#0d9488,#059669)',
+            'color:white','border-radius:16px','padding:16px 20px',
+            'box-shadow:0 20px 60px rgba(0,0,0,0.35)',
+            'display:flex','align-items:center','gap:12px',
+            'animation:azanSlideIn 0.4s cubic-bezier(0.34,1.56,0.64,1)',
+            'font-family:inherit'
+        ].join(';');
+
+        banner.innerHTML = `
+            <style>
+                @keyframes azanSlideIn {
+                    from { transform:translateX(-50%) translateY(-80px); opacity:0; }
+                    to   { transform:translateX(-50%) translateY(0); opacity:1; }
+                }
+            </style>
+            <span style="font-size:2.2rem;line-height:1">${emoji}</span>
+            <div style="flex:1">
+                <div style="font-weight:700;font-size:1rem;margin-bottom:2px">Waktu ${label}</div>
+                <div style="font-size:0.75rem;opacity:0.9">Allahu Akbar, segera shalat...</div>
+            </div>
+            ${manualAudioUrl
+                ? `<button onclick="(new Audio('${manualAudioUrl}')).play();this.style.display='none'"
+                     style="background:rgba(255,255,255,0.25);border:none;color:white;
+                            padding:8px 14px;border-radius:8px;cursor:pointer;
+                            font-size:0.8rem;font-weight:600;white-space:nowrap">
+                     ▶ Play Azan
+                   </button>`
+                : ''}
+            <button onclick="document.getElementById('azanBanner').remove()"
+                    style="background:rgba(255,255,255,0.2);border:none;color:white;
+                           width:28px;height:28px;border-radius:50%;cursor:pointer;
+                           font-size:1rem;flex-shrink:0">✕</button>
+        `;
+
+        document.body.appendChild(banner);
+
+        // Auto hilang setelah 60 detik
+        setTimeout(() => {
+            const b = document.getElementById('azanBanner');
+            if (b) b.remove();
+        }, 60000);
+    }
+
+    // Mulai polling — cek langsung, lalu tiap 30 detik
+    checkAzan();
+    setInterval(checkAzan, 30000);
+
+    console.log('[Azan] ✅ Polling aktif. Jadwal hari ini:', prayerTimes);
+
+})();
 </script>
 @endpush
 
