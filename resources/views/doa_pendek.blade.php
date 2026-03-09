@@ -152,9 +152,29 @@
                     opacity 0.3s ease;
     }
 
+    /* Saat terbuka: tinggi maksimal 380px, jika konten lebih panjang bisa di-scroll */
     .doa-content.open {
-        max-height: 500px;
+        max-height: 380px;
+        overflow-y: auto;
         opacity: 1;
+    }
+
+    /* Scrollbar styling agar rapi */
+    .doa-content.open::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .doa-content.open::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .doa-content.open::-webkit-scrollbar-thumb {
+        background: rgba(16, 185, 129, 0.4);
+        border-radius: 99px;
+    }
+
+    .doa-card.active .doa-content.open::-webkit-scrollbar-thumb {
+        background: rgba(16, 185, 129, 0.5);
     }
 
     /* Garis pemisah */
@@ -223,7 +243,7 @@
                     </div>
                 </div>
 
-                {{-- Konten (expand/collapse) --}}
+                {{-- Konten (expand/collapse, scrollable jika terlalu panjang) --}}
                 <div class="doa-content">
                     <div class="doa-divider"></div>
                     <div class="text-right mb-3">
@@ -262,7 +282,7 @@
                 const content = this.querySelector('.doa-content');
                 const isOpen = content.classList.contains('open');
 
-                // Toggle konten: open = expand, tutup = collapse
+                // Toggle konten: open = expand (scrollable), tutup = collapse
                 content.classList.toggle('open', !isOpen);
 
                 // Toggle class active pada card:

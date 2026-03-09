@@ -78,13 +78,25 @@
 
         .input-label { display: block; font-size: 13px; font-weight: 600; color: var(--text-mid); margin-bottom: 8px; letter-spacing: 0.3px; }
 
-        .input-wrapper { position: relative; border-radius: 14px; border: 1.5px solid var(--border); background: #f8fafc; transition: border-color 0.25s, box-shadow 0.25s, background 0.25s; }
+        .input-wrapper { position: relative; border-radius: 14px; border: 1.5px solid var(--border); background: #f8fafc; overflow: hidden; transition: border-color 0.25s, box-shadow 0.25s, background 0.25s, opacity 0.3s; }
         .input-wrapper:hover { border-color: var(--teal-mid); }
         .input-wrapper.focused { border-color: var(--teal-deep); box-shadow: 0 0 0 3px rgba(13,148,136,0.12); background: white; }
+        .input-wrapper.error   { border-color: #dc2626; box-shadow: 0 0 0 3px rgba(220,38,38,0.1); background: #fff5f5; }
+        .input-wrapper.valid   { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.1); background: #f0fdf4; }
+        .input-wrapper.locked  { opacity: 0.45; pointer-events: none; background: rgba(148,163,184,0.12); border-color: var(--border); box-shadow: none; }
+        .input-wrapper.unlocked { background: #f8fafc; border-color: var(--teal-mid); box-shadow: none; opacity: 1; }
+
+        .status-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; display: none; pointer-events: none; }
+        .input-wrapper.valid .status-icon.ok  { display: block; color: #10b981; }
+        .input-wrapper.error .status-icon.err { display: block; color: #dc2626; }
+
+        .field-error { display: none; font-size: 11.5px; color: #dc2626; margin-top: 6px; margin-left: 4px; }
+        .field-error.show { display: block; animation: fadeIn 0.2s ease; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(-3px); } to { opacity:1; transform:translateY(0); } }
 
         .input-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--teal-mid); pointer-events: none; }
 
-        .form-input { width: 100%; padding: 14px 16px 14px 48px; border: none; background: transparent; font-size: 14px; color: var(--text-dark); font-family: inherit; outline: none; }
+        .form-input { width: 100%; padding: 14px 16px 14px 48px; border: none; background: transparent; font-size: 14px; color: var(--text-dark); font-family: inherit; outline: none; border-radius: inherit; }
         .form-input.has-eye { padding-right: 44px; }
         .form-input::placeholder { color: var(--text-soft); }
 
@@ -205,7 +217,7 @@
             .form-subtitle { font-size: 13px; margin-bottom: 24px; }
             .input-label { font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 7px; }
 
-            .input-wrapper { border-radius: 10px; border: 1.5px solid var(--border); background: white; }
+            .input-wrapper { border-radius: 10px; border: 1.5px solid var(--border); background: white; overflow: hidden; }
             .input-wrapper:hover { border-color: #94a3b8; }
             .input-wrapper.focused { border-color: var(--teal-mid); box-shadow: 0 0 0 3px rgba(20,184,166,0.1); }
 
@@ -238,15 +250,110 @@
     </style>
 
     <script>
+        /* ===== Helpers ===== */
+        function setFocus(id) {
+            var w = document.getElementById(id);
+            if (!w.classList.contains('locked')) {
+                w.classList.add('focused');
+            }
+        }
+        function blurWrapper(id) {
+            document.getElementById(id).classList.remove('focused');
+        }
+        function focusWrapper(id) { setFocus(id); }
+
+        function setWrapperState(id, state) {
+            var w = document.getElementById(id);
+            w.classList.remove('focused', 'error', 'valid');
+            if (state) w.classList.add(state);
+        }
+
+        function showError(id, show) {
+            var el = document.getElementById(id);
+            show ? el.classList.add('show') : el.classList.remove('show');
+        }
+
+        /* ===== Lock / Unlock password ===== */
+        function lockPassword(lock) {
+            var inp = document.getElementById('password-input');
+            var w   = document.getElementById('password-wrapper');
+            if (lock) {
+                inp.disabled = true;
+                inp.value = '';
+                w.classList.remove('unlocked', 'valid', 'error', 'focused');
+                w.classList.add('locked');
+                inp.placeholder = 'Email harus valid untuk mengisi sandi';
+            } else {
+                inp.disabled = false;
+                w.classList.remove('locked', 'error', 'valid', 'focused');
+                w.classList.add('unlocked');
+                inp.placeholder = 'Kata sandi Anda';
+            }
+        }
+
+        /* ===== Email validation ===== */
+        function isValidEmail(val) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+        }
+
+        function validateEmail() {
+            var val = document.getElementById('email-input').value.trim();
+            var ok  = isValidEmail(val);
+            setWrapperState('email-wrapper', ok ? 'valid' : (val.length > 0 ? 'error' : ''));
+            showError('email-error', val.length > 0 && !ok);
+            lockPassword(!ok);
+            return ok;
+        }
+
+        /* Live check saat mengetik — unlock segera kalau sudah valid */
+        function validateEmailLive() {
+            var val = document.getElementById('email-input').value.trim();
+            var ok  = isValidEmail(val);
+            if (ok) {
+                setWrapperState('email-wrapper', 'valid');
+                showError('email-error', false);
+                lockPassword(false);
+            } else {
+                lockPassword(true);
+                /* Jangan tampilkan error saat masih mengetik */
+                if (document.getElementById('email-wrapper').classList.contains('error')) {
+                    showError('email-error', val.length > 0);
+                }
+            }
+        }
+
+        /* ===== Password toggle ===== */
         function togglePassword() {
             var input = document.getElementById('password-input');
             var eo = document.getElementById('eye-open');
             var ec = document.getElementById('eye-closed');
-            if (input.type === 'password') { input.type = 'text'; eo.style.display='none'; ec.style.display='block'; }
-            else { input.type = 'password'; eo.style.display='block'; ec.style.display='none'; }
+            if (input.type === 'password') {
+                input.type = 'text';
+                eo.style.display = 'none';
+                ec.style.display = 'block';
+            } else {
+                input.type = 'password';
+                eo.style.display = 'block';
+                ec.style.display = 'none';
+            }
         }
-        function focusWrapper(id) { document.getElementById(id).classList.add('focused'); }
-        function blurWrapper(id)  { document.getElementById(id).classList.remove('focused'); }
+
+        /* ===== Submit guard ===== */
+        document.addEventListener('DOMContentLoaded', function () {
+            /* Jika old('email') sudah ada dan valid, langsung unlock */
+            var emailVal = document.getElementById('email-input').value.trim();
+            if (isValidEmail(emailVal)) {
+                setWrapperState('email-wrapper', 'valid');
+                lockPassword(false);
+            }
+
+            document.querySelector('form').addEventListener('submit', function (e) {
+                if (!validateEmail()) {
+                    e.preventDefault();
+                    document.getElementById('email-input').focus();
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -355,9 +462,17 @@
                             placeholder="contoh@gmail.com"
                             value="{{ old('email') }}"
                             required autofocus autocomplete="username"
-                            onfocus="focusWrapper('email-wrapper')"
-                            onblur="blurWrapper('email-wrapper')">
+                            onfocus="setFocus('email-wrapper')"
+                            onblur="validateEmail()"
+                            oninput="validateEmailLive()">
+                        <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
                     </div>
+                    <div class="field-error" id="email-error">Format email tidak valid. Contoh: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="046a656965446369656d682a676b69">[email&#160;protected]</a></div>
                 </div>
 
                 <!-- Kata Sandi -->
@@ -368,14 +483,14 @@
                             <a href="{{ route('password.request') }}" class="forgot-link">Lupa Kata Sandi?</a>
                         @endif
                     </div>
-                    <div class="input-wrapper" id="password-wrapper">
+                    <div class="input-wrapper locked" id="password-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                         </svg>
                         <input type="password" id="password-input" name="password"
-                            class="form-input has-eye" placeholder="Kata sandi Anda"
-                            required autocomplete="current-password"
-                            onfocus="focusWrapper('password-wrapper')"
+                            class="form-input has-eye" placeholder="Email harus valid untuk mengisi sandi"
+                            disabled autocomplete="current-password"
+                            onfocus="setFocus('password-wrapper')"
                             onblur="blurWrapper('password-wrapper')">
                         <button type="button" class="eye-toggle" onclick="togglePassword()" tabindex="-1">
                             <svg id="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -426,10 +541,3 @@
                     <p class="hadith-source">HR. Muslim No. 2699</p>
                 </div>
             </div>
-
-            <div class="form-footer">dirancang oleh Tim NurSteps &nbsp;·&nbsp;</div>
-        </div>
-    </div>
-
-</body>
-</html>
