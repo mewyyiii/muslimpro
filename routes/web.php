@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile',         [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile',        [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
+    Route::post('/profile/verify-password', [ProfileController::class, 'verifyPassword'])->name('profile.destroy.verify');
 
     // ── Payment ──────────────────────────────────────────────────────
     Route::get('/upgrade', [PaymentController::class, 'upgrade'])->name('payment.upgrade');

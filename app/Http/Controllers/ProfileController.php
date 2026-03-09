@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -159,6 +160,16 @@ class ProfileController extends Controller
     }
 
     /**
+     * Verifikasi password via AJAX sebelum hapus akun.
+     */
+    public function verifyPassword(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $request->validate(['password' => ['required', 'string']]);
+        $valid = Hash::check($request->password, $request->user()->password);
+        return response()->json(['valid' => $valid]);
+    }
+
+        /**
      * Calculate Quran reading streak.
      */
     private function calculateQuranStreak(int $userId): int

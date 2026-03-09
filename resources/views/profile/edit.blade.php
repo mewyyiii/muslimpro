@@ -325,7 +325,43 @@
 
             {{-- Danger Zone --}}
             <div class="bg-white rounded-3xl p-8 shadow-2xl border-2 border-red-200"
-                 x-data="{ showDeleteModal: {{ $errors->userDeletion->isNotEmpty() ? 'true' : 'false' }}, passwordError: '' }"
+                 x-data="{
+                     showDeleteModal: {{ $errors->userDeletion->isNotEmpty() ? 'true' : 'false' }},
+                     passwordError: '',
+                     pwLoading: false,
+                     async submitDelete() {
+                         const pwd = document.getElementById('delete-password').value.trim();
+                         if (!pwd) {
+                             this.passwordError = 'Kata sandi wajib diisi untuk konfirmasi.';
+                             document.getElementById('delete-password').focus();
+                             return;
+                         }
+                         this.passwordError = '';
+                         this.pwLoading = true;
+                         try {
+                             const res = await fetch('{{ route('profile.destroy.verify') }}', {
+                                 method: 'POST',
+                                 headers: {
+                                     'Content-Type': 'application/json',
+                                     'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
+                                     'Accept': 'application/json',
+                                 },
+                                 body: JSON.stringify({ password: pwd })
+                             });
+                             const data = await res.json();
+                             if (data.valid) {
+                                 document.getElementById('real-delete-form').submit();
+                             } else {
+                                 this.passwordError = 'Kata sandi salah. Silakan coba lagi.';
+                                 this.pwLoading = false;
+                                 document.getElementById('delete-password').focus();
+                             }
+                         } catch(e) {
+                             this.passwordError = 'Terjadi kesalahan. Silakan coba lagi.';
+                             this.pwLoading = false;
+                         }
+                     }
+                 }"
                  x-init="if (showDeleteModal) { $nextTick(() => { document.getElementById('delete-password').focus() }) }">
 
                 <div class="flex items-center gap-3 mb-4">
@@ -353,7 +389,7 @@
                 <div x-show="showDeleteModal"
                      x-transition.opacity
                      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-                     @click.self="showDeleteModal = false; passwordError = ''"
+                     
                      style="display: none;">
                     <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-lg"
                          @click.stop>
@@ -370,19 +406,13 @@
                             Semua data termasuk riwayat shalat dan Al-Qur'an akan dihapus permanen dan <strong>tidak dapat dikembalikan</strong>.
                         </p>
 
-                        <form method="POST" action="{{ route('profile.destroy') }}"
-                              @submit.prevent="
-                                  const pwd = document.getElementById('delete-password').value.trim();
-                                  if (!pwd) {
-                                      passwordError = 'Kata sandi wajib diisi untuk mengkonfirmasi penghapusan akun.';
-                                      document.getElementById('delete-password').focus();
-                                      return;
-                                  }
-                                  passwordError = '';
-                                  $el.submit();
-                              ">
+                        {{-- Form tersembunyi, hanya disubmit setelah password terverifikasi --}}
+                        <form id="real-delete-form" method="POST" action="{{ route('profile.destroy') }}" class="hidden">
                             @csrf
                             @method('delete')
+                        </form>
+
+                        <div>
 
                             <div class="mb-2">
                                 <label for="delete-password" class="block text-sm font-bold text-gray-700 mb-2">
@@ -445,9 +475,16 @@
                             </div>
 
                             <div class="flex flex-col gap-3 mt-6">
-                                <button type="submit"
-                                        class="w-full px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl transition-all shadow-lg">
-                                    Ya, Hapus Selamanya
+                                <button type="button"
+                                        @click="submitDelete()"
+                                        :disabled="pwLoading"
+                                        :class="pwLoading ? 'opacity-70 cursor-not-allowed' : ''"
+                                        class="w-full px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2">
+                                    <svg x-show="pwLoading" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                                    </svg>
+                                    <span x-text="pwLoading ? 'Memverifikasi...' : 'Ya, Hapus Selamanya'"></span>
                                 </button>
                                 <button type="button"
                                         @click="showDeleteModal = false; passwordError = ''; document.getElementById('delete-password').value = ''"
@@ -455,7 +492,7 @@
                                     Batal
                                 </button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
 
@@ -496,10 +533,6 @@ function avatarUploader() {
     * {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-    }
-
-    input:focus {
-        transform: translateY(-1px);
     }
 
     button:active {
