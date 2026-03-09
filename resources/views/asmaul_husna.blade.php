@@ -124,7 +124,7 @@
     .ctrl-btn svg { width: 18px; height: 18px; fill: currentColor; }
     .ctrl-btn.primary svg { width: 20px; height: 20px; }
 
-    #asmaul-husna-grid { padding-bottom: 90px; }
+    #asmaul-husna-grid { padding-bottom: 0; }
 </style>
 @endpush
 
@@ -217,8 +217,15 @@
 <audio id="asma-audio" preload="none"></audio>
 
 {{-- Kredit Audio --}}
-<div class="text-center py-6 text-sm text-gray-400">
-    🎵 Audio oleh <a href="https://github.com/soachishti/Asma-ul-Husna" target="_blank" class="text-emerald-500 hover:underline">soachishti/Asma-ul-Husna</a> · Dihosting via <a href="https://www.jsdelivr.com" target="_blank" class="text-emerald-500 hover:underline">jsDelivr CDN</a>
+<div class="text-center mt-4 mb-6">
+    <p class="text-sm" style="color: rgba(107,114,128,0.6); letter-spacing: 0.03em;">
+        Audio bersumber dari
+        <a href="https://github.com/soachishti/Asma-ul-Husna" target="_blank"
+           style="font-weight:600; color: rgba(107,114,128,0.8);">soachishti/Asma-ul-Husna</a>
+        &amp; dihosting via
+        <a href="https://www.jsdelivr.com" target="_blank"
+           style="font-weight:600; color: rgba(107,114,128,0.8);">jsDelivr CDN</a>
+    </p>
 </div>
 
 @endsection
