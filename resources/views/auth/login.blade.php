@@ -472,7 +472,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </div>
-                    <div class="field-error" id="email-error">Format email tidak valid. Contoh: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="046a656965446369656d682a676b69">[email&#160;protected]</a></div>
+                    <div class="field-error" id="email-error">Format email tidak valid. Contoh: example@gmail.com</div>
                 </div>
 
                 <!-- Kata Sandi -->

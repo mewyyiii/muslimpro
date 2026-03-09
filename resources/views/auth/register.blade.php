@@ -83,16 +83,17 @@
 
         .input-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; letter-spacing: 0.3px; }
 
-        .input-wrapper { position: relative; border-radius: 12px; border: 1.5px solid var(--border); background: #f8fafc; transition: border-color 0.25s, box-shadow 0.25s, background 0.25s; }
+        .input-wrapper { position: relative; border-radius: 12px; border: 1.5px solid var(--border); background: #f8fafc; overflow: hidden; transition: border-color 0.25s, box-shadow 0.25s, background 0.25s; }
         .input-wrapper:hover   { border-color: var(--teal); }
         .input-wrapper.focused { border-color: var(--teal-dark); box-shadow: 0 0 0 3px rgba(13,148,136,0.12); background: white; }
         .input-wrapper.valid   { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.1); background: #f0fdf4; }
         .input-wrapper.error   { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); background: #fff8f8; }
         .input-wrapper.locked  { opacity: 0.45; pointer-events: none; background: #f1f5f9; }
+        .input-wrapper.unlocked { background: #f8fafc; border-color: var(--teal-mid, #14b8a6); box-shadow: none; opacity: 1; }
 
         .input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 17px; height: 17px; color: var(--teal); pointer-events: none; }
 
-        .form-input { width: 100%; padding: 13px 14px 13px 44px; border: none; background: transparent; font-size: 14px; color: var(--text-dark); font-family: inherit; outline: none; }
+        .form-input { width: 100%; padding: 13px 14px 13px 44px; border: none; background: transparent; font-size: 14px; color: var(--text-dark); font-family: inherit; outline: none; border-radius: inherit; }
         .form-input.has-eye { padding-right: 44px; }
         .form-input::placeholder { color: var(--text-soft); }
 
@@ -157,7 +158,7 @@
             .form-subtitle { font-size: 13px; margin-bottom: 22px; }
             .input-label { font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 7px; }
 
-            .input-wrapper { border-radius: 10px; border: 1.5px solid #e2e8f0; background: white; }
+            .input-wrapper { border-radius: 10px; border: 1.5px solid #e2e8f0; background: white; overflow: hidden; }
             .input-wrapper:hover  { border-color: #94a3b8; }
             .input-wrapper.focused { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(20,184,166,0.1); background: white; }
 
@@ -298,11 +299,11 @@
                     <label class="input-label" for="input-email">Alamat Email</label>
                     <div class="input-wrapper" id="email-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        <input type="email" id="input-email" name="email" class="form-input" placeholder="contoh@email.com" value="{{ old('email') }}" required onfocus="setFocus('email-wrapper')" onblur="validateEmail()">
+                        <input type="email" id="input-email" name="email" class="form-input" placeholder="contoh@email.com" value="{{ old('email') }}" required onfocus="setFocus('email-wrapper')" onblur="validateEmail()" oninput="validateEmailLive()">
                         <svg class="status-icon ok" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                         <svg class="status-icon err" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                     </div>
-                    <div class="field-error" id="email-error">Format email tidak valid.</div>
+                    <div class="field-error" id="email-error">Format email tidak valid.Contoh: example@gmail.com</div>
                 </div>
 
                 {{-- Kata Sandi --}}
@@ -369,14 +370,23 @@
     function setWrapperState(id, state) { var w = document.getElementById(id); w.classList.remove('focused','error','valid'); if (state) w.classList.add(state); }
     function showError(id, show) { var el = document.getElementById(id); show ? el.classList.add('show') : el.classList.remove('show'); }
     function toggleEye(inputId, openId, closedId) { var inp = document.getElementById(inputId); var o = document.getElementById(openId); var c = document.getElementById(closedId); if (inp.type === 'password') { inp.type = 'text'; o.style.display='none'; c.style.display='block'; } else { inp.type = 'password'; o.style.display='block'; c.style.display='none'; } }
-    function lockPasswordFields(lock) { [['input-password','password-wrapper','Minimal 6 karakter'],['input-confirm','confirm-password-wrapper','Ulangi kata sandi']].forEach(function(p) { var inp = document.getElementById(p[0]); var w = document.getElementById(p[1]); if (lock) { inp.disabled=true; w.classList.add('locked'); inp.placeholder='Email harus valid untuk mengisi sandi'; } else { inp.disabled=false; w.classList.remove('locked','error','valid','focused'); inp.placeholder=p[2]; } }); }
+    function lockPasswordFields(lock) { [['input-password','password-wrapper','Minimal 6 karakter'],['input-confirm','confirm-password-wrapper','Ulangi kata sandi']].forEach(function(p) { var inp = document.getElementById(p[0]); var w = document.getElementById(p[1]); if (lock) { inp.disabled=true; w.classList.remove('unlocked','valid','error','focused'); w.classList.add('locked'); inp.placeholder='Email harus valid untuk mengisi sandi'; } else { inp.disabled=false; w.classList.remove('locked','error','valid','focused'); w.classList.add('unlocked'); inp.placeholder=p[2]; } }); }
     function validateName() { var ok = document.getElementById('input-name').value.trim().length > 0; setWrapperState('name-wrapper', ok ? 'valid' : 'error'); showError('name-error', !ok); return ok; }
     function validateEmail() { var val = document.getElementById('input-email').value.trim(); var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val); setWrapperState('email-wrapper', ok ? 'valid' : 'error'); showError('email-error', !ok); lockPasswordFields(!ok); return ok; }
+    function validateEmailLive() { var val = document.getElementById('input-email').value.trim(); var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val); if (ok) { setWrapperState('email-wrapper', 'valid'); showError('email-error', false); lockPasswordFields(false); } else { lockPasswordFields(true); if (document.getElementById('email-wrapper').classList.contains('error')) { showError('email-error', val.length > 0); } } }
     function validatePassword() { var val = document.getElementById('input-password').value; var ok = val.length >= 6 && /[a-zA-Z]/.test(val) && /[0-9]/.test(val); setWrapperState('password-wrapper', ok ? 'valid' : 'error'); showError('password-error', !ok); return ok; }
     function validateConfirm() { var p1 = document.getElementById('input-password').value; var p2 = document.getElementById('input-confirm').value; var ok = p1 === p2 && p2.length > 0; setWrapperState('confirm-password-wrapper', ok ? 'valid' : 'error'); showError('confirm-error', !ok); return ok; }
     function checkStrength() { var val = document.getElementById('input-password').value; document.getElementById('strength-wrap').classList.toggle('show', val.length > 0); var score = 0; if (val.length >= 6) score++; if (/[A-Z]/.test(val)) score++; if (/[0-9]/.test(val)) score++; if (/[^A-Za-z0-9]/.test(val)) score++; var colors = ['#ef4444','#f97316','#eab308','#22c55e']; var labels = ['Sangat lemah','Lemah','Cukup kuat','Kuat']; for (var i = 1; i <= 4; i++) { document.getElementById('bar'+i).style.background = i <= score ? colors[score-1] : '#e2e8f0'; } document.getElementById('strength-label').textContent = labels[score-1] || 'Sangat lemah'; document.getElementById('strength-label').style.color = colors[score-1] || '#ef4444'; }
     document.getElementById('register-form').addEventListener('submit', function(e) { var ok = validateName() & validateEmail() & validatePassword() & validateConfirm(); if (!ok) { e.preventDefault(); var first = document.querySelector('.field-error.show'); if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
-    lockPasswordFields(true);
+    document.addEventListener('DOMContentLoaded', function() {
+        var emailVal = document.getElementById('input-email').value.trim();
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+            setWrapperState('email-wrapper', 'valid');
+            lockPasswordFields(false);
+        } else {
+            lockPasswordFields(true);
+        }
+    });
 </script>
 </body>
 </html>
