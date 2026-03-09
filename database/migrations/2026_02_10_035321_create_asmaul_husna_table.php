@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('transliteration');
             $table->text('meaning_id');
             $table->text('meaning_en');
+            $table->string('audio_url')->nullable();
             $table->timestamps();
         });
     }
