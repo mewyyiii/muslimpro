@@ -350,8 +350,7 @@
                              });
                              const data = await res.json();
                              if (data.valid) {
-                                 document.getElementById('real-delete-password').value = pwd;
-                                document.getElementById('real-delete-form').submit();
+                                 document.getElementById('real-delete-form').submit();
                              } else {
                                  this.passwordError = 'Kata sandi salah. Silakan coba lagi.';
                                  this.pwLoading = false;
@@ -411,7 +410,6 @@
                         <form id="real-delete-form" method="POST" action="{{ route('profile.destroy') }}" class="hidden">
                             @csrf
                             @method('delete')
-                            <input type="hidden" id="real-delete-password" name="password">
                         </form>
 
                         <div>
@@ -420,14 +418,13 @@
                                 <label for="delete-password" class="block text-sm font-bold text-gray-700 mb-2">
                                     Masukkan Kata Sandi untuk Konfirmasi
                                 </label>
-                                <div class="relative">
+                                <div class="eye-btn-wrap">
                                     <input type="password"
                                            id="delete-password"
                                            name="password"
                                            placeholder="Kata sandi Anda"
                                            autocomplete="current-password"
                                            @input="if ($event.target.value.trim()) passwordError = ''"
-                                           @keydown.enter.prevent="submitDelete()"
                                            class="w-full px-4 py-3 pr-12 rounded-xl border-2 transition-all
                                                   focus:outline-none focus:ring-4
                                                   {{ $errors->userDeletion->has('password') ? 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : 'border-gray-200 focus:border-red-400 focus:ring-red-400/20' }}"
@@ -447,7 +444,7 @@
                                                     ec.style.display = 'none';
                                                 }
                                             "
-                                            class="eye-btn text-gray-400 hover:text-red-500 transition-colors">
+                                            class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-red-500 transition-colors">
                                         <svg id="del-eye-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -543,17 +540,31 @@ function avatarUploader() {
     }
 
     /* Mencegah icon mata naik-turun saat input focus */
+    .eye-btn-wrap {
+        position: relative;
+        transform: none !important;
+    }
+    .eye-btn-wrap:focus-within {
+        transform: none !important;
+    }
     .eye-btn {
-        position: absolute;
-        right: 12px;
-        top: 50%;
+        position: absolute !important;
+        right: 12px !important;
+        top: 50% !important;
         transform: translateY(-50%) !important;
         padding: 6px;
         line-height: 0;
         background: none;
         border: none;
         cursor: pointer;
+        pointer-events: auto;
     }
     .eye-btn:focus { outline: none; }
+    .eye-btn-wrap:focus-within .eye-btn {
+        transform: translateY(-50%) !important;
+    }
+    .eye-btn-wrap input {
+        transform: none !important;
+    }
 </style>
 @endpush

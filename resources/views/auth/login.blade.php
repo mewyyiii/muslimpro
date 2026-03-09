@@ -442,7 +442,27 @@
                 <div class="error-box">
                     <ul style="list-style:none;padding:0;margin:0;">
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <li>
+                                @php
+                                    $terjemahan = [
+                                        'These credentials do not match our records.'         => 'Akun dengan email atau kata sandi tersebut tidak ditemukan.',
+                                        'The provided credentials are incorrect.'             => 'Email atau kata sandi yang Anda masukkan salah.',
+                                        'The provided credentials do not match our records.'  => 'Akun dengan email atau kata sandi tersebut tidak ditemukan.',
+                                        'Too many login attempts. Please try again in'        => 'Terlalu banyak percobaan login. Silakan coba lagi dalam',
+                                        'seconds.'                                            => 'detik.',
+                                        'The email field is required.'                        => 'Kolom email wajib diisi.',
+                                        'The password field is required.'                     => 'Kolom kata sandi wajib diisi.',
+                                        'The email must be a valid email address.'            => 'Format email tidak valid.',
+                                    ];
+                                    $pesan = $error;
+                                    foreach ($terjemahan as $en => $id) {
+                                        if (str_contains($pesan, $en)) {
+                                            $pesan = str_replace($en, $id, $pesan);
+                                        }
+                                    }
+                                @endphp
+                                {{ $pesan }}
+                            </li>
                         @endforeach
                     </ul>
                 </div>
@@ -472,7 +492,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </div>
-                    <div class="field-error" id="email-error">Format email tidak valid. Contoh: example@gmail.com</div>
+                    <div class="field-error" id="email-error">Format email tidak valid. Contoh: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="acc9d4cdc1dcc0c9eccbc1cdc5c082cfc3c1">[email&#160;protected]</a></div>
                 </div>
 
                 <!-- Kata Sandi -->
@@ -537,7 +557,12 @@
                         <div class="ornament-diamond"></div>
                         <div class="ornament-line"></div>
                     </div>
-                    <p class="hadith-text">"Barangsiapa menempuh jalan untuk mencari ilmu, maka Allah akan mudahkan baginya jalan menuju surga."</p>
-                    <p class="hadith-source">HR. Muslim No. 2699</p>
+                    <p class="hadith-text">"Barangsiapa menempuh jalan untuk mencari ilmu, maka Allah akan mudahkan baginya jalan menuju surga." — HR. Muslim</p>
                 </div>
             </div>
+
+        </div><!-- /.form-inner -->
+    </div><!-- /.form-panel -->
+
+</body>
+</html>
