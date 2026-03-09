@@ -96,7 +96,8 @@
                         class="relative w-12 h-6 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-1">
                         <span
                             :class="prayers['{{ $key }}'] ? 'translate-x-6' : 'translate-x-0.5'"
-                            class="absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-300">
+                            class="absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-300 flex items-center justify-center text-xs">
+                            <span x-text="prayers['{{ $key }}'] ? '🔔' : '🔕'"></span>
                         </span>
                     </button>
                 </div>
@@ -107,10 +108,17 @@
     </div>
 
     {{-- State nonaktif --}}
-    <div x-show="!azanEnabled" x-transition class="py-6 text-center text-gray-400">
-        <div class="text-4xl mb-2">🔕</div>
-        <p class="text-sm font-medium">Notifikasi azan dinonaktifkan</p>
-        <p class="text-xs mt-1">Aktifkan toggle di atas untuk mengatur azan</p>
+    <div x-show="!azanEnabled" x-transition class="py-8 text-center">
+        <div class="flex items-center justify-center mb-4">
+            <div class="relative inline-flex">
+                <span class="text-7xl">🔔</span>
+                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="15" y1="65" x2="65" y2="15" stroke="#f43f5e" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+        <p class="text-base font-bold text-gray-700 mb-1">Notifikasi azan dinonaktifkan</p>
+        <p class="text-sm text-gray-400">Aktifkan toggle di atas untuk mengatur azan</p>
     </div>
 
     {{-- Tombol Simpan --}}

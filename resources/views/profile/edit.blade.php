@@ -165,6 +165,9 @@
             {{-- Quran Journey Widget --}}
             @include('profile.partials.quran-widget')
 
+            {{-- ★ Pengaturan Azan --}}
+            @include('profile.partials.azan-settings')
+
             {{-- Profile Information Form --}}
             <div class="bg-white rounded-3xl p-8 shadow-2xl">
                 <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-gray-100">
