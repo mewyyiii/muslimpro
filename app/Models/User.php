@@ -3,8 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Transaction;
 
 class User extends Authenticatable
 {
@@ -15,10 +19,7 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
-        // 'is_pro',           // ← tambah
-        // 'is_admin',         // ← tambah
-        // 'pro_expires_at',   // ← tambah
-        // 'pro_activated_by', // ← tambah
+        'role_id', // ← tambah
     ];
 
     protected $hidden = [
@@ -31,12 +32,27 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password'          => 'hashed',
-            // 'is_pro'            => 'boolean',  // ← tambah
-            // 'is_admin'          => 'boolean',  // ← tambah
-            // 'pro_expires_at'    => 'datetime', // ← tambah
         ];
     }
 
+    // ─── Relasi ───────────────────────────────────────
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    // ─── Helper Role ──────────────────────────────────
+    public function hasRole(string $role): bool
+    {
+        return $this->role?->name === $role;
+    }
+
+    public function hasAnyRole(array $roles): bool
+    {
+        return in_array($this->role?->name, $roles);
+    }
+
+    // ─── Avatar ───────────────────────────────────────
     public function getAvatarUrlAttribute(): string
     {
         if ($this->avatar) {
@@ -45,4 +61,15 @@ class User extends Authenticatable
         $name = urlencode($this->name);
         return "https://ui-avatars.com/api/?name={$name}&background=14b8a6&color=fff&size=200&bold=true";
     }
+
+
+public function transactions(): HasMany
+{
+    return $this->hasMany(Transaction::class);
+}
+
+public function latestTransaction(): HasOne
+{
+    return $this->hasOne(Transaction::class)->latestOfMany();
+}
 }

@@ -364,23 +364,42 @@
         margin: 12px 0;
     }
 
-    /* Bookmark pin in card */
-    .verse-bookmark-pin {
-        position: absolute;
-        bottom: 8px; right: 10px;
+    /* Bookmark btn on every card */
+    .verse-bookmark-btn {
         display: inline-flex;
         align-items: center;
-        gap: 3px;
-        background: rgba(253,224,71,0.22);
-        border: 1px solid rgba(253,224,71,0.45);
-        color: #fde047;
-        font-size: 0.58rem;
+        gap: 4px;
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.22);
+        color: rgba(255,255,255,0.5);
+        font-size: 0.62rem;
         font-weight: 700;
-        padding: 2px 6px 2px 5px;
+        padding: 4px 8px 4px 6px;
         border-radius: var(--radius-pill);
         letter-spacing: 0.04em;
-        pointer-events: none;
         line-height: 1.4;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .verse-bookmark-btn:hover {
+        background: rgba(255,255,255,0.25);
+        color: rgba(255,255,255,0.9);
+        border-color: rgba(255,255,255,0.4);
+        transform: scale(1.07);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .verse-bookmark-btn.bookmarked {
+        background: rgba(253,224,71,0.22);
+        border-color: rgba(253,224,71,0.55);
+        color: #fde047;
+        box-shadow: 0 0 8px rgba(253,224,71,0.2);
+    }
+    .verse-bookmark-btn.bookmarked:hover {
+        background: rgba(253,224,71,0.32);
+        border-color: rgba(253,224,71,0.7);
+        color: #fef08a;
+        box-shadow: 0 0 12px rgba(253,224,71,0.3);
     }
 
     /* ─── MODAL ──────────────────────────────────────────────────── */
@@ -702,7 +721,7 @@
              data-translation="{{ $verse->translation }}"
              data-audio-url="https://everyayah.com/data/Alafasy_128kbps/{{ str_pad($surah->number, 3, '0', STR_PAD_LEFT) }}{{ str_pad($verse->number, 3, '0', STR_PAD_LEFT) }}.mp3">
 
-            {{-- Top row: number + play btn + arabic --}}
+            {{-- Top row: number + play btn + arabic + bookmark --}}
             <div class="flex items-start justify-between gap-3 mb-2">
                 <div class="flex items-center gap-2 flex-shrink-0 mt-1">
                     <div class="verse-number-badge">{{ $verse->number }}</div>
@@ -721,6 +740,17 @@
                         <span class="arabic-word">{{ $word }}</span>{{ !$loop->last ? ' ' : '' }}
                     @endforeach
                 </p>
+
+                {{-- Inline bookmark button --}}
+                <button class="verse-bookmark-btn mt-1"
+                        data-verse-number="{{ $verse->number }}"
+                        onclick="event.stopPropagation(); handleBookmarkBtnClick({{ $verse->number }})"
+                        title="Tandai terakhir dibaca">
+                    <svg style="width:10px;height:10px;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"/>
+                    </svg>
+                    <span class="bm-label">Tandai</span>
+                </button>
             </div>
 
             <div class="verse-divider"></div>
@@ -883,15 +913,27 @@ document.addEventListener('DOMContentLoaded', function () {
     bookmarkDismiss.addEventListener('click', () => { bookmarkBanner.style.display = 'none'; });
 
     function refreshBookmarkPin(num) {
-        document.querySelectorAll('.verse-bookmark-pin').forEach(p => p.remove());
+        // Reset all bookmark buttons to un-bookmarked state
+        document.querySelectorAll('.verse-bookmark-btn').forEach(btn => {
+            btn.classList.remove('bookmarked');
+            btn.querySelector('.bm-label').textContent = 'Tandai';
+            btn.title = 'Tandai terakhir dibaca';
+        });
         if (!num) return;
-        const el = document.getElementById(`verse-${num}`);
-        if (!el) return;
-        const pin = document.createElement('div');
-        pin.className = 'verse-bookmark-pin';
-        pin.innerHTML = `<svg style="width:8px;height:8px;flex-shrink:0" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"/></svg>Terakhir Dibaca`;
-        el.appendChild(pin);
+        // Mark the saved verse button as bookmarked
+        const btn = document.querySelector(`.verse-bookmark-btn[data-verse-number="${num}"]`);
+        if (!btn) return;
+        btn.classList.add('bookmarked');
+        btn.querySelector('.bm-label').textContent = 'Terakhir Dibaca';
+        btn.title = 'Terakhir Dibaca';
     }
+
+    // Global handler for inline bookmark button clicks
+    window.handleBookmarkBtnClick = function(num) {
+        applyBookmark(num);
+        saveProgress(num);
+        toast(`📖 Ditandai: terakhir baca Ayat ${num}`);
+    };
     refreshBookmarkPin(savedVerse);
 
     // ── Helpers ───────────────────────────────────────────────────

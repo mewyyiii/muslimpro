@@ -30,47 +30,32 @@
                         {{ $header }}
                     </div>
                 </header>
+
+                @include('components.ad-banner', [
+    'position' => 'in_content',
+    'page'     => $adPage ?? 'all',
+])
             @endisset
 
-<<<<<<< HEAD
-=======
-            {{-- ★ IKLAN IN-CONTENT — tampil di bawah header, sebelum konten utama --}}
-            {{--
-                'page' bisa diisi sesuai nama halaman masing-masing.
-                Untuk global (semua halaman), biarkan tanpa parameter 'page'.
-                Jika ingin per-halaman, set variable $adPage di tiap controller:
-                    return view('quran.index', ['adPage' => 'quran', ...]);
-            --}}
-            @include('components.ad-banner', [
-                'position' => 'in_content',
-                'page'     => $adPage ?? 'all',
-            ])
-
             <!-- Page Content -->
->>>>>>> 2b3f4651de0b7f7584bd24a22b68d2f556d75d9c
             <main>
                 @yield('content')
             </main>
         </div>
-
-        {{-- ★ IKLAN FOOTER STICKY — tampil di bawah layar --}}
-        @include('components.ad-banner', [
-            'position' => 'footer_sticky',
-            'page'     => $adPage ?? 'all',
-        ])
-
+@include('components.ad-banner', [
+    'position' => 'footer_sticky',
+    'page'     => $adPage ?? 'all',
+])
         @stack('scripts')
 
-        {{-- ★ Azan Service Worker + Audio Player --}}
+        {{-- Azan Service Worker + Audio Player --}}
         @auth
         <script>
-        // Register service worker azan
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/azan-sw.js', { scope: '/' })
                 .then(() => console.log('[Azan SW] Registered'))
                 .catch(err => console.warn('[Azan SW] Failed:', err));
 
-            // Terima pesan PLAY_AZAN dari service worker
             navigator.serviceWorker.addEventListener('message', (event) => {
                 if (event.data?.type === 'PLAY_AZAN') {
                     playAzan(event.data.audioUrl, event.data.label, event.data.emoji);
@@ -78,7 +63,6 @@
             });
         }
 
-        // Play audio azan di tab
         let _azanAudio = null;
 
         function playAzan(audioUrl, label, emoji) {
@@ -89,7 +73,6 @@
             showAzanBanner(label, emoji, null);
         }
 
-        // Banner notifikasi azan di halaman
         function showAzanBanner(label, emoji, audioUrl) {
             const old = document.getElementById('azanBanner');
             if (old) old.remove();
