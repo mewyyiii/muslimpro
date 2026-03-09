@@ -72,4 +72,14 @@ public function latestTransaction(): HasOne
 {
     return $this->hasOne(Transaction::class)->latestOfMany();
 }
+protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($user) {
+        if (empty($user->role_id)) {
+            $user->role_id = \App\Models\Role::where('name', 'user')->value('id');
+        }
+    });
+}
 }
