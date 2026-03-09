@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             AsmaulHusnaSeeder::class,
             DoaPendekSeeder::class,
             QuranSeeder::class,
+            RoleSeeder::class,
         ]);
     }
 }

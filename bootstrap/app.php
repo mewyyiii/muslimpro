@@ -10,12 +10,16 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    // ->withMiddleware(function (Middleware $middleware) {
-    //     $middleware->alias([
-    //         'pro'   => \App\Http\Middleware\EnsurePro::class,   // ← tambah
-    //         'admin' => \App\Http\Middleware\IsAdmin::class,     // ← tambah
-    //     ]);
-    // })
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->alias([
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
+        ]);
+
+            // ← tambahkan ini
+    $middleware->validateCsrfTokens(except: [
+        'webhook/midtrans',
+    ]);
+    })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
