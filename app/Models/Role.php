@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Role extends Model
 {
+    // Tabel roles tidak punya timestamps
     public $timestamps = false;
 
     protected $fillable = ['name'];

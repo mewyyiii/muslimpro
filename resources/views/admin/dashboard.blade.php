@@ -38,7 +38,7 @@
     <div class="bg-white rounded-2xl shadow p-6">
         <h2 class="text-lg font-semibold text-gray-700 mb-4">Menu Admin</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <a href="#" class="flex items-center gap-2 bg-gray-50 hover:bg-teal-50 hover:text-teal-700 transition rounded-xl px-4 py-3 text-sm font-medium text-gray-600">
+            <a href="{{ route('admin.users.index') }}" class="flex items-center gap-2 bg-gray-50 hover:bg-teal-50 hover:text-teal-700 transition rounded-xl px-4 py-3 text-sm font-medium text-gray-600">
                 👤 Manage Users
             </a>
             <a href="#" class="flex items-center gap-2 bg-gray-50 hover:bg-teal-50 hover:text-teal-700 transition rounded-xl px-4 py-3 text-sm font-medium text-gray-600">
