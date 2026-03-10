@@ -353,6 +353,7 @@
                              });
                              const data = await res.json();
                              if (data.valid) {
+                                 document.getElementById('real-delete-password').value = pwd;
                                  document.getElementById('real-delete-form').submit();
                              } else {
                                  this.passwordError = 'Kata sandi salah. Silakan coba lagi.';
@@ -413,6 +414,7 @@
                         <form id="real-delete-form" method="POST" action="{{ route('profile.destroy') }}" class="hidden">
                             @csrf
                             @method('delete')
+                            <input type="hidden" name="password" id="real-delete-password">
                         </form>
 
                         <div>
