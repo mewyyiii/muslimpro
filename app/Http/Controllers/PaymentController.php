@@ -29,42 +29,34 @@ class PaymentController extends Controller
     }
 
     // ── Buat transaksi + snap token ──────────────────────────
-    public function checkout()
-    {
-        $user  = Auth::user();
-        $price = config('midtrans.pro_price');
+public function checkout()
+{
+    $user  = Auth::user();
+    $price = config('midtrans.pro_price');
 
-        // Cek apakah ada transaksi pending sebelumnya
-        $existing = Transaction::where('user_id', $user->id)
-            ->where('status', 'pending')
-            ->latest()
-            ->first();
+    // Hapus semua transaksi pending lama
+    Transaction::where('user_id', $user->id)
+        ->where('status', 'pending')
+        ->delete();
 
-        if ($existing && $existing->snap_token) {
-            return response()->json([
-                'snap_token' => $existing->snap_token,
-                'order_id'   => $existing->order_id,
-            ]);
-        }
+    // Buat transaksi baru dengan order_id unik
+    $transaction = Transaction::create([
+        'user_id'  => $user->id,
+        'order_id' => 'INV-' . $user->id . '-' . time() . '-' . uniqid(),
+        'amount'   => $price,
+        'status'   => 'pending',
+    ]);
 
-        // Buat transaksi baru
-        $transaction = Transaction::create([
-            'user_id'  => $user->id,
-            'order_id' => 'INV-' . $user->id . '-' . time(),
-            'amount'   => $price,
-            'status'   => 'pending',
-        ]);
+    // Ambil snap token dari Midtrans
+    $snapToken = $this->midtrans->createSnapToken($transaction);
 
-        // Ambil snap token dari Midtrans
-        $snapToken = $this->midtrans->createSnapToken($transaction);
+    $transaction->update(['snap_token' => $snapToken]);
 
-        $transaction->update(['snap_token' => $snapToken]);
-
-        return response()->json([
-            'snap_token' => $snapToken,
-            'order_id'   => $transaction->order_id,
-        ]);
-    }
+    return response()->json([
+        'snap_token' => $snapToken,
+        'order_id'   => $transaction->order_id,
+    ]);
+}
 
     // ── Webhook dari Midtrans ────────────────────────────────
     public function webhook(Request $request)
