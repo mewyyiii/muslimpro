@@ -1,13 +1,30 @@
 @extends('layouts.app')
 {{-- Taruh di bagian atas @section('content') --}}
 @if(request('upgrade') === 'success')
-    <div class="bg-teal-50 border border-teal-200 text-teal-700 px-6 py-4 rounded-2xl mx-4 mt-4 text-sm">
-        🎉 Selamat! Kamu sekarang sudah menjadi member <strong>Pro</strong>. Iklan telah dinonaktifkan.
+    <div id="upgrade-notif" class="bg-teal-50 border border-teal-200 text-teal-700 px-6 py-4 rounded-2xl mx-4 mt-4 text-sm flex items-center justify-between">
+        <span>🎉 Selamat! Kamu sekarang sudah menjadi member <strong>Pro</strong>. Iklan telah dinonaktifkan.</span>
+        <button onclick="dismissNotif()" class="ml-4 text-teal-400 hover:text-teal-600 font-bold text-lg leading-none">✕</button>
     </div>
+    <script>
+        // Hapus query param dari URL tanpa reload
+        history.replaceState(null, '', '{{ route('home') }}');
+        
+        function dismissNotif() {
+            document.getElementById('upgrade-notif').remove();
+        }
+    </script>
 @elseif(request('upgrade') === 'pending')
-    <div class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-6 py-4 rounded-2xl mx-4 mt-4 text-sm">
-        ⏳ Pembayaran sedang diproses. Role Pro akan aktif setelah pembayaran dikonfirmasi.
+    <div id="upgrade-notif" class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-6 py-4 rounded-2xl mx-4 mt-4 text-sm flex items-center justify-between">
+        <span>⏳ Pembayaran sedang diproses. Role Pro akan aktif setelah pembayaran dikonfirmasi.</span>
+        <button onclick="dismissNotif()" class="ml-4 text-yellow-400 hover:text-yellow-600 font-bold text-lg leading-none">✕</button>
     </div>
+    <script>
+        history.replaceState(null, '', '{{ route('home') }}');
+        
+        function dismissNotif() {
+            document.getElementById('upgrade-notif').remove();
+        }
+    </script>
 @endif
 @section('content')
 @include('components.ad-banner', ['position' => 'in_content', 'page' => 'home'])
