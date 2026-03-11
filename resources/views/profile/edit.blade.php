@@ -271,39 +271,72 @@
                     @method('put')
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        {{-- Kata Sandi Saat Ini --}}
                         <div>
                             <label for="current_password" class="block text-sm font-bold text-gray-700 mb-2">
                                 Kata Sandi Saat Ini
                             </label>
-                            <input type="password" id="current_password" name="current_password" autocomplete="current-password"
-                                   class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
-                                          focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 transition-all
-                                          @error('current_password', 'updatePassword') border-red-400 @enderror">
+                            <div class="relative">
+                                <input type="password" id="current_password" name="current_password" autocomplete="current-password"
+                                       class="w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
+                                              focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 transition-all
+                                              @error('current_password', 'updatePassword') border-red-400 @enderror">
+                                <button type="button"
+                                        onclick="togglePass('current_password', 'eye-current')"
+                                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors">
+                                    <svg id="eye-current" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
                             @error('current_password', 'updatePassword')
                                 <p class="mt-2 text-sm text-red-600 font-semibold">{{ $message }}</p>
                             @enderror
                         </div>
 
+                        {{-- Kata Sandi Baru --}}
                         <div>
                             <label for="password" class="block text-sm font-bold text-gray-700 mb-2">
                                 Kata Sandi Baru
                             </label>
-                            <input type="password" id="password" name="password" autocomplete="new-password"
-                                   class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
-                                          focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 transition-all
-                                          @error('password', 'updatePassword') border-red-400 @enderror">
+                            <div class="relative">
+                                <input type="password" id="password" name="password" autocomplete="new-password"
+                                       class="w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
+                                              focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 transition-all
+                                              @error('password', 'updatePassword') border-red-400 @enderror">
+                                <button type="button"
+                                        onclick="togglePass('password', 'eye-new')"
+                                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors">
+                                    <svg id="eye-new" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
                             @error('password', 'updatePassword')
                                 <p class="mt-2 text-sm text-red-600 font-semibold">{{ $message }}</p>
                             @enderror
                         </div>
 
+                        {{-- Konfirmasi Kata Sandi --}}
                         <div>
                             <label for="password_confirmation" class="block text-sm font-bold text-gray-700 mb-2">
                                 Konfirmasi Kata Sandi
                             </label>
-                            <input type="password" id="password_confirmation" name="password_confirmation" autocomplete="new-password"
-                                   class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
-                                          focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 transition-all">
+                            <div class="relative">
+                                <input type="password" id="password_confirmation" name="password_confirmation" autocomplete="new-password"
+                                       class="w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
+                                              focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 transition-all">
+                                <button type="button"
+                                        onclick="togglePass('password_confirmation', 'eye-confirm')"
+                                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors">
+                                    <svg id="eye-confirm" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -325,6 +358,19 @@
                     </div>
                 </form>
             </div>
+
+            {{-- Script toggle password --}}
+            <script>
+            function togglePass(inputId, eyeId) {
+                const input = document.getElementById(inputId);
+                const eye   = document.getElementById(eyeId);
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                eye.innerHTML = isPassword
+                    ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>`
+                    : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>`;
+            }
+            </script>
 
             {{-- Danger Zone --}}
             <div class="bg-white rounded-3xl p-8 shadow-2xl border-2 border-red-200"
@@ -423,7 +469,7 @@
                                 <label for="delete-password" class="block text-sm font-bold text-gray-700 mb-2">
                                     Masukkan Kata Sandi untuk Konfirmasi
                                 </label>
-                                <div class="eye-btn-wrap">
+                                <div class="relative">
                                     <input type="password"
                                            id="delete-password"
                                            name="password"
