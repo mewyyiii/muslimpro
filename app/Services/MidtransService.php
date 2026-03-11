@@ -15,7 +15,7 @@ class MidtransService
         Config::$isProduction = config('midtrans.is_production');
         Config::$isSanitized  = config('midtrans.is_sanitized');
         Config::$is3ds        = config('midtrans.is_3ds');
-        Config::$overrideNotifUrl = config('app.url') . 'webhook/midtrans';
+        Config::$overrideNotifUrl = config('app.url') . '/webhook/midtrans';
     }
 
     public function createSnapToken(Transaction $transaction): string
