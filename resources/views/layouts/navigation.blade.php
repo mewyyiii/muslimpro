@@ -120,6 +120,12 @@
                                     <h3 class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-3">Alat Ibadah</h3>
                                     <ul class="space-y-1">
                                         <li>
+                                            <a href="{{ route('prayer-tracking.index') }}" class="block px-2 py-1.5 rounded-lg hover:bg-teal-50 transition-colors group">
+                                                <div class="text-xs font-medium text-gray-700 group-hover:text-teal-700">🕌 Waktu Shalat</div>
+                                                <div class="text-[10px] text-gray-500">Jadwal & tracking</div>
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a href="{{ route('doa-pendek.index') }}" class="block px-2 py-1.5 rounded-lg hover:bg-teal-50 transition-colors group">
                                                 <div class="text-xs font-medium text-gray-700 group-hover:text-teal-700">🌙 Doa Pendek</div>
                                                 <div class="text-[10px] text-gray-500">Kumpulan doa harian</div>
@@ -157,14 +163,20 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <!-- Akses Cepat -->
+                                <!-- Progres -->
                                 <div>
-                                    <h3 class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-3">Akses Cepat</h3>
+                                    <h3 class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-3">Progres</h3>
                                     <ul class="space-y-1">
                                         <li>
                                             <a href="{{ route('prayer-tracking.index') }}" class="block px-2 py-1.5 rounded-lg hover:bg-teal-50 transition-colors group">
-                                                <div class="text-xs font-medium text-gray-700 group-hover:text-teal-700">🕌 Waktu Shalat</div>
-                                                <div class="text-[10px] text-gray-500">Jadwal & tracking</div>
+                                                <div class="text-xs font-medium text-gray-700 group-hover:text-teal-700">🕌 Tracking Shalat</div>
+                                                <div class="text-[10px] text-gray-500">Catat ibadah shalat</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('quran-tracking.index') }}" class="block px-2 py-1.5 rounded-lg hover:bg-teal-50 transition-colors group">
+                                                <div class="text-xs font-medium text-gray-700 group-hover:text-teal-700">📖 Tracking Al-Quran</div>
+                                                <div class="text-[10px] text-gray-500">Catat bacaan Al-Quran</div>
                                             </a>
                                         </li>
                                     </ul>
