@@ -35,7 +35,9 @@ class MidtransService
                     'quantity' => 1,
                     'name'     => 'NurSteps Pro — Bebas Iklan',
                 ],
-            ],
+            ],'callbacks' => [                                                // ← tambah ini
+                'notification' => config('app.url') . '/webhook/midtrans', // ← tambah ini
+            ],        
         ];
 
         return Snap::getSnapToken($params);
