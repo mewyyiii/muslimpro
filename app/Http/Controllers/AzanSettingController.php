@@ -22,7 +22,7 @@ class AzanSettingController extends Controller
     {
         $validated = $request->validate([
             'azan_enabled'    => 'required|boolean',
-            'muadzin'         => 'required|in:makkah,madinah,mesir',
+            'muadzin'         => 'required|in:makkah,madinah,afasy',
             'fajr_enabled'    => 'required|boolean',
             'dhuhr_enabled'   => 'required|boolean',
             'asr_enabled'     => 'required|boolean',

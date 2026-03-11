@@ -45,13 +45,23 @@
                     type="button"
                     @click="selectMuadzin('{{ $key }}')"
                     :class="muadzin === '{{ $key }}'
-                        ? 'border-teal-500 bg-teal-50 text-teal-700 shadow-md scale-105'
-                        : 'border-gray-200 bg-white text-gray-600 hover:border-teal-300'"
-                    class="flex flex-col items-center gap-2 p-4 border-2 rounded-2xl transition-all duration-200 focus:outline-none">
+                        ? 'border-teal-500 bg-teal-50 shadow-md scale-105'
+                        : 'border-gray-200 bg-white hover:border-teal-300'"
+                    class="flex flex-col items-center gap-2 p-4 border-2 rounded-2xl transition-all duration-200 focus:outline-none text-left">
                     <span class="text-3xl">{{ $info['emoji'] }}</span>
-                    <span class="text-sm font-semibold">{{ $info['label'] }}</span>
+                    <span class="text-sm font-bold"
+                          :class="muadzin === '{{ $key }}' ? 'text-teal-700' : 'text-gray-700'">
+                        {{ $info['label'] }}
+                    </span>
+                    <span class="text-xs font-semibold text-center leading-tight"
+                          :class="muadzin === '{{ $key }}' ? 'text-teal-600' : 'text-gray-500'">
+                        {{ $info['muadzin'] }}
+                    </span>
+                    <span class="text-xs text-center leading-tight text-gray-400">
+                        {{ $info['desc'] }}
+                    </span>
                     <div :class="muadzin === '{{ $key }}' ? 'bg-teal-500' : 'bg-gray-200'"
-                         class="w-2 h-2 rounded-full transition-colors"></div>
+                         class="w-2 h-2 rounded-full transition-colors mt-1"></div>
                 </button>
                 @endforeach
             </div>
@@ -139,16 +149,16 @@
         </div>
     </div>
 
-    {{-- Info notifikasi --}}
+    {{-- Info --}}
     <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl">
         <p class="text-xs text-amber-700">
             <span class="font-bold">💡 Info:</span>
-            Azan berbunyi otomatis saat waktu shalat tiba, bahkan saat browser diminimize.
-            <button @click="requestPermission()" class="underline font-semibold hover:text-amber-900 ml-1">
-                Aktifkan Izin Notifikasi →
-            </button>
+            Azan berbunyi otomatis saat waktu shalat tiba selama halaman ini terbuka di browser.
         </p>
     </div>
+
+
+
 </div>
 
 @push('scripts')
@@ -215,15 +225,6 @@ function azanSettings() {
             };
         },
 
-        async requestPermission() {
-            const result = await Notification.requestPermission();
-            if (result === 'granted') {
-                alert('✅ Izin notifikasi berhasil! Azan akan berbunyi otomatis.');
-            } else {
-                alert('❌ Izin ditolak. Aktifkan manual di pengaturan browser.');
-            }
-        },
-
         async saveSettings() {
             this.isSaving    = true;
             this.saveSuccess = false;
@@ -250,12 +251,6 @@ function azanSettings() {
                 if (data.success) {
                     this.saveSuccess = true;
                     setTimeout(() => this.saveSuccess = false, 3000);
-                    // Update service worker dengan setting terbaru
-                    if ('serviceWorker' in navigator) {
-                        navigator.serviceWorker.ready.then(reg => {
-                            reg.active?.postMessage({ type: 'UPDATE_AZAN_SETTINGS', settings: data.setting });
-                        });
-                    }
                 } else {
                     this.saveError = true;
                     setTimeout(() => this.saveError = false, 3000);

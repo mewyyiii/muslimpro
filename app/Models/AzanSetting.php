@@ -50,9 +50,9 @@ class AzanSetting extends Model
     public static function muadzinList(): array
     {
         return [
-            'makkah'  => ['label' => 'Makkah',  'emoji' => '🕋'],
-            'madinah' => ['label' => 'Madinah', 'emoji' => '🕌'],
-            'mesir'   => ['label' => 'Mesir',   'emoji' => '🇪🇬'],
+            'makkah'  => ['label' => 'Makkah',    'emoji' => '🕋', 'muadzin' => 'Sheikh Ali Ahmed Mullah',       'desc' => 'Muadzin resmi Masjidil Haram sejak 1975'],
+            'madinah' => ['label' => 'Madinah',   'emoji' => '🕌', 'muadzin' => 'Sheikh Essam Ali Khan',         'desc' => 'Muadzin resmi Masjid Nabawi sejak 2009'],
+            'afasy'   => ['label' => 'Al-Afasy',  'emoji' => '🌍', 'muadzin' => 'Sheikh Mishary Rashid Al-Afasy','desc' => 'Muadzin Kuwait, paling populer di dunia'],
         ];
     }
 
@@ -61,7 +61,7 @@ class AzanSetting extends Model
         return [
             'makkah'  => 'https://www.islamcan.com/audio/adhan/azan1.mp3',
             'madinah' => 'https://www.islamcan.com/audio/adhan/azan2.mp3',
-            'mesir'   => 'https://www.islamcan.com/audio/adhan/azan3.mp3',
+            'afasy'   => 'https://www.islamcan.com/audio/adhan/azan3.mp3',
         ];
     }
 }
