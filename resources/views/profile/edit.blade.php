@@ -276,14 +276,14 @@
                             <label for="current_password" class="block text-sm font-bold text-gray-700 mb-2">
                                 Kata Sandi Saat Ini
                             </label>
-                            <div class="relative">
+                            <div class="eye-btn-wrap">
                                 <input type="password" id="current_password" name="current_password" autocomplete="current-password"
                                        class="w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
                                               focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 transition-all
                                               @error('current_password', 'updatePassword') border-red-400 @enderror">
                                 <button type="button"
                                         onclick="togglePass('current_password', 'eye-current')"
-                                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors">
+                                        class="eye-btn text-gray-400 hover:text-purple-500 transition-colors">
                                     <svg id="eye-current" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -300,14 +300,14 @@
                             <label for="password" class="block text-sm font-bold text-gray-700 mb-2">
                                 Kata Sandi Baru
                             </label>
-                            <div class="relative">
+                            <div class="eye-btn-wrap">
                                 <input type="password" id="password" name="password" autocomplete="new-password"
                                        class="w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
                                               focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 transition-all
                                               @error('password', 'updatePassword') border-red-400 @enderror">
                                 <button type="button"
                                         onclick="togglePass('password', 'eye-new')"
-                                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors">
+                                        class="eye-btn text-gray-400 hover:text-purple-500 transition-colors">
                                     <svg id="eye-new" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -324,13 +324,13 @@
                             <label for="password_confirmation" class="block text-sm font-bold text-gray-700 mb-2">
                                 Konfirmasi Kata Sandi
                             </label>
-                            <div class="relative">
+                            <div class="eye-btn-wrap">
                                 <input type="password" id="password_confirmation" name="password_confirmation" autocomplete="new-password"
                                        class="w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-200 bg-white text-gray-800 font-medium
                                               focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 transition-all">
                                 <button type="button"
                                         onclick="togglePass('password_confirmation', 'eye-confirm')"
-                                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors">
+                                        class="eye-btn text-gray-400 hover:text-purple-500 transition-colors">
                                     <svg id="eye-confirm" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -469,7 +469,7 @@
                                 <label for="delete-password" class="block text-sm font-bold text-gray-700 mb-2">
                                     Masukkan Kata Sandi untuk Konfirmasi
                                 </label>
-                                <div class="relative">
+                                <div class="eye-btn-wrap">
                                     <input type="password"
                                            id="delete-password"
                                            name="password"
@@ -495,7 +495,7 @@
                                                     ec.style.display = 'none';
                                                 }
                                             "
-                                            class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-red-500 transition-colors">
+                                            class="eye-btn p-1.5 text-gray-400 hover:text-red-500 transition-colors">
                                         <svg id="del-eye-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -590,7 +590,7 @@ function avatarUploader() {
         transform: translateY(0) !important;
     }
 
-    /* Mencegah icon mata naik-turun saat input focus */
+    /* Mencegah icon mata naik-turun saat input focus / click */
     .eye-btn-wrap {
         position: relative;
         transform: none !important;
@@ -610,9 +610,13 @@ function avatarUploader() {
         cursor: pointer;
         pointer-events: auto;
     }
-    .eye-btn:focus { outline: none; }
-    .eye-btn-wrap:focus-within .eye-btn {
+    /* Override button:active agar eye-btn tidak bergerak sama sekali */
+    .eye-btn:active,
+    .eye-btn-wrap:focus-within .eye-btn,
+    .eye-btn-wrap:focus-within .eye-btn:active,
+    .eye-btn:focus {
         transform: translateY(-50%) !important;
+        outline: none;
     }
     .eye-btn-wrap input {
         transform: none !important;
