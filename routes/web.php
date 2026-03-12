@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\AdminPaymentController;
 
 Route::view('/', 'welcome')->name('welcome');
 
@@ -81,6 +82,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/ads/{ad}', [AdController::class, 'destroy'])->name('ads.destroy');
         Route::resource('users', UserController::class)->except(['show']);
         Route::resource('roles', RoleController::class)->except(['show']);
+        Route::get('/payments', [AdminPaymentController::class, 'index'])->name('payments.index');
     });
 
 });
