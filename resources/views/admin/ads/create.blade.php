@@ -117,7 +117,7 @@
                         <input type="checkbox" name="pages[]" value="{{ $value }}"
                                {{ in_array($value, old('pages', [])) ? 'checked' : '' }}
                                class="accent-teal-600">
-                        {{ $label }}
+                        {!! $label !!}
                     </label>
                     @endforeach
                 </div>
