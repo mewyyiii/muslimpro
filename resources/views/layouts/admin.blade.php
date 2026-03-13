@@ -31,10 +31,59 @@
     >
         {{-- Logo --}}
         <div class="flex items-center gap-3 px-6 py-5 border-b border-teal-700">
-            {{-- Masjid / NurSteps icon --}}
-            <svg class="w-7 h-7 text-teal-300" fill="currentColor" viewBox="0 0 463 463">
-                <path d="M397.886,238.967c-1.202-2.712-3.89-4.46-6.856-4.46h-32.162c-3.413-9.876-12.071-31.572-28.48-53.45c-29.019-38.692-68.521-59.229-114.27-59.44c-6.534-1.114-56.24-8.741-81.407,12.237c-9.696,8.083-14.613,19.147-14.613,32.886c0,20.927,28.343,64.929,43.219,86.583H108.78c-2.546,0-7.078-2.654-11.076-4.997c-6.04-3.538-12.887-7.548-20.285-7.548c-18.66,0-19.558,25.105-20.04,38.594c-0.161,4.508-1.549,8.055-3.018,11.81c-1.602,4.096-3.259,8.331-3.259,13.547c0,5.921,3.306,11.342,9.07,14.873c5.603,3.432,13.516,5.172,23.519,5.172c4.143,0,7.5-3.358,7.5-7.5s-3.357-7.5-7.5-7.5c-1.374,0-2.627-0.047-3.813-0.118c3.929-7.999,9.833-13.734,12.735-16.243h12.241l2.743,24.689c0.422,3.798,3.633,6.672,7.454,6.672H221.68c5.604,0,10.723-2.208,14.804-6.385c6.74-6.899,9.872-18.609,11.318-28.744c17.999,21.989,30.988,32.73,31.86,33.441c1.349,1.1,3.025,1.688,4.739,1.688c0.43,0,0.862-0.037,1.292-0.112c2.145-0.375,4.02-1.663,5.139-3.529l0.003-0.005c3.584,2.37,7.781,3.646,12.176,3.646h94.291c3.353,0,6.298-2.225,7.214-5.45C404.979,317.696,415.638,279.012,397.886,238.967z"/>
-            </svg>
+            <div class="w-10 h-10 rounded-lg overflow-hidden shadow-md flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" class="w-full h-full">
+                    <defs>
+                        <radialGradient id="bgGradAppNav" cx="50%" cy="45%" r="65%">
+                            <stop offset="0%" stop-color="#2ecf8e"/>
+                            <stop offset="100%" stop-color="#1aaa72"/>
+                        </radialGradient>
+                        <filter id="glowAppNav" x="-40%" y="-40%" width="180%" height="180%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="blur1"/>
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2"/>
+                            <feColorMatrix in="blur1" type="matrix"
+                                values="0 0 0 0 0.5
+                                        0 0 0 0 1
+                                        0 0 0 0 0.7
+                                        0 0 0 0.6 0" result="colorBlur"/>
+                            <feMerge>
+                                <feMergeNode in="colorBlur"/>
+                                <feMergeNode in="blur2"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <filter id="diamondGlowAppNav" x="-80%" y="-80%" width="360%" height="360%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <filter id="sparkleGlowAppNav" x="-100%" y="-100%" width="400%" height="400%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <radialGradient id="centerGlowAppNav" cx="52%" cy="48%" r="35%">
+                            <stop offset="0%" stop-color="white" stop-opacity="0.08"/>
+                            <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+                    <rect width="1024" height="1024" fill="url(#bgGradAppNav)"/>
+                    <rect width="1024" height="1024" fill="url(#centerGlowAppNav)"/>
+                    <text x="510" y="570" text-anchor="middle" dominant-baseline="middle"
+                        font-family="'Noto Naskh Arabic', 'Arabic Typesetting', 'Traditional Arabic', 'Geeza Pro', serif"
+                        font-size="430" font-weight="bold" fill="white" direction="rtl"
+                        filter="url(#glowAppNav)">نور</text>
+                    <rect x="668" y="168" width="46" height="46" rx="4" ry="4" fill="white"
+                        transform="rotate(45, 691, 191)" filter="url(#diamondGlowAppNav)"/>
+                    <g transform="translate(952, 952)" filter="url(#sparkleGlowAppNav)" fill="white" opacity="0.75">
+                        <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4"/>
+                    </g>
+                </svg>
+            </div>
             <div>
                 <p class="font-bold text-lg leading-none">NurSteps</p>
                 <p class="text-teal-300 text-xs">Admin Panel</p>
