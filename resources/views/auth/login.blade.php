@@ -110,8 +110,9 @@
         .forgot-link { color: var(--teal-deep); text-decoration: none; font-weight: 600; font-size: 12px; }
         .forgot-link:hover { text-decoration: underline; }
 
-        .login-btn { width: 100%; padding: 15px; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; background: linear-gradient(135deg, #0d9488, #14b8a6); color: white; box-shadow: 0 6px 20px rgba(13,148,136,0.35); transition: all 0.25s; letter-spacing: 0.5px; }
-        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(13,148,136,0.45); }
+        .login-btn { width: 100%; padding: 15px; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; font-family: inherit; cursor: not-allowed; background: linear-gradient(135deg, #ef4444, #f87171); color: white; box-shadow: 0 6px 20px rgba(239,68,68,0.3); transition: all 0.35s cubic-bezier(.4,0,.2,1); letter-spacing: 0.5px; opacity: 0.85; }
+        .login-btn.ready { background: linear-gradient(135deg, #0d9488, #14b8a6); box-shadow: 0 6px 20px rgba(13,148,136,0.35); cursor: pointer; opacity: 1; }
+        .login-btn.ready:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(13,148,136,0.45); }
         .login-btn:active { transform: translateY(0); }
 
         .divider { display: flex; align-items: center; gap: 12px; margin: 22px 0 0; }
@@ -273,6 +274,20 @@
             show ? el.classList.add('show') : el.classList.remove('show');
         }
 
+        /* ===== Cek tombol siap / belum ===== */
+        function checkLoginReady() {
+            var emailOk = isValidEmail(document.getElementById('email-input').value.trim());
+            var passOk  = document.getElementById('password-input').value.length > 0;
+            var btn     = document.getElementById('login-btn');
+            if (emailOk && passOk) {
+                btn.classList.add('ready');
+                btn.disabled = false;
+            } else {
+                btn.classList.remove('ready');
+                btn.disabled = true;
+            }
+        }
+
         /* ===== Lock / Unlock password ===== */
         function lockPassword(lock) {
             var inp = document.getElementById('password-input');
@@ -289,6 +304,7 @@
                 w.classList.add('unlocked');
                 inp.placeholder = 'Kata sandi Anda';
             }
+            checkLoginReady();
         }
 
         /* ===== Email validation ===== */
@@ -346,6 +362,12 @@
                 setWrapperState('email-wrapper', 'valid');
                 lockPassword(false);
             }
+
+            /* Live check password untuk tombol hijau */
+            document.getElementById('password-input').addEventListener('input', checkLoginReady);
+
+            /* Cek awal state tombol */
+            checkLoginReady();
 
             document.querySelector('form').addEventListener('submit', function (e) {
                 if (!validateEmail()) {
@@ -533,7 +555,7 @@
                 </div>
 
                 <!-- Tombol Masuk -->
-                <button type="submit" class="login-btn">Masuk</button>
+                <button type="submit" id="login-btn" class="login-btn" disabled>Masuk</button>
 
                 <div class="divider">
                     <div class="divider-line"></div>
