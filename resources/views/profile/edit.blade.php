@@ -2,7 +2,40 @@
 
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-teal-500 via-emerald-500 to-teal-600 py-8 md:py-12">
-    
+
+    {{-- ── Fixed Sidebar (desktop) ── --}}
+    <aside class="profile-sidebar" id="profile-sidebar">
+        <div class="sidebar-inner">
+            <p class="sidebar-label">Navigasi</p>
+            <nav class="sidebar-nav">
+                <a href="#section-shalat"   class="sidebar-item active" data-section="section-shalat">
+                    <span class="sidebar-icon">🕌</span>
+                    <span class="sidebar-text">Progres Shalat</span>
+                </a>
+                <a href="#section-quran"    class="sidebar-item" data-section="section-quran">
+                    <span class="sidebar-icon">📖</span>
+                    <span class="sidebar-text">Progres Al-Qur'an</span>
+                </a>
+                <a href="#section-azan"     class="sidebar-item" data-section="section-azan">
+                    <span class="sidebar-icon">📢</span>
+                    <span class="sidebar-text">Pengaturan Azan</span>
+                </a>
+                <a href="#section-profil"   class="sidebar-item" data-section="section-profil">
+                    <span class="sidebar-icon">👤</span>
+                    <span class="sidebar-text">Informasi Profil</span>
+                </a>
+                <a href="#section-password" class="sidebar-item" data-section="section-password">
+                    <span class="sidebar-icon">🔒</span>
+                    <span class="sidebar-text">Kata Sandi</span>
+                </a>
+                <a href="#section-danger"   class="sidebar-item sidebar-item-danger" data-section="section-danger">
+                    <span class="sidebar-icon">⚠️</span>
+                    <span class="sidebar-text">Hapus Akun</span>
+                </a>
+            </nav>
+        </div>
+    </aside>
+
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {{-- Page Header --}}
@@ -116,41 +149,8 @@
             </div>
         </div>
 
-        {{-- Main Content Grid with Sidebar --}}
+        {{-- Main Content --}}
         <div class="profile-layout">
-
-            {{-- ── Sticky Sidebar ── --}}
-            <aside class="profile-sidebar" id="profile-sidebar">
-                <div class="sidebar-inner">
-                    <p class="sidebar-label">Navigasi</p>
-                    <nav class="sidebar-nav">
-                        <a href="#section-shalat"   class="sidebar-item active" data-section="section-shalat">
-                            <span class="sidebar-icon">🕌</span>
-                            <span class="sidebar-text">Progres Shalat</span>
-                        </a>
-                        <a href="#section-quran"    class="sidebar-item" data-section="section-quran">
-                            <span class="sidebar-icon">📖</span>
-                            <span class="sidebar-text">Progres Al-Qur'an</span>
-                        </a>
-                        <a href="#section-azan"     class="sidebar-item" data-section="section-azan">
-                            <span class="sidebar-icon">📢</span>
-                            <span class="sidebar-text">Pengaturan Azan</span>
-                        </a>
-                        <a href="#section-profil"   class="sidebar-item" data-section="section-profil">
-                            <span class="sidebar-icon">👤</span>
-                            <span class="sidebar-text">Informasi Profil</span>
-                        </a>
-                        <a href="#section-password" class="sidebar-item" data-section="section-password">
-                            <span class="sidebar-icon">🔒</span>
-                            <span class="sidebar-text">Kata Sandi</span>
-                        </a>
-                        <a href="#section-danger"   class="sidebar-item sidebar-item-danger" data-section="section-danger">
-                            <span class="sidebar-icon">⚠️</span>
-                            <span class="sidebar-text">Hapus Akun</span>
-                        </a>
-                    </nav>
-                </div>
-            </aside>
 
             {{-- ── Mobile Tab Bar ── --}}
             <div class="mobile-tabbar" id="mobile-tabbar">
@@ -681,39 +681,61 @@ document.addEventListener('DOMContentLoaded', function () {
 <style>
     /* ── Profile Sidebar Layout ──────────────────────────────────── */
     .profile-layout {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
         position: relative;
     }
+    .profile-content { width: 100%; }
 
-    /* Sidebar */
+    /* Sidebar — fixed to left edge of viewport */
     .profile-sidebar {
-        width: 200px;
-        flex-shrink: 0;
-        position: sticky;
-        top: 80px;
-        max-height: calc(100vh - 100px);
-        overflow-y: auto;
+        display: none; /* hidden on mobile */
     }
-    .profile-sidebar::-webkit-scrollbar { display: none; }
+
+    @media (min-width: 1200px) {
+        .profile-sidebar {
+            display: block;
+            position: fixed;
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%);
+            z-index: 40;
+            width: 210px;
+        }
+    }
+
+    /* Between 768px–1199px: sidebar visible but smaller, pinned left */
+    @media (min-width: 768px) and (max-width: 1199px) {
+        .profile-sidebar {
+            display: block;
+            position: fixed;
+            top: 50%;
+            left: 8px;
+            transform: translateY(-50%);
+            z-index: 40;
+            width: 48px; /* icon-only */
+        }
+        .sidebar-text  { display: none; }
+        .sidebar-label { display: none; }
+        .sidebar-item  { justify-content: center; padding: 10px 8px; }
+        .sidebar-icon  { font-size: 1.25rem; }
+        .sidebar-inner { padding: 10px 6px; }
+    }
 
     .sidebar-inner {
         background: rgba(255,255,255,0.18);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255,255,255,0.28);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255,255,255,0.32);
         border-radius: 20px;
-        padding: 16px 12px;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        padding: 14px 10px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.12);
     }
 
     .sidebar-label {
-        font-size: 0.62rem;
+        font-size: 0.6rem;
         font-weight: 700;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: rgba(255,255,255,0.6);
+        color: rgba(255,255,255,0.65);
         padding: 0 8px;
         margin-bottom: 8px;
     }
@@ -721,18 +743,17 @@ document.addEventListener('DOMContentLoaded', function () {
     .sidebar-nav {
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 2px;
     }
 
     .sidebar-item {
         display: flex;
         align-items: center;
-        gap: 9px;
+        gap: 8px;
         padding: 9px 10px;
         border-radius: 12px;
         text-decoration: none;
-        transition: background 0.18s, transform 0.18s;
-        cursor: pointer;
+        transition: background 0.18s, transform 0.15s;
         border: 1px solid transparent;
     }
     .sidebar-item:hover {
@@ -744,35 +765,29 @@ document.addEventListener('DOMContentLoaded', function () {
         background: rgba(255,255,255,0.92);
         border-color: rgba(255,255,255,0.5);
         box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-        transform: translateX(2px);
+        transform: translateX(3px);
     }
     .sidebar-item.active .sidebar-text {
         color: #065f46;
         font-weight: 700;
     }
+    .sidebar-item-danger:hover { background: rgba(254,202,202,0.3); }
     .sidebar-item-danger.active .sidebar-text { color: #dc2626; }
-    .sidebar-item-danger:hover { background: rgba(254,226,226,0.3); }
 
     .sidebar-icon { font-size: 1rem; line-height: 1; flex-shrink: 0; }
     .sidebar-text {
-        font-size: 0.78rem;
+        font-size: 0.8rem;
         font-weight: 600;
-        color: rgba(255,255,255,0.88);
+        color: rgba(255,255,255,0.9);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    /* Content area */
-    .profile-content { flex: 1; min-width: 0; }
-
     /* ── Mobile Tab Bar ─────────────────────────────────────────── */
     .mobile-tabbar { display: none; }
 
-    @media (max-width: 768px) {
-        .profile-sidebar { display: none; }
-        .profile-layout { display: block; }
-
+    @media (max-width: 767px) {
         .mobile-tabbar {
             display: flex;
             align-items: center;
@@ -785,18 +800,17 @@ document.addEventListener('DOMContentLoaded', function () {
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255,255,255,0.3);
             border-radius: 16px;
-            padding: 10px 8px;
+            padding: 8px 6px;
             margin-bottom: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-
         .tab-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px; height: 40px;
+            width: 42px; height: 42px;
             border-radius: 12px;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             text-decoration: none;
             transition: background 0.15s, transform 0.15s;
             border: 1px solid transparent;
