@@ -620,7 +620,7 @@
         {{-- Quick prev/next surah buttons --}}
         <div class="flex items-center gap-2">
             @if($prevSurah)
-            <a href="{{ route('quran.surah', $prevSurah->number) }}"
+            <a href="{{ route('quran.show', $prevSurah->number) }}"
                title="Surah sebelumnya: {{ $prevSurah->name }}"
                class="inline-flex items-center justify-center w-9 h-9 rounded-xl transition hover:opacity-80"
                style="color: var(--primary-accent, #10b981); background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.15)">
@@ -638,7 +638,7 @@
             @endif
 
             @if($nextSurah)
-            <a href="{{ route('quran.surah', $nextSurah->number) }}"
+            <a href="{{ route('quran.show', $nextSurah->number) }}"
                title="Surah selanjutnya: {{ $nextSurah->name }}"
                class="inline-flex items-center justify-center w-9 h-9 rounded-xl transition hover:opacity-80"
                style="color: var(--primary-accent, #10b981); background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.15)">
@@ -821,7 +821,7 @@
     <nav class="surah-nav" aria-label="Navigasi Surah">
         {{-- Prev --}}
         @if($prevSurah)
-        <a href="{{ route('quran.surah', $prevSurah->number) }}" class="surah-nav-btn prev-surah">
+        <a href="{{ route('quran.show', $prevSurah->number) }}" class="surah-nav-btn prev-surah">
             <div class="surah-nav-arrow">
                 <svg style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
@@ -849,7 +849,7 @@
 
         {{-- Next --}}
         @if($nextSurah)
-        <a href="{{ route('quran.surah', $nextSurah->number) }}" class="surah-nav-btn next-surah">
+        <a href="{{ route('quran.show', $nextSurah->number) }}" class="surah-nav-btn next-surah">
             <div class="surah-nav-text">
                 <p class="surah-nav-label">Surah Selanjutnya</p>
                 <p class="surah-nav-name">{{ $nextSurah->name }}</p>
@@ -1213,7 +1213,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function showCompletion(mode) {
         if (completionShown) return; completionShown = true;
         const label = mode === 'scroll' ? 'membaca' : 'mendengarkan';
-        const nextSurahUrl  = @json($nextSurah ? route('quran.surah', $nextSurah->number) : null);
+        const nextSurahUrl  = @json($nextSurah ? route('quran.show', $nextSurah->number) : null);
         const nextSurahName = @json($nextSurah->name ?? null);
         const n = document.createElement('div');
         n.style.cssText = 'position:fixed;bottom:24px;right:16px;z-index:99;background:linear-gradient(135deg,#059669,#0d9488);color:#fff;padding:14px 18px;border-radius:16px;box-shadow:0 8px 32px rgba(5,150,105,0.4);display:flex;align-items:flex-start;gap:10px;max-width:280px;animation:slideInRight .3s ease';
