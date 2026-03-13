@@ -513,11 +513,92 @@
     .dark .modal-btn-ghost { background: rgba(255,255,255,0.04); color: #64748b; border-color: rgba(255,255,255,0.06); }
     .modal-btn-ghost:hover { background: rgba(107,114,128,0.1); color: #6b7280; }
 
+    /* ─── Next / Prev Surah Navigation ──────────────────────────── */
+    .surah-nav {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 28px;
+        margin-bottom: 8px;
+    }
+    .surah-nav-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 16px;
+        background: rgba(255,255,255,0.7);
+        border: 1px solid rgba(16,185,129,0.18);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-card);
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+    .dark .surah-nav-btn {
+        background: rgba(15,23,42,0.65);
+        border-color: rgba(52,211,153,0.12);
+    }
+    .surah-nav-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-float);
+        border-color: rgba(16,185,129,0.4);
+        text-decoration: none;
+    }
+    .surah-nav-btn.next-surah { justify-content: flex-end; text-align: right; }
+
+    .surah-nav-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px; height: 36px;
+        background: linear-gradient(135deg, #1faf90, var(--emerald-500));
+        border-radius: 10px;
+        color: #fff;
+        flex-shrink: 0;
+        box-shadow: 0 3px 10px rgba(16,185,129,0.35);
+    }
+    .surah-nav-text { min-width: 0; }
+    .surah-nav-label {
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: #9ca3af;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+    }
+    .surah-nav-name {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #065f46;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 130px;
+    }
+    .dark .surah-nav-name { color: #6ee7b7; }
+    .surah-nav-arabic {
+        font-family: 'Amiri', serif;
+        font-size: 1rem;
+        color: rgba(107,114,128,0.7);
+        line-height: 1.2;
+    }
+    .dark .surah-nav-arabic { color: rgba(148,163,184,0.6); }
+
+    .surah-nav-btn.disabled {
+        opacity: 0.35;
+        pointer-events: none;
+    }
+
     @media (max-width: 480px) {
         #main-player-container { border-radius: 12px; padding: 12px 14px 10px; }
         .verse-item { padding: 16px; border-radius: 12px; }
         #volume-slider { width: 48px; }
         .modal-arabic { font-size: 1.3rem; }
+        .surah-nav { gap: 8px; }
+        .surah-nav-btn { padding: 12px 12px; }
+        .surah-nav-name { max-width: 90px; font-size: 0.82rem; }
     }
 </style>
 @endpush
@@ -536,7 +617,44 @@
             <span class="hidden sm:inline">Kembali</span>
         </a>
         <h1 class="absolute left-1/2 -translate-x-1/2 text-xl sm:text-2xl font-bold" style="color:var(--text-primary);">Al-Quran</h1>
-        <div class="w-16"></div>
+        {{-- Quick prev/next surah buttons --}}
+        <div class="flex items-center gap-2">
+            @if($prevSurah)
+            <a href="{{ route('quran.surah', $prevSurah->number) }}"
+               title="Surah sebelumnya: {{ $prevSurah->name }}"
+               class="inline-flex items-center justify-center w-9 h-9 rounded-xl transition hover:opacity-80"
+               style="color: var(--primary-accent, #10b981); background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.15)">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            @else
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl opacity-25 cursor-not-allowed"
+                  style="color: #9ca3af; background: rgba(107,114,128,0.06); border: 1px solid rgba(107,114,128,0.1)">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </span>
+            @endif
+
+            @if($nextSurah)
+            <a href="{{ route('quran.surah', $nextSurah->number) }}"
+               title="Surah selanjutnya: {{ $nextSurah->name }}"
+               class="inline-flex items-center justify-center w-9 h-9 rounded-xl transition hover:opacity-80"
+               style="color: var(--primary-accent, #10b981); background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.15)">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+            </a>
+            @else
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl opacity-25 cursor-not-allowed"
+                  style="color: #9ca3af; background: rgba(107,114,128,0.06); border: 1px solid rgba(107,114,128,0.1)">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+            </span>
+            @endif
+        </div>
     </div>
 
     {{-- ── Surah Header ── --}}
@@ -698,6 +816,65 @@
             <span style="font-weight:600; color: rgba(107,114,128,0.8);">Nahdlatul Ulama</span>
         </p>
     </div>
+
+    {{-- ── Next / Prev Surah Navigation ── --}}
+    <nav class="surah-nav" aria-label="Navigasi Surah">
+        {{-- Prev --}}
+        @if($prevSurah)
+        <a href="{{ route('quran.surah', $prevSurah->number) }}" class="surah-nav-btn prev-surah">
+            <div class="surah-nav-arrow">
+                <svg style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div class="surah-nav-text">
+                <p class="surah-nav-label">Surah Sebelumnya</p>
+                <p class="surah-nav-name">{{ $prevSurah->name }}</p>
+                <p class="surah-nav-arabic">{{ $prevSurah->arabic_name }}</p>
+            </div>
+        </a>
+        @else
+        <div class="surah-nav-btn prev-surah disabled">
+            <div class="surah-nav-arrow">
+                <svg style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </div>
+            <div class="surah-nav-text">
+                <p class="surah-nav-label">Surah Sebelumnya</p>
+                <p class="surah-nav-name">—</p>
+            </div>
+        </div>
+        @endif
+
+        {{-- Next --}}
+        @if($nextSurah)
+        <a href="{{ route('quran.surah', $nextSurah->number) }}" class="surah-nav-btn next-surah">
+            <div class="surah-nav-text">
+                <p class="surah-nav-label">Surah Selanjutnya</p>
+                <p class="surah-nav-name">{{ $nextSurah->name }}</p>
+                <p class="surah-nav-arabic">{{ $nextSurah->arabic_name }}</p>
+            </div>
+            <div class="surah-nav-arrow">
+                <svg style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </a>
+        @else
+        <div class="surah-nav-btn next-surah disabled">
+            <div class="surah-nav-text">
+                <p class="surah-nav-label">Surah Selanjutnya</p>
+                <p class="surah-nav-name">—</p>
+            </div>
+            <div class="surah-nav-arrow">
+                <svg style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>
+        @endif
+    </nav>
 </div>
 
 {{-- ── Scroll to Top FAB ── --}}
@@ -1036,11 +1213,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function showCompletion(mode) {
         if (completionShown) return; completionShown = true;
         const label = mode === 'scroll' ? 'membaca' : 'mendengarkan';
+        const nextSurahUrl  = @json($nextSurah ? route('quran.surah', $nextSurah->number) : null);
+        const nextSurahName = @json($nextSurah->name ?? null);
         const n = document.createElement('div');
-        n.style.cssText = 'position:fixed;bottom:24px;right:16px;z-index:99;background:linear-gradient(135deg,#059669,#0d9488);color:#fff;padding:14px 18px;border-radius:16px;box-shadow:0 8px 32px rgba(5,150,105,0.4);display:flex;align-items:flex-start;gap:10px;max-width:260px;animation:slideInRight .3s ease';
-        n.innerHTML = `<span style="font-size:1.4rem;line-height:1.2">✨</span><div><p style="font-weight:700;font-size:.9rem;margin:0 0 2px">MasyaAllah!</p><p style="font-size:.75rem;opacity:.9;margin:0;line-height:1.5">Kamu sudah ${label} Surah ${surahName} sampai selesai!</p></div>`;
+        n.style.cssText = 'position:fixed;bottom:24px;right:16px;z-index:99;background:linear-gradient(135deg,#059669,#0d9488);color:#fff;padding:14px 18px;border-radius:16px;box-shadow:0 8px 32px rgba(5,150,105,0.4);display:flex;align-items:flex-start;gap:10px;max-width:280px;animation:slideInRight .3s ease';
+        const nextBtn = nextSurahUrl
+            ? `<a href="${nextSurahUrl}" style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:6px 12px;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:99px;color:#fff;font-size:.75rem;font-weight:700;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">Lanjut ${nextSurahName} <svg style="width:12px;height:12px" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>`
+            : '';
+        n.innerHTML = `<span style="font-size:1.4rem;line-height:1.2">✨</span><div><p style="font-weight:700;font-size:.9rem;margin:0 0 2px">MasyaAllah!</p><p style="font-size:.75rem;opacity:.9;margin:0;line-height:1.5">Kamu sudah ${label} Surah ${surahName} sampai selesai!</p>${nextBtn}</div>`;
         document.body.appendChild(n);
-        setTimeout(() => { n.style.transition='opacity .4s'; n.style.opacity='0'; setTimeout(()=>n.remove(),400); }, 5000);
+        setTimeout(() => { n.style.transition='opacity .4s'; n.style.opacity='0'; setTimeout(()=>n.remove(),400); }, 7000);
     }
 
     function toast(msg) {

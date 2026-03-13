@@ -33,6 +33,9 @@ class QuranController extends Controller
             abort(404);
         }
 
-        return view('surah', ['surah' => $surah]);
+        $prevSurah = Surah::where('number', $id - 1)->first();
+        $nextSurah = Surah::where('number', $id + 1)->first();
+
+        return view('surah', compact('surah', 'prevSurah', 'nextSurah'));
     }
 }
