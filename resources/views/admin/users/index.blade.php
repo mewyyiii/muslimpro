@@ -20,33 +20,51 @@
     {{-- Alert --}}
     @if(session('success'))
     <div class="bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl px-4 py-3 mb-6 flex items-center gap-2">
-        ✅ {{ session('success') }}
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        {{ session('success') }}
     </div>
     @endif
     @if(session('error'))
     <div class="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 mb-6 flex items-center gap-2">
-        ⛔ {{ session('error') }}
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        {{ session('error') }}
     </div>
     @endif
 
     {{-- Stats Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4">
-            <div class="bg-teal-100 text-teal-600 rounded-full p-3 text-2xl">👤</div>
+            <div class="bg-teal-100 text-teal-600 rounded-full p-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+            </div>
             <div>
                 <p class="text-xs text-gray-500">Total Users</p>
                 <p class="text-2xl font-bold text-gray-800">{{ $totalUsers }}</p>
             </div>
         </div>
         <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4">
-            <div class="bg-emerald-100 text-emerald-600 rounded-full p-3 text-2xl">🛡️</div>
+            <div class="bg-emerald-100 text-emerald-600 rounded-full p-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+            </div>
             <div>
                 <p class="text-xs text-gray-500">Total Admins</p>
                 <p class="text-2xl font-bold text-gray-800">{{ $totalAdmins }}</p>
             </div>
         </div>
         <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4">
-            <div class="bg-blue-100 text-blue-600 rounded-full p-3 text-2xl">👥</div>
+            <div class="bg-blue-100 text-blue-600 rounded-full p-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+            </div>
             <div>
                 <p class="text-xs text-gray-500">Total Semua</p>
                 <p class="text-2xl font-bold text-gray-800">{{ $totalUsers + $totalAdmins }}</p>
@@ -113,11 +131,17 @@
                         <td class="px-6 py-4">
                             @if($user->role?->name === 'admin')
                                 <span class="inline-flex items-center gap-1 bg-emerald-100 text-emerald-700 text-xs font-medium px-2.5 py-1 rounded-full">
-                                    🛡️ Admin
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                    </svg>
+                                    Admin
                                 </span>
                             @else
                                 <span class="inline-flex items-center gap-1 bg-blue-100 text-blue-700 text-xs font-medium px-2.5 py-1 rounded-full">
-                                    👤 {{ ucfirst($user->role?->name ?? 'user') }}
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                    {{ ucfirst($user->role?->name ?? 'user') }}
                                 </span>
                             @endif
                         </td>
@@ -128,7 +152,10 @@
                             <div class="flex items-center gap-3">
                                 <a href="{{ route('admin.users.edit', $user->id) }}"
                                    class="text-teal-600 hover:text-teal-800 font-medium transition text-xs">
-                                    ✏️ Edit
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                   </svg>
+                                   Edit
                                 </a>
                                 @if($user->id !== auth()->id())
                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
@@ -136,7 +163,10 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-500 hover:text-red-700 font-medium transition text-xs">
-                                        🗑️ Hapus
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                        </svg>
+                                        Hapus
                                     </button>
                                 </form>
                                 @endif
@@ -146,7 +176,11 @@
                     @empty
                     <tr>
                         <td colspan="5" class="px-6 py-12 text-center text-gray-400">
-                            <div class="text-4xl mb-2">👤</div>
+                            <div class="flex justify-center mb-3 text-gray-300">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                        </div>
                             <p class="font-medium">Tidak ada user ditemukan</p>
                             <p class="text-xs mt-1">Coba ubah filter atau kata kunci pencarian</p>
                         </td>
