@@ -2,8 +2,15 @@
 {{-- Taruh di bagian atas @section('content') --}}
 @if(request('upgrade') === 'success')
     <div id="upgrade-notif" class="bg-teal-50 border border-teal-200 text-teal-700 px-6 py-4 rounded-2xl mx-4 mt-4 text-sm flex items-center justify-between">
-        <span>🎉 Selamat! Kamu sekarang sudah menjadi member <strong>Pro</strong>. Iklan telah dinonaktifkan.</span>
-        <button onclick="dismissNotif()" class="ml-4 text-teal-400 hover:text-teal-600 font-bold text-lg leading-none">✕</button>
+        <span class="flex items-center gap-2">
+            <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L13.09 8.26L19 6L15.45 11.16L21 13.27L15.09 14.5L17 20.5L12 17L7 20.5L8.91 14.5L3 13.27L8.55 11.16L5 6L10.91 8.26L12 2Z" fill="#0d9488" stroke="#0d9488" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            Selamat! Kamu sekarang sudah menjadi member <strong>Pro</strong>. Iklan telah dinonaktifkan.
+        </span>
+        <button onclick="dismissNotif()" class="ml-4 text-teal-400 hover:text-teal-600 font-bold text-lg leading-none">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
     </div>
     <script>
         // Hapus query param dari URL tanpa reload
@@ -15,8 +22,16 @@
     </script>
 @elseif(request('upgrade') === 'pending')
     <div id="upgrade-notif" class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-6 py-4 rounded-2xl mx-4 mt-4 text-sm flex items-center justify-between">
-        <span>⏳ Pembayaran sedang diproses. Role Pro akan aktif setelah pembayaran dikonfirmasi.</span>
-        <button onclick="dismissNotif()" class="ml-4 text-yellow-400 hover:text-yellow-600 font-bold text-lg leading-none">✕</button>
+        <span class="flex items-center gap-2">
+            <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#d97706" stroke-width="2"/>
+                <path d="M12 6V12L16 14" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Pembayaran sedang diproses. Role Pro akan aktif setelah pembayaran dikonfirmasi.
+        </span>
+        <button onclick="dismissNotif()" class="ml-4 text-yellow-400 hover:text-yellow-600 font-bold text-lg leading-none">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
     </div>
     <script>
         history.replaceState(null, '', '{{ route('home') }}');
@@ -36,7 +51,15 @@
     <div class="px-4 pt-10 pb-5 md:px-8 lg:px-12">
         <div class="max-w-4xl mx-auto flex items-center justify-between">
             <div>
-                <h1 class="text-xl md:text-2xl font-bold text-white leading-tight">Assalamu'alaikum 👋</h1>
+                <h1 class="text-xl md:text-2xl font-bold text-white leading-tight flex items-center gap-2">Assalamu'alaikum
+                    <svg class="w-6 h-6 inline-block" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.5 4.5C7.5 3.67 8.17 3 9 3C9.83 3 10.5 3.67 10.5 4.5V11.5C10.5 12.33 9.83 13 9 13C8.17 13 7.5 12.33 7.5 11.5V4.5Z" fill="white"/>
+                        <path d="M10.5 6.5C10.5 5.67 11.17 5 12 5C12.83 5 13.5 5.67 13.5 6.5V11.5C13.5 12.33 12.83 13 12 13C11.17 13 10.5 12.33 10.5 11.5V6.5Z" fill="white"/>
+                        <path d="M13.5 8C13.5 7.17 14.17 6.5 15 6.5C15.83 6.5 16.5 7.17 16.5 8V11.5C16.5 12.33 15.83 13 15 13C14.17 13 13.5 12.33 13.5 11.5V8Z" fill="white"/>
+                        <path d="M16.5 10C16.5 9.17 17.17 8.5 18 8.5C18.83 8.5 19.5 9.17 19.5 10V12C19.5 14.5 17.5 17 15 18L9 21V18.5L13.5 16.5C15 15.5 16.5 13.5 16.5 12V10Z" fill="white"/>
+                        <path d="M7.5 11.5V13C7.5 15 6 17 4.5 17.5V21" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </h1>
                 <p class="text-teal-200 text-xs mt-0.5">NurSteps — Pendamping Ibadah Anda</p>
             </div>
             <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0">
@@ -113,7 +136,12 @@
                         <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-emerald-400 to-teal-600
                                     flex items-center justify-center">
-                            <span class="text-2xl">📖</span>
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 6.5C2 5.4 2.9 4.5 4 4.5H11C11.55 4.5 12 4.95 12 5.5V19.5C12 19.5 9.5 18.5 6 18.5H4C2.9 18.5 2 17.6 2 16.5V6.5Z" fill="white" fill-opacity="0.9"/>
+                                <path d="M22 6.5C22 5.4 21.1 4.5 20 4.5H13C12.45 4.5 12 4.95 12 5.5V19.5C12 19.5 14.5 18.5 18 18.5H20C21.1 18.5 22 17.6 22 16.5V6.5Z" fill="white" fill-opacity="0.6"/>
+                                <path d="M12 5.5V19.5" stroke="white" stroke-width="1.5"/>
+                                <path d="M5 8.5H9M5 11H9M5 13.5H8" stroke="#10b981" stroke-width="1.2" stroke-linecap="round"/>
+                            </svg>
                         </div>
                         <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Al-Quran</span>
                     </a>
@@ -167,7 +195,12 @@
                         <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-amber-400 to-orange-500
                                     flex items-center justify-center">
-                            <span class="text-2xl">🧭</span>
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.8"/>
+                                <circle cx="12" cy="12" r="2" fill="white"/>
+                                <path d="M12 3V5M12 19V21M3 12H5M19 12H21" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+                                <path d="M15 9L13 13L9 15L11 11L15 9Z" fill="white"/>
+                            </svg>
                         </div>
                         <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Kiblat</span>
                     </a>
@@ -191,7 +224,10 @@
                         <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-sky-400 to-blue-600
                                     flex items-center justify-center">
-                            <span class="text-2xl">🌙</span>
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17 4L17.5 5.5L19 6L17.5 6.5L17 8L16.5 6.5L15 6L16.5 5.5L17 4Z" fill="white" opacity="0.7"/>
+                            </svg>
                         </div>
                         <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Doa</span>
                     </a>
@@ -203,7 +239,17 @@
                         <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-rose-400 to-pink-600
                                     flex items-center justify-center">
-                            <span class="text-2xl">📿</span>
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="3.5" r="1.8" fill="white"/>
+                                <circle cx="17.5" cy="6" r="1.5" fill="white" opacity="0.9"/>
+                                <circle cx="20.5" cy="11" r="1.5" fill="white" opacity="0.8"/>
+                                <circle cx="19.5" cy="16.5" r="1.5" fill="white" opacity="0.7"/>
+                                <circle cx="15.5" cy="20.5" r="1.5" fill="white" opacity="0.6"/>
+                                <circle cx="10" cy="21.5" r="1.5" fill="white" opacity="0.5"/>
+                                <path d="M12 5.3C12 5.3 15.8 5.5 18 8C20.2 10.5 20 14 19 17C18 20 16 22 12 22" stroke="white" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+                                <path d="M12 5.3C12 5.3 8 6 6.5 9C5 12 6 15.5 8 18C9.5 20 11 21 12 22" stroke="white" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.6"/>
+                                <path d="M12 3.5V5.3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
                         </div>
                         <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Tasbih</span>
                     </a>
@@ -221,7 +267,14 @@
                     <div class="bg-gradient-to-r from-teal-600 to-emerald-500 px-4 py-3
                                 flex items-center justify-between">
                         <div class="flex items-center gap-2">
-                            <span class="text-lg">🕌</span>
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C12 2 9 5 9 8H15C15 5 12 2 12 2Z" fill="white"/>
+                                <rect x="3" y="13" width="18" height="8" rx="1" fill="white" opacity="0.9"/>
+                                <rect x="6" y="10" width="12" height="4" rx="0.5" fill="white"/>
+                                <rect x="9" y="15" width="6" height="6" rx="0.5" fill="white" opacity="0.4"/>
+                                <path d="M3 13H21" stroke="white" stroke-width="0.5" opacity="0.5"/>
+                                <circle cx="12" cy="8" r="1" fill="white" opacity="0.7"/>
+                            </svg>
                             <span class="text-white font-bold text-sm">Shalat Hari Ini</span>
                         </div>
                         <a href="{{ route('prayer-tracking.index') }}"
@@ -252,8 +305,12 @@
                                         <p class="text-[9px] text-gray-400 font-semibold mt-1">Hari Ini</p>
                                     </div>
                                     <div class="bg-amber-50 rounded-xl px-2 py-2.5 text-center">
-                                        <p class="text-base font-extrabold text-amber-500 leading-none">
-                                            <span x-text="data.streak"></span> <span class="text-sm">🔥</span>
+                                        <p class="text-base font-extrabold text-amber-500 leading-none flex items-center justify-center gap-1">
+                                            <span x-text="data.streak"></span>
+                                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 2C12 2 8 7 8 11C8 11 6 10 6 8C6 8 3 11 3 15C3 18.87 7.13 22 12 22C16.87 22 21 18.87 21 15C21 10 16 6 14 4C14 4 14 7 12 8C12 8 12 2 12 2Z" fill="#f59e0b" stroke="#f59e0b" stroke-width="1" stroke-linejoin="round"/>
+                                                <path d="M12 22C14 22 16 20.5 16 18.5C16 17 15 16 14 15.5C14 17 13 18 12 18C11 18 10 17 10 15.5C9 16 8 17 8 18.5C8 20.5 10 22 12 22Z" fill="#fcd34d"/>
+                                            </svg>
                                         </p>
                                         <p class="text-[9px] text-gray-400 font-semibold mt-1">Berturut</p>
                                     </div>
@@ -276,14 +333,14 @@
                                              :class="getStatus(prayer) === 'performed' ? 'bg-teal-50' : 'bg-gray-50'">
                                             <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm transition-all"
                                                  :class="getPrayerDotClass(prayer)">
-                                                <span x-text="prayerIcons[prayer]"></span>
+                                                <span x-html="prayerIcons[prayer]"></span>
                                             </div>
                                             <span class="text-[8.5px] font-semibold text-center leading-tight"
                                                   :class="getPrayerTextClass(prayer)"
                                                   x-text="prayerNames[prayer]"></span>
-                                            <span class="text-[8px] px-1 py-0.5 rounded-full font-bold"
+                                            <span class="text-[8px] px-1 py-0.5 rounded-full font-bold flex items-center justify-center"
                                                   :class="getStatusBadgeClass(prayer)"
-                                                  x-text="getStatusLabel(prayer)"></span>
+                                                  x-html="getStatusLabel(prayer)"></span>
                                         </div>
                                     </template>
                                 </div>
@@ -303,12 +360,17 @@
                                 <template x-if="data.performed > 0 && data.performed < 5">
                                     <div class="mt-3 p-2.5 bg-amber-50 border border-amber-100 rounded-xl text-center">
                                         <p class="text-[11px] text-amber-700 font-semibold"
-                                           x-text="(5 - data.performed) + ' shalat lagi untuk hari yang sempurna! 💪'"></p>
+                                           x-text="(5 - data.performed) + ' shalat lagi untuk hari yang sempurna!'"></p>
                                     </div>
                                 </template>
                                 <template x-if="data.performed === 5">
                                     <div class="mt-3 p-2.5 bg-teal-50 border border-teal-100 rounded-xl text-center">
-                                        <p class="text-[11px] text-teal-700 font-semibold">✨ MasyaAllah! Shalat hari ini lengkap!</p>
+                                        <p class="text-[11px] text-teal-700 font-semibold flex items-center justify-center gap-1">
+                                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 2L13.5 8.5L20 7L15.5 12L20 17L13.5 15.5L12 22L10.5 15.5L4 17L8.5 12L4 7L10.5 8.5L12 2Z" fill="#0d9488"/>
+                                            </svg>
+                                            MasyaAllah! Shalat hari ini lengkap!
+                                        </p>
                                     </div>
                                 </template>
                             </div>
@@ -327,7 +389,11 @@
                     <div class="bg-gradient-to-r from-emerald-600 to-teal-500 px-4 py-3
                                 flex items-center justify-between">
                         <div class="flex items-center gap-2">
-                            <span class="text-lg">📖</span>
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 6.5C2 5.4 2.9 4.5 4 4.5H11C11.55 4.5 12 4.95 12 5.5V19.5C12 19.5 9.5 18.5 6 18.5H4C2.9 18.5 2 17.6 2 16.5V6.5Z" fill="white" fill-opacity="0.9"/>
+                                <path d="M22 6.5C22 5.4 21.1 4.5 20 4.5H13C12.45 4.5 12 4.95 12 5.5V19.5C12 19.5 14.5 18.5 18 18.5H20C21.1 18.5 22 17.6 22 16.5V6.5Z" fill="white" fill-opacity="0.6"/>
+                                <path d="M12 5.5V19.5" stroke="white" stroke-width="1.5"/>
+                            </svg>
                             <span class="text-white font-bold text-sm">Membaca Al-Quran</span>
                         </div>
                         <a href="{{ route('quran-tracking.index') }}"
@@ -357,7 +423,13 @@
                                         <span class="text-xs text-gray-400 ml-1">surah</span>
                                     </div>
                                     <div class="text-right">
-                                        <p class="text-sm font-bold text-amber-500">🔥 <span x-text="data.streak"></span> hari</p>
+                                        <p class="text-sm font-bold text-amber-500 flex items-center gap-1 justify-end">
+                                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 2C12 2 8 7 8 11C8 11 6 10 6 8C6 8 3 11 3 15C3 18.87 7.13 22 12 22C16.87 22 21 18.87 21 15C21 10 16 6 14 4C14 4 14 7 12 8C12 8 12 2 12 2Z" fill="#f59e0b" stroke="#f59e0b" stroke-width="1" stroke-linejoin="round"/>
+                                                <path d="M12 22C14 22 16 20.5 16 18.5C16 17 15 16 14 15.5C14 17 13 18 12 18C11 18 10 17 10 15.5C9 16 8 17 8 18.5C8 20.5 10 22 12 22Z" fill="#fcd34d"/>
+                                            </svg>
+                                            <span x-text="data.streak"></span> hari
+                                        </p>
                                         <p class="text-[9px] text-gray-400">berturut-turut</p>
                                     </div>
                                 </div>
@@ -447,7 +519,13 @@ function prayerWidget() {
         data: { performed: 0, total: 5, percent: 0, streak: 0, today_data: {} },
         prayers: ['fajr','dhuhr','asr','maghrib','isha'],
         prayerNames: { fajr:'Subuh', dhuhr:'Dzuhur', asr:'Ashar', maghrib:'Maghrib', isha:'Isya' },
-        prayerIcons: { fajr:'🌅', dhuhr:'☀️', asr:'🌤️', maghrib:'🌇', isha:'🌙' },
+        prayerIcons: {
+            fajr: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+            dhuhr: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+            asr:  `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+            maghrib: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+            isha:  `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+        },
 
         async load() {
             try {
@@ -492,9 +570,9 @@ function prayerWidget() {
 
         getStatusLabel(prayer) {
             const s = this.getStatus(prayer);
-            if (s === 'performed') return '✓';
+            if (s === 'performed') return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>`;
             if (s === 'qada')      return 'Q';
-            if (s === 'missed')    return '✗';
+            if (s === 'missed')    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>`;
             return '–';
         },
     };
