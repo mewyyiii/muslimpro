@@ -48,7 +48,6 @@
         @forelse($roles as $role)
         <div class="bg-white rounded-2xl shadow p-5 flex items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-                {{-- Icon by role --}}
                 <div class="rounded-full p-3 text-xl
                     {{ $role->name === 'admin' ? 'bg-emerald-100' : 'bg-teal-100' }}">
                     @if($role->name === 'admin')
@@ -86,18 +85,21 @@
                 @endif
 
                 @if($role->name !== 'admin' && $role->users_count === 0)
-                <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST"
-                      onsubmit="return confirm('Yakin hapus role {{ addslashes($role->name) }}?')">
+                {{-- Form disembunyikan, di-submit oleh modal --}}
+                <form id="del-role-{{ $role->id }}"
+                      action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" style="display:none;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit"
-                            style="display:inline-flex;align-items:center;gap:4px;" class="text-xs px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg font-medium transition">
-                        <svg style="width:13px;height:13px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                        </svg>
-                        Hapus
-                    </button>
                 </form>
+                <button type="button"
+                        onclick="confirmDelete('del-role-{{ $role->id }}', '{{ addslashes($role->name) }}', 'Role')"
+                        style="display:inline-flex;align-items:center;gap:4px;"
+                        class="text-xs px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg font-medium transition border-0 cursor-pointer">
+                    <svg style="width:13px;height:13px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                    Hapus
+                </button>
                 @elseif($role->name === 'admin')
                 <span style="display:inline-flex;align-items:center;gap:4px;" class="text-xs px-3 py-1.5 bg-gray-100 text-gray-400 rounded-lg">
                     <svg style="width:13px;height:13px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">

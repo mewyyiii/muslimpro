@@ -159,18 +159,21 @@
                                     Edit
                                 </a>
                                 @if($user->id !== auth()->id())
-                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
-                                      onsubmit="return confirm('Yakin hapus user {{ addslashes($user->name) }}?')">
+                                {{-- Form disembunyikan, di-submit oleh modal --}}
+                                <form id="del-user-{{ $user->id }}"
+                                      action="{{ route('admin.users.destroy', $user->id) }}" method="POST" style="display:none;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-500 hover:text-red-700 font-medium transition text-xs"
-                                            style="display:inline-flex; align-items:center; gap:4px; background:none; border:none; cursor:pointer; padding:0;">
-                                        <svg style="width:14px;height:14px;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                        </svg>
-                                        Hapus
-                                    </button>
                                 </form>
+                                <button type="button"
+                                        onclick="confirmDelete('del-user-{{ $user->id }}', '{{ addslashes($user->name) }}', 'User')"
+                                        class="text-red-500 hover:text-red-700 font-medium transition text-xs"
+                                        style="display:inline-flex; align-items:center; gap:4px; background:none; border:none; cursor:pointer; padding:0;">
+                                    <svg style="width:14px;height:14px;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                    </svg>
+                                    Hapus
+                                </button>
                                 @endif
                             </div>
                         </td>
@@ -179,10 +182,10 @@
                     <tr>
                         <td colspan="5" class="px-6 py-12 text-center text-gray-400">
                             <div class="flex justify-center mb-3 text-gray-300">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                            </svg>
-                        </div>
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                            </div>
                             <p class="font-medium">Tidak ada user ditemukan</p>
                             <p class="text-xs mt-1">Coba ubah filter atau kata kunci pencarian</p>
                         </td>

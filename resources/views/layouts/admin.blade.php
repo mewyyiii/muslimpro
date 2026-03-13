@@ -203,5 +203,83 @@
 </div>
 
 @stack('scripts')
+
+{{-- ══ GLOBAL CONFIRM DELETE MODAL ══════════════════════════════════ --}}
+<div id="confirmModal"
+     style="display:none; position:fixed; inset:0; z-index:9999; align-items:center; justify-content:center; padding:16px; background:rgba(0,0,0,0.5); backdrop-filter:blur(4px);">
+
+    <div id="confirmModalBox"
+         style="background:#fff; border-radius:20px; box-shadow:0 25px 60px rgba(0,0,0,0.2); width:100%; max-width:400px; overflow:hidden; transform:scale(0.95); transition:transform 0.15s ease;">
+
+        <div style="padding:28px 28px 0; text-align:center;">
+            <div style="width:56px; height:56px; background:#fef2f2; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                <svg style="width:28px;height:28px;" fill="none" stroke="#ef4444" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+            </div>
+            <h3 id="confirmTitle" style="font-size:18px; font-weight:700; color:#111827; margin:0 0 8px;">Hapus Data?</h3>
+            <p id="confirmMessage" style="font-size:14px; color:#6b7280; margin:0; line-height:1.5;"></p>
+        </div>
+
+        <div style="margin:20px 28px 0; padding:10px 14px; background:#fef9ec; border:1px solid #fde68a; border-radius:10px; display:flex; align-items:center; gap:8px;">
+            <svg style="width:16px;height:16px;flex-shrink:0;" fill="none" stroke="#d97706" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            </svg>
+            <span style="font-size:12px; color:#92400e;">Tindakan ini tidak dapat dibatalkan.</span>
+        </div>
+
+        <div style="padding:20px 28px 28px; display:flex; gap:10px;">
+            <button onclick="closeConfirmModal()"
+                    style="flex:1; padding:11px; background:#f3f4f6; color:#374151; font-size:14px; font-weight:600; border:none; border-radius:12px; cursor:pointer;"
+                    onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+                Batal
+            </button>
+            <button id="confirmOkBtn"
+                    style="flex:1; padding:11px; background:#ef4444; color:#fff; font-size:14px; font-weight:700; border:none; border-radius:12px; cursor:pointer;"
+                    onmouseover="this.style.background='#dc2626'" onmouseout="this.style.background='#ef4444'">
+                Ya, Hapus
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+let _confirmForm = null;
+
+function confirmDelete(formId, itemName, itemType) {
+    _confirmForm = document.getElementById(formId);
+    const type = itemType || 'data';
+    document.getElementById('confirmTitle').textContent   = 'Hapus ' + type + '?';
+    document.getElementById('confirmMessage').textContent = 'Kamu akan menghapus ' + type.toLowerCase() + ' "' + itemName + '". Data akan dihapus permanen.';
+    document.getElementById('confirmOkBtn').onclick = function () {
+        this.textContent   = 'Menghapus...';
+        this.style.opacity = '0.7';
+        this.style.cursor  = 'not-allowed';
+        _confirmForm.submit();
+    };
+    const modal = document.getElementById('confirmModal');
+    const box   = document.getElementById('confirmModalBox');
+    modal.style.display = 'flex';
+    setTimeout(() => { box.style.transform = 'scale(1)'; }, 10);
+    document.body.style.overflow = 'hidden';
+}
+
+function closeConfirmModal() {
+    const box = document.getElementById('confirmModalBox');
+    box.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+        document.getElementById('confirmModal').style.display = 'none';
+        document.body.style.overflow = '';
+    }, 120);
+}
+
+document.getElementById('confirmModal').addEventListener('click', function(e) {
+    if (e.target === this) closeConfirmModal();
+});
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeConfirmModal();
+});
+</script>
 </body>
 </html>
