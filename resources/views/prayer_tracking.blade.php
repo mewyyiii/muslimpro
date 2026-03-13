@@ -98,6 +98,16 @@
                     <span id="gpsBtnText">Lokasi Saya</span>
                 </button>
 
+                {{-- Tombol Pilih di Peta --}}
+                <button type="button" onclick="openMapPicker()"
+                    class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition whitespace-nowrap">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                    </svg>
+                    <span>Pilih di Peta</span>
+                </button>
+
                 {{-- Tombol Simpan --}}
                 <button type="button" onclick="saveLocation()"
                     class="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition">
@@ -329,6 +339,94 @@
 
     </div>
 </div>
+
+{{-- ══ MAP PICKER MODAL ══════════════════════════════════════════════ --}}
+<div id="mapPickerModal"
+     class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+     style="display:none !important">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col"
+         style="max-height:90vh">
+
+        {{-- Header --}}
+        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800 text-base">Pilih Lokasi di Peta</h3>
+                    <p class="text-xs text-gray-400">Klik titik manapun di peta untuk menentukan lokasi</p>
+                </div>
+            </div>
+            <button onclick="closeMapPicker()"
+                    class="w-8 h-8 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        {{-- Search inside modal --}}
+        <div class="px-5 py-3 border-b border-gray-100 bg-gray-50">
+            <div class="flex gap-2">
+                <input id="mapSearchInput"
+                       type="text"
+                       placeholder="Cari kota atau alamat..."
+                       class="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                       onkeydown="if(event.key==='Enter') searchOnMap()"/>
+                <button onclick="searchOnMap()"
+                        class="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg hover:bg-blue-600 transition">
+                    Cari
+                </button>
+                <button onclick="centerToMyGPS()"
+                        title="Gunakan GPS saya"
+                        class="px-3 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        {{-- Map --}}
+        <div id="leafletMap" style="flex:1; min-height:340px; z-index:1"></div>
+
+        {{-- Selected location info + confirm --}}
+        <div class="px-5 py-4 border-t border-gray-100 bg-white">
+            <div id="mapSelectedInfo" class="flex items-center gap-3 mb-3 hidden">
+                <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-xs text-gray-400 font-medium">Lokasi dipilih</p>
+                    <p id="mapSelectedName" class="text-sm font-semibold text-gray-800 truncate">—</p>
+                    <p id="mapSelectedCoords" class="text-xs text-gray-400"></p>
+                </div>
+            </div>
+            <p id="mapHint" class="text-xs text-gray-400 mb-3">📌 Klik di peta untuk menentukan lokasi shalat</p>
+            <div class="flex gap-2">
+                <button onclick="closeMapPicker()"
+                        class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-600 font-semibold rounded-xl hover:bg-gray-200 transition text-sm">
+                    Batal
+                </button>
+                <button id="mapConfirmBtn"
+                        onclick="confirmMapLocation()"
+                        disabled
+                        class="flex-1 px-4 py-2.5 bg-teal-500 text-white font-bold rounded-xl hover:bg-teal-600 transition text-sm disabled:opacity-40 disabled:cursor-not-allowed">
+                    Gunakan Lokasi Ini
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('scripts')
@@ -796,22 +894,244 @@ async function saveLocation() {
     console.log('[Azan] ✅ Polling aktif. Jadwal hari ini:', prayerTimes);
 
 })();
+
+// ══════════════════════════════════════════════════════════════════
+// 🗺️  MAP PICKER — Leaflet.js
+// ══════════════════════════════════════════════════════════════════
+(function loadLeaflet() {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.onload = initMapPicker;
+    document.head.appendChild(script);
+})();
+
+let mapInstance   = null;
+let mapMarker     = null;
+let mapSelectedLat = null;
+let mapSelectedLng = null;
+let mapSelectedName = null;
+
+function initMapPicker() {
+    // Inisialisasi dilakukan sekali saat pertama kali modal dibuka
+}
+
+function openMapPicker() {
+    const modal = document.getElementById('mapPickerModal');
+    modal.classList.add('open');
+
+    // Cegah scroll body
+    document.body.style.overflow = 'hidden';
+
+    // Inisialisasi peta kalau belum
+    setTimeout(() => {
+        if (!mapInstance) {
+            // Default center: Indonesia tengah (atau pakai lokasi user kalau ada)
+            const initLat = parseFloat(document.getElementById('cityLat').value) || -2.5;
+            const initLng = parseFloat(document.getElementById('cityLng').value) || 118.0;
+            const initZoom = (document.getElementById('cityLat').value) ? 12 : 5;
+
+            mapInstance = L.map('leafletMap', { zoomControl: true }).setView([initLat, initLng], initZoom);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19,
+            }).addTo(mapInstance);
+
+            // Kalau sudah ada lokasi sebelumnya, taruh marker
+            if (document.getElementById('cityLat').value) {
+                placeMapMarker(initLat, initLng, document.getElementById('cityName').value || 'Lokasi tersimpan');
+            }
+
+            // Klik pada peta → taruh/pindah marker
+            mapInstance.on('click', async function (e) {
+                const { lat, lng } = e.latlng;
+                const name = await reverseGeocodeMap(lat, lng);
+                placeMapMarker(lat, lng, name);
+            });
+        } else {
+            mapInstance.invalidateSize();
+        }
+    }, 100);
+}
+
+function closeMapPicker() {
+    document.getElementById('mapPickerModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// Tutup modal klik di luar
+document.addEventListener('click', function (e) {
+    const modal = document.getElementById('mapPickerModal');
+    if (e.target === modal) closeMapPicker();
+});
+
+function placeMapMarker(lat, lng, name) {
+    // Hapus marker lama
+    if (mapMarker) mapMarker.remove();
+
+    // Custom icon berupa pin teal
+    const icon = L.divIcon({
+        className: '',
+        html: `<div style="
+            width:32px;height:32px;
+            background:linear-gradient(135deg,#0d9488,#059669);
+            border:3px solid #fff;
+            border-radius:50% 50% 50% 0;
+            transform:rotate(-45deg);
+            box-shadow:0 4px 14px rgba(0,0,0,0.25);
+        "></div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -34],
+    });
+
+    mapMarker = L.marker([lat, lng], { icon }).addTo(mapInstance);
+    mapInstance.panTo([lat, lng]);
+
+    // Simpan ke variabel sementara
+    mapSelectedLat  = lat;
+    mapSelectedLng  = lng;
+    mapSelectedName = name;
+
+    // Update UI info bawah peta
+    document.getElementById('mapSelectedInfo').classList.remove('hidden');
+    document.getElementById('mapSelectedName').textContent   = name;
+    document.getElementById('mapSelectedCoords').textContent = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+    document.getElementById('mapHint').style.display         = 'none';
+    document.getElementById('mapConfirmBtn').disabled        = false;
+}
+
+async function reverseGeocodeMap(lat, lng) {
+    try {
+        const res  = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=id`,
+            { headers: { 'Accept': 'application/json' } }
+        );
+        const data = await res.json();
+        const addr = data.address || {};
+        return addr.village
+            || addr.suburb
+            || addr.town
+            || addr.city_district
+            || addr.county
+            || addr.city
+            || addr.state
+            || `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+    } catch {
+        return `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+    }
+}
+
+async function searchOnMap() {
+    const query = document.getElementById('mapSearchInput').value.trim();
+    if (!query) return;
+
+    try {
+        const res  = await fetch(
+            `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1&accept-language=id`,
+            { headers: { 'Accept': 'application/json' } }
+        );
+        const results = await res.json();
+
+        if (results.length === 0) {
+            alert('Lokasi tidak ditemukan. Coba kata kunci lain.');
+            return;
+        }
+
+        const r    = results[0];
+        const lat  = parseFloat(r.lat);
+        const lng  = parseFloat(r.lon);
+        const name = r.display_name.split(',')[0];
+
+        mapInstance.setView([lat, lng], 14);
+        placeMapMarker(lat, lng, name);
+    } catch {
+        alert('Gagal mencari lokasi. Coba lagi.');
+    }
+}
+
+function centerToMyGPS() {
+    if (!navigator.geolocation) { alert('GPS tidak tersedia di browser ini.'); return; }
+    navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+            const lat  = pos.coords.latitude;
+            const lng  = pos.coords.longitude;
+            const name = await reverseGeocodeMap(lat, lng);
+            mapInstance.setView([lat, lng], 14);
+            placeMapMarker(lat, lng, name);
+        },
+        () => alert('Gagal mendapatkan lokasi GPS.')
+    );
+}
+
+async function confirmMapLocation() {
+    if (!mapSelectedLat || !mapSelectedLng) return;
+
+    const btn = document.getElementById('mapConfirmBtn');
+    btn.disabled     = true;
+    btn.textContent  = 'Menyimpan...';
+
+    try {
+        const res = await fetch('{{ route("prayer-tracking.set-location") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                city     : mapSelectedName,
+                latitude : mapSelectedLat,
+                longitude: mapSelectedLng,
+            }),
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            closeMapPicker();
+            window.location.reload();
+        } else {
+            alert('Gagal menyimpan lokasi.');
+            btn.disabled    = false;
+            btn.textContent = 'Gunakan Lokasi Ini';
+        }
+    } catch {
+        alert('Terjadi kesalahan.');
+        btn.disabled    = false;
+        btn.textContent = 'Gunakan Lokasi Ini';
+    }
+}
 </script>
 @endpush
 
 @push('styles')
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
-    .prayer-row {
-        transition: all 0.2s ease;
+    /* ── Map Modal ── */
+    #mapPickerModal.open { display:flex !important; }
+    #leafletMap .leaflet-container { font-family: inherit; }
+
+    /* Crosshair cursor saat di peta */
+    #leafletMap { cursor: crosshair; }
+
+    /* Custom marker pulse */
+    .map-pin-pulse {
+        width: 16px; height: 16px;
+        background: #0d9488;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px rgba(13,148,136,0.3);
+        animation: mapPinPulse 1.5s infinite;
+    }
+    @keyframes mapPinPulse {
+        0%   { box-shadow: 0 0 0 0   rgba(13,148,136,0.4); }
+        70%  { box-shadow: 0 0 0 10px rgba(13,148,136,0);   }
+        100% { box-shadow: 0 0 0 0   rgba(13,148,136,0);   }
     }
 
-    button:disabled {
-        cursor: not-allowed;
-        opacity: 0.6;
-    }
-
-    button:disabled:hover {
-        transform: none !important;
-    }
+    .prayer-row { transition: all 0.2s ease; }
+    button:disabled { cursor: not-allowed; opacity: 0.6; }
+    button:disabled:hover { transform: none !important; }
 </style>
 @endpush
