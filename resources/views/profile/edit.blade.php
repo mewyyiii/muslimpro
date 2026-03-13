@@ -46,14 +46,7 @@
         </div>
 
         {{-- Footer --}}
-        <div class="sidebar-footer">
-            <a href="{{ route('home') }}" class="sidebar-back-link">
-                <svg style="width:14px;height:14px;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-                <span class="sidebar-text">Kembali ke Beranda</span>
-            </a>
-        </div>
+        <div class="sidebar-footer"></div>
     </aside>
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -811,9 +804,9 @@ document.addEventListener('DOMContentLoaded', function () {
         box-shadow: inset 3px 0 0 #fff;
         padding-left: 14px;
     }
-    .sidebar-item-danger       { color: rgba(252,165,165,0.8); }
-    .sidebar-item-danger:hover { background: rgba(239,68,68,0.15); color: #fca5a5; }
-    .sidebar-item-danger.active { box-shadow: inset 3px 0 0 #fca5a5; background: rgba(239,68,68,0.12); color: #fca5a5; }
+    .sidebar-item-danger       { color: rgba(255,255,255,0.7); }
+    .sidebar-item-danger:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .sidebar-item-danger.active { box-shadow: inset 3px 0 0 #fff; background: rgba(255,255,255,0.18); color: #fff; }
 
     .sidebar-icon { font-size: 1.05rem; line-height: 1; flex-shrink: 0; width: 20px; text-align: center; }
     .sidebar-text {
