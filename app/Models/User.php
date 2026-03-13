@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Transaction;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -20,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'avatar',
-        'role_id', // ← tambah
+        'role_id',
     ];
 
     protected $hidden = [
@@ -63,24 +63,26 @@ class User extends Authenticatable implements MustVerifyEmail
         return "https://ui-avatars.com/api/?name={$name}&background=14b8a6&color=fff&size=200&bold=true";
     }
 
+    // ─── Transaksi ────────────────────────────────────
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
 
-public function transactions(): HasMany
-{
-    return $this->hasMany(Transaction::class);
-}
+    public function latestTransaction(): HasOne
+    {
+        return $this->hasOne(Transaction::class)->latestOfMany();
+    }
 
-public function latestTransaction(): HasOne
-{
-    return $this->hasOne(Transaction::class)->latestOfMany();
-}
-protected static function boot()
-{
-    parent::boot();
+    // ─── Boot ─────────────────────────────────────────
+    protected static function boot()
+    {
+        parent::boot();
 
-    static::creating(function ($user) {
-        if (empty($user->role_id)) {
-            $user->role_id = \App\Models\Role::where('name', 'user')->value('id');
-        }
-    });
-}
+        static::creating(function ($user) {
+            if (empty($user->role_id)) {
+                $user->role_id = \App\Models\Role::where('name', 'user')->value('id');
+            }
+        });
+    }
 }
