@@ -14,6 +14,9 @@ class DoaPendekSeeder extends Seeder
      */
     public function run(): void
     {
+        // HAPUS data lama dulu
+        DoaPendek::truncate();
+        
         $json = File::get(database_path('seeders/data/doapendek.json'));
         $doaPendek = json_decode($json);
 
