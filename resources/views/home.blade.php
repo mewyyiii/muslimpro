@@ -51,15 +51,7 @@
     <div class="px-4 pt-10 pb-5 md:px-8 lg:px-12">
         <div class="max-w-4xl mx-auto flex items-center justify-between">
             <div>
-                <h1 class="text-xl md:text-2xl font-bold text-white leading-tight flex items-center gap-2">Assalamu'alaikum
-                    <svg class="w-6 h-6 inline-block" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.5 4.5C7.5 3.67 8.17 3 9 3C9.83 3 10.5 3.67 10.5 4.5V11.5C10.5 12.33 9.83 13 9 13C8.17 13 7.5 12.33 7.5 11.5V4.5Z" fill="white"/>
-                        <path d="M10.5 6.5C10.5 5.67 11.17 5 12 5C12.83 5 13.5 5.67 13.5 6.5V11.5C13.5 12.33 12.83 13 12 13C11.17 13 10.5 12.33 10.5 11.5V6.5Z" fill="white"/>
-                        <path d="M13.5 8C13.5 7.17 14.17 6.5 15 6.5C15.83 6.5 16.5 7.17 16.5 8V11.5C16.5 12.33 15.83 13 15 13C14.17 13 13.5 12.33 13.5 11.5V8Z" fill="white"/>
-                        <path d="M16.5 10C16.5 9.17 17.17 8.5 18 8.5C18.83 8.5 19.5 9.17 19.5 10V12C19.5 14.5 17.5 17 15 18L9 21V18.5L13.5 16.5C15 15.5 16.5 13.5 16.5 12V10Z" fill="white"/>
-                        <path d="M7.5 11.5V13C7.5 15 6 17 4.5 17.5V21" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
-                </h1>
+                <h1 class="text-xl md:text-2xl font-bold text-white leading-tight flex items-center gap-2">Assalamu'alaikum</h1>
                 <p class="text-teal-200 text-xs mt-0.5">NurSteps — Pendamping Ibadah Anda</p>
             </div>
             <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0">
@@ -219,14 +211,14 @@
 
                     {{-- Doa --}}
                     <a href="{{ route('doa-pendek.index') }}"
-                       class="flex flex-col items-center gap-1.5 p-2 rounded-xl
-                              hover:bg-gray-50 active:scale-95 transition-all duration-150">
+                    class="flex flex-col items-center gap-1.5 p-2 rounded-xl
+                            hover:bg-gray-50 active:scale-95 transition-all duration-150">
                         <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-sky-400 to-blue-600
                                     flex items-center justify-center">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M17 4L17.5 5.5L19 6L17.5 6.5L17 8L16.5 6.5L15 6L16.5 5.5L17 4Z" fill="white" opacity="0.7"/>
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="white" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                                <polygon points="18.5,3 19.5,5.5 22,5.5 20,7 20.8,9.5 18.5,8 16.2,9.5 17,7 15,5.5 17.5,5.5" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/>
                             </svg>
                         </div>
                         <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Doa</span>
@@ -234,21 +226,13 @@
 
                     {{-- Tasbih --}}
                     <a href="{{ route('tasbih.index') }}"
-                       class="flex flex-col items-center gap-1.5 p-2 rounded-xl
-                              hover:bg-gray-50 active:scale-95 transition-all duration-150">
+                    class="flex flex-col items-center gap-1.5 p-2 rounded-xl
+                            hover:bg-gray-50 active:scale-95 transition-all duration-150">
                         <div class="w-12 h-12 rounded-2xl shadow
                                     bg-gradient-to-br from-rose-400 to-pink-600
                                     flex items-center justify-center">
-                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="3.5" r="1.8" fill="white"/>
-                                <circle cx="17.5" cy="6" r="1.5" fill="white" opacity="0.9"/>
-                                <circle cx="20.5" cy="11" r="1.5" fill="white" opacity="0.8"/>
-                                <circle cx="19.5" cy="16.5" r="1.5" fill="white" opacity="0.7"/>
-                                <circle cx="15.5" cy="20.5" r="1.5" fill="white" opacity="0.6"/>
-                                <circle cx="10" cy="21.5" r="1.5" fill="white" opacity="0.5"/>
-                                <path d="M12 5.3C12 5.3 15.8 5.5 18 8C20.2 10.5 20 14 19 17C18 20 16 22 12 22" stroke="white" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-                                <path d="M12 5.3C12 5.3 8 6 6.5 9C5 12 6 15.5 8 18C9.5 20 11 21 12 22" stroke="white" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.6"/>
-                                <path d="M12 3.5V5.3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <svg class="w-6 h-6" viewBox="0 0 430 380" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="200" cy="42" r="18"/><circle cx="228" cy="45" r="18"/><circle cx="255" cy="53" r="18"/><circle cx="280" cy="65" r="18"/><circle cx="302" cy="83" r="18"/><circle cx="321" cy="104" r="18"/><circle cx="335" cy="129" r="18"/><circle cx="344" cy="155" r="18"/><circle cx="348" cy="183" r="18"/><circle cx="346" cy="211" r="18"/><circle cx="340" cy="238" r="18"/><circle cx="328" cy="264" r="18"/><circle cx="312" cy="287" r="18"/><circle cx="291" cy="306" r="18"/><circle cx="268" cy="322" r="18"/><circle cx="242" cy="332" r="18"/><circle cx="214" cy="337" r="18"/><circle cx="186" cy="337" r="18"/><circle cx="158" cy="332" r="18"/><circle cx="132" cy="322" r="18"/><circle cx="109" cy="306" r="18"/><circle cx="88" cy="287" r="18"/><circle cx="72" cy="264" r="18"/><circle cx="60" cy="238" r="18"/><circle cx="54" cy="211" r="18"/><circle cx="52" cy="183" r="18"/><circle cx="56" cy="155" r="18"/><circle cx="65" cy="129" r="18"/><circle cx="79" cy="104" r="18"/><circle cx="98" cy="83" r="18"/><circle cx="120" cy="65" r="18"/><circle cx="145" cy="53" r="18"/><circle cx="172" cy="45" r="18"/><circle cx="354" cy="279" r="10"/><polygon points="359,274 352,286 370,296 377,284"/><polygon points="379,280 367,300 393,315 405,295"/>
                             </svg>
                         </div>
                         <span class="text-[10px] font-semibold text-gray-500 text-center leading-tight">Tasbih</span>
