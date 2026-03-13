@@ -342,15 +342,15 @@
 
 {{-- ══ MAP PICKER MODAL ══════════════════════════════════════════════ --}}
 <div id="mapPickerModal"
-     class="fixed inset-0 z-50 items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-     style="display:none">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col"
-         style="max-height:90vh">
+     class="fixed inset-0 z-50 items-center justify-center bg-black/60 backdrop-blur-sm"
+     style="display:none; padding: 16px">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col"
+         style="height: min(90vh, 620px)">
 
         {{-- Header --}}
-        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100 flex-shrink-0">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 bg-blue-100 rounded-xl flex items-center justify-center">
+                <div class="w-9 h-9 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
                     <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
@@ -362,7 +362,7 @@
                 </div>
             </div>
             <button onclick="closeMapPicker()"
-                    class="w-8 h-8 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition">
+                    class="w-8 h-8 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition flex-shrink-0">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
@@ -370,7 +370,7 @@
         </div>
 
         {{-- Search inside modal --}}
-        <div class="px-5 py-3 border-b border-gray-100 bg-gray-50">
+        <div class="px-4 py-2.5 border-b border-gray-100 bg-gray-50 flex-shrink-0">
             <div class="flex gap-2">
                 <input id="mapSearchInput"
                        type="text"
@@ -378,12 +378,12 @@
                        class="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                        onkeydown="if(event.key==='Enter') searchOnMap()"/>
                 <button onclick="searchOnMap()"
-                        class="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg hover:bg-blue-600 transition">
+                        class="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg hover:bg-blue-600 transition whitespace-nowrap">
                     Cari
                 </button>
                 <button onclick="centerToMyGPS()"
-                        title="Gunakan GPS saya"
-                        class="px-3 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition">
+                        title="Pakai GPS saya"
+                        class="px-3 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition flex-shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -393,24 +393,27 @@
             </div>
         </div>
 
-        {{-- Map --}}
-        <div id="leafletMap" style="flex:1; min-height:340px; z-index:1"></div>
+        {{-- Map — mengisi sisa ruang --}}
+        <div id="leafletMap" style="flex:1; min-height:0; z-index:1; overflow:hidden"></div>
 
-        {{-- Selected location info + confirm --}}
-        <div class="px-5 py-4 border-t border-gray-100 bg-white">
-            <div id="mapSelectedInfo" class="flex items-center gap-3 mb-3 hidden">
-                <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+        {{-- Footer: info lokasi + tombol -- selalu di bawah, tidak pernah terpotong --}}
+        <div class="px-4 py-3 border-t border-gray-100 bg-white flex-shrink-0">
+            {{-- Info lokasi dipilih --}}
+            <div id="mapSelectedInfo" class="hidden items-center gap-3 mb-2.5">
+                <div class="w-7 h-7 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
                     </svg>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <p class="text-xs text-gray-400 font-medium">Lokasi dipilih</p>
+                    <p class="text-xs text-gray-400">Lokasi dipilih</p>
                     <p id="mapSelectedName" class="text-sm font-semibold text-gray-800 truncate">—</p>
-                    <p id="mapSelectedCoords" class="text-xs text-gray-400"></p>
+                    <p id="mapSelectedCoords" class="text-xs text-gray-400 font-mono"></p>
                 </div>
             </div>
-            <p id="mapHint" class="text-xs text-gray-400 mb-3">📌 Klik di peta untuk menentukan lokasi shalat</p>
+            <p id="mapHint" class="text-xs text-gray-400 mb-2.5">📌 Klik di peta untuk menentukan lokasi shalat</p>
+
+            {{-- Tombol aksi --}}
             <div class="flex gap-2">
                 <button onclick="closeMapPicker()"
                         class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-600 font-semibold rounded-xl hover:bg-gray-200 transition text-sm">
@@ -420,7 +423,7 @@
                         onclick="confirmMapLocation()"
                         disabled
                         class="flex-1 px-4 py-2.5 bg-teal-500 text-white font-bold rounded-xl hover:bg-teal-600 transition text-sm disabled:opacity-40 disabled:cursor-not-allowed">
-                    Gunakan Lokasi Ini
+                    ✓ Gunakan Lokasi Ini
                 </button>
             </div>
         </div>
@@ -994,7 +997,7 @@ function placeMapMarker(lat, lng, name) {
     mapSelectedName = name;
 
     // Update UI info bawah peta
-    document.getElementById('mapSelectedInfo').classList.remove('hidden');
+    document.getElementById('mapSelectedInfo').style.display = 'flex';
     document.getElementById('mapSelectedName').textContent   = name;
     document.getElementById('mapSelectedCoords').textContent = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
     document.getElementById('mapHint').style.display         = 'none';
