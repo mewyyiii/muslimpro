@@ -342,8 +342,8 @@
 
 {{-- ══ MAP PICKER MODAL ══════════════════════════════════════════════ --}}
 <div id="mapPickerModal"
-     class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-     style="display:none !important">
+     class="fixed inset-0 z-50 items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+     style="display:none">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col"
          style="max-height:90vh">
 
@@ -917,7 +917,7 @@ function initMapPicker() {
 
 function openMapPicker() {
     const modal = document.getElementById('mapPickerModal');
-    modal.classList.add('open');
+    modal.style.display = 'flex';
 
     // Cegah scroll body
     document.body.style.overflow = 'hidden';
@@ -955,7 +955,7 @@ function openMapPicker() {
 }
 
 function closeMapPicker() {
-    document.getElementById('mapPickerModal').classList.remove('open');
+    document.getElementById('mapPickerModal').style.display = 'none';
     document.body.style.overflow = '';
 }
 
@@ -1109,10 +1109,7 @@ async function confirmMapLocation() {
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
     /* ── Map Modal ── */
-    #mapPickerModal.open { display:flex !important; }
     #leafletMap .leaflet-container { font-family: inherit; }
-
-    /* Crosshair cursor saat di peta */
     #leafletMap { cursor: crosshair; }
 
     /* Custom marker pulse */
