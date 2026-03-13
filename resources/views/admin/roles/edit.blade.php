@@ -8,7 +8,11 @@
     {{-- Header --}}
     <div class="flex items-center gap-3 mb-6">
         <a href="{{ route('admin.roles.index') }}"
-           class="text-gray-400 hover:text-teal-600 transition text-lg">←</a>
+           class="text-gray-400 hover:text-teal-600 transition">
+            <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+        </a>
         <div>
             <h1 class="text-2xl font-bold text-gray-800">Edit Role</h1>
             <p class="text-sm text-gray-500 mt-0.5">
@@ -21,8 +25,11 @@
 
         {{-- Info jumlah user --}}
         @if($userCount > 0)
-        <div class="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 mb-5 text-sm text-blue-700">
-            ℹ️ Role ini sedang digunakan oleh <strong>{{ $userCount }} user</strong>. Nama role akan ikut berubah.
+        <div class="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 mb-5 text-sm text-blue-700" style="display:flex;align-items:center;gap:8px;">
+            <svg style="width:18px;height:18px;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Role ini sedang digunakan oleh <strong>{{ $userCount }} user</strong>. Nama role akan ikut berubah.
         </div>
         @endif
 

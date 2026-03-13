@@ -8,7 +8,11 @@
     {{-- Header --}}
     <div class="flex items-center gap-3 mb-6">
         <a href="{{ route('admin.roles.index') }}"
-           class="text-gray-400 hover:text-teal-600 transition text-lg">←</a>
+           class="text-gray-400 hover:text-teal-600 transition">
+            <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+        </a>
         <div>
             <h1 class="text-2xl font-bold text-gray-800">Tambah Role</h1>
             <p class="text-sm text-gray-500 mt-0.5">Buat role baru untuk pengguna</p>

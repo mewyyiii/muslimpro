@@ -15,7 +15,11 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
         <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4">
-            <div class="bg-teal-100 text-teal-600 rounded-full p-3 text-xl">💳</div>
+            <div class="bg-teal-100 text-teal-600 rounded-full p-3">
+                <svg style="width:24px;height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                </svg>
+            </div>
             <div>
                 <p class="text-xs text-gray-500">Total Transaksi</p>
                 <p class="text-2xl font-bold text-gray-800">{{ $stats['total'] }}</p>
@@ -23,7 +27,11 @@
         </div>
 
         <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4">
-            <div class="bg-green-100 text-green-600 rounded-full p-3 text-xl">✅</div>
+            <div class="bg-green-100 text-green-600 rounded-full p-3">
+                <svg style="width:24px;height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
             <div>
                 <p class="text-xs text-gray-500">Berhasil</p>
                 <p class="text-2xl font-bold text-gray-800">{{ $stats['success'] }}</p>
@@ -31,7 +39,11 @@
         </div>
 
         <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4">
-            <div class="bg-yellow-100 text-yellow-600 rounded-full p-3 text-xl">⏳</div>
+            <div class="bg-yellow-100 text-yellow-600 rounded-full p-3">
+                <svg style="width:24px;height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
             <div>
                 <p class="text-xs text-gray-500">Pending</p>
                 <p class="text-2xl font-bold text-gray-800">{{ $stats['pending'] }}</p>
@@ -39,7 +51,11 @@
         </div>
 
         <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4">
-            <div class="bg-emerald-100 text-emerald-700 rounded-full p-3 text-xl">💰</div>
+            <div class="bg-emerald-100 text-emerald-700 rounded-full p-3">
+                <svg style="width:24px;height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
             <div>
                 <p class="text-xs text-gray-500">Total Revenue</p>
                 <p class="text-xl font-bold text-gray-800">Rp {{ number_format($stats['revenue'], 0, ',', '.') }}</p>
@@ -101,7 +117,10 @@
             {{-- Tombol --}}
             <div class="flex gap-2">
                 <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white text-sm px-4 py-2 rounded-xl transition">
-                    🔍 Filter
+                    <svg style="width:15px;height:15px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    Filter
                 </button>
                 @if(request()->hasAny(['search', 'status', 'date_from', 'date_to']))
                     <a href="{{ route('admin.payments.index') }}" class="bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm px-4 py-2 rounded-xl transition">
@@ -164,15 +183,15 @@
                                     default   => 'bg-gray-100 text-gray-500',
                                 };
                                 $icon = match($trx->status) {
-                                    'success' => '✅',
-                                    'pending' => '⏳',
-                                    'failed'  => '❌',
-                                    'expired' => '⌛',
-                                    default   => '❓',
+                                    'success' => '<svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>',
+                                    'pending' => '<svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+                                    'failed'  => '<svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>',
+                                    'expired' => '<svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+                                    default   => '<svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
                                 };
                             @endphp
                             <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium {{ $badge }}">
-                                {{ $icon }} {{ ucfirst($trx->status) }}
+                                {!! $icon !!} {{ ucfirst($trx->status) }}
                             </span>
                         </td>
 
@@ -196,9 +215,12 @@
                         <td class="px-6 py-4">
                             <button
                                 onclick="openModal({{ $trx->id }})"
-                                class="text-teal-600 hover:text-teal-800 text-xs font-medium transition"
+                                class="text-teal-600 hover:text-teal-800 text-xs font-medium transition" style="display:inline-flex;align-items:center;gap:4px;"
                             >
-                                🔍 Detail
+                                <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                                Detail
                             </button>
                         </td>
 
@@ -245,7 +267,11 @@
                     @empty
                     <tr>
                         <td colspan="7" class="px-6 py-12 text-center text-gray-400">
-                            <div class="text-4xl mb-2">💳</div>
+                            <div style="display:flex;justify-content:center;margin-bottom:10px;color:#d1d5db;">
+                                <svg style="width:48px;height:48px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                                </svg>
+                            </div>
                             <p>Belum ada transaksi ditemukan.</p>
                         </td>
                     </tr>
