@@ -116,11 +116,57 @@
             </div>
         </div>
 
-        {{-- Main Content Grid --}}
-        <div class="space-y-6">
-            
+        {{-- Main Content Grid with Sidebar --}}
+        <div class="profile-layout">
+
+            {{-- ── Sticky Sidebar ── --}}
+            <aside class="profile-sidebar" id="profile-sidebar">
+                <div class="sidebar-inner">
+                    <p class="sidebar-label">Navigasi</p>
+                    <nav class="sidebar-nav">
+                        <a href="#section-shalat"   class="sidebar-item active" data-section="section-shalat">
+                            <span class="sidebar-icon">🕌</span>
+                            <span class="sidebar-text">Progres Shalat</span>
+                        </a>
+                        <a href="#section-quran"    class="sidebar-item" data-section="section-quran">
+                            <span class="sidebar-icon">📖</span>
+                            <span class="sidebar-text">Progres Al-Qur'an</span>
+                        </a>
+                        <a href="#section-azan"     class="sidebar-item" data-section="section-azan">
+                            <span class="sidebar-icon">📢</span>
+                            <span class="sidebar-text">Pengaturan Azan</span>
+                        </a>
+                        <a href="#section-profil"   class="sidebar-item" data-section="section-profil">
+                            <span class="sidebar-icon">👤</span>
+                            <span class="sidebar-text">Informasi Profil</span>
+                        </a>
+                        <a href="#section-password" class="sidebar-item" data-section="section-password">
+                            <span class="sidebar-icon">🔒</span>
+                            <span class="sidebar-text">Kata Sandi</span>
+                        </a>
+                        <a href="#section-danger"   class="sidebar-item sidebar-item-danger" data-section="section-danger">
+                            <span class="sidebar-icon">⚠️</span>
+                            <span class="sidebar-text">Hapus Akun</span>
+                        </a>
+                    </nav>
+                </div>
+            </aside>
+
+            {{-- ── Mobile Tab Bar ── --}}
+            <div class="mobile-tabbar" id="mobile-tabbar">
+                <a href="#section-shalat"   class="tab-item active" data-section="section-shalat"   title="Progres Shalat">🕌</a>
+                <a href="#section-quran"    class="tab-item"        data-section="section-quran"    title="Progres Al-Qur'an">📖</a>
+                <a href="#section-azan"     class="tab-item"        data-section="section-azan"     title="Azan">📢</a>
+                <a href="#section-profil"   class="tab-item"        data-section="section-profil"   title="Profil">👤</a>
+                <a href="#section-password" class="tab-item"        data-section="section-password" title="Kata Sandi">🔒</a>
+                <a href="#section-danger"   class="tab-item tab-item-danger" data-section="section-danger" title="Hapus Akun">⚠️</a>
+            </div>
+
+            {{-- ── Content ── --}}
+            <div class="profile-content space-y-6">
+
             {{-- Prayer Journey Card --}}
-            <div class="bg-white rounded-3xl p-6 shadow-2xl">
+            <div id="section-shalat" class="bg-white rounded-3xl p-6 shadow-2xl scroll-mt-24">
                 <div class="flex items-center justify-between mb-5">
                     <div class="flex items-center gap-3">
                         <div class="w-12 h-12 bg-gradient-to-br from-teal-400 to-emerald-500 rounded-2xl flex items-center justify-center shadow-md">
@@ -163,13 +209,17 @@
             </div>
 
             {{-- Quran Journey Widget --}}
+            <div id="section-quran" class="scroll-mt-24">
             @include('profile.partials.quran-widget')
+            </div>
 
             {{-- ★ Pengaturan Azan --}}
+            <div id="section-azan" class="scroll-mt-24">
             @include('profile.partials.azan-settings')
+            </div>
 
             {{-- Profile Information Form --}}
-            <div class="bg-white rounded-3xl p-8 shadow-2xl">
+            <div id="section-profil" class="bg-white rounded-3xl p-8 shadow-2xl scroll-mt-24">
                 <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-gray-100">
                     <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-2xl flex items-center justify-center shadow-md">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -253,7 +303,7 @@
             </div>
 
             {{-- Change Password Form --}}
-            <div class="bg-white rounded-3xl p-8 shadow-2xl">
+            <div id="section-password" class="bg-white rounded-3xl p-8 shadow-2xl scroll-mt-24">
                 <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-gray-100">
                     <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-2xl flex items-center justify-center shadow-md">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -373,7 +423,7 @@
             </script>
 
             {{-- Danger Zone --}}
-            <div class="bg-white rounded-3xl p-8 shadow-2xl border-2 border-red-200"
+            <div id="section-danger" class="bg-white rounded-3xl p-8 shadow-2xl border-2 border-red-200 scroll-mt-24"
                  x-data="{
                      showDeleteModal: {{ $errors->userDeletion->isNotEmpty() ? 'true' : 'false' }},
                      passwordError: '',
@@ -549,7 +599,8 @@
 
             </div>
 
-        </div>
+        </div>{{-- /.profile-content --}}
+        </div>{{-- /.profile-layout --}}
 
     </div>
 </div>
@@ -576,11 +627,190 @@ function avatarUploader() {
         }
     };
 }
+
+// ── Sidebar / Tab active state via IntersectionObserver ──────────
+document.addEventListener('DOMContentLoaded', function () {
+    const sections = ['section-shalat','section-quran','section-azan','section-profil','section-password','section-danger'];
+    const allLinks = document.querySelectorAll('.sidebar-item[data-section], .tab-item[data-section]');
+
+    function setActive(sectionId) {
+        allLinks.forEach(link => {
+            const isDanger = link.classList.contains('sidebar-item-danger') || link.classList.contains('tab-item-danger');
+            link.classList.remove('active');
+            if (link.dataset.section === sectionId) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Smooth scroll on click
+    allLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.getElementById(this.dataset.section);
+            if (target) {
+                const offset = 90;
+                const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
+                setActive(this.dataset.section);
+            }
+        });
+    });
+
+    // IntersectionObserver for scroll spy
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setActive(entry.target.id);
+            }
+        });
+    }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+    });
+
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+    });
+});
 </script>
 @endpush
 
 @push('styles')
 <style>
+    /* ── Profile Sidebar Layout ──────────────────────────────────── */
+    .profile-layout {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        position: relative;
+    }
+
+    /* Sidebar */
+    .profile-sidebar {
+        width: 200px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 80px;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+    }
+    .profile-sidebar::-webkit-scrollbar { display: none; }
+
+    .sidebar-inner {
+        background: rgba(255,255,255,0.18);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.28);
+        border-radius: 20px;
+        padding: 16px 12px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    .sidebar-label {
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.6);
+        padding: 0 8px;
+        margin-bottom: 8px;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 9px 10px;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: background 0.18s, transform 0.18s;
+        cursor: pointer;
+        border: 1px solid transparent;
+    }
+    .sidebar-item:hover {
+        background: rgba(255,255,255,0.22);
+        transform: translateX(2px);
+        text-decoration: none;
+    }
+    .sidebar-item.active {
+        background: rgba(255,255,255,0.92);
+        border-color: rgba(255,255,255,0.5);
+        box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        transform: translateX(2px);
+    }
+    .sidebar-item.active .sidebar-text {
+        color: #065f46;
+        font-weight: 700;
+    }
+    .sidebar-item-danger.active .sidebar-text { color: #dc2626; }
+    .sidebar-item-danger:hover { background: rgba(254,226,226,0.3); }
+
+    .sidebar-icon { font-size: 1rem; line-height: 1; flex-shrink: 0; }
+    .sidebar-text {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: rgba(255,255,255,0.88);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Content area */
+    .profile-content { flex: 1; min-width: 0; }
+
+    /* ── Mobile Tab Bar ─────────────────────────────────────────── */
+    .mobile-tabbar { display: none; }
+
+    @media (max-width: 768px) {
+        .profile-sidebar { display: none; }
+        .profile-layout { display: block; }
+
+        .mobile-tabbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            position: sticky;
+            top: 60px;
+            z-index: 30;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 16px;
+            padding: 10px 8px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .tab-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px; height: 40px;
+            border-radius: 12px;
+            font-size: 1.25rem;
+            text-decoration: none;
+            transition: background 0.15s, transform 0.15s;
+            border: 1px solid transparent;
+        }
+        .tab-item:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); text-decoration: none; }
+        .tab-item.active {
+            background: rgba(255,255,255,0.9);
+            border-color: rgba(255,255,255,0.5);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transform: scale(1.1);
+        }
+        .tab-item-danger.active { background: rgba(254,226,226,0.95); }
+    }
+
     * {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
