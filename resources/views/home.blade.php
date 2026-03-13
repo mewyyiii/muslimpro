@@ -247,12 +247,18 @@
                                 flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2C12 2 9 5 9 8H15C15 5 12 2 12 2Z" fill="white"/>
-                                <rect x="3" y="13" width="18" height="8" rx="1" fill="white" opacity="0.9"/>
-                                <rect x="6" y="10" width="12" height="4" rx="0.5" fill="white"/>
-                                <rect x="9" y="15" width="6" height="6" rx="0.5" fill="white" opacity="0.4"/>
-                                <path d="M3 13H21" stroke="white" stroke-width="0.5" opacity="0.5"/>
-                                <circle cx="12" cy="8" r="1" fill="white" opacity="0.7"/>
+                                <!-- kepala -->
+                                <circle cx="12" cy="4" r="1.8" fill="white"/>
+                                <!-- badan sujud -->
+                                <path d="M12 5.8 L7 10 L4 10" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                <!-- tangan di lantai -->
+                                <path d="M4 10 L3 12" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+                                <!-- punggung ke pantat -->
+                                <path d="M12 5.8 L15 8 L17 11" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                <!-- kaki -->
+                                <path d="M17 11 L20 12" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+                                <!-- garis lantai/sajadah -->
+                                <path d="M2 12 L22 12" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
                             </svg>
                             <span class="text-white font-bold text-sm">Shalat Hari Ini</span>
                         </div>
