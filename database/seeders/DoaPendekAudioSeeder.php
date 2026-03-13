@@ -1,0 +1,121 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class DoaPendekAudioSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $audioUrls = [
+            1  => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386016/nursteps/doa_pendek/doa_1.mp3',
+            2  => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386024/nursteps/doa_pendek/doa_2.mp3',
+            3  => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386028/nursteps/doa_pendek/doa_3.mp3',
+            4  => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386033/nursteps/doa_pendek/doa_4.mp3',
+            5  => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386047/nursteps/doa_pendek/doa_5.mp3',
+            6  => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386053/nursteps/doa_pendek/doa_6.mp3',
+            7  => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386065/nursteps/doa_pendek/doa_7.mp3',
+            8  => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386070/nursteps/doa_pendek/doa_8.mp3',
+            9  => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386079/nursteps/doa_pendek/doa_9.mp3',
+            10 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386088/nursteps/doa_pendek/doa_10.mp3',
+            11 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386099/nursteps/doa_pendek/doa_11.mp3',
+            12 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386118/nursteps/doa_pendek/doa_12.mp3',
+            13 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386126/nursteps/doa_pendek/doa_13.mp3',
+            14 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386132/nursteps/doa_pendek/doa_14.mp3',
+            15 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386139/nursteps/doa_pendek/doa_15.mp3',
+            16 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386145/nursteps/doa_pendek/doa_16.mp3',
+            17 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386156/nursteps/doa_pendek/doa_17.mp3',
+            18 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386163/nursteps/doa_pendek/doa_18.mp3',
+            19 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386168/nursteps/doa_pendek/doa_19.mp3',
+            20 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386173/nursteps/doa_pendek/doa_20.mp3',
+            21 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386180/nursteps/doa_pendek/doa_21.mp3',
+            22 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386187/nursteps/doa_pendek/doa_22.mp3',
+            23 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386198/nursteps/doa_pendek/doa_23.mp3',
+            24 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386209/nursteps/doa_pendek/doa_24.mp3',
+            25 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386215/nursteps/doa_pendek/doa_25.mp3',
+            26 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386219/nursteps/doa_pendek/doa_26.mp3',
+            27 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386227/nursteps/doa_pendek/doa_27.mp3',
+            28 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386231/nursteps/doa_pendek/doa_28.mp3',
+            29 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386259/nursteps/doa_pendek/doa_29.mp3',
+            30 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386283/nursteps/doa_pendek/doa_30.mp3',
+            31 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386291/nursteps/doa_pendek/doa_31.mp3',
+            32 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386301/nursteps/doa_pendek/doa_32.mp3',
+            33 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386314/nursteps/doa_pendek/doa_33.mp3',
+            34 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386323/nursteps/doa_pendek/doa_34.mp3',
+            35 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386338/nursteps/doa_pendek/doa_35.mp3',
+            36 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386357/nursteps/doa_pendek/doa_36.mp3',
+            37 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386365/nursteps/doa_pendek/doa_37.mp3',
+            38 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386375/nursteps/doa_pendek/doa_38.mp3',
+            39 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386394/nursteps/doa_pendek/doa_39.mp3',
+            40 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386398/nursteps/doa_pendek/doa_40.mp3',
+            41 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386402/nursteps/doa_pendek/doa_41.mp3',
+            42 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386411/nursteps/doa_pendek/doa_42.mp3',
+            43 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386437/nursteps/doa_pendek/doa_43.mp3',
+            44 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386445/nursteps/doa_pendek/doa_44.mp3',
+            45 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386451/nursteps/doa_pendek/doa_45.mp3',
+            46 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386457/nursteps/doa_pendek/doa_46.mp3',
+            47 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386463/nursteps/doa_pendek/doa_47.mp3',
+            48 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386470/nursteps/doa_pendek/doa_48.mp3',
+            49 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386475/nursteps/doa_pendek/doa_49.mp3',
+            50 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386479/nursteps/doa_pendek/doa_50.mp3',
+            51 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386486/nursteps/doa_pendek/doa_51.mp3',
+            52 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386492/nursteps/doa_pendek/doa_52.mp3',
+            53 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386509/nursteps/doa_pendek/doa_53.mp3',
+            54 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386545/nursteps/doa_pendek/doa_54.mp3',
+            55 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386557/nursteps/doa_pendek/doa_55.mp3',
+            56 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386586/nursteps/doa_pendek/doa_56.mp3',
+            57 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386604/nursteps/doa_pendek/doa_57.mp3',
+            58 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386617/nursteps/doa_pendek/doa_58.mp3',
+            59 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386627/nursteps/doa_pendek/doa_59.mp3',
+            60 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386636/nursteps/doa_pendek/doa_60.mp3',
+            61 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386665/nursteps/doa_pendek/doa_61.mp3',
+            62 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386688/nursteps/doa_pendek/doa_62.mp3',
+            63 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386721/nursteps/doa_pendek/doa_63.mp3',
+            64 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386731/nursteps/doa_pendek/doa_64.mp3',
+            65 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386744/nursteps/doa_pendek/doa_65.mp3',
+            66 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386792/nursteps/doa_pendek/doa_66.mp3',
+            67 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386822/nursteps/doa_pendek/doa_67.mp3',
+            68 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386827/nursteps/doa_pendek/doa_68.mp3',
+            69 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386832/nursteps/doa_pendek/doa_69.mp3',
+            70 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386837/nursteps/doa_pendek/doa_70.mp3',
+            71 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386842/nursteps/doa_pendek/doa_71.mp3',
+            72 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386850/nursteps/doa_pendek/doa_72.mp3',
+            73 => null, // gagal - bisa di-generate ulang nanti
+            74 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386877/nursteps/doa_pendek/doa_74.mp3',
+            75 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386894/nursteps/doa_pendek/doa_75.mp3',
+            76 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386899/nursteps/doa_pendek/doa_76.mp3',
+            77 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386906/nursteps/doa_pendek/doa_77.mp3',
+            78 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386913/nursteps/doa_pendek/doa_78.mp3',
+            79 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386918/nursteps/doa_pendek/doa_79.mp3',
+            80 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386923/nursteps/doa_pendek/doa_80.mp3',
+            81 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386927/nursteps/doa_pendek/doa_81.mp3',
+            82 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386931/nursteps/doa_pendek/doa_82.mp3',
+            83 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386935/nursteps/doa_pendek/doa_83.mp3',
+            84 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386944/nursteps/doa_pendek/doa_84.mp3',
+            85 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386951/nursteps/doa_pendek/doa_85.mp3',
+            86 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386956/nursteps/doa_pendek/doa_86.mp3',
+            87 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386963/nursteps/doa_pendek/doa_87.mp3',
+            88 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386971/nursteps/doa_pendek/doa_88.mp3',
+            89 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386989/nursteps/doa_pendek/doa_89.mp3',
+            90 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386995/nursteps/doa_pendek/doa_90.mp3',
+            91 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773386999/nursteps/doa_pendek/doa_91.mp3',
+            92 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773387006/nursteps/doa_pendek/doa_92.mp3',
+            93 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773387011/nursteps/doa_pendek/doa_93.mp3',
+            94 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773387021/nursteps/doa_pendek/doa_94.mp3',
+            95 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773387028/nursteps/doa_pendek/doa_95.mp3',
+            96 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773387037/nursteps/doa_pendek/doa_96.mp3',
+            97 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773387055/nursteps/doa_pendek/doa_97.mp3',
+            98 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773387070/nursteps/doa_pendek/doa_98.mp3',
+            99 => null, // gagal - bisa di-generate ulang nanti
+            100 => 'https://res.cloudinary.com/db83eu6xx/video/upload/v1773387122/nursteps/doa_pendek/doa_100.mp3',
+        ];
+
+        foreach ($audioUrls as $id => $url) {
+            if ($url) {
+                DB::table('doa_pendek')->where('id', $id)->update(['audio_url' => $url]);
+            }
+        }
+    }
+}

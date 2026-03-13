@@ -125,7 +125,7 @@
         border: 1.5px solid rgba(255,255,255,0.5);
         border-radius: 50%;
         width: 34px; height: 34px;
-        display: none; /* hanya tampil saat card aktif/open */
+        display: none;
         align-items: center; justify-content: center;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -133,7 +133,6 @@
     }
     .btn-audio-doa svg { width: 15px; height: 15px; fill: white; pointer-events: none; }
 
-    /* Tampil saat card active */
     .doa-card.active .btn-audio-doa {
         display: flex;
         border-color: #10B981;
@@ -142,7 +141,6 @@
     .doa-card.active .btn-audio-doa svg { fill: #10B981; }
     .doa-card.active .btn-audio-doa:hover { background: rgba(16,185,129,0.2); transform: scale(1.1); }
 
-    /* Animasi saat playing */
     .doa-card.playing .btn-audio-doa {
         background: #10B981 !important;
         border-color: #10B981 !important;
@@ -172,7 +170,7 @@
     <div id="doa-grid">
         @foreach($doapendek as $doa)
         <div class="doa-card"
-             data-arabic="{{ $doa->arabic }}"
+             data-audio="{{ $doa->audio_url ?? '' }}"
              data-search-terms="{{ strtolower($doa->title) }}">
 
             {{-- Header --}}
@@ -221,10 +219,13 @@
     {{-- Kredit --}}
     <div class="text-center mt-4 mb-6">
         <p class="text-sm" style="color: rgba(107,114,128,0.6); letter-spacing: 0.03em;">
-            Audio menggunakan <span style="font-weight:600; color: rgba(107,114,128,0.8);">Web Speech API</span>
-            &mdash; suara Arab dari perangkat kamu
+            Audio dihosting via <span style="font-weight:600; color: rgba(107,114,128,0.8);">Cloudinary CDN</span>
+            &mdash; tersedia untuk semua pengguna
         </p>
     </div>
+
+    {{-- Hidden audio element --}}
+    <audio id="doa-audio" preload="none"></audio>
 
 </div>
 @endsection
@@ -232,30 +233,24 @@
 @push('scripts')
 <script>
 // ═══════════════════════════════
-//  STATE
+//  STATE & AUDIO
 // ═══════════════════════════════
 let activeCard = null;
-
-// ═══════════════════════════════
-//  AUDIO
-// ═══════════════════════════════
-function getBestVoice() {
-    const voices = speechSynthesis.getVoices();
-    return voices.find(v => v.lang.startsWith('ar'))
-        || voices.find(v => v.lang.startsWith('id'))
-        || voices[0]
-        || null;
-}
+const audio    = document.getElementById('doa-audio');
 
 function playDoa(card) {
-    const arabic  = card.dataset.arabic;
+    const url     = card.dataset.audio;
     const btn     = card.querySelector('.btn-audio-doa');
     const speaker = btn.querySelector('.icon-speaker');
     const pause   = btn.querySelector('.icon-pause');
 
+    // Tidak ada audio URL → skip
+    if (!url) return;
+
     // Klik card yang sama → stop
-    if (activeCard === card && speechSynthesis.speaking) {
-        speechSynthesis.cancel();
+    if (activeCard === card && !audio.paused) {
+        audio.pause();
+        audio.currentTime = 0;
         card.classList.remove('playing');
         speaker.style.display = '';
         pause.style.display   = 'none';
@@ -263,42 +258,33 @@ function playDoa(card) {
         return;
     }
 
-    // Stop yang lain dulu
-    if (speechSynthesis.speaking) {
-        speechSynthesis.cancel();
-        if (activeCard) {
-            activeCard.classList.remove('playing');
-            const prevBtn = activeCard.querySelector('.btn-audio-doa');
-            if (prevBtn) {
-                prevBtn.querySelector('.icon-speaker').style.display = '';
-                prevBtn.querySelector('.icon-pause').style.display   = 'none';
-            }
+    // Stop card lain dulu
+    if (activeCard && activeCard !== card) {
+        audio.pause();
+        audio.currentTime = 0;
+        activeCard.classList.remove('playing');
+        const prevBtn = activeCard.querySelector('.btn-audio-doa');
+        if (prevBtn) {
+            prevBtn.querySelector('.icon-speaker').style.display = '';
+            prevBtn.querySelector('.icon-pause').style.display   = 'none';
         }
     }
 
-    const voice  = getBestVoice();
-    const utt    = new SpeechSynthesisUtterance(arabic);
-    utt.lang     = voice?.lang.startsWith('ar') ? 'ar-SA' : 'id-ID';
-    utt.rate     = 0.75;
-    utt.pitch    = 1;
-    utt.volume   = 1;
-    if (voice) utt.voice = voice;
-
-    utt.onstart = () => {
+    // Play
+    audio.src = url;
+    audio.play().then(() => {
         activeCard = card;
         card.classList.add('playing');
         speaker.style.display = 'none';
         pause.style.display   = '';
-    };
+    }).catch(() => {});
 
-    utt.onend = utt.onerror = () => {
+    audio.onended = () => {
         card.classList.remove('playing');
         speaker.style.display = '';
         pause.style.display   = 'none';
         activeCard = null;
     };
-
-    speechSynthesis.speak(utt);
 }
 
 // ═══════════════════════════════
@@ -323,8 +309,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const isOpen  = content.classList.contains('open');
 
             // Stop audio kalau card ditutup
-            if (isOpen && speechSynthesis.speaking && activeCard === card) {
-                speechSynthesis.cancel();
+            if (isOpen && !audio.paused && activeCard === card) {
+                audio.pause();
+                audio.currentTime = 0;
                 card.classList.remove('playing');
             }
 
@@ -332,10 +319,6 @@ document.addEventListener('DOMContentLoaded', function () {
             this.classList.toggle('active', !isOpen);
         });
     });
-
-    // Preload voices
-    speechSynthesis.getVoices();
-    window.speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
 });
 </script>
 @endpush
