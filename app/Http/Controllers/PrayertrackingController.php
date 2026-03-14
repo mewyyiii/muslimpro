@@ -163,12 +163,30 @@ class PrayerTrackingController extends Controller
             $todayData[$prayer] = ['status' => $record ? $record->status : null];
         }
 
+        // ── Hitung next prayer pakai lokasi user ──
+        $userLat  = $user->latitude;
+        $userLng  = $user->longitude;
+        $userCity = $user->city ?? 'Jakarta';
+        $formattedDate = now()->format('d-m-Y');
+
+        if ($userLat && $userLng) {
+            $prayerTimesData = PrayerTimeService::getPrayerTimes($userLat, $userLng, $formattedDate);
+        } else {
+            $prayerTimesData = PrayerTimeService::getPrayerTimesByCity($userCity, 'Indonesia', $formattedDate);
+        }
+
+        $prayerTimes      = $prayerTimesData['timings'] ?? [];
+        $locationTimezone = $prayerTimesData['timezone'] ?? config('app.timezone');
+        $currentTime      = \Carbon\Carbon::now($locationTimezone)->format('H:i');
+        $nextPrayer       = PrayerTimeService::getNextPrayer($prayerTimes, $currentTime);
+
         return response()->json([
-            'performed'  => $performed,
-            'total'      => 5,
-            'percent'    => round($percent),
-            'streak'     => $streak,
-            'today_data' => $todayData,
+            'performed'   => $performed,
+            'total'       => 5,
+            'percent'     => round($percent),
+            'streak'      => $streak,
+            'today_data'  => $todayData,
+            'next_prayer' => $nextPrayer,
         ]);
     }
 
