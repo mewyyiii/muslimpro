@@ -522,16 +522,16 @@
                             <div class="needle">
                                 <div class="needle-kaaba">
                                     <svg width="28" height="26" viewBox="0 0 130 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <polygon points="65,4 118,28 65,52 12,28" fill="white"/>
-                                        <polygon points="12,28 12,82 65,106 65,52" fill="white" opacity="0.85"/>
-                                        <polygon points="118,28 118,82 65,106 65,52" fill="white" opacity="0.7"/>
-                                        <polygon points="12,28 12,82 65,106 118,82 118,28 65,52" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
-                                        <line x1="12" y1="50" x2="65" y2="70" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-                                        <line x1="12" y1="58" x2="65" y2="76" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-                                        <line x1="118" y1="50" x2="65" y2="70" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-                                        <line x1="118" y1="58" x2="65" y2="76" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-                                        <path d="M12,68 Q20,74 28,68 Q36,74 44,68 Q52,74 60,68 Q62,70 65,72" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
-                                        <path d="M118,68 Q110,74 102,68 Q94,74 86,68 Q78,74 70,68 Q68,70 65,72" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+                                        <polygon points="65,4 118,28 65,52 12,28" fill="#1a1a1a"/>
+                                        <polygon points="12,28 12,82 65,106 65,52" fill="#111111"/>
+                                        <polygon points="118,28 118,82 65,106 65,52" fill="#222222"/>
+                                        <polygon points="12,28 12,82 65,106 118,82 118,28 65,52" fill="none" stroke="#c9a84c" stroke-width="2"/>
+                                        <line x1="12" y1="50" x2="65" y2="70" stroke="#c9a84c" stroke-width="2.5"/>
+                                        <line x1="12" y1="58" x2="65" y2="76" stroke="#c9a84c" stroke-width="2.5"/>
+                                        <line x1="118" y1="50" x2="65" y2="70" stroke="#c9a84c" stroke-width="2.5"/>
+                                        <line x1="118" y1="58" x2="65" y2="76" stroke="#c9a84c" stroke-width="2.5"/>
+                                        <path d="M12,66 Q20,72 28,66 Q36,72 44,66 Q52,72 60,66 Q62,68 65,70" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+                                        <path d="M118,66 Q110,72 102,66 Q94,72 86,66 Q78,72 70,66 Q68,68 65,70" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
                                     </svg>
                                 </div>
                                 <div class="needle-head"></div>
@@ -603,18 +603,29 @@
             <!-- ── Ka'bah Info ── -->
             <div class="kaaba-card">
                 <div class="kaaba-emoji">
-                    <svg width="48" height="48" viewBox="0 0 130 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <polygon points="65,4 118,28 65,52 12,28" fill="white"/>
-                        <polygon points="65,4 118,28 65,52 12,28" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-                        <polygon points="12,28 12,82 65,106 65,52" fill="white" opacity="0.85"/>
-                        <polygon points="118,28 118,82 65,106 65,52" fill="white" opacity="0.7"/>
-                        <polygon points="12,28 12,82 65,106 118,82 118,28 65,52" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-                        <line x1="12" y1="48" x2="65" y2="68" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
-                        <line x1="12" y1="56" x2="65" y2="74" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
-                        <line x1="118" y1="48" x2="65" y2="68" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
-                        <line x1="118" y1="56" x2="65" y2="74" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
-                        <path d="M12,68 Q20,74 28,68 Q36,74 44,68 Q52,74 60,68 Q62,70 65,72" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
-                        <path d="M118,68 Q110,74 102,68 Q94,74 86,68 Q78,74 70,68 Q68,70 65,72" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+                    <svg width="52" height="52" viewBox="0 0 130 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- atap -->
+                        <polygon points="65,4 118,28 65,52 12,28" fill="#1a1a1a"/>
+                        <polygon points="65,4 118,28 65,52 12,28" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+                        <!-- dinding kiri -->
+                        <polygon points="12,28 12,82 65,106 65,52" fill="#111111"/>
+                        <!-- dinding kanan -->
+                        <polygon points="118,28 118,82 65,106 65,52" fill="#222222"/>
+                        <!-- outline -->
+                        <polygon points="12,28 12,82 65,106 118,82 118,28 65,52" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+                        <!-- kiswah garis emas kiri -->
+                        <line x1="12" y1="48" x2="65" y2="68" stroke="#c9a84c" stroke-width="2"/>
+                        <line x1="12" y1="58" x2="65" y2="76" stroke="#c9a84c" stroke-width="2"/>
+                        <!-- kiswah garis emas kanan -->
+                        <line x1="118" y1="48" x2="65" y2="68" stroke="#c9a84c" stroke-width="2"/>
+                        <line x1="118" y1="58" x2="65" y2="76" stroke="#c9a84c" stroke-width="2"/>
+                        <!-- lengkungan kiswah kiri -->
+                        <path d="M12,66 Q20,72 28,66 Q36,72 44,66 Q52,72 60,66 Q62,68 65,70" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+                        <!-- lengkungan kiswah kanan -->
+                        <path d="M118,66 Q110,72 102,66 Q94,72 86,66 Q78,72 70,66 Q68,68 65,70" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+                        <!-- pintu ka'bah -->
+                        <rect x="30" y="54" width="16" height="20" rx="2" fill="#c9a84c" opacity="0.3"/>
+                        <rect x="30" y="54" width="16" height="20" rx="2" fill="none" stroke="#c9a84c" stroke-width="1"/>
                     </svg>
                 </div>
                 <div class="kaaba-text">

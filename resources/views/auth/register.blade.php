@@ -230,7 +230,7 @@
     <div class="form-panel">
         <div class="form-inner">
 
-            <h2 class="form-title">Daftar Akun ✨</h2>
+            <h2 class="form-title">Daftar Akun</h2>
             <p class="form-subtitle">Isi data Anda untuk membuat akun baru</p>
 
             @if ($errors->any())

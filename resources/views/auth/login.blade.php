@@ -453,7 +453,7 @@
     <div class="form-panel">
         <div class="form-inner">
 
-            <h2 class="form-title">Selamat Datang 👋</h2>
+            <h2 class="form-title">Selamat Datang</h2>
             <p class="form-subtitle">Masuk ke akun NurSteps Anda</p>
 
             @if (session('status'))
