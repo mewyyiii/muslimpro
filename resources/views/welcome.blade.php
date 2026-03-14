@@ -705,7 +705,7 @@
 <!-- FOOTER -->
 <footer class="bg-gray-900 text-white py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mb-8 sm:mb-10 lg:mb-12">
+        <div class="grid sm:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 mb-8 sm:mb-10 lg:mb-12">            
             <!-- Column 1: About -->
             <div>
                 <div class="flex items-center space-x-3 mb-4 sm:mb-5">
@@ -771,33 +771,13 @@
             </div>
 
             <!-- Column 2: Features -->
-            <div>
+           <div class="col-start-2">
                 <h3 class="font-bold text-base sm:text-lg mb-4 sm:mb-6 text-gray-200">Fitur Utama</h3>
                 <ul class="space-y-2 sm:space-y-3 text-sm text-gray-400">
                     <li><a href="{{ route('register') }}" class="footer-link hover:text-cyan-400">Al-Quran Digital</a></li>
                     <li><a href="{{ route('register') }}" class="footer-link hover:text-cyan-400">Jadwal Shalat</a></li>
                     <li><a href="{{ route('register') }}" class="footer-link hover:text-cyan-400">Tasbih Digital</a></li>
                     <li><a href="{{ route('register') }}" class="footer-link hover:text-cyan-400">Arah Kiblat</a></li>
-                </ul>
-            </div>
-
-            <!-- Column 3: Contact -->
-            <div>
-                <h3 class="font-bold text-base sm:text-lg mb-4 sm:mb-6 text-gray-200">Hubungi Kami</h3>
-                <ul class="space-y-3 sm:space-y-4 text-sm text-gray-400">
-                    <li class="flex items-center space-x-2 sm:space-x-3">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
-                        <span>info@nursteps.app</span>
-                    </li>
-                    <li class="flex items-center space-x-2 sm:space-x-3">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                        <span>Indonesia</span>
-                    </li>
                 </ul>
             </div>
         </div>
