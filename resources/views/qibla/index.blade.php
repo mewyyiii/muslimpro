@@ -41,7 +41,7 @@
     .qibla-wrap {
         position: relative;
         z-index: 1;
-        max-width: 480px;
+        max-width: 380px;
         margin: 0 auto;
         padding: 0 16px;
     }
@@ -448,7 +448,7 @@
 
                 <!-- NEED PERMISSION -->
                 <div x-show="status === 'need-permission'" class="state-permission">
-                    <div class="state-icon-wrap"><svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+                    <div class="state-icon-wrap"><svg width="32" height="32" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
                     <div>
                         <p class="state-title">Izinkan Akses Lokasi</p>
                         <p class="state-sub">Untuk menghitung arah kiblat yang akurat dari posisi Anda saat ini</p>
