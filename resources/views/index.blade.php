@@ -88,7 +88,7 @@
         </div>
 
         {{-- Search --}}
-        <div class="mb-8">
+        <div class="mb-8 max-w-md mx-auto">
             <input
                 type="text"
                 id="search-input"
