@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Manage Iklan')
+@section('title', 'Kelola Iklan')
 
 @section('content')
 <div class="max-w-7xl mx-auto">
 
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl font-bold text-gray-700">Manage Iklan</h2>
+        <h2 class="text-xl font-bold text-gray-700">Kelola Iklan</h2>
         <a href="{{ route('admin.ads.create') }}"
            class="bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition">
             + Tambah Iklan

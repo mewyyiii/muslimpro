@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Manage Users')
+@section('title', 'Kelola Pengguna')
 
 @section('content')
 <div class="max-w-7xl mx-auto">
@@ -8,12 +8,12 @@
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Manage Users</h1>
+            <h1 class="text-2xl font-bold text-gray-800">Kelola Pengguna</h1>
             <p class="text-sm text-gray-500 mt-1">Kelola semua pengguna yang terdaftar</p>
         </div>
         <a href="{{ route('admin.users.create') }}"
            class="bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
-            + Tambah User
+            + Tambah Pengguna
         </a>
     </div>
 
@@ -44,7 +44,7 @@
                 </svg>
             </div>
             <div>
-                <p class="text-xs text-gray-500">Total Users</p>
+                <p class="text-xs text-gray-500">Total Pengguna</p>
                 <p class="text-2xl font-bold text-gray-800">{{ $totalUsers }}</p>
             </div>
         </div>
@@ -55,7 +55,7 @@
                 </svg>
             </div>
             <div>
-                <p class="text-xs text-gray-500">Total Admins</p>
+                <p class="text-xs text-gray-500">Total Admin</p>
                 <p class="text-2xl font-bold text-gray-800">{{ $totalAdmins }}</p>
             </div>
         </div>
@@ -108,8 +108,8 @@
                 <thead>
                     <tr class="text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
                         <th class="px-6 py-3 text-left">#</th>
-                        <th class="px-6 py-3 text-left">User</th>
-                        <th class="px-6 py-3 text-left">Role</th>
+                        <th class="px-6 py-3 text-left">Pengguna</th>
+                        <th class="px-6 py-3 text-left">Peran</th>
                         <th class="px-6 py-3 text-left">Tanggal Daftar</th>
                         <th class="px-6 py-3 text-left">Aksi</th>
                     </tr>
@@ -186,7 +186,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                 </svg>
                             </div>
-                            <p class="font-medium">Tidak ada user ditemukan</p>
+                            <p class="font-medium">Pengguna tidak ditemukan</p>
                             <p class="text-xs mt-1">Coba ubah filter atau kata kunci pencarian</p>
                         </td>
                     </tr>

@@ -14,7 +14,7 @@
             </svg>
         </a>
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Edit User</h1>
+            <h1 class="text-2xl font-bold text-gray-800">Edit Pengguna</h1>
             <p class="text-sm text-gray-500 mt-0.5">
                 Ubah data: <span class="font-semibold text-teal-600">{{ $user->name }}</span>
             </p>
@@ -61,7 +61,7 @@
             {{-- Password Baru --}}
             <div class="mb-5">
                 <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                    Password Baru
+                    Sandi Baru
                     <span class="text-gray-400 font-normal">(kosongkan jika tidak diubah)</span>
                 </label>
                 <div class="relative">
@@ -81,10 +81,10 @@
 
             {{-- Konfirmasi Password --}}
             <div class="mb-5">
-                <label class="block text-sm font-semibold text-gray-700 mb-1.5">Konfirmasi Password Baru</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-1.5">Konfirmasi Sandi Baru</label>
                 <div class="relative">
                     <input type="password" id="password_confirmation" name="password_confirmation"
-                        placeholder="Ulangi password baru"
+                        placeholder="Ulangi sandi baru"
                         class="w-full border border-gray-200 rounded-xl px-4 py-2.5 pr-11 text-sm focus:outline-none focus:ring-2 focus:ring-teal-300"/>
                     <button type="button" onclick="toggleAdminPass('password_confirmation', 'eye-confirm')"
                             class="eye-btn text-gray-400 hover:text-teal-600 transition-colors">
@@ -113,7 +113,7 @@
                         <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
                         </svg>
-                        Tidak bisa mengubah role akun sendiri
+                        Tidak bisa mengubah peran akun sendiri
                     </p>
                 @endif
                 @error('role_id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
@@ -127,7 +127,7 @@
                 </a>
                 <button type="submit"
                         class="px-5 py-2.5 text-sm font-semibold text-white bg-teal-600 hover:bg-teal-700 rounded-xl transition">
-                    Update User
+                    Perbarui Pengguna
                 </button>
             </div>
         </form>

@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Payment')
+@section('title', 'Pembayaran')
 
 @section('content')
 <div class="max-w-7xl mx-auto space-y-6">
 
     {{-- Header --}}
     <div>
-        <h1 class="text-2xl font-bold text-gray-800">Manajemen Payment</h1>
+        <h1 class="text-2xl font-bold text-gray-800">Manajemen Pembayaran</h1>
         <p class="text-sm text-gray-500 mt-1">Monitor semua transaksi upgrade Pro dari user</p>
     </div>
 

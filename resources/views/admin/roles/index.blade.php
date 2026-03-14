@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Manage Roles')
+@section('title', 'Kelola Peran')
 
 @section('content')
 <div class="max-w-4xl mx-auto">
@@ -8,12 +8,12 @@
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Manage Roles</h1>
+            <h1 class="text-2xl font-bold text-gray-800">Kelola Peran</h1>
             <p class="text-sm text-gray-500 mt-1">Kelola role dan hak akses pengguna</p>
         </div>
         <a href="{{ route('admin.roles.create') }}"
            class="bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
-            + Tambah Role
+            + Tambah Peran
         </a>
     </div>
 
@@ -40,7 +40,7 @@
         <svg style="width:18px;height:18px;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
         </svg>
-        Role yang masih digunakan oleh user <strong>tidak dapat dihapus</strong>. Role <strong>admin</strong> dilindungi dan tidak bisa dihapus.
+        Peran yang masih digunakan oleh user <strong>tidak dapat dihapus</strong>. Peran <strong>admin</strong> dilindungi dan tidak bisa dihapus.
     </div>
 
     {{-- Roles Grid --}}

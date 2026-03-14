@@ -91,8 +91,8 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Posisi</label>
                 <select name="position"
                         class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
-                    <option value="in_content"     {{ old('position') === 'in_content'     ? 'selected' : '' }}>In Content (bawah header)</option>
-                    <option value="footer_sticky"  {{ old('position') === 'footer_sticky'  ? 'selected' : '' }}>Footer Sticky (bawah layar)</option>
+                    <option value="in_content"     {{ old('position') === 'in_content'     ? 'selected' : '' }}>Bawah Header</option>
+                    <option value="footer_sticky"  {{ old('position') === 'footer_sticky'  ? 'selected' : '' }}>Bawah Layar</option>
                 </select>
                 @error('position')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
