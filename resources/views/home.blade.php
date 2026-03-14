@@ -246,15 +246,15 @@
                     <div class="bg-gradient-to-r from-teal-600 to-emerald-500 px-4 py-3
                                 flex items-center justify-between">
                         <div class="flex items-center gap-2">
-                            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 20.5 L2 16.5 Q2 16 2.5 16 L7 16 L7 12.5 Q7 12 7.5 12 L11.5 12 L11.5 9 Q11.5 8.5 12 8.5 L16 8.5 L16 5.5 Q16 5 16.5 5 L21.5 5 Q22 5 22 5.5 L22 20.5 Q22 21 21.5 21 L2.5 21 Q2 21 2 20.5 Z"/>
-                                <line x1="5" y1="10.5" x2="9.5" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                <polyline points="6.5,6 9.5,6 9.5,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="5" y1="10.5" x2="9.5" y2="6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                <polyline points="6.5,6 9.5,6 9.5,9" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                             <span class="text-white font-bold text-sm">Shalat Hari Ini</span>
                         </div>
                         <a href="{{ route('prayer-tracking.index') }}"
-                           class="flex items-center gap-1 text-white/75 hover:text-white text-xs font-semibold transition-colors">
+                        class="flex items-center gap-1 text-white/75 hover:text-white text-xs font-semibold transition-colors">
                             Lihat semua
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
@@ -283,9 +283,15 @@
                                     <div class="bg-amber-50 rounded-xl px-2 py-2.5 text-center">
                                         <p class="text-base font-extrabold text-amber-500 leading-none flex items-center justify-center gap-1">
                                             <span x-text="data.streak"></span>
-                                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12 2C12 2 8 7 8 11C8 11 6 10 6 8C6 8 3 11 3 15C3 18.87 7.13 22 12 22C16.87 22 21 18.87 21 15C21 10 16 6 14 4C14 4 14 7 12 8C12 8 12 2 12 2Z" fill="#f59e0b" stroke="#f59e0b" stroke-width="1" stroke-linejoin="round"/>
-                                                <path d="M12 22C14 22 16 20.5 16 18.5C16 17 15 16 14 15.5C14 17 13 18 12 18C11 18 10 17 10 15.5C9 16 8 17 8 18.5C8 20.5 10 22 12 22Z" fill="#fcd34d"/>
+                                            <svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+                                                <!-- lapisan luar merah-oranye -->
+                                                <path d="M100,215 C55,215 22,185 22,150 C22,118 40,100 55,82 C62,73 65,62 60,48 C75,60 82,78 78,96 C90,78 95,55 88,32 C108,52 118,78 112,102 C120,85 128,62 123,40 C142,62 148,92 138,116 C148,98 156,75 152,54 C168,78 172,108 160,132 C168,118 174,100 170,82 C182,105 182,135 170,158 C158,182 132,215 100,215 Z" fill="#f44"/>
+                                                <!-- lapisan oranye -->
+                                                <path d="M100,210 C60,210 35,182 35,152 C35,125 50,108 63,92 C68,85 70,76 67,65 C79,75 83,90 80,105 C90,88 95,68 91,48 C108,66 115,90 110,112 C118,96 124,75 120,56 C136,76 140,103 132,124 C140,108 146,88 143,68 C156,90 158,118 148,140 C155,126 159,108 156,90 C165,112 164,140 154,162 C144,185 124,210 100,210 Z" fill="#ff7700"/>
+                                                <!-- lapisan oranye muda -->
+                                                <path d="M100,205 C68,205 48,180 48,155 C48,132 60,116 71,102 C75,96 77,88 75,79 C85,88 88,101 86,114 C94,99 98,80 95,62 C109,78 114,100 110,120 C116,105 121,86 118,68 C130,86 132,110 125,130 C131,116 135,98 133,80 C141,100 141,126 132,148 C124,170 113,205 100,205 Z" fill="#ff9900"/>
+                                                <!-- inti kuning -->
+                                                <path d="M100,195 C84,195 74,178 74,162 C74,148 82,138 88,128 C90,123 91,117 90,111 C97,118 99,128 98,138 C103,128 106,116 104,104 C112,116 114,132 110,146 C114,136 117,123 115,110 C121,124 121,142 116,156 C111,172 106,195 100,195 Z" fill="#ffdd00"/>
                                             </svg>
                                         </p>
                                         <p class="text-[9px] text-gray-400 font-semibold mt-1">Berturut</p>
@@ -365,10 +371,9 @@
                     <div class="bg-gradient-to-r from-emerald-600 to-teal-500 px-4 py-3
                                 flex items-center justify-between">
                         <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2 6.5C2 5.4 2.9 4.5 4 4.5H11C11.55 4.5 12 4.95 12 5.5V19.5C12 19.5 9.5 18.5 6 18.5H4C2.9 18.5 2 17.6 2 16.5V6.5Z" fill="white" fill-opacity="0.9"/>
-                                <path d="M22 6.5C22 5.4 21.1 4.5 20 4.5H13C12.45 4.5 12 4.95 12 5.5V19.5C12 19.5 14.5 18.5 18 18.5H20C21.1 18.5 22 17.6 22 16.5V6.5Z" fill="white" fill-opacity="0.6"/>
-                                <path d="M12 5.5V19.5" stroke="white" stroke-width="1.5"/>
+                            <svg class="w-6 h-6" viewBox="0 0 484.228 484.228" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M484.06,210.989L438.305,52.856c-0.328-1.133-1.112-2.079-2.164-2.611c-1.054-0.533-2.278-0.605-3.385-0.197l-12.411,4.561l-1.982-6.582c-0.339-1.127-1.131-2.063-2.186-2.584c-1.055-0.522-2.279-0.583-3.381-0.168c-29.582,11.134-44.034,14.763-107.786,22.14c-40.168,4.647-56.44,21.963-62.954,33.842c-6.469-11.884-22.678-29.195-62.839-33.842c-63.753-7.377-78.205-11.006-107.787-22.14c-1.101-0.415-2.326-0.354-3.381,0.168c-1.055,0.521-1.847,1.457-2.186,2.584l-1.976,6.562l-12.423-4.543c-1.105-0.403-2.332-0.331-3.382,0.201c-1.051,0.533-1.833,1.478-2.161,2.609L0.168,210.989c-0.638,2.207,0.593,4.521,2.779,5.226l141.114,45.496l-59.117,47.54c-1.004,0.807-1.587,2.025-1.587,3.312v32.49c0,1.709,1.023,3.252,2.599,3.916c1.574,0.664,3.394,0.32,4.617-0.872l26.274-25.606c4.096-3.976,10.665-3.88,14.64,0.216l5.087,5.24c1.926,1.983,2.964,4.599,2.923,7.364c-0.041,2.765-1.156,5.348-3.15,7.284l-51.71,50.528c-0.818,0.799-1.279,1.896-1.279,3.04v38.814c0,1.698,1.011,3.233,2.569,3.904c0.542,0.233,1.113,0.346,1.68,0.346c1.066,0,2.117-0.401,2.922-1.163l151.508-143.381l151.74,143.383c0.805,0.761,1.855,1.161,2.92,1.161c0.567,0,1.14-0.114,1.681-0.347c1.559-0.671,2.568-2.206,2.568-3.903v-38.814c0-1.144-0.461-2.24-1.279-3.04l-51.722-50.538c-1.983-1.926-3.099-4.509-3.14-7.274c-0.041-2.765,0.997-5.38,2.923-7.364l5.087-5.24c3.976-4.096,10.542-4.193,14.634-0.223l26.281,25.613c1.224,1.192,3.045,1.536,4.617,0.872c1.575-0.664,2.599-2.207,2.599-3.916v-32.49c0-1.286-0.582-2.503-1.583-3.309l-59.081-47.609l140.999-45.429C483.467,215.51,484.697,213.196,484.06,210.989z M389.745,110.873h38.663l2.408,8h-6.571c-2.348,0-4.25,1.903-4.25,4.25c0,2.347,1.902,4.25,4.25,4.25h9.131l12.796,42.5h-42.927c-2.348,0-4.25,1.903-4.25,4.25c0,2.347,1.902,4.25,4.25,4.25h45.485l4.066,13.506c-21.982,7.912-73.793,23.604-147.522,27.514c-32.093,1.702-48.683,13.718-56.95,23.5c-0.729,0.862-1.407,1.723-2.04,2.577v-85.096h63.461c2.348,0,4.25-1.903,4.25-4.25c0-2.347-1.902-4.25-4.25-4.25h-63.461v-15.438c0.561-3.152,7.102-31.816,59.703-37.902c61.527-7.119,83.698-13.038,111.668-23.373l8.193,27.212h-36.104c-2.348,0-4.25,1.903-4.25,4.25C385.495,108.97,387.398,110.873,389.745,110.873z M33.24,185.873h26.505c2.348,0,4.25-1.903,4.25-4.25c0-2.347-1.902-4.25-4.25-4.25H35.799l7.376-24.5h62.07c2.348,0,4.25-1.903,4.25-4.25c0-2.347-1.902-4.25-4.25-4.25H45.735l4.968-16.5h23.043c2.348,0,4.25-1.903,4.25-4.25c0-2.347-1.902-4.25-4.25-4.25H53.261l13.492-44.813c29.514,10.936,51.988,17.089,111.488,23.974c52.74,6.103,59.033,34.906,59.543,37.888v48.952h-15.039c-2.348,0-4.25,1.903-4.25,4.25c0,2.347,1.902,4.25,4.25,4.25h15.039v5.5h-34.039c-2.348,0-4.25,1.903-4.25,4.25c0,2.347,1.902,4.25,4.25,4.25h34.039v37.507c-0.609-0.823-1.256-1.65-1.954-2.48c-8.23-9.784-24.779-21.805-56.876-23.507c-73.731-3.91-125.541-19.602-147.522-27.514L33.24,185.873z M246.284,282.998v-17.436c0.469-3.178,6.484-34.874,59.44-37.682c79.464-4.214,134.024-21.977,153.794-29.418c2.093-0.788,3.217-3.062,2.572-5.203L422.8,62.762l8.607-3.163l43.341,149.79L246.284,282.998z M52.822,59.593l8.611,3.149L22.139,193.26c-0.645,2.141,0.479,4.415,2.572,5.203c19.769,7.441,74.328,25.204,153.794,29.418c52.999,2.811,58.835,34.556,59.279,37.671v17.445L9.48,209.39L52.822,59.593z M91.858,397.951l50.42-49.268c3.613-3.507,5.644-8.211,5.719-13.246c0.075-5.035-1.816-9.798-5.322-13.411l-5.087-5.24c-7.239-7.459-19.198-7.637-26.665-0.389l-19.064,18.579v-20.378l61.886-49.766l17.631,5.685l-19.632,19.598c-1.661,1.658-1.663,4.349-0.005,6.01c0.83,0.831,1.919,1.247,3.008,1.247c1.086,0,2.173-0.414,3.003-1.242l22.721-22.682l23.368,7.534l-42.849,42.886c-1.658,1.661-1.657,4.352,0.003,6.01c0.83,0.829,1.917,1.244,3.004,1.244c1.088,0,2.177-0.415,3.007-1.246l45.923-45.964l20.979,6.764L91.858,425.103V397.951z M392.445,314.595v20.381l-19.071-18.586c-7.459-7.24-19.418-7.063-26.659,0.395l-5.087,5.24c-3.507,3.613-5.398,8.376-5.322,13.411c0.075,5.035,2.106,9.739,5.708,13.236l50.432,49.278v27.162L250.173,290.676l26.105-8.411l26.712,26.712c0.829,0.83,1.917,1.245,3.005,1.245s2.176-0.415,3.005-1.245c1.66-1.66,1.66-4.351,0-6.011l-23.63-23.63l45.233-14.574L392.445,314.595z"/>
+                                <path d="M148.245,119.373h-33.5c-2.348,0-4.25,1.903-4.25,4.25c0,2.347,1.902,4.25,4.25,4.25h33.5c2.348,0,4.25-1.903,4.25-4.25C152.495,121.276,150.593,119.373,148.245,119.373z"/>
                             </svg>
                             <span class="text-white font-bold text-sm">Membaca Al-Quran</span>
                         </div>
@@ -400,10 +405,16 @@
                                     </div>
                                     <div class="text-right">
                                         <p class="text-sm font-bold text-amber-500 flex items-center gap-1 justify-end">
-                                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12 2C12 2 8 7 8 11C8 11 6 10 6 8C6 8 3 11 3 15C3 18.87 7.13 22 12 22C16.87 22 21 18.87 21 15C21 10 16 6 14 4C14 4 14 7 12 8C12 8 12 2 12 2Z" fill="#f59e0b" stroke="#f59e0b" stroke-width="1" stroke-linejoin="round"/>
-                                                <path d="M12 22C14 22 16 20.5 16 18.5C16 17 15 16 14 15.5C14 17 13 18 12 18C11 18 10 17 10 15.5C9 16 8 17 8 18.5C8 20.5 10 22 12 22Z" fill="#fcd34d"/>
-                                            </svg>
+                                            <svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+                                                <!-- lapisan luar merah-oranye -->
+                                                <path d="M100,215 C55,215 22,185 22,150 C22,118 40,100 55,82 C62,73 65,62 60,48 C75,60 82,78 78,96 C90,78 95,55 88,32 C108,52 118,78 112,102 C120,85 128,62 123,40 C142,62 148,92 138,116 C148,98 156,75 152,54 C168,78 172,108 160,132 C168,118 174,100 170,82 C182,105 182,135 170,158 C158,182 132,215 100,215 Z" fill="#f44"/>
+                                                <!-- lapisan oranye -->
+                                                <path d="M100,210 C60,210 35,182 35,152 C35,125 50,108 63,92 C68,85 70,76 67,65 C79,75 83,90 80,105 C90,88 95,68 91,48 C108,66 115,90 110,112 C118,96 124,75 120,56 C136,76 140,103 132,124 C140,108 146,88 143,68 C156,90 158,118 148,140 C155,126 159,108 156,90 C165,112 164,140 154,162 C144,185 124,210 100,210 Z" fill="#ff7700"/>
+                                                <!-- lapisan oranye muda -->
+                                                <path d="M100,205 C68,205 48,180 48,155 C48,132 60,116 71,102 C75,96 77,88 75,79 C85,88 88,101 86,114 C94,99 98,80 95,62 C109,78 114,100 110,120 C116,105 121,86 118,68 C130,86 132,110 125,130 C131,116 135,98 133,80 C141,100 141,126 132,148 C124,170 113,205 100,205 Z" fill="#ff9900"/>
+                                                <!-- inti kuning -->
+                                                <path d="M100,195 C84,195 74,178 74,162 C74,148 82,138 88,128 C90,123 91,117 90,111 C97,118 99,128 98,138 C103,128 106,116 104,104 C112,116 114,132 110,146 C114,136 117,123 115,110 C121,124 121,142 116,156 C111,172 106,195 100,195 Z" fill="#ffdd00"/>
+                                                </svg>
                                             <span x-text="data.streak"></span> hari
                                         </p>
                                         <p class="text-[9px] text-gray-400">berturut-turut</p>
@@ -498,7 +509,7 @@ function prayerWidget() {
         prayerIcons: {
             fajr: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
             dhuhr: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
-            asr:  `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+            asr: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="13" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 3V5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M5.5 6.5L7 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18.5 6.5L17 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 13H5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M19 13H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 19H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 22H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
             maghrib: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
             isha:  `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
         },

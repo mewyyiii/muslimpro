@@ -448,7 +448,7 @@
 
                 <!-- NEED PERMISSION -->
                 <div x-show="status === 'need-permission'" class="state-permission">
-                    <div class="state-icon-wrap">📍</div>
+                    <div class="state-icon-wrap"><svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
                     <div>
                         <p class="state-title">Izinkan Akses Lokasi</p>
                         <p class="state-sub">Untuk menghitung arah kiblat yang akurat dari posisi Anda saat ini</p>
@@ -461,7 +461,7 @@
 
                 <!-- ERROR -->
                 <div x-show="status === 'error'" class="state-error">
-                    <div class="state-icon-wrap">⚠️</div>
+                    <div class="state-icon-wrap"><svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
                     <p class="error-msg" x-text="errorMessage"></p>
                     <p class="error-hint">Coba aktifkan GPS atau gunakan input manual di bawah</p>
                     <button @click="requestLocation()" class="btn-primary">
@@ -488,7 +488,7 @@
 
                         <!-- Qibla Fixed Marker (rotates to qibla direction, then stays fixed relative to world) -->
                         <div class="qibla-marker-wrap" :style="`transform: rotate(${qiblaAngle - heading}deg)`">
-                            <div class="qibla-marker-text">Ka'bah 🕋</div>
+                            <div class="qibla-marker-text">Ka'bah <svg width="14" height="13" viewBox="0 0 130 120" fill="none" style="display:inline-block;vertical-align:middle;"><polygon points="65,4 118,28 65,52 12,28" fill="currentColor"/><polygon points="12,28 12,82 65,106 65,52" fill="currentColor" opacity="0.85"/><polygon points="118,28 118,82 65,106 65,52" fill="currentColor" opacity="0.7"/><line x1="12" y1="50" x2="65" y2="70" stroke="rgba(0,0,0,0.3)" stroke-width="3"/><line x1="12" y1="58" x2="65" y2="76" stroke="rgba(0,0,0,0.3)" stroke-width="3"/><line x1="118" y1="50" x2="65" y2="70" stroke="rgba(0,0,0,0.3)" stroke-width="3"/><line x1="118" y1="58" x2="65" y2="76" stroke="rgba(0,0,0,0.3)" stroke-width="3"/></svg></div>
                             <div class="qibla-triangle"></div>
                             <div class="qibla-line"></div>
                         </div>
@@ -520,7 +520,20 @@
                         <!-- Qibla Needle -->
                         <div class="needle-wrap" :style="`transform: rotate(${getNeedleAngle()}deg)`">
                             <div class="needle">
-                                <div class="needle-kaaba">🕋</div>
+                                <div class="needle-kaaba">
+                                    <svg width="28" height="26" viewBox="0 0 130 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <polygon points="65,4 118,28 65,52 12,28" fill="white"/>
+                                        <polygon points="12,28 12,82 65,106 65,52" fill="white" opacity="0.85"/>
+                                        <polygon points="118,28 118,82 65,106 65,52" fill="white" opacity="0.7"/>
+                                        <polygon points="12,28 12,82 65,106 118,82 118,28 65,52" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+                                        <line x1="12" y1="50" x2="65" y2="70" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+                                        <line x1="12" y1="58" x2="65" y2="76" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+                                        <line x1="118" y1="50" x2="65" y2="70" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+                                        <line x1="118" y1="58" x2="65" y2="76" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+                                        <path d="M12,68 Q20,74 28,68 Q36,74 44,68 Q52,74 60,68 Q62,70 65,72" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+                                        <path d="M118,68 Q110,74 102,68 Q94,74 86,68 Q78,74 70,68 Q68,70 65,72" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+                                    </svg>
+                                </div>
                                 <div class="needle-head"></div>
                                 <div class="needle-body"></div>
                             </div>
@@ -548,16 +561,16 @@
 
                     <!-- Notices -->
                     <div x-show="!compassAvailable && !needsCompassPermission" class="notice amber">
-                        <span class="notice-icon">💡</span>
+                        <span class="notice-icon"><svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></span>
                         <span><strong>Mode Desktop:</strong> Arah ditampilkan dari Utara. Gunakan smartphone untuk kompas digital.</span>
                     </div>
                     <div x-show="compassAvailable" class="notice teal">
-                        <span class="notice-icon">📱</span>
+                        <span class="notice-icon"><svg width="18" height="18" viewBox="0 0 80 130" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="2" width="72" height="126" rx="14" ry="14"/><rect x="10" y="18" width="60" height="82" rx="3" ry="3" fill="rgba(20,184,166,0.3)"/><rect x="26" y="8" width="20" height="4" rx="2" fill="rgba(255,255,255,0.5)"/><circle cx="20" cy="10" r="2.5" fill="rgba(255,255,255,0.5)"/><circle cx="40" cy="114" r="7" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/></svg></span>
                         <span><strong>Kompas Aktif!</strong> Putar device, panah hijau selalu menunjuk ke Ka'bah.</span>
                     </div>
                     <div x-show="needsCompassPermission" class="notice amber" style="flex-direction:column;gap:10px;">
                         <div style="display:flex;gap:8px;align-items:flex-start;">
-                            <span class="notice-icon">🧭</span>
+                            <span class="notice-icon"><svg width="18" height="18" fill="currentColor" viewBox="0 0 338.605 338.605" xmlns="http://www.w3.org/2000/svg"><g><path d="M169.303,0.001C75.949,0.001,0,75.949,0,169.303s75.949,169.302,169.303,169.302s169.303-75.949,169.303-169.302S262.656,0.001,169.303,0.001z M169.303,320c-83.095,0-150.697-67.603-150.697-150.698S86.208,18.605,169.303,18.605S320,86.208,320,169.303S252.397,320,169.303,320z"/><path d="M169.303,27.22C90.958,27.22,27.22,90.958,27.22,169.303s63.738,142.083,142.083,142.083s142.083-63.738,142.083-142.083S247.647,27.22,169.303,27.22z M301.309,189.066l-9.702-1.71l-1.201,6.816l9.708,1.711c-1.095,5.393-2.516,10.668-4.24,15.805l-9.258-3.369l-2.367,6.504l9.255,3.369c-2.015,5.1-4.335,10.046-6.939,14.817l-8.509-4.912l-3.459,5.994l8.494,4.903c-2.863,4.657-6.005,9.124-9.399,13.382l-7.492-6.286l-4.449,5.302l7.486,6.282c-3.615,4.085-7.477,7.946-11.561,11.562l-6.286-7.488l-5.301,4.449l6.29,7.493c-4.258,3.396-8.726,6.538-13.384,9.401l-4.901-8.492l-5.994,3.46l4.909,8.506c-4.771,2.603-9.718,4.924-14.818,6.939l-3.369-9.254l-6.504,2.368l3.37,9.255c-5.138,1.725-10.412,3.146-15.805,4.24l-1.714-9.705l-6.816,1.203l1.713,9.698c-5.339,0.796-10.777,1.28-16.301,1.421v-26.382h-6.922v26.382c-5.523-0.141-10.964-0.625-16.303-1.421l1.714-9.697l-6.814-1.204l-1.716,9.705c-5.393-1.094-10.668-2.515-15.806-4.24l3.371-9.254l-6.502-2.369l-3.371,9.254c-5.101-2.015-10.046-4.336-14.818-6.939l4.91-8.506l-5.994-3.46l-4.901,8.492c-4.658-2.863-9.126-6.005-13.384-9.401l6.288-7.493l-5.301-4.449l-6.284,7.488c-4.085-3.616-7.946-7.477-11.562-11.562l7.486-6.282l-4.449-5.302l-7.492,6.286c-3.395-4.257-6.537-8.725-9.399-13.382l8.494-4.902l-3.459-5.994l-8.509,4.911c-2.604-4.771-4.925-9.717-6.939-14.817l9.254-3.368l-2.367-6.504l-9.256,3.369c-1.725-5.137-3.146-10.412-4.24-15.805l9.708-1.711l-1.201-6.816l-9.702,1.71c-0.797-5.339-1.28-10.779-1.422-16.303h26.381v-6.921H35.875c0.142-5.524,0.625-10.963,1.422-16.302l9.702,1.711l1.201-6.816l-9.708-1.711c1.095-5.393,2.516-10.668,4.24-15.806l9.256,3.369l2.367-6.504l-9.254-3.368c2.016-5.1,4.336-10.046,6.939-14.817l8.509,4.911l3.459-5.994l-8.494-4.903c2.862-4.657,6.005-9.125,9.399-13.382l7.492,6.286l4.449-5.302l-7.486-6.282c3.615-4.084,7.477-7.946,11.562-11.562l6.286,7.489l5.301-4.449l-6.29-7.494c4.258-3.396,8.726-6.538,13.384-9.401l4.901,8.492l5.994-3.46l-4.909-8.506c4.771-2.603,9.718-4.924,14.818-6.939l3.369,9.255l6.504-2.367l-3.37-9.258c5.137-1.725,10.412-3.146,15.805-4.24l1.714,9.708l6.816-1.203l-1.713-9.702c5.339-0.796,10.777-1.28,16.301-1.421v9.846h6.922v-9.846c5.523,0.141,10.962,0.625,16.301,1.421l-1.713,9.702l6.816,1.203l1.714-9.708c5.393,1.094,10.667,2.515,15.804,4.239l-3.369,9.258l6.504,2.367l3.368-9.256c5.101,2.015,10.048,4.336,14.819,6.939l-4.909,8.508l5.994,3.459l4.9-8.493c4.658,2.863,9.126,6.005,13.384,9.401l-6.289,7.495l5.301,4.449l6.285-7.49c4.085,3.617,7.946,7.479,11.563,11.563l-7.486,6.283l4.449,5.302l7.492-6.287c3.395,4.257,6.536,8.724,9.398,13.381l-8.494,4.905l3.461,5.993l8.508-4.913c2.603,4.772,4.924,9.718,6.939,14.818l-9.255,3.37l2.367,6.503l9.258-3.371c1.725,5.138,3.146,10.413,4.24,15.807l-9.708,1.711l1.201,6.816l9.702-1.711c0.797,5.339,1.28,10.778,1.422,16.302H276.35v6.921h26.381C302.589,178.287,302.105,183.727,301.309,189.066z"/><path d="M189.766,191.022c4.402-1.555,7.948-7.063,9.68-14.091l-21.099,7.1C181.032,189.691,185.278,192.607,189.766,191.022z"/><path d="M215.203,182.132c4.328-1.53,7.828-6.876,9.592-13.73l-20.868,7.022C206.612,180.9,210.797,183.691,215.203,182.132z"/><path d="M148.846,191.022c4.482,1.585,8.732-1.331,11.414-6.992l-21.1-7.1C140.893,183.958,144.441,189.468,148.846,191.022z"/><path d="M123.4,182.132c4.415,1.559,8.594-1.232,11.281-6.709l-20.868-7.022C115.573,175.255,119.073,180.602,123.4,182.132z"/><path d="M215.471,193.755c-6.798,2.403-13.084-5.339-14.318-17.397l-0.145,0.049c0.6,12.244-4.198,23.842-10.974,26.239c-6.861,2.424-13.194-5.477-14.35-17.718l-6.379,2.146l-6.377-2.146c-1.156,12.241-7.492,20.141-14.348,17.717c-6.785-2.397-11.584-13.997-10.981-26.241l-0.146-0.049c-1.234,12.06-7.52,19.802-14.319,17.399c-6.713-2.375-11.483-13.792-10.984-25.914l-1.959-0.659v44.239l59.115,19.897l59.115-19.897v-44.239l-1.959,0.659C226.96,179.962,222.189,191.379,215.471,193.755z"/><path d="M110.15,128.777l0.039,0.013v23.872l59.115,19.897l59.115-19.897v-23.873l0.035-0.012l-59.15-21.49L110.15,128.777z M169.305,142.929l-42.667-14.35l42.667-15.501l42.664,15.501L169.305,142.929z"/><polygon points="201.225,110.545 169.303,52.664 137.381,110.436 169.303,91.635"/></g></svg></span>
                             <span><strong>Izin Kompas Dibutuhkan</strong><br>Tekan tombol untuk mengaktifkan kompas.</span>
                         </div>
                         <button @click="requestCompassPermission()" class="btn-secondary" style="align-self:flex-start;">
@@ -589,7 +602,21 @@
 
             <!-- ── Ka'bah Info ── -->
             <div class="kaaba-card">
-                <div class="kaaba-emoji">🕋</div>
+                <div class="kaaba-emoji">
+                    <svg width="48" height="48" viewBox="0 0 130 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="65,4 118,28 65,52 12,28" fill="white"/>
+                        <polygon points="65,4 118,28 65,52 12,28" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                        <polygon points="12,28 12,82 65,106 65,52" fill="white" opacity="0.85"/>
+                        <polygon points="118,28 118,82 65,106 65,52" fill="white" opacity="0.7"/>
+                        <polygon points="12,28 12,82 65,106 118,82 118,28 65,52" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+                        <line x1="12" y1="48" x2="65" y2="68" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
+                        <line x1="12" y1="56" x2="65" y2="74" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
+                        <line x1="118" y1="48" x2="65" y2="68" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
+                        <line x1="118" y1="56" x2="65" y2="74" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
+                        <path d="M12,68 Q20,74 28,68 Q36,74 44,68 Q52,74 60,68 Q62,70 65,72" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+                        <path d="M118,68 Q110,74 102,68 Q94,74 86,68 Q78,74 70,68 Q68,70 65,72" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+                    </svg>
+                </div>
                 <div class="kaaba-text">
                     <div class="kaaba-arabic">الْكَعْبَة الْمُشَرَّفَة</div>
                     <div class="kaaba-name">Ka'bah Al-Musharrafah</div>
