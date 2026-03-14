@@ -15,19 +15,11 @@ class PrayerTrackingController extends Controller
         $selectedDate = $request->get('date', now()->toDateString());
 
         // ==============================
-        // 📍 GET USER LOCATION
+        // 📍 GET USER LOCATION (dari database, bukan session)
         // ==============================
-        $userLat  = session('user_lat');
-        $userLng  = session('user_lng');
-
-        // FIX: kalau pakai koordinat, tampilkan nama kota dari session 'user_city_name'
-        // kalau pakai nama kota, tampilkan dari session 'user_city'
-        // default Jakarta hanya kalau benar-benar tidak ada session apapun
-        if ($userLat && $userLng) {
-            $userCity = session('user_city_name', 'Lokasi GPS');
-        } else {
-            $userCity = session('user_city', 'Jakarta');
-        }
+        $userLat  = $user->latitude;
+        $userLng  = $user->longitude;
+        $userCity = $user->city ?? 'Jakarta';
 
         $formattedDate = Carbon::parse($selectedDate)->format('d-m-Y');
 
@@ -181,8 +173,7 @@ class PrayerTrackingController extends Controller
     }
 
     /**
-     * Set user location
-     * FIX: simpan juga nama kota ke session 'user_city_name' saat pakai koordinat
+     * Set user location — simpan ke DATABASE agar permanen
      */
     public function setLocation(Request $request)
     {
@@ -192,20 +183,22 @@ class PrayerTrackingController extends Controller
             'longitude' => 'nullable|numeric',
         ]);
 
+        $user = auth()->user();
+
         if (!empty($validated['latitude']) && !empty($validated['longitude'])) {
-            // Simpan koordinat
-            session([
-                'user_lat'       => $validated['latitude'],
-                'user_lng'       => $validated['longitude'],
-                // FIX: simpan nama kota agar bisa ditampilkan di UI
-                'user_city_name' => $validated['city'] ?? 'Lokasi GPS',
+            // Simpan koordinat + nama kota ke database
+            $user->update([
+                'latitude'  => $validated['latitude'],
+                'longitude' => $validated['longitude'],
+                'city'      => $validated['city'] ?? 'Lokasi GPS',
             ]);
-
-            session()->forget('user_city');
-
         } elseif (!empty($validated['city'])) {
-            session(['user_city' => $validated['city']]);
-            session()->forget(['user_lat', 'user_lng', 'user_city_name']);
+            // Simpan nama kota, hapus koordinat
+            $user->update([
+                'city'      => $validated['city'],
+                'latitude'  => null,
+                'longitude' => null,
+            ]);
         }
 
         return response()->json([
