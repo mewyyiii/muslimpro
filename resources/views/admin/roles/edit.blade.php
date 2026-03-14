@@ -14,9 +14,9 @@
             </svg>
         </a>
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Edit Role</h1>
+            <h1 class="text-2xl font-bold text-gray-800">Edit Peran</h1>
             <p class="text-sm text-gray-500 mt-0.5">
-                Ubah nama role: <span class="font-semibold text-teal-600 capitalize">{{ $role->name }}</span>
+                Ubah nama pengguna: <span class="font-semibold text-teal-600 capitalize">{{ $role->name }}</span>
             </p>
         </div>
     </div>
@@ -29,7 +29,7 @@
             <svg style="width:18px;height:18px;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            Role ini sedang digunakan oleh <strong>{{ $userCount }} user</strong>. Nama role akan ikut berubah.
+            Peran ini sedang digunakan oleh <strong>{{ $userCount }} user</strong>. Nama pengguna akan ikut berubah.
         </div>
         @endif
 
@@ -39,7 +39,7 @@
 
             <div class="mb-6">
                 <label class="block text-sm font-semibold text-gray-700 mb-1.5">
-                    Nama Role
+                    Nama Peran
                 </label>
                 <input
                     type="text"
@@ -48,7 +48,7 @@
                     placeholder="contoh: kasir, moderator, super_admin"
                     class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-300 @error('name') border-red-400 @enderror"
                 />
-                <p class="text-xs text-gray-400 mt-1.5">Gunakan huruf kecil dan underscore saja.</p>
+                <p class="text-xs text-gray-400 mt-1.5">Gunakan huruf kecil dan garis bawah saja.</p>
                 @error('name')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -61,7 +61,7 @@
                 </a>
                 <button type="submit"
                         class="px-5 py-2.5 text-sm font-semibold text-white bg-teal-600 hover:bg-teal-700 rounded-xl transition">
-                    Update Role
+                    Perbarui Peran
                 </button>
             </div>
         </form>

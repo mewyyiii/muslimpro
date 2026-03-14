@@ -57,7 +57,7 @@
                     {{-- Posisi --}}
                     <td class="px-6 py-4">
                         <span class="bg-blue-50 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">
-                            {{ $ad->position === 'in_content' ? 'In Content' : 'Footer Sticky' }}
+                            {{ $ad->position === 'in_content' ? 'Bawah Header' : 'Bawah Layar' }}
                         </span>
                     </td>
 

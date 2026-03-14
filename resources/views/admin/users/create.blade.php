@@ -14,7 +14,7 @@
             </svg>
         </a>
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Tambah User</h1>
+            <h1 class="text-2xl font-bold text-gray-800">Tambah Pengguna</h1>
             <p class="text-sm text-gray-500 mt-0.5">Buat akun pengguna baru</p>
         </div>
     </div>
@@ -43,7 +43,7 @@
 
             {{-- Password --}}
             <div class="mb-5">
-                <label class="block text-sm font-semibold text-gray-700 mb-1.5">Password</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-1.5">Sandi</label>
                 <div class="relative">
                     <input type="password" id="password" name="password"
                         placeholder="Minimal 8 karakter"
@@ -61,10 +61,10 @@
 
             {{-- Konfirmasi Password --}}
             <div class="mb-5">
-                <label class="block text-sm font-semibold text-gray-700 mb-1.5">Konfirmasi Password</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-1.5">Konfirmasi Sandi</label>
                 <div class="relative">
                     <input type="password" id="password_confirmation" name="password_confirmation"
-                        placeholder="Ulangi password"
+                        placeholder="Ulangi sandi"
                         class="w-full border border-gray-200 rounded-xl px-4 py-2.5 pr-11 text-sm focus:outline-none focus:ring-2 focus:ring-teal-300"/>
                     <button type="button" onclick="toggleAdminPass('password_confirmation', 'eye-confirm')"
                             class="eye-btn text-gray-400 hover:text-teal-600 transition-colors">
@@ -78,10 +78,10 @@
 
             {{-- Role --}}
             <div class="mb-6">
-                <label class="block text-sm font-semibold text-gray-700 mb-1.5">Role</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-1.5">Peran</label>
                 <select name="role_id"
                     class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-300 @error('role_id') border-red-400 @enderror">
-                    <option value="">-- Pilih Role --</option>
+                    <option value="">-- Pilih Peran --</option>
                     @foreach($roles as $role)
                     <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
                         {{ ucfirst($role->name) }}
@@ -99,7 +99,7 @@
                 </a>
                 <button type="submit"
                         class="px-5 py-2.5 text-sm font-semibold text-white bg-teal-600 hover:bg-teal-700 rounded-xl transition">
-                    Simpan User
+                    Simpan Pengguna
                 </button>
             </div>
         </form>

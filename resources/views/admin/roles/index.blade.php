@@ -9,7 +9,7 @@
     <div class="flex items-center justify-between mb-6">
         <div>
             <h1 class="text-2xl font-bold text-gray-800">Kelola Peran</h1>
-            <p class="text-sm text-gray-500 mt-1">Kelola role dan hak akses pengguna</p>
+            <p class="text-sm text-gray-500 mt-1">Kelola peran dan hak akses pengguna</p>
         </div>
         <a href="{{ route('admin.roles.create') }}"
            class="bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
@@ -40,7 +40,7 @@
         <svg style="width:18px;height:18px;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
         </svg>
-        Peran yang masih digunakan oleh user <strong>tidak dapat dihapus</strong>. Peran <strong>admin</strong> dilindungi dan tidak bisa dihapus.
+        Peran yang masih digunakan oleh pengguna <strong>tidak dapat dihapus</strong>. Peran <strong>admin</strong> dilindungi dan tidak bisa dihapus.
     </div>
 
     {{-- Roles Grid --}}
@@ -63,11 +63,11 @@
                 <div>
                     <p class="font-semibold text-gray-800 capitalize">{{ $role->name }}</p>
                     <p class="text-xs text-gray-400 mt-0.5">
-                        {{ $role->users_count }} user
+                        {{ $role->users_count }} pengguna
                         @if($role->users_count > 0)
                             <span class="text-teal-600">• aktif</span>
                         @else
-                            <span class="text-gray-400">• tidak ada user</span>
+                            <span class="text-gray-400">• tidak ada pengguna</span>
                         @endif
                     </p>
                 </div>
@@ -105,7 +105,7 @@
                     <svg style="width:13px;height:13px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                     </svg>
-                    Protected
+                    Dilindungi
                 </span>
                 @else
                 <span class="text-xs px-3 py-1.5 bg-gray-100 text-gray-400 rounded-lg"
@@ -113,7 +113,7 @@
                     <svg style="width:13px;height:13px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                     </svg>
-                    In Use
+                    Digunakan
                 </span>
                 @endif
             </div>
@@ -125,8 +125,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                 </svg>
             </div>
-            <p class="font-medium">Belum ada role</p>
-            <p class="text-xs mt-1">Klik "+ Tambah Role" untuk membuat role baru</p>
+            <p class="font-medium">Belum ada peran</p>
+            <p class="text-xs mt-1">Klik "+ Tambah Peran" untuk membuat peran baru</p>
         </div>
         @endforelse
     </div>
