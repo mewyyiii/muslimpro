@@ -734,8 +734,13 @@ async function saveLocation() {
     const prayerLabels = {
         fajr: 'Subuh', dhuhr: 'Dzuhur', asr: 'Ashar', maghrib: 'Maghrib', isha: 'Isya'
     };
-    const prayerEmojis = {
-        fajr: '🌅', dhuhr: '☀️', asr: '🌤️', maghrib: '🌇', isha: '🌙'
+   // SESUDAH
+    const prayerIcons = {
+        fajr:    `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20H18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+        dhuhr:   `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><circle cx="12" cy="12" r="4" fill="white"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>`,
+        asr:     `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><circle cx="12" cy="12" r="3.5" stroke="white" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+        maghrib: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke="white" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="white" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+        isha:    `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     };
     const audioUrls = {
         makkah  : 'https://www.islamcan.com/audio/adhan/azan1.mp3',
