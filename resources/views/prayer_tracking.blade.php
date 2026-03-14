@@ -252,19 +252,11 @@
                     {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' : 'border-gray-100 bg-white' }}"
                 >
 
-                    @php
-                        $prayerSvg = [
-                            'fajr'    => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
-                            'dhuhr'   => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-                            'asr'     => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
-                            'maghrib' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
-                            'isha'    => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-                        ];
-                    @endphp
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0
-                                {{ $status === 'performed' ? 'bg-teal-100 text-teal-600' : 'bg-gray-100 text-gray-500' }}">
-                        {!! $prayerSvg[$prayer] !!}
-                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0
+                                    {{ $status === 'performed' ? 'bg-teal-100' : 'bg-gray-100' }}">
+                            {{ ['fajr'=>'🌅','dhuhr'=>'☀️','asr'=>'🌤️','maghrib'=>'🌇','isha'=>'🌙'][$prayer] }}
+                        </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-2">
                                 <div class="font-semibold text-gray-800">{{ $prayerNames[$prayer] }}</div>
@@ -311,10 +303,7 @@
                                     disabled
                                     class="w-10 h-10 rounded-full flex items-center justify-center
                                         border-2 border-gray-200 bg-white opacity-40 cursor-not-allowed">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
-                                        <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
-                                        <path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
+                                    🔒
                                 </button>
                             @endif
                         </div>
@@ -734,13 +723,8 @@ async function saveLocation() {
     const prayerLabels = {
         fajr: 'Subuh', dhuhr: 'Dzuhur', asr: 'Ashar', maghrib: 'Maghrib', isha: 'Isya'
     };
-   // SESUDAH
-    const prayerIcons = {
-        fajr:    `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20H18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>`,
-        dhuhr:   `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><circle cx="12" cy="12" r="4" fill="white"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>`,
-        asr:     `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><circle cx="12" cy="12" r="3.5" stroke="white" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>`,
-        maghrib: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke="white" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="white" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>`,
-        isha:    `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    const prayerEmojis = {
+        fajr: '🌅', dhuhr: '☀️', asr: '🌤️', maghrib: '🌇', isha: '🌙'
     };
     const audioUrls = {
         makkah  : 'https://www.islamcan.com/audio/adhan/azan1.mp3',
