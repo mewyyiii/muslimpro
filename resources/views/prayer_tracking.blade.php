@@ -61,7 +61,7 @@
 
                 <div class="flex-1">
                     <label class="text-sm font-semibold text-gray-600">
-                        <svg class="inline-block w-4 h-4 mr-1 -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Lokasi Waktu Shalat
+                        📍 Lokasi Waktu Shalat
                     </label>
 
                     <div class="relative mt-2" id="cityAutocomplete">
@@ -120,7 +120,7 @@
             <div id="gpsStatus" class="hidden mt-2 text-xs font-medium"></div>
 
             <p class="text-xs text-gray-400 mt-2">
-                <svg class="inline-block w-3.5 h-3.5 mr-1 -mt-0.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg> Ketik nama kota/kabupaten <span class="font-medium text-gray-500">atau</span> klik <span class="text-emerald-600 font-semibold">Lokasi Saya</span> untuk akurat sampai kecamatan
+                💡 Ketik nama kota/kabupaten <span class="font-medium text-gray-500">atau</span> klik <span class="text-emerald-600 font-semibold">Lokasi Saya</span> untuk akurat sampai kecamatan
             </p>
         </div>
 
@@ -143,6 +143,13 @@
                 @if(isset($nextPrayer) && $selectedDate === now()->toDateString())
                     @php
                         $npNames = ['fajr'=>'Subuh','dhuhr'=>'Dzuhur','asr'=>'Ashar','maghrib'=>'Maghrib','isha'=>'Isya'];
+                        $npSvg = [
+                            'fajr'    => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+                            'dhuhr'   => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+                            'asr'     => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+                            'maghrib' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+                            'isha'    => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                        ];
                         $npKey   = $nextPrayer['name'];
                         $npTime  = $nextPrayer['time'];
                         $remMin  = (int)($nextPrayer['remaining_minutes'] ?? 0);
@@ -150,23 +157,14 @@
                         $remM    = $remMin % 60;
                         $countdownStr = $remH > 0 ? "{$remH}j {$remM}m lagi" : "{$remM}m lagi";
                     @endphp
-                    @php
-                    $npSvg = [
-                        'fajr'    => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
-                        'dhuhr'   => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-                        'asr'     => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
-                        'maghrib' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
-                        'isha'    => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-                    ];
-                    @endphp
-                    <div class="flex justify-center mb-0.5 text-teal-500">{!! $npSvg[$npKey] ?? '<svg viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>' !!}</div>
+                    <div class="flex justify-center mb-0.5 text-teal-500">{!! $npSvg[$npKey] ?? '<svg viewBox="0 0 24 24" fill="none" class="w-6 h-6"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' !!}</div>
                     <div class="text-2xl md:text-3xl font-bold text-teal-600 leading-tight">{{ $npTime }}</div>
                     <div class="text-xs md:text-sm text-gray-500 font-medium mt-0.5">{{ $npNames[$npKey] ?? ucfirst($npKey) }}</div>
                     <div class="mt-2 text-xs font-semibold text-teal-500 bg-teal-50 rounded-full px-3 py-0.5 inline-block">
                         {{ $countdownStr }}
                     </div>
                 @else
-                    <div class="text-2xl mb-1"><svg class="w-8 h-8 mx-auto text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                    <div class="text-2xl mb-1">✅</div>
                     <div class="text-xl font-bold text-emerald-600">Selesai</div>
                     <div class="text-xs text-gray-500 font-medium mt-0.5">Shalat Hari Ini</div>
                     <div class="mt-2 text-xs text-emerald-400 font-medium">Alhamdulillah!</div>
@@ -188,7 +186,7 @@
         {{-- WAKTU IMSAK & BUKA PUASA --}}
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6">
             <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-5 flex items-center gap-2">
-                <span class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></span>
+                <span class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">🌙</span>
                 Waktu Puasa
             </h2>
 
@@ -196,7 +194,7 @@
                 {{-- Card Imsak/Sahur --}}
                 <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-5 border-2 border-purple-200">
                     <div class="flex items-center gap-3 mb-2">
-                        <span class="text-3xl"><svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 17H21M6 20H18"/></svg></span>
+                        <span class="text-3xl">🌄</span>
                         <div>
                             <div class="text-sm text-purple-600 font-semibold">Imsak / Akhir Sahur</div>
                             <div class="text-2xl font-bold text-purple-800">{{ $imsakTime }}</div>
@@ -210,14 +208,14 @@
                 {{-- Card Buka Puasa --}}
                 <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-5 border-2 border-orange-200">
                     <div class="flex items-center gap-3 mb-2">
-                        <span class="text-3xl"><svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 17H21M6 20H18"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 13C5 9.13 8.13 6 12 6C15.87 6 19 9.13 19 13"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 13H5M19 13H21"/></svg></span>
+                        <span class="text-3xl">🌆</span>
                         <div>
                             <div class="text-sm text-orange-600 font-semibold">Waktu Buka Puasa</div>
                             <div class="text-2xl font-bold text-orange-800">{{ $bukaTime }}</div>
                         </div>
                     </div>
                     <div class="text-xs text-orange-600 mt-2">
-                        <svg class="inline-block w-3.5 h-3.5 mr-1 -mt-0.5" fill="currentColor" viewBox="0 0 463 463"><path d="M397.886,238.967c-1.202-2.712-3.89-4.46-6.856-4.46h-32.162c-3.413-9.876-12.071-31.572-28.48-53.45c-29.019-38.692-68.521-59.229-114.27-59.44c-6.534-1.114-56.24-8.741-81.407,12.237c-9.696,8.083-14.613,19.147-14.613,32.886c0,20.927,28.343,64.929,43.219,86.583H108.78c-2.546,0-7.078-2.654-11.076-4.997c-6.04-3.538-12.887-7.548-20.285-7.548c-18.66,0-19.558,25.105-20.04,38.594c-0.161,4.508-1.549,8.055-3.018,11.81c-1.602,4.096-3.259,8.331-3.259,13.547c0,5.921,3.306,11.342,9.07,14.873c5.603,3.432,13.516,5.172,23.519,5.172c4.143,0,7.5-3.358,7.5-7.5s-3.357-7.5-7.5-7.5c-1.374,0-2.627-0.047-3.813-0.118c3.929-7.999,9.833-13.734,12.735-16.243h12.241l2.743,24.689c0.422,3.798,3.633,6.672,7.454,6.672H221.68c5.604,0,10.723-2.208,14.804-6.385c6.74-6.899,9.872-18.609,11.318-28.744c17.999,21.989,30.988,32.73,31.86,33.441c1.349,1.1,3.025,1.688,4.739,1.688c0.43,0,0.862-0.037,1.292-0.112c2.145-0.375,4.02-1.663,5.139-3.529l0.003-0.005c3.584,2.37,7.781,3.646,12.176,3.646h94.291c3.353,0,6.298-2.225,7.214-5.45C404.979,317.696,415.638,279.012,397.886,238.967z"/></svg> Bersamaan dengan waktu Maghrib
+                        🕌 Bersamaan dengan waktu Maghrib
                     </div>
                 </div>
             </div>
@@ -229,7 +227,7 @@
              x-init="init()">
 
             <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                <span class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600 text-base"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></span>
+                <span class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600 text-base">📋</span>
                 Catat Shalat - {{ $userCity }}
             </h2>
 
@@ -252,10 +250,19 @@
                     {{ $status === 'performed' ? 'border-teal-200 bg-teal-50' : 'border-gray-100 bg-white' }}"
                 >
 
+                    @php
+                        $prayerSvg = [
+                            'fajr'    => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+                            'dhuhr'   => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+                            'asr'     => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+                            'maghrib' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+                            'isha'    => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                        ];
+                    @endphp
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0
-                                    {{ $status === 'performed' ? 'bg-teal-100' : 'bg-gray-100' }}">
-                            {{ ['fajr'=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-5 h-5"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke-linecap="round"/><path d="M3 17H21M6 20H18" stroke-linecap="round"/></svg>','dhuhr'=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke-linecap="round"/></svg>','asr'=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-5 h-5"><circle cx="12" cy="13" r="3.5"/><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21M3 19H21M6 22H18" stroke-linecap="round"/></svg>','maghrib'=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-5 h-5"><path d="M12 2V4M5.5 5.5L6.9 6.9M18.5 5.5L17.1 6.9M3 11H5M19 11H21" stroke-linecap="round"/><path d="M5 13C5 9.69 8.13 7 12 7C15.87 7 19 9.69 19 13" stroke-linecap="round"/><path d="M3 13H21" stroke-linecap="round" stroke-width="2.2"/><path d="M6 17H18" stroke-linecap="round"/></svg>','isha'=>'<svg viewBox="0 0 24 24" fill="none" class="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'][$prayer] }}
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0
+                                    {{ $status === 'performed' ? 'bg-teal-100 text-teal-600' : 'bg-gray-100 text-gray-500' }}">
+                            {!! $prayerSvg[$prayer] !!}
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-2">
@@ -274,7 +281,7 @@
                                     {{ $status === 'performed' ? 'text-teal-500' :
                                        ($status === 'qada' ? 'text-amber-500' : 'text-red-400') }}">
                                     {{ $status === 'performed' ? '✓ Tepat waktu' :
-                                       ($status === 'qada' ? 'Qada' : '✗ Terlewat') }}
+                                       ($status === 'qada' ? '⏰ Qada' : '✗ Terlewat') }}
                                 </div>
                             @endif
                         </div>
@@ -303,7 +310,7 @@
                                     disabled
                                     class="w-10 h-10 rounded-full flex items-center justify-center
                                         border-2 border-gray-200 bg-white opacity-40 cursor-not-allowed">
-                                    <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                                 </button>
                             @endif
                         </div>
@@ -323,7 +330,7 @@
         {{-- 7 HARI TERAKHIR --}}
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6">
             <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-5 flex items-center gap-2">
-                <span class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></span>
+                <span class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600">📊</span>
                 7 Hari Terakhir
             </h2>
             <div class="grid grid-cols-7 gap-2">
@@ -419,7 +426,7 @@
                     <p id="mapSelectedCoords" class="text-xs text-gray-400 font-mono"></p>
                 </div>
             </div>
-            <p id="mapHint" class="text-xs text-gray-400 mb-2.5"><svg class="inline-block w-3.5 h-3.5 mr-1 -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Klik di peta untuk menentukan lokasi shalat</p>
+            <p id="mapHint" class="text-xs text-gray-400 mb-2.5">📌 Klik di peta untuk menentukan lokasi shalat</p>
 
             {{-- Tombol aksi --}}
             <div class="flex gap-2">
@@ -473,13 +480,13 @@ function prayerTracker() {
                 const data = await res.json();
 
                 if (data.success) {
-                    this.showFlash('✓ ' + data.message);
+                    this.showFlash('✅ ' + data.message);
                     setTimeout(() => window.location.reload(), 500);
                 } else {
-                    this.showFlash('✗ ' + data.message);
+                    this.showFlash('🚫 ' + data.message);
                 }
             } catch (error) {
-                this.showFlash('Gagal menyimpan');
+                this.showFlash('❌ Gagal menyimpan');
             }
         },
 
@@ -494,7 +501,7 @@ function prayerTracker() {
 // ── GPS Lokasi Otomatis ────────────────────────────────────────────────────
 function useGPS() {
     if (!navigator.geolocation) {
-        showGpsStatus('Browser tidak mendukung GPS', 'text-red-500');
+        showGpsStatus('❌ Browser tidak mendukung GPS', 'text-red-500');
         return;
     }
 
@@ -506,7 +513,7 @@ function useGPS() {
     btn.disabled = true;
     btn.classList.add('opacity-70', 'cursor-not-allowed');
     btnText.textContent = 'Mendeteksi...';
-    showGpsStatus('Mendeteksi lokasi GPS...', 'text-emerald-600');
+    showGpsStatus('📡 Mendeteksi lokasi GPS...', 'text-emerald-600');
 
     navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -531,10 +538,10 @@ function useGPS() {
                     || 'Lokasi GPS';
 
                 setGpsCity(cityName, lat, lng);
-                showGpsStatus(`Lokasi: ${cityName}`, 'text-emerald-600');
+                showGpsStatus(`✅ Lokasi: ${cityName}`, 'text-emerald-600');
             } catch (e) {
                 setGpsCity('Lokasi GPS', lat, lng);
-                showGpsStatus('Koordinat GPS berhasil didapat', 'text-emerald-600');
+                showGpsStatus('✅ Koordinat GPS berhasil didapat', 'text-emerald-600');
             }
 
             // Reset button
@@ -543,10 +550,10 @@ function useGPS() {
             btnText.textContent = 'Lokasi Saya';
         },
         (error) => {
-            let msg = 'Gagal mendapatkan lokasi';
-            if (error.code === 1) msg = 'Izin lokasi ditolak. Aktifkan di pengaturan browser.';
-            if (error.code === 2) msg = 'Lokasi tidak tersedia, coba lagi.';
-            if (error.code === 3) msg = 'Timeout, coba lagi.';
+            let msg = '❌ Gagal mendapatkan lokasi';
+            if (error.code === 1) msg = '❌ Izin lokasi ditolak. Aktifkan di pengaturan browser.';
+            if (error.code === 2) msg = '❌ Lokasi tidak tersedia, coba lagi.';
+            if (error.code === 3) msg = '❌ Timeout, coba lagi.';
             showGpsStatus(msg, 'text-red-500');
             btn.disabled = false;
             btn.classList.remove('opacity-70', 'cursor-not-allowed');
@@ -668,7 +675,7 @@ async function saveLocation() {
         input.classList.add('border-red-400');
         input.focus();
         const originalPlaceholder = input.placeholder;
-        input.placeholder = 'Pilih dari daftar saran terlebih dahulu!';
+        input.placeholder = '⚠️ Pilih dari daftar saran terlebih dahulu!';
         setTimeout(() => {
             input.placeholder = originalPlaceholder;
             input.classList.remove('border-red-400');
@@ -707,7 +714,7 @@ async function saveLocation() {
 }
 
 // ══════════════════════════════════════════════════════════════════
-// AZAN POLLING — cek setiap 30 detik, bunyi kalau sudah jamnya
+// 🔔 AZAN POLLING — cek setiap 30 detik, bunyi kalau sudah jamnya
 // ══════════════════════════════════════════════════════════════════
 (function initAzanPolling() {
 
@@ -723,8 +730,12 @@ async function saveLocation() {
     const prayerLabels = {
         fajr: 'Subuh', dhuhr: 'Dzuhur', asr: 'Ashar', maghrib: 'Maghrib', isha: 'Isya'
     };
-    const prayerEmojis = {
-        fajr: 'Subuh', dhuhr: 'Dzuhur', asr: 'Ashar', maghrib: 'Maghrib', isha: 'Isya'
+    const prayerIcons = {
+        fajr:    `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20H18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+        dhuhr:   `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><circle cx="12" cy="12" r="4" fill="white"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>`,
+        asr:     `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><circle cx="12" cy="12" r="3.5" stroke="white" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+        maghrib: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke="white" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="white" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+        isha:    `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:2.2rem;height:2.2rem;flex-shrink:0"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     };
     const audioUrls = {
         makkah  : 'https://www.islamcan.com/audio/adhan/azan1.mp3',
@@ -758,12 +769,12 @@ async function saveLocation() {
             if (data.setting) {
                 azanSetting   = data.setting;
                 settingLoaded = true;
-                console.log('[Azan] Setting loaded:', azanSetting);
+                console.log('[Azan] ✅ Setting loaded:', azanSetting);
             }
         })
         .catch(() => {
             settingLoaded = true; // tetap jalan walau gagal, pakai default
-            console.warn('[Azan] Gagal load setting, pakai default (semua aktif, Makkah).');
+            console.warn('[Azan] ⚠️ Gagal load setting, pakai default (semua aktif, Makkah).');
         });
 
     // Kirim prayer times ke Service Worker supaya SW juga bisa cek
@@ -775,7 +786,7 @@ async function saveLocation() {
                     settings : azanSetting,
                     times    : prayerTimes,
                 });
-                console.log('[Azan] Data dikirim ke SW:', prayerTimes);
+                console.log('[Azan] ✅ Data dikirim ke SW:', prayerTimes);
             }
         });
     }
@@ -816,15 +827,15 @@ async function saveLocation() {
 
     function triggerAzan(prayer) {
         const label    = prayerLabels[prayer];
-        const emoji    = prayerEmojis[prayer];
+        const icon     = prayerIcons[prayer];
         const muadzin  = azanSetting?.muadzin || 'makkah';
         const audioUrl = audioUrls[muadzin] || audioUrls.makkah;
 
-        console.log(`[Azan] Waktunya ${label}! Memutar ${muadzin}...`);
+        console.log(`[Azan] 🔔 Waktunya ${label}! Memutar ${muadzin}...`);
 
         // Kalau app.blade.php sudah punya fungsi playAzan global, pakai itu
         if (typeof playAzan === 'function') {
-            playAzan(audioUrl, label, emoji);
+            playAzan(audioUrl, label, icon);
             return;
         }
 
@@ -832,18 +843,18 @@ async function saveLocation() {
         const audio = new Audio(audioUrl);
         audio.play()
             .then(() => {
-                showAzanBannerLocal(label, emoji, null);
+                showAzanBannerLocal(label, icon, null);
             })
             .catch(() => {
                 // Autoplay diblokir → tampilkan banner + tombol play manual
-                showAzanBannerLocal(label, emoji, audioUrl);
+                showAzanBannerLocal(label, icon, audioUrl);
             });
     }
 
-    function showAzanBannerLocal(label, emoji, manualAudioUrl) {
+    function showAzanBannerLocal(label, icon, manualAudioUrl) {
         // Kalau app.blade.php sudah punya showAzanBanner global, pakai itu
         if (typeof showAzanBanner === 'function') {
-            showAzanBanner(label, emoji, manualAudioUrl);
+            showAzanBanner(label, icon, manualAudioUrl);
             return;
         }
 
@@ -870,7 +881,7 @@ async function saveLocation() {
                     to   { transform:translateX(-50%) translateY(0); opacity:1; }
                 }
             </style>
-            <span style="font-size:2.2rem;line-height:1">${emoji}</span>
+            ${icon}
             <div style="flex:1">
                 <div style="font-weight:700;font-size:1rem;margin-bottom:2px">Waktu ${label}</div>
                 <div style="font-size:0.75rem;opacity:0.9">Allahu Akbar, segera shalat...</div>
@@ -902,12 +913,12 @@ async function saveLocation() {
     checkAzan();
     setInterval(checkAzan, 30000);
 
-    console.log('[Azan] Polling aktif. Jadwal hari ini:', prayerTimes);
+    console.log('[Azan] ✅ Polling aktif. Jadwal hari ini:', prayerTimes);
 
 })();
 
 // ══════════════════════════════════════════════════════════════════
-// MAP PICKER — Leaflet.js
+// 🗺️  MAP PICKER — Leaflet.js
 // ══════════════════════════════════════════════════════════════════
 (function loadLeaflet() {
     const script = document.createElement('script');

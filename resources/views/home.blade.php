@@ -280,17 +280,29 @@
                                         </p>
                                         <p class="text-[9px] text-gray-400 font-semibold mt-1">Hari Ini</p>
                                     </div>
-                                    <div class="bg-amber-50 rounded-xl px-2 py-2.5 text-center">
-                                        <p class="text-base font-extrabold text-amber-500 leading-none flex items-center justify-center gap-1">
-                                            <span x-text="data.streak"></span>
-                                            <svg style="width:16px;height:16px;flex-shrink:0;" viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M100,215 C55,215 22,185 22,150 C22,118 40,100 55,82 C62,73 65,62 60,48 C75,60 82,78 78,96 C90,78 95,55 88,32 C108,52 118,78 112,102 C120,85 128,62 123,40 C142,62 148,92 138,116 C148,98 156,75 152,54 C168,78 172,108 160,132 C168,118 174,100 170,82 C182,105 182,135 170,158 C158,182 132,215 100,215 Z" fill="#f44"/>
-                                                <path d="M100,210 C60,210 35,182 35,152 C35,125 50,108 63,92 C68,85 70,76 67,65 C79,75 83,90 80,105 C90,88 95,68 91,48 C108,66 115,90 110,112 C118,96 124,75 120,56 C136,76 140,103 132,124 C140,108 146,88 143,68 C156,90 158,118 148,140 C155,126 159,108 156,90 C165,112 164,140 154,162 C144,185 124,210 100,210 Z" fill="#ff7700"/>
-                                                <path d="M100,205 C68,205 48,180 48,155 C48,132 60,116 71,102 C75,96 77,88 75,79 C85,88 88,101 86,114 C94,99 98,80 95,62 C109,78 114,100 110,120 C116,105 121,86 118,68 C130,86 132,110 125,130 C131,116 135,98 133,80 C141,100 141,126 132,148 C124,170 113,205 100,205 Z" fill="#ff9900"/>
-                                                <path d="M100,195 C84,195 74,178 74,162 C74,148 82,138 88,128 C90,123 91,117 90,111 C97,118 99,128 98,138 C103,128 106,116 104,104 C112,116 114,132 110,146 C114,136 117,123 115,110 C121,124 121,142 116,156 C111,172 106,195 100,195 Z" fill="#ffdd00"/>
-                                            </svg>
-                                        </p>
-                                        <p class="text-[9px] text-gray-400 font-semibold mt-1">Berturut</p>
+                                    <div class="bg-white border border-gray-100 rounded-xl px-2 py-2.5 text-center" x-data="nextPrayerMini()" x-init="load()">
+                                        <template x-if="!loaded">
+                                            <div class="flex justify-center items-center h-10">
+                                                <div class="w-4 h-4 border-2 border-teal-400 border-t-transparent rounded-full animate-spin"></div>
+                                            </div>
+                                        </template>
+                                        <template x-if="loaded && next">
+                                            <div>
+                                                <div class="flex justify-center text-teal-500" x-html="icons[next.name]"></div>
+                                                <p class="text-sm font-extrabold text-teal-600 leading-none mt-0.5" x-text="next.time"></p>
+                                                <p class="text-[9px] text-gray-400 font-semibold mt-0.5" x-text="names[next.name]"></p>
+                                                <p class="text-[8px] text-teal-400 font-semibold mt-0.5" x-text="countdown"></p>
+                                            </div>
+                                        </template>
+                                        <template x-if="loaded && !next">
+                                            <div>
+                                                <div class="flex justify-center text-emerald-500">
+                                                    <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                                </div>
+                                                <p class="text-[9px] font-bold text-emerald-600 mt-0.5">Selesai</p>
+                                                <p class="text-[8px] text-emerald-400">Alhamdulillah!</p>
+                                            </div>
+                                        </template>
                                     </div>
                                     <div class="bg-emerald-50 rounded-xl px-2 py-2.5 text-center">
                                         <p class="text-base font-extrabold text-emerald-600 leading-none" x-text="data.percent + '%'"></p>
@@ -555,6 +567,37 @@ function prayerWidget() {
             if (s === 'missed')    return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="w-3 h-3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>`;
             return '–';
         },
+    };
+}
+
+function nextPrayerMini() {
+    return {
+        loaded: false,
+        next: null,
+        countdown: '',
+        names: { fajr:'Subuh', dhuhr:'Dzuhur', asr:'Ashar', maghrib:'Maghrib', isha:'Isya' },
+        icons: {
+            fajr:    `<svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21M6 20H18" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+            dhuhr:   `<svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke-width="2" stroke-linecap="round"/></svg>`,
+            asr:     `<svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3.5" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+            maghrib: `<svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+            isha:    `<svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+        },
+        async load() {
+            try {
+                const res = await fetch('{{ route("prayer-tracking.summary") }}', {
+                    headers: { 'Accept': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content }
+                });
+                const d = await res.json();
+                this.next = d.next_prayer || null;
+                if (this.next) {
+                    const rem = parseInt(this.next.remaining_minutes || 0);
+                    const h = Math.floor(rem / 60), m = rem % 60;
+                    this.countdown = h > 0 ? `${h}j ${m}m lagi` : `${m}m lagi`;
+                }
+            } catch(e) { console.error(e); }
+            this.loaded = true;
+        }
     };
 }
 
