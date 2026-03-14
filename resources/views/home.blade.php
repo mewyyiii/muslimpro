@@ -246,19 +246,10 @@
                     <div class="bg-gradient-to-r from-teal-600 to-emerald-500 px-4 py-3
                                 flex items-center justify-between">
                         <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- kepala -->
-                                <circle cx="12" cy="4" r="1.8" fill="white"/>
-                                <!-- badan sujud -->
-                                <path d="M12 5.8 L7 10 L4 10" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                <!-- tangan di lantai -->
-                                <path d="M4 10 L3 12" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-                                <!-- punggung ke pantat -->
-                                <path d="M12 5.8 L15 8 L17 11" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                <!-- kaki -->
-                                <path d="M17 11 L20 12" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-                                <!-- garis lantai/sajadah -->
-                                <path d="M2 12 L22 12" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+                            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 20.5 L2 16.5 Q2 16 2.5 16 L7 16 L7 12.5 Q7 12 7.5 12 L11.5 12 L11.5 9 Q11.5 8.5 12 8.5 L16 8.5 L16 5.5 Q16 5 16.5 5 L21.5 5 Q22 5 22 5.5 L22 20.5 Q22 21 21.5 21 L2.5 21 Q2 21 2 20.5 Z"/>
+                                <line x1="5" y1="10.5" x2="9.5" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <polyline points="6.5,6 9.5,6 9.5,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                             <span class="text-white font-bold text-sm">Shalat Hari Ini</span>
                         </div>
