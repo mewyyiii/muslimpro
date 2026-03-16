@@ -164,7 +164,7 @@
                         {{ $countdownStr }}
                     </div>
                 @else
-                    <div class="text-2xl mb-1">✅</div>
+                    <div class="flex justify-center mb-1"><svg class="w-8 h-8 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-width="2"/><polyline points="9 12 11 14 15 10"/></svg></div>
                     <div class="text-xl font-bold text-emerald-600">Selesai</div>
                     <div class="text-xs text-gray-500 font-medium mt-0.5">Shalat Hari Ini</div>
                     <div class="mt-2 text-xs text-emerald-400 font-medium">Alhamdulillah!</div>
@@ -186,7 +186,7 @@
         {{-- WAKTU IMSAK & BUKA PUASA --}}
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6">
             <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-5 flex items-center gap-2">
-                <span class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">🌙</span>
+                <span class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 Waktu Puasa
             </h2>
 
@@ -194,28 +194,28 @@
                 {{-- Card Imsak/Sahur --}}
                 <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-5 border-2 border-purple-200">
                     <div class="flex items-center gap-3 mb-2">
-                        <span class="text-3xl">🌄</span>
+                        <span class="text-3xl flex items-center justify-center w-12 h-12 bg-purple-200 rounded-xl text-purple-700"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13"/><path d="M3 17H21"/><path d="M6 20H18"/></svg></span>
                         <div>
                             <div class="text-sm text-purple-600 font-semibold">Imsak / Akhir Sahur</div>
                             <div class="text-2xl font-bold text-purple-800">{{ $imsakTime }}</div>
                         </div>
                     </div>
                     <div class="text-xs text-purple-600 mt-2">
-                        ⏰ 10 menit sebelum Subuh ({{ $prayerTimes['fajr'] }})
+                        <svg class="w-3.5 h-3.5 inline-block mr-1 -mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/><path d="M6.5 3.5L4 6M17.5 3.5L20 6"/></svg> 10 menit sebelum Subuh ({{ $prayerTimes['fajr'] }})
                     </div>
                 </div>
 
                 {{-- Card Buka Puasa --}}
                 <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-5 border-2 border-orange-200">
                     <div class="flex items-center gap-3 mb-2">
-                        <span class="text-3xl">🌆</span>
+                        <span class="text-3xl flex items-center justify-center w-12 h-12 bg-orange-200 rounded-xl text-orange-700"><svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82"/><circle cx="12" cy="12" r="3.5" stroke-width="1.8"/><path d="M3 17H21M6 20H18"/></svg></span>
                         <div>
                             <div class="text-sm text-orange-600 font-semibold">Waktu Buka Puasa</div>
                             <div class="text-2xl font-bold text-orange-800">{{ $bukaTime }}</div>
                         </div>
                     </div>
                     <div class="text-xs text-orange-600 mt-2">
-                        🕌 Bersamaan dengan waktu Maghrib
+                        <svg class="w-3.5 h-3.5 inline-block mr-1 -mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-7 7 7v11M9 21v-6h6v6"/><path d="M12 3v4M10 7h4"/></svg> Bersamaan dengan waktu Maghrib
                     </div>
                 </div>
             </div>
@@ -227,7 +227,7 @@
              x-init="init()">
 
             <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                <span class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600 text-base">📋</span>
+                <span class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600 text-base"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><path d="M9 12l2 2 4-4"/></svg></span>
                 Catat Shalat - {{ $userCity }}
             </h2>
 
@@ -330,7 +330,7 @@
         {{-- 7 HARI TERAKHIR --}}
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6">
             <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-5 flex items-center gap-2">
-                <span class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600">📊</span>
+                <span class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg></span>
                 7 Hari Terakhir
             </h2>
             <div class="grid grid-cols-7 gap-2">
