@@ -61,7 +61,7 @@
 
                 <div class="flex-1">
                     <label class="text-sm font-semibold text-gray-600">
-                        📍 Lokasi Waktu Shalat
+                        Lokasi Waktu Shalat
                     </label>
 
                     <div class="relative mt-2" id="cityAutocomplete">
@@ -120,7 +120,7 @@
             <div id="gpsStatus" class="hidden mt-2 text-xs font-medium"></div>
 
             <p class="text-xs text-gray-400 mt-2">
-                💡 Ketik nama kota/kabupaten <span class="font-medium text-gray-500">atau</span> klik <span class="text-emerald-600 font-semibold">Lokasi Saya</span> untuk akurat sampai kecamatan
+                Ketik nama kota/kabupaten <span class="font-medium text-gray-500">atau</span> klik <span class="text-emerald-600 font-semibold">Lokasi Saya</span> untuk akurat sampai kecamatan
             </p>
         </div>
 
@@ -426,7 +426,7 @@
                     <p id="mapSelectedCoords" class="text-xs text-gray-400 font-mono"></p>
                 </div>
             </div>
-            <p id="mapHint" class="text-xs text-gray-400 mb-2.5">📌 Klik di peta untuk menentukan lokasi shalat</p>
+            <p id="mapHint" class="text-xs text-gray-400 mb-2.5"> Klik di peta untuk menentukan lokasi shalat</p>
 
             {{-- Tombol aksi --}}
             <div class="flex gap-2">

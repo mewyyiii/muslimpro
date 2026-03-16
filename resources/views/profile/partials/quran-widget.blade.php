@@ -49,7 +49,6 @@
                 {{-- Streak --}}
                 <div>
                     <div class="flex items-center gap-2 mb-1">
-                        <span class="text-2xl">🔥</span>
                         <div>
                             <div class="text-sm opacity-90">Konsisten</div>
                             <div class="text-3xl font-bold">{{ $quranStreak }}</div>

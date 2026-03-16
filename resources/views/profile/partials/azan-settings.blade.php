@@ -38,7 +38,7 @@
 
         {{-- Pilih Muadzin --}}
         <div>
-            <label class="block text-sm font-bold text-gray-700 mb-3">🎙️ Pilih Muadzin</label>
+            <label class="block text-sm font-bold text-gray-700 mb-3">Pilih Muadzin</label>
             <div class="grid grid-cols-3 gap-3">
                 @foreach(App\Models\AzanSetting::muadzinList() as $key => $info)
                 <button
@@ -73,7 +73,7 @@
                     @click="previewAzan()"
                     :disabled="isPreviewing"
                     class="flex items-center gap-2 px-4 py-2 bg-teal-500 hover:bg-teal-600 disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-xl transition-all shadow-md">
-                    <span x-text="isPreviewing ? '⏸ Memutar...' : '▶ Preview Azan'"></span>
+                    <span x-text="isPreviewing ? '⏸ Memutar...' : 'Preview Azan'"></span>
                 </button>
                 <span x-show="isPreviewing" class="text-xs text-gray-400 animate-pulse">Memutar contoh azan...</span>
             </div>
@@ -81,22 +81,22 @@
 
         {{-- Toggle Per Waktu --}}
         <div>
-            <label class="block text-sm font-bold text-gray-700 mb-3">⏰ Aktifkan Azan Per Waktu</label>
+            <label class="block text-sm font-bold text-gray-700 mb-3">Aktifkan Azan Per Waktu</label>
             <div class="space-y-2">
                 @php
                     $prayerList = [
-                        'fajr'    => ['label' => 'Subuh',   'emoji' => '🌅'],
-                        'dhuhr'   => ['label' => 'Dzuhur',  'emoji' => '☀️'],
-                        'asr'     => ['label' => 'Ashar',   'emoji' => '🌤️'],
-                        'maghrib' => ['label' => 'Maghrib', 'emoji' => '🌇'],
-                        'isha'    => ['label' => 'Isya',    'emoji' => '🌙'],
+                        'fajr'    => ['label' => 'Subuh',   'svg' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M12 3V5M5.5 6.5L7 8M18.5 6.5L17 8M3 13H5M19 13H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13C8 10.79 9.79 9 12 9C14.21 9 16 10.79 16 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 17H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'],
+                        'dhuhr'   => ['label' => 'Dzuhur',  'svg' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'],
+                        'asr'     => ['label' => 'Ashar',   'svg' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22M5.5 5.5L7 7M17 17L18.5 18.5M5.5 18.5L7 17M17 7L18.5 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 18L20 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'],
+                        'maghrib' => ['label' => 'Maghrib', 'svg' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M5 12C5 8.13 8.13 5 12 5C14.76 5 17.16 6.53 18.42 8.82" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 17H21M6 20H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'],
+                        'isha'    => ['label' => 'Isya',    'svg' => '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'],
                     ];
                 @endphp
 
                 @foreach($prayerList as $key => $info)
                 <div class="flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition-colors">
                     <div class="flex items-center gap-3">
-                        <span class="text-xl w-8 text-center">{{ $info['emoji'] }}</span>
+                        <span class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600">{!! $info['svg'] !!}</span>                        
                         <span class="font-semibold text-gray-800 text-sm">{{ $info['label'] }}</span>
                     </div>
                     <button
@@ -107,7 +107,18 @@
                         <span
                             :class="prayers['{{ $key }}'] ? 'translate-x-6' : 'translate-x-0.5'"
                             class="absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-300 flex items-center justify-center text-xs">
-                            <span x-text="prayers['{{ $key }}'] ? '🔔' : '🔕'"></span>
+                            <template x-if="prayers['{{ $key }}']">
+                                <svg class="w-3 h-3 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                                </svg>
+                            </template>
+                            <template x-if="!prayers['{{ $key }}']">
+                                <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                                </svg>
+                            </template>                        
                         </span>
                     </button>
                 </div>
@@ -152,7 +163,7 @@
     {{-- Info --}}
     <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl">
         <p class="text-xs text-amber-700">
-            <span class="font-bold">💡 Info:</span>
+            <span class="font-bold">Info:</span>
             Azan berbunyi otomatis saat waktu shalat tiba selama halaman ini terbuka di browser.
         </p>
     </div>

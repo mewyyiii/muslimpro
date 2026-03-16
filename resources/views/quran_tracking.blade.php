@@ -6,8 +6,8 @@
 
         {{-- ══ HEADER ══ --}}
         <div class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-lg mb-2">
-                📖 Tracking Mengaji
+           <h1 class="text-3xl md:text-4xl font-bold text-white drop-shadow-lg mb-2 flex items-center justify-center gap-3">
+                Progres Al-Quran
             </h1>
             <p class="text-white/80 text-base md:text-lg">Pantau progres bacaan Al-Quran kamu</p>
         </div>
@@ -26,7 +26,7 @@
             </div>
             <div class="bg-white rounded-2xl p-4 shadow-xl text-center">
                 <div class="text-3xl md:text-4xl font-bold text-amber-500 mb-1">
-                    {{ $streak }}<span class="text-lg text-gray-400"> 🔥</span>
+                    {{ $streak }}
                 </div>
                 <div class="text-xs md:text-sm text-gray-500 font-medium">Hari Berturut</div>
                 <div class="mt-2 text-xs {{ $readToday ? 'text-emerald-400' : 'text-gray-400' }} font-medium">
@@ -49,7 +49,11 @@
         <div class="bg-white rounded-2xl shadow-xl p-5 md:p-8 mb-6">
             <div class="flex items-center justify-between mb-5">
                 <h2 class="text-lg md:text-xl font-bold text-gray-800 flex items-center gap-2">
-                    <span class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">📚</span>
+                    <span class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 484.228 484.228" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M484.06,210.989L438.305,52.856c-0.328-1.133-1.112-2.079-2.164-2.611c-1.054-0.533-2.278-0.605-3.385-0.197l-12.411,4.561l-1.982-6.582c-0.339-1.127-1.131-2.063-2.186-2.584c-1.055-0.522-2.279-0.583-3.381-0.168c-29.582,11.134-44.034,14.763-107.786,22.14c-40.168,4.647-56.44,21.963-62.954,33.842c-6.469-11.884-22.678-29.195-62.839-33.842c-63.753-7.377-78.205-11.006-107.787-22.14c-1.101-0.415-2.326-0.354-3.381,0.168c-1.055,0.521-1.847,1.457-2.186,2.584l-1.976,6.562l-12.423-4.543c-1.105-0.403-2.332-0.331-3.382,0.201c-1.051,0.533-1.833,1.478-2.161,2.609L0.168,210.989c-0.638,2.207,0.593,4.521,2.779,5.226l141.114,45.496l-59.117,47.54c-1.004,0.807-1.587,2.025-1.587,3.312v32.49c0,1.709,1.023,3.252,2.599,3.916c1.574,0.664,3.394,0.32,4.617-0.872l26.274-25.606c4.096-3.976,10.665-3.88,14.64,0.216l5.087,5.24c1.926,1.983,2.964,4.599,2.923,7.364c-0.041,2.765-1.156,5.348-3.15,7.284l-51.71,50.528c-0.818,0.799-1.279,1.896-1.279,3.04v38.814c0,1.698,1.011,3.233,2.569,3.904c0.542,0.233,1.113,0.346,1.68,0.346c1.066,0,2.117-0.401,2.922-1.163l151.508-143.381l151.74,143.383c0.805,0.761,1.855,1.161,2.92,1.161c0.567,0,1.14-0.114,1.681-0.347c1.559-0.671,2.568-2.206,2.568-3.903v-38.814c0-1.144-0.461-2.24-1.279-3.04l-51.722-50.538c-1.983-1.926-3.099-4.509-3.14-7.274c-0.041-2.765,0.997-5.38,2.923-7.364l5.087-5.24c3.976-4.096,10.542-4.193,14.634-0.223l26.281,25.613c1.224,1.192,3.045,1.536,4.617,0.872c1.575-0.664,2.599-2.207,2.599-3.916v-32.49c0-1.286-0.582-2.503-1.583-3.309l-59.081-47.609l140.999-45.429C483.467,215.51,484.697,213.196,484.06,210.989z"/>
+                        </svg>
+                    </span>
                     Surah yang Sedang/Sudah Dibaca
                 </h2>
                 <a href="{{ route('quran.index') }}"

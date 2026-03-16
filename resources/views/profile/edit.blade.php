@@ -19,27 +19,21 @@
             <p class="sidebar-label">Menu</p>
             <nav class="sidebar-nav">
                 <a href="#section-shalat"   class="sidebar-item active" data-section="section-shalat">
-                    <span class="sidebar-icon">🕌</span>
                     <span class="sidebar-text">Progres Shalat</span>
                 </a>
                 <a href="#section-quran"    class="sidebar-item" data-section="section-quran">
-                    <span class="sidebar-icon">📖</span>
                     <span class="sidebar-text">Progres Al-Qur'an</span>
                 </a>
                 <a href="#section-azan"     class="sidebar-item" data-section="section-azan">
-                    <span class="sidebar-icon">📢</span>
                     <span class="sidebar-text">Pengaturan Azan</span>
                 </a>
                 <a href="#section-profil"   class="sidebar-item" data-section="section-profil">
-                    <span class="sidebar-icon">👤</span>
                     <span class="sidebar-text">Informasi Profil</span>
                 </a>
                 <a href="#section-password" class="sidebar-item" data-section="section-password">
-                    <span class="sidebar-icon">🔒</span>
                     <span class="sidebar-text">Kata Sandi</span>
                 </a>
                 <a href="#section-danger"   class="sidebar-item sidebar-item-danger" data-section="section-danger">
-                    <span class="sidebar-icon">⚠️</span>
                     <span class="sidebar-text">Hapus Akun</span>
                 </a>
             </nav>
@@ -280,7 +274,7 @@
                             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                                 <div class="mt-3 p-3 bg-amber-50 border-2 border-amber-200 rounded-xl">
                                     <p class="text-sm text-amber-700 font-medium">
-                                        ⚠ Email belum diverifikasi.
+                                        Email belum diverifikasi.
                                         <form id="send-verification" method="post" action="{{ route('verification.send') }}" class="inline">
                                             @csrf
                                         </form>
