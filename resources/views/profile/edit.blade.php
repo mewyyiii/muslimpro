@@ -7,7 +7,11 @@
     <aside class="profile-sidebar" id="profile-sidebar">
         {{-- Brand --}}
         <div class="sidebar-brand">
-            <div class="sidebar-brand-icon">👤</div>
+            <div class="sidebar-brand-icon">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+            </div>
             <div class="sidebar-brand-text">
                 Profil Saya
                 <div class="sidebar-brand-sub">{{ $user->name }}</div>
@@ -19,21 +23,51 @@
             <p class="sidebar-label">Menu</p>
             <nav class="sidebar-nav">
                 <a href="#section-shalat"   class="sidebar-item active" data-section="section-shalat">
+                    <span class="sidebar-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L8 6H4v2h1l1 12h12l1-12h1V6h-4L12 2zM9 20V10h6v10"/>
+                        </svg>
+                    </span>
                     <span class="sidebar-text">Progres Shalat</span>
                 </a>
                 <a href="#section-quran"    class="sidebar-item" data-section="section-quran">
+                    <span class="sidebar-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </span>
                     <span class="sidebar-text">Progres Al-Qur'an</span>
                 </a>
                 <a href="#section-azan"     class="sidebar-item" data-section="section-azan">
+                    <span class="sidebar-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                    </span>
                     <span class="sidebar-text">Pengaturan Azan</span>
                 </a>
                 <a href="#section-profil"   class="sidebar-item" data-section="section-profil">
+                    <span class="sidebar-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                    </span>
                     <span class="sidebar-text">Informasi Profil</span>
                 </a>
                 <a href="#section-password" class="sidebar-item" data-section="section-password">
+                    <span class="sidebar-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </span>
                     <span class="sidebar-text">Kata Sandi</span>
                 </a>
                 <a href="#section-danger"   class="sidebar-item sidebar-item-danger" data-section="section-danger">
+                    <span class="sidebar-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                    </span>
                     <span class="sidebar-text">Hapus Akun</span>
                 </a>
             </nav>
@@ -108,13 +142,15 @@
                              x-transition
                              x-init="setTimeout(() => show = false, 3000)"
                              class="mt-3 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold">
-                            ✓ Foto profil berhasil dihapus!
+                            <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Foto profil berhasil dihapus!
                         </div>
                     @endif
 
                     @if($streak > 0)
                     <div class="mt-4 inline-flex items-center gap-2 bg-gradient-to-r from-orange-400 to-red-500 text-white px-5 py-2.5 rounded-full font-bold shadow-lg">
-                        <span class="text-xl">🔥</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2c0 0-5 5.5-5 10a5 5 0 0010 0C17 7.5 12 2 12 2zm0 14a3 3 0 01-3-3c0-2.5 3-6 3-6s3 3.5 3 6a3 3 0 01-3 3z"/>
+                        </svg>
                         <span>{{ $streak }} Hari Berturut!</span>
                     </div>
                     @endif
@@ -161,12 +197,24 @@
 
             {{-- ── Mobile Tab Bar ── --}}
             <div class="mobile-tabbar" id="mobile-tabbar">
-                <a href="#section-shalat"   class="tab-item active" data-section="section-shalat"   title="Progres Shalat">🕌</a>
-                <a href="#section-quran"    class="tab-item"        data-section="section-quran"    title="Progres Al-Qur'an">📖</a>
-                <a href="#section-azan"     class="tab-item"        data-section="section-azan"     title="Azan">📢</a>
-                <a href="#section-profil"   class="tab-item"        data-section="section-profil"   title="Profil">👤</a>
-                <a href="#section-password" class="tab-item"        data-section="section-password" title="Kata Sandi">🔒</a>
-                <a href="#section-danger"   class="tab-item tab-item-danger" data-section="section-danger" title="Hapus Akun">⚠️</a>
+                <a href="#section-shalat"   class="tab-item active" data-section="section-shalat"   title="Progres Shalat">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L8 6H4v2h1l1 12h12l1-12h1V6h-4L12 2zM9 20V10h6v10"/></svg>
+                </a>
+                <a href="#section-quran"    class="tab-item"        data-section="section-quran"    title="Progres Al-Qur'an">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                </a>
+                <a href="#section-azan"     class="tab-item"        data-section="section-azan"     title="Azan">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </a>
+                <a href="#section-profil"   class="tab-item"        data-section="section-profil"   title="Profil">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                </a>
+                <a href="#section-password" class="tab-item"        data-section="section-password" title="Kata Sandi">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </a>
+                <a href="#section-danger"   class="tab-item tab-item-danger" data-section="section-danger" title="Hapus Akun">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </a>
             </div>
 
             {{-- ── Content ── --}}
@@ -177,7 +225,9 @@
                 <div class="flex items-center justify-between mb-5">
                     <div class="flex items-center gap-3">
                         <div class="w-12 h-12 bg-gradient-to-br from-teal-400 to-emerald-500 rounded-2xl flex items-center justify-center shadow-md">
-                            <span class="text-2xl">🕌</span>
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L8 6H4v2h1l1 12h12l1-12h1V6h-4L12 2zM9 20V10h6v10"/>
+                            </svg>
                         </div>
                         <div>
                             <h3 class="text-lg font-bold text-gray-800">Progres Shalat</h3>
@@ -193,7 +243,9 @@
                 {{-- Stats Display --}}
                 <div class="bg-gradient-to-br from-teal-400 to-emerald-500 rounded-2xl p-6 text-white shadow-lg mb-4">
                     <div class="flex items-center gap-3 mb-3">
-                        <span class="text-4xl">🕌</span>
+                        <svg class="w-10 h-10 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2L8 6H4v2h1l1 12h12l1-12h1V6h-4L12 2zM9 20V10h6v10"/>
+                        </svg>
                         <div>
                             <div class="text-sm opacity-90">Bulan ini</div>
                             <div class="text-4xl font-bold">{{ $prayerPerformed }}</div>
@@ -274,7 +326,7 @@
                             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                                 <div class="mt-3 p-3 bg-amber-50 border-2 border-amber-200 rounded-xl">
                                     <p class="text-sm text-amber-700 font-medium">
-                                        Email belum diverifikasi.
+                                        <svg class="inline w-4 h-4 mr-1 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Email belum diverifikasi.
                                         <form id="send-verification" method="post" action="{{ route('verification.send') }}" class="inline">
                                             @csrf
                                         </form>
@@ -284,7 +336,7 @@
                                         </button>
                                     </p>
                                     @if (session('status') === 'verification-link-sent')
-                                        <p class="mt-2 text-sm text-green-600 font-bold">✓ Link verifikasi sudah dikirim!</p>
+                                        <p class="mt-2 text-sm text-green-600 font-bold"><svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Link verifikasi sudah dikirim!</p>
                                     @endif
                                 </div>
                             @endif
@@ -302,7 +354,7 @@
                                x-transition
                                x-init="setTimeout(() => show = false, 3000)"
                                class="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-xl text-sm font-bold">
-                                ✓ Profil berhasil diperbarui!
+                               <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Profil berhasil diperbarui!
                             </p>
                         @endif
                     </div>
@@ -409,7 +461,7 @@
                                x-transition
                                x-init="setTimeout(() => show = false, 3000)"
                                class="px-4 py-2 bg-purple-100 text-purple-700 rounded-xl text-sm font-bold">
-                                ✓ Sandi berhasil diperbarui!
+                               <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Sandi berhasil diperbarui!
                             </p>
                         @endif
                     </div>
@@ -802,7 +854,7 @@ document.addEventListener('DOMContentLoaded', function () {
     .sidebar-item-danger:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .sidebar-item-danger.active { box-shadow: inset 3px 0 0 #fff; background: rgba(255,255,255,0.18); color: #fff; }
 
-    .sidebar-icon { font-size: 1.05rem; line-height: 1; flex-shrink: 0; width: 20px; text-align: center; }
+    .sidebar-icon { display: flex; align-items: center; justify-content: center; line-height: 1; flex-shrink: 0; width: 20px; }
     .sidebar-text {
         font-size: 0.82rem;
         font-weight: 600;
@@ -854,19 +906,20 @@ document.addEventListener('DOMContentLoaded', function () {
             justify-content: center;
             width: 42px; height: 42px;
             border-radius: 12px;
-            font-size: 1.3rem;
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
             transition: background 0.15s, transform 0.15s;
             border: 1px solid transparent;
         }
-        .tab-item:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); text-decoration: none; }
+        .tab-item:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); text-decoration: none; color: #fff; }
         .tab-item.active {
             background: rgba(255,255,255,0.9);
             border-color: rgba(255,255,255,0.5);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             transform: scale(1.1);
+            color: #0f766e;
         }
-        .tab-item-danger.active { background: rgba(254,226,226,0.95); }
+        .tab-item-danger.active { background: rgba(254,226,226,0.95); color: #dc2626; }
     }
 
     * {
