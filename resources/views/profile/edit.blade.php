@@ -960,7 +960,7 @@ document.addEventListener('DOMContentLoaded', function () {
         outline: none;
     }
     .eye-btn-wrap input {
-        transform: none !important;
+        transform: none !important;3
     }
 </style>
 @endpush

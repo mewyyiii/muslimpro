@@ -9,7 +9,9 @@
     <div class="flex items-center justify-between mb-6 pb-4 border-b-2 border-gray-100">
         <div class="flex items-center gap-3">
             <div class="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center shadow-md">
-                <span class="text-2xl">📢</span>
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
             </div>
             <div>
                 <h3 class="text-xl font-bold text-gray-800">Pengaturan Azan</h3>
@@ -24,10 +26,19 @@
                 @click="toggleMaster()"
                 :class="azanEnabled ? 'bg-teal-500' : 'bg-gray-200'"
                 class="relative w-14 h-7 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2">
-                <span
+                    <span
                     :class="azanEnabled ? 'translate-x-7' : 'translate-x-1'"
-                    class="absolute top-0.5 w-6 h-6 bg-white rounded-full shadow transition-transform duration-300 flex items-center justify-center text-xs">
-                    <span x-text="azanEnabled ? '🔔' : '🔕'"></span>
+                    class="absolute top-0.5 w-6 h-6 bg-white rounded-full shadow transition-transform duration-300 flex items-center justify-center">
+                    <template x-if="azanEnabled">
+                        <svg class="w-3.5 h-3.5 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                    </template>
+                    <template x-if="!azanEnabled">
+                        <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </template>
                 </span>
             </button>
         </div>
@@ -48,7 +59,15 @@
                         ? 'border-teal-500 bg-teal-50 shadow-md scale-105'
                         : 'border-gray-200 bg-white hover:border-teal-300'"
                     class="flex flex-col items-center gap-2 p-4 border-2 rounded-2xl transition-all duration-200 focus:outline-none text-left">
-                    <span class="text-3xl">{{ $info['emoji'] }}</span>
+                    <span class="w-10 h-10 flex items-center justify-center text-teal-600">
+                        @if($key === 'makkah')
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2L8 6H4v2h1l1 12h12l1-12h1V6h-4L12 2zM9 20V10h6v10"/></svg>
+                        @elseif($key === 'madinah')
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-6h6v6"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v2M9 6h6"/></svg>
+                        @else
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3a9 9 0 010 18A7 7 0 0012 3z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12h18"/></svg>
+                        @endif
+                    </span>
                     <span class="text-sm font-bold"
                           :class="muadzin === '{{ $key }}' ? 'text-teal-700' : 'text-gray-700'">
                         {{ $info['label'] }}
@@ -73,7 +92,10 @@
                     @click="previewAzan()"
                     :disabled="isPreviewing"
                     class="flex items-center gap-2 px-4 py-2 bg-teal-500 hover:bg-teal-600 disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-xl transition-all shadow-md">
-                    <span x-text="isPreviewing ? '⏸ Memutar...' : 'Preview Azan'"></span>
+                    <template x-if="isPreviewing">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6"/></svg>
+                    </template>
+                    <span x-text="isPreviewing ? 'Memutar...' : 'Preview Azan'"></span>
                 </button>
                 <span x-show="isPreviewing" class="text-xs text-gray-400 animate-pulse">Memutar contoh azan...</span>
             </div>
@@ -131,8 +153,10 @@
     {{-- State nonaktif --}}
     <div x-show="!azanEnabled" x-transition class="py-8 text-center">
         <div class="flex items-center justify-center mb-4">
-            <div class="relative inline-flex">
-                <span class="text-7xl">🔔</span>
+            <div class="relative inline-flex w-20 h-20 items-center justify-center bg-gray-100 rounded-full">
+                <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
                 <svg class="absolute inset-0 w-full h-full" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="15" y1="65" x2="65" y2="15" stroke="#f43f5e" stroke-width="6" stroke-linecap="round"/>
                 </svg>
@@ -149,14 +173,19 @@
             @click="saveSettings()"
             :disabled="isSaving"
             class="px-8 py-3 bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5">
-            <span x-text="isSaving ? '⏳ Menyimpan...' : 'Simpan Pengaturan'"></span>
+            <template x-if="isSaving">
+                <svg class="animate-spin w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg>
+            </template>
+            <span x-text="isSaving ? 'Menyimpan...' : 'Simpan Pengaturan'"></span>
         </button>
 
-        <div x-show="saveSuccess" x-transition class="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-xl text-sm font-bold">
-            ✓ Pengaturan azan disimpan!
+        <div x-show="saveSuccess" x-transition class="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-xl text-sm font-bold flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            Pengaturan azan disimpan!
         </div>
-        <div x-show="saveError" x-transition class="px-4 py-2 bg-red-100 text-red-600 rounded-xl text-sm font-bold">
-            ❌ Gagal menyimpan, coba lagi
+        <div x-show="saveError" x-transition class="px-4 py-2 bg-red-100 text-red-600 rounded-xl text-sm font-bold flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            Gagal menyimpan, coba lagi
         </div>
     </div>
 
