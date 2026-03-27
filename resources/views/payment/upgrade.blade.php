@@ -159,18 +159,7 @@
         gap: 4px;
     }
 
-    .lifetime-badge {
-        background: linear-gradient(135deg, #ecfdf5, #d1fae5);
-        border: 1px solid #a7f3d0;
-        color: #059669;
-        font-size: 12px;
-        font-weight: 700;
-        padding: 8px 16px;
-        border-radius: 12px;
-        white-space: nowrap;
-        text-align: center;
-        line-height: 1.4;
-    }
+
 
     .benefits-section {
         padding: 28px 40px;
@@ -330,6 +319,11 @@
         animation: float1 7s ease-in-out infinite reverse;
     }
 
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
     @keyframes float1 {
         0%, 100% { transform: rotate(20deg) translateY(0); }
         50% { transform: rotate(20deg) translateY(-12px); }
@@ -354,7 +348,7 @@
             <div class="hero-section">
                 <div class="pro-badge">✦ NurSteps Pro</div>
                 <h1 class="hero-title">Pengalaman<br>tanpa batas.</h1>
-                <p class="hero-subtitle">Nikmati NurSteps bebas iklan, selamanya.</p>
+                <p class="hero-subtitle">Nikmati NurSteps bebas iklan, sebulan.</p>
             </div>
 
             {{-- Price --}}
@@ -364,10 +358,10 @@
                     <div class="price-amount">Rp {{ number_format($price, 0, ',', '.') }}</div>
                     <div class="price-note">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-                        Bayar sekali, nikmati selamanya
+                        Bayar sekali, bebas iklan sebulan
                     </div>
                 </div>
-                <div class="lifetime-badge">🕌<br>Lifetime<br>Access</div>
+
             </div>
 
             {{-- Benefits --}}
@@ -375,28 +369,19 @@
                 <div class="benefits-title">Yang kamu dapatkan</div>
 
                 <div class="benefit-item">
-                    <div class="benefit-icon" style="background:#ecfdf5;">🚫</div>
+                    <div class="benefit-icon" style="background:#ecfdf5;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                        </svg>
+                    </div>
                     <div>
-                        <div class="benefit-text">Bebas Iklan Selamanya</div>
+                        <div class="benefit-text">Bebas Iklan Sebulan</div>
                         <div class="benefit-desc">Tidak ada lagi banner yang mengganggu ibadahmu</div>
                     </div>
                 </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-icon" style="background:#f0fdf4;">💚</div>
-                    <div>
-                        <div class="benefit-text">Dukung Pengembangan</div>
-                        <div class="benefit-desc">Bantu NurSteps terus berkembang untuk umat</div>
-                    </div>
-                </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-icon" style="background:#ecfdf5;">⚡</div>
-                    <div>
-                        <div class="benefit-text">Akses Fitur Premium</div>
-                        <div class="benefit-desc">Nikmati semua fitur baru yang akan hadir</div>
-                    </div>
-                </div>
             </div>
 
             {{-- Error --}}
@@ -411,7 +396,12 @@
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:6px"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                         Upgrade Sekarang
                     </span>
-                    <span id="btn-loading" class="hidden">⏳ Memproses...</span>
+                    <span id="btn-loading" class="hidden" style="display:inline-flex;align-items:center;gap:8px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite;">
+                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                        </svg>
+                        Memproses...
+                    </span>
                 </button>
 
                 <div class="secure-note">
