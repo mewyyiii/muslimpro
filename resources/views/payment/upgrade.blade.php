@@ -348,7 +348,7 @@
             <div class="hero-section">
                 <div class="pro-badge">✦ NurSteps Pro</div>
                 <h1 class="hero-title">Pengalaman<br>tanpa batas.</h1>
-                <p class="hero-subtitle">Nikmati NurSteps bebas iklan, sebulan.</p>
+                <p class="hero-subtitle">Nikmati NurSteps bebas iklan, selamanya.</p>
             </div>
 
             {{-- Price --}}
@@ -358,7 +358,7 @@
                     <div class="price-amount">Rp {{ number_format($price, 0, ',', '.') }}</div>
                     <div class="price-note">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-                        Bayar sekali, bebas iklan sebulan
+                        Bayar sekali, nikmati selamanya
                     </div>
                 </div>
 
@@ -396,7 +396,7 @@
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:6px"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                         Upgrade Sekarang
                     </span>
-                    <span id="btn-loading" class="hidden" style="display:inline-flex;align-items:center;gap:8px;">
+                    <span id="btn-loading" class="hidden" style="display:none;align-items:center;gap:8px;">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite;">
                             <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
                         </svg>
@@ -437,7 +437,9 @@ function resetButton() {
     const btnLoad = document.getElementById('btn-loading');
     btn.disabled = false;
     btnText.classList.remove('hidden');
+    btnText.style.display = 'inline-flex';
     btnLoad.classList.add('hidden');
+    btnLoad.style.display = 'none';
 }
 
 async function handleCheckout() {
@@ -449,7 +451,9 @@ async function handleCheckout() {
 
     btn.disabled = true;
     btnText.classList.add('hidden');
+    btnText.style.display = 'none';
     btnLoad.classList.remove('hidden');
+    btnLoad.style.display = 'inline-flex';
 
     try {
         const response = await fetch('{{ route('payment.checkout') }}', {
