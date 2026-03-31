@@ -277,6 +277,11 @@
             @include('profile.partials.azan-settings')
             </div>
 
+            {{-- Form send-verification (harus di luar profile-form) --}}
+            <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+                @csrf
+            </form>
+
             {{-- Profile Information Form --}}
             <div id="section-profil" class="bg-white rounded-3xl p-8 shadow-2xl scroll-mt-24">
                 <div class="flex items-center gap-3 mb-6 pb-4 border-b-2 border-gray-100">
@@ -327,10 +332,7 @@
                                 <div class="mt-3 p-3 bg-amber-50 border-2 border-amber-200 rounded-xl">
                                     <p class="text-sm text-amber-700 font-medium">
                                         <svg class="inline w-4 h-4 mr-1 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Email belum diverifikasi.
-                                        <form id="send-verification" method="post" action="{{ route('verification.send') }}" class="inline">
-                                            @csrf
-                                        </form>
-                                        <button form="send-verification"
+                                                        <button form="send-verification"
                                                 class="underline font-bold hover:text-amber-900">
                                             Kirim ulang email verifikasi
                                         </button>
