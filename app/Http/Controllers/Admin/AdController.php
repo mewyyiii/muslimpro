@@ -45,6 +45,40 @@ class AdController extends Controller
             ->with('success', 'Iklan berhasil ditambahkan.');
     }
 
+    public function edit(Ad $ad)
+    {
+        return view('admin.ads.edit', compact('ad'));
+    }
+
+    public function update(Request $request, Ad $ad)
+    {
+        $request->validate([
+            'title'    => 'required|string|max:100',
+            'image'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:512', // nullable — kosong = tidak ganti
+            'url'      => 'nullable|url',
+            'position' => 'required|in:in_content,footer_sticky',
+            'pages'    => 'required|array|min:1',
+        ]);
+
+        $data = [
+            'title'    => $request->title,
+            'url'      => $request->url,
+            'position' => $request->position,
+            'pages'    => $request->pages,
+        ];
+
+        // Ganti gambar hanya jika ada file baru yang diupload
+        if ($request->hasFile('image')) {
+            Storage::disk('public')->delete($ad->image); // hapus gambar lama
+            $data['image'] = $request->file('image')->store('ads', 'public');
+        }
+
+        $ad->update($data);
+
+        return redirect()->route('admin.ads.index')
+            ->with('success', 'Iklan berhasil diperbarui.');
+    }
+
     public function toggle(Ad $ad)
     {
         $ad->update(['is_active' => !$ad->is_active]);

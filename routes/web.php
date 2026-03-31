@@ -75,11 +75,16 @@ Route::middleware('auth')->group(function () {
     // ── Admin ─────────────────────────────────────────────────────────
     Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/ads', [AdController::class, 'index'])->name('ads.index');
-        Route::get('/ads/create', [AdController::class, 'create'])->name('ads.create');
-        Route::post('/ads', [AdController::class, 'store'])->name('ads.store');
+
+        // Ads — urutan penting: route statis (/create, /{ad}/edit) harus sebelum route dinamis /{ad}
+        Route::get('/ads',              [AdController::class, 'index'])->name('ads.index');
+        Route::get('/ads/create',       [AdController::class, 'create'])->name('ads.create');
+        Route::post('/ads',             [AdController::class, 'store'])->name('ads.store');
+        Route::get('/ads/{ad}/edit',    [AdController::class, 'edit'])->name('ads.edit');
+        Route::put('/ads/{ad}',         [AdController::class, 'update'])->name('ads.update');
         Route::post('/ads/{ad}/toggle', [AdController::class, 'toggle'])->name('ads.toggle');
-        Route::delete('/ads/{ad}', [AdController::class, 'destroy'])->name('ads.destroy');
+        Route::delete('/ads/{ad}',      [AdController::class, 'destroy'])->name('ads.destroy');
+
         Route::resource('users', UserController::class)->except(['show']);
         Route::resource('roles', RoleController::class)->except(['show']);
         Route::get('/payments', [AdminPaymentController::class, 'index'])->name('payments.index');
